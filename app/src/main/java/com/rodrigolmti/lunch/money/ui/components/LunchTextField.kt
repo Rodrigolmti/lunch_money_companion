@@ -17,6 +17,8 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.ui.theme.BackgroundDefault
 import com.rodrigolmti.lunch.money.ui.theme.Body
@@ -26,10 +28,10 @@ import com.rodrigolmti.lunch.money.ui.theme.ContentAuxiliar
 fun LunchTextField(
     label: String,
     text: String,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueChange: (String) -> Unit,
 ) {
-    Column() {
-
+    Column {
         Text(
             text = label.uppercase(),
             modifier = Modifier.fillMaxWidth(),
@@ -47,6 +49,7 @@ fun LunchTextField(
                 .fillMaxWidth()
                 .padding(0.dp),
             singleLine = true,
+            visualTransformation = visualTransformation,
             shape = MaterialTheme.shapes.medium,
             colors = TextFieldDefaults.textFieldColors(
                 containerColor = BackgroundDefault,

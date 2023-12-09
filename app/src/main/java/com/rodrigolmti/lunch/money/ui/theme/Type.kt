@@ -26,6 +26,20 @@ val Header = TextStyle(
     letterSpacing = 0.sp
 )
 
+val HeaderBold = Header.copy(
+    fontWeight = FontWeight.Bold
+)
+
+val HeaderMedium = Header.copy(
+    fontWeight = FontWeight.Medium,
+    fontSize = 20.sp,
+)
+
+val HeaderSmall = Header.copy(
+    fontWeight = FontWeight.Medium,
+    fontSize = 16.sp,
+)
+
 val Body = TextStyle(
     fontFamily = inconsolataSansFamily,
     fontWeight = FontWeight.Normal,
