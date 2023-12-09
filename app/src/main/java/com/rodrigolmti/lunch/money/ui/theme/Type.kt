@@ -33,3 +33,7 @@ val Body = TextStyle(
     lineHeight = 24.sp,
     letterSpacing = 0.sp
 )
+
+val BodyBold = Body.copy(
+    fontWeight = FontWeight.Bold
+)

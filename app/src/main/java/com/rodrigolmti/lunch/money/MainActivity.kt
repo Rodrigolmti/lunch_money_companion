@@ -1,9 +1,11 @@
 package com.rodrigolmti.lunch.money
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -29,18 +32,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.rodrigolmti.lunch.money.ui.components.BouncingImageAnimation
 import com.rodrigolmti.lunch.money.ui.components.Center
 import com.rodrigolmti.lunch.money.ui.components.HorizontalSpacer
 import com.rodrigolmti.lunch.money.ui.components.LunchButton
 import com.rodrigolmti.lunch.money.ui.components.LunchTextField
+import com.rodrigolmti.lunch.money.ui.components.TiledBackgroundScreen
 import com.rodrigolmti.lunch.money.ui.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.ui.theme.Body
 import com.rodrigolmti.lunch.money.ui.theme.ContentBrand
+import com.rodrigolmti.lunch.money.ui.theme.ContentDefault
 import com.rodrigolmti.lunch.money.ui.theme.Header
 import com.rodrigolmti.lunch.money.ui.theme.LunchMoneyTheme
 
@@ -60,6 +66,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun GetStatedScreen() {
     Scaffold(
@@ -68,9 +75,18 @@ fun GetStatedScreen() {
 
         var apiToken by rememberSaveable { mutableStateOf("") }
 
+        TiledBackgroundScreen()
+
         Center {
             Card(
                 shape = MaterialTheme.shapes.medium,
+                colors = CardDefaults.cardColors(
+                    containerColor = ContentDefault
+                ),
+                border = BorderStroke(
+                    width = Dp.Hairline,
+                    color = Color.Black
+                ),
                 modifier = Modifier
                     .padding(16.dp)
             ) {
@@ -80,6 +96,12 @@ fun GetStatedScreen() {
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+
+                    VerticalSpacer(height = 16.dp)
+
+                    BouncingImageAnimation()
+
+                    VerticalSpacer(height = 16.dp)
 
                     Text(
                         text = "Welcome Back!",
