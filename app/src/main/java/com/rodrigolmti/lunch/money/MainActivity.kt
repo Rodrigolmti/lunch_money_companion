@@ -5,18 +5,36 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.rodrigolmti.lunch.money.ui.features.start.ui.AuthenticationScreen
-import com.rodrigolmti.lunch.money.ui.features.start.ui.IAuthenticationViewModel
+import com.rodrigolmti.lunch.money.ui.features.authentication.ui.AuthenticationScreen
+import com.rodrigolmti.lunch.money.ui.features.authentication.ui.IAuthenticationViewModel
+import com.rodrigolmti.lunch.money.ui.features.transactions.ui.ITransactionsViewModel
+import com.rodrigolmti.lunch.money.ui.features.transactions.ui.TransactionsScreen
+import com.rodrigolmti.lunch.money.ui.theme.ContentBrand
+import com.rodrigolmti.lunch.money.ui.theme.ContentDefault
+import com.rodrigolmti.lunch.money.ui.theme.ContentText
 import com.rodrigolmti.lunch.money.ui.theme.LunchMoneyTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -50,6 +68,13 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun NavigationGraph(viewModel: IMainActivityViewModel) {
+
+    val screens = listOf(
+        BottomNavigationRouter.TRANSACTIONS,
+        BottomNavigationRouter.SETTINGS,
+    )
+
+    var selectedScreen by remember { mutableStateOf(screens.first()) }
     val isUserAuthenticated = viewModel.isUserAuthenticated()
     val navController = rememberNavController()
 
@@ -66,9 +91,56 @@ fun NavigationGraph(viewModel: IMainActivityViewModel) {
             AuthenticationScreen(uiModel)
         }
         composable(dashboardRoute) {
-            Scaffold {
-                Text("lala")
+            Scaffold(
+                bottomBar = {
+                    BottomNavigation(
+                        backgroundColor = ContentDefault,
+                    ) {
+                        screens.forEach { route ->
+                            BottomNavigationItem(
+                                icon = { Icon(getIconByRoute(route), contentDescription = null) },
+                                label = { Text(getLabelByRoute(route)) },
+                                selected = route == selectedScreen,
+                                onClick = { selectedScreen = route },
+                                modifier = Modifier.padding(8.dp),
+                                selectedContentColor = ContentBrand,
+                                unselectedContentColor = ContentText,
+                            )
+                        }
+                    }
+                }
+            ) {
+                when (selectedScreen) {
+                    BottomNavigationRouter.TRANSACTIONS -> {
+                        val uiModel = koinViewModel<ITransactionsViewModel>()
+
+                        TransactionsScreen(uiModel)
+                    }
+
+                    BottomNavigationRouter.SETTINGS -> {
+
+                    }
+                }
             }
         }
     }
+}
+
+private fun getIconByRoute(route: BottomNavigationRouter): ImageVector {
+    return when (route) {
+        BottomNavigationRouter.TRANSACTIONS -> Icons.Filled.List
+        BottomNavigationRouter.SETTINGS -> Icons.Filled.Settings
+    }
+}
+
+private fun getLabelByRoute(route: BottomNavigationRouter): String {
+    return when (route) {
+        BottomNavigationRouter.TRANSACTIONS -> "Transactions"
+        BottomNavigationRouter.SETTINGS -> "Settings"
+    }
+}
+
+enum class BottomNavigationRouter {
+    TRANSACTIONS,
+    SETTINGS,
 }

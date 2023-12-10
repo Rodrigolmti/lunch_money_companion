@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 
-package com.rodrigolmti.lunch.money.ui.features.start.ui
+package com.rodrigolmti.lunch.money.ui.features.authentication.ui
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration

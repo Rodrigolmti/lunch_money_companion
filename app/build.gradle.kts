@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.material3)
+    implementation(libs.material)
 
     implementation(libs.retrofit)
     implementation(libs.okhttp)

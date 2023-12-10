@@ -1,4 +1,4 @@
-package com.rodrigolmti.lunch.money.ui.features.start.ui
+package com.rodrigolmti.lunch.money.ui.features.authentication.ui
 
 import kotlinx.coroutines.flow.StateFlow
 

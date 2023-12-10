@@ -1,25 +1,28 @@
 package com.rodrigolmti.lunch.money.composition.data.repository
 
-import com.rodrigolmti.lunch.money.composition.data.network.LunchService
 import com.rodrigolmti.lunch.money.composition.data.mapper.toModel
 import com.rodrigolmti.lunch.money.composition.data.mapper.toResponse
 import com.rodrigolmti.lunch.money.composition.data.model.model.Token
 import com.rodrigolmti.lunch.money.composition.data.model.response.UserResponse
+import com.rodrigolmti.lunch.money.composition.data.network.LunchService
 import com.rodrigolmti.lunch.money.core.IDispatchersProvider
 import com.rodrigolmti.lunch.money.core.LunchError
 import com.rodrigolmti.lunch.money.core.Outcome
 import com.rodrigolmti.lunch.money.core.SharedPreferencesDelegateFactory
 import com.rodrigolmti.lunch.money.core.mapThrowable
 import com.rodrigolmti.lunch.money.core.runCatching
-import com.rodrigolmti.lunch.money.ui.features.start.data.model.UserModel
+import com.rodrigolmti.lunch.money.ui.features.authentication.data.model.UserModel
+import com.rodrigolmti.lunch.money.ui.features.transactions.data.model.TransactionModel
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import retrofit2.HttpException
 
 internal interface ILunchRepository {
     suspend fun authenticateUser(token: Token): Outcome<UserModel, LunchError>
+    suspend fun getTransactions(): Outcome<List<TransactionModel>, LunchError>
     suspend fun storeUser(userModel: UserModel)
-    fun getUser(): UserModel?
+    fun getSessionUser(): UserModel?
+    fun getSessionToken(): Token?
 }
 
 internal class LunchRepository(
@@ -44,17 +47,35 @@ internal class LunchRepository(
         }
     }
 
+    override suspend fun getTransactions(): Outcome<List<TransactionModel>, LunchError> {
+        return withContext(dispatchers.io()) {
+            runCatching {
+                val transaction = lunchService.getTransactions().transactions.map { it.toModel() }
+                transaction
+            }.mapThrowable {
+                handleNetworkError(it)
+            }
+        }
+    }
+
     override suspend fun storeUser(userModel: UserModel) {
         val response = userModel.toResponse()
         user = json.encodeToString(UserResponse.serializer(), response)
     }
 
-    override fun getUser(): UserModel? {
+    override fun getSessionUser(): UserModel? {
         return if (user.isNotEmpty()) {
             json.decodeFromString(UserResponse.serializer(), user).toModel()
         } else {
             null
         }
+    }
+
+    override fun getSessionToken(): Token? {
+        if (token.isNotEmpty()) {
+            return Token(token)
+        }
+        return null
     }
 
     private fun handleNetworkError(throwable: Throwable): LunchError {

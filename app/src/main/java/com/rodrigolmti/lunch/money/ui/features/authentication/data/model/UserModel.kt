@@ -1,4 +1,4 @@
-package com.rodrigolmti.lunch.money.ui.features.start.data.model
+package com.rodrigolmti.lunch.money.ui.features.authentication.data.model
 
 data class UserModel(
     val userName: String,

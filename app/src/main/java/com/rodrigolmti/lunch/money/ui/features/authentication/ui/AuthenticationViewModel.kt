@@ -1,4 +1,4 @@
-package com.rodrigolmti.lunch.money.ui.features.start.ui
+package com.rodrigolmti.lunch.money.ui.features.authentication.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,7 +6,7 @@ import com.rodrigolmti.lunch.money.core.LunchError
 import com.rodrigolmti.lunch.money.core.Outcome
 import com.rodrigolmti.lunch.money.core.onFailure
 import com.rodrigolmti.lunch.money.core.onSuccess
-import com.rodrigolmti.lunch.money.ui.features.start.data.model.UserModel
+import com.rodrigolmti.lunch.money.ui.features.authentication.data.model.UserModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
