@@ -20,6 +20,7 @@ import com.rodrigolmti.lunch.money.ui.theme.LunchMoneyTheme
 @Composable
 fun LunchButton(
     label: String,
+    isEnabled: Boolean = true,
     isLoading: Boolean = false,
     onClick: () -> Unit = {},
 ) {
@@ -29,18 +30,14 @@ fun LunchButton(
                 onClick()
             }
         },
+        enabled = isEnabled,
         shape = MaterialTheme.shapes.medium,
         modifier = Modifier
             .fillMaxWidth()
     ) {
 
         if (isLoading) {
-            CircularProgressIndicator(
-                strokeWidth = 3.dp,
-                modifier = Modifier.size(25.dp),
-                color = Color.White,
-                trackColor = BackgroundDefault,
-            )
+            LunchLoading()
         } else {
             Text(
                 label,

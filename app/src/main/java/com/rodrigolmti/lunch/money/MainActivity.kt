@@ -88,7 +88,9 @@ fun NavigationGraph(viewModel: IMainActivityViewModel) {
         composable(authenticationRoute) {
             val uiModel = koinViewModel<IAuthenticationViewModel>()
 
-            AuthenticationScreen(uiModel)
+            AuthenticationScreen(uiModel) {
+                navController.navigate(dashboardRoute)
+            }
         }
         composable(dashboardRoute) {
             Scaffold(

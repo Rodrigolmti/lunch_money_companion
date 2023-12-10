@@ -12,6 +12,7 @@ import com.rodrigolmti.lunch.money.core.SharedPreferencesDelegateFactory
 import com.rodrigolmti.lunch.money.core.mapThrowable
 import com.rodrigolmti.lunch.money.core.runCatching
 import com.rodrigolmti.lunch.money.ui.features.authentication.data.model.UserModel
+import com.rodrigolmti.lunch.money.ui.features.transactions.data.model.TransactionCategoryModel
 import com.rodrigolmti.lunch.money.ui.features.transactions.data.model.TransactionModel
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -20,6 +21,7 @@ import retrofit2.HttpException
 internal interface ILunchRepository {
     suspend fun authenticateUser(token: Token): Outcome<UserModel, LunchError>
     suspend fun getTransactions(): Outcome<List<TransactionModel>, LunchError>
+    suspend fun cacheTransactionCategories()
     suspend fun storeUser(userModel: UserModel)
     fun getSessionUser(): UserModel?
     fun getSessionToken(): Token?
@@ -34,6 +36,8 @@ internal class LunchRepository(
 
     private var user: String by sharedPreferences.create("", "user_key")
     private var token: String by sharedPreferences.create("", "token_key")
+
+    private val transactionCategories: MutableList<TransactionCategoryModel> = mutableListOf()
 
     override suspend fun authenticateUser(token: Token): Outcome<UserModel, LunchError> {
         return withContext(dispatchers.io()) {
@@ -50,8 +54,25 @@ internal class LunchRepository(
     override suspend fun getTransactions(): Outcome<List<TransactionModel>, LunchError> {
         return withContext(dispatchers.io()) {
             runCatching {
-                val transaction = lunchService.getTransactions().transactions.map { it.toModel() }
-                transaction
+                val transactions = lunchService.getTransactions().transactions.map {
+                    val category = transactionCategories.firstOrNull { category ->
+                        category.id == it.categoryId
+                    }
+                    it.toModel(category)
+                }
+                transactions
+            }.mapThrowable {
+                handleNetworkError(it)
+            }
+        }
+    }
+
+    override suspend fun cacheTransactionCategories() {
+        withContext(dispatchers.io()) {
+            runCatching {
+                val categories = lunchService.getCategories().categories.map { it.toModel() }
+                transactionCategories.clear()
+                transactionCategories.addAll(categories)
             }.mapThrowable {
                 handleNetworkError(it)
             }

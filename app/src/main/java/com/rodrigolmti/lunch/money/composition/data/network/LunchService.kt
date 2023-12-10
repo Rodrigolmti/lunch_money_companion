@@ -1,6 +1,7 @@
 package com.rodrigolmti.lunch.money.composition.data.network
 
 import com.rodrigolmti.lunch.money.composition.data.model.response.TransactionBodyResponse
+import com.rodrigolmti.lunch.money.composition.data.model.response.TransactionCategoryBodyResponse
 import com.rodrigolmti.lunch.money.composition.data.model.response.UserResponse
 import com.rodrigolmti.lunch.money.core.network.Authenticated
 import retrofit2.http.GET
@@ -16,4 +17,8 @@ interface LunchService {
     @Authenticated
     @GET("v1/transactions")
     suspend fun getTransactions(): TransactionBodyResponse
+
+    @Authenticated
+    @GET("v1/categories")
+    suspend fun getCategories(): TransactionCategoryBodyResponse
 }

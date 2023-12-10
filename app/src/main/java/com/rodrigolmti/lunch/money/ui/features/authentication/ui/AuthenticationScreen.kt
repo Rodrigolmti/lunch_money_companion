@@ -21,6 +21,7 @@ import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -66,7 +67,8 @@ private object DummyAuthenticationUIModel : IAuthenticationUIModel {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AuthenticationScreen(
-    uiModel: IAuthenticationUIModel = DummyAuthenticationUIModel
+    uiModel: IAuthenticationUIModel = DummyAuthenticationUIModel,
+    onUserAuthenticated: () -> Unit = {},
 ) {
     Scaffold(
         modifier = Modifier
@@ -78,8 +80,13 @@ fun AuthenticationScreen(
         val bottomSheetState = rememberModalBottomSheetState()
         val coroutineScope = rememberCoroutineScope()
 
-        if (viewState.isError()) {
-            ErrorBottomSheet(bottomSheetState, coroutineScope)
+        when {
+            viewState.isSuccess() -> {
+                onUserAuthenticated()
+            }
+            viewState.isError() -> {
+                ErrorBottomSheet(bottomSheetState, coroutineScope)
+            }
         }
 
         TiledBackgroundScreen()
@@ -130,7 +137,10 @@ fun AuthenticationScreen(
 
                     VerticalSpacer(height = 16.dp)
 
-                    LunchButton(label = "LOGIN", isLoading = viewState.isLoading()) {
+                    LunchButton(
+                        label = "LOGIN",
+                        isLoading = viewState.isLoading()
+                    ) {
                         keyboardController?.hide()
                         uiModel.onGetStartedClicked(apiToken)
                     }
