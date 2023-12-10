@@ -1,4 +1,4 @@
-package com.rodrigolmti.lunch.money.composition.di
+package com.rodrigolmti.lunch.money.core
 
 sealed class LunchError {
     data class NetworkError(

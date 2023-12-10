@@ -17,6 +17,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -51,6 +52,7 @@ import com.rodrigolmti.lunch.money.ui.theme.ContentBrand
 import com.rodrigolmti.lunch.money.ui.theme.ContentDefault
 import com.rodrigolmti.lunch.money.ui.theme.Header
 import com.rodrigolmti.lunch.money.ui.theme.LunchMoneyTheme
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
@@ -73,48 +75,11 @@ fun AuthenticationScreen(
         var apiToken by rememberSaveable { mutableStateOf("") }
 
         val keyboardController = LocalSoftwareKeyboardController.current
-        var showBottomSheet by remember { mutableStateOf(false) }
         val bottomSheetState = rememberModalBottomSheetState()
         val coroutineScope = rememberCoroutineScope()
 
         if (viewState.isError()) {
-            ModalBottomSheet(
-                onDismissRequest = {
-                    showBottomSheet = false
-                },
-                containerColor = BackgroundDefault,
-                sheetState = bottomSheetState,
-                shape = MaterialTheme.shapes.medium,
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                ) {
-                    Text(
-                        "Connection Issue Detected",
-                        style = Header,
-                        color = Color.White,
-                    )
-                    VerticalSpacer(height = 16.dp)
-                    Text(
-                        "We're having trouble processing your request. This could be due to a server error, an invalid API key, or a problem with your network connection. Please verify your API key and ensure your device has a stable internet connection. If the issue persists, try again later.",
-                        style = Body,
-                        color = Color.White,
-                    )
-                    VerticalSpacer(height = 24.dp)
-                    LunchButton(
-                        label = "OK",
-                    ) {
-                        coroutineScope.launch { bottomSheetState.hide() }.invokeOnCompletion {
-                            if (!bottomSheetState.isVisible) {
-                                showBottomSheet = false
-                            }
-                        }
-                    }
-                    VerticalSpacer(height = 32.dp)
-                }
-            }
+            ErrorBottomSheet(bottomSheetState, coroutineScope)
         }
 
         TiledBackgroundScreen()
@@ -193,6 +158,52 @@ fun AuthenticationScreen(
 
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun ErrorBottomSheet(
+    bottomSheetState: SheetState,
+    coroutineScope: CoroutineScope
+) {
+    var showBottomSheet by remember { mutableStateOf(false) }
+
+    ModalBottomSheet(
+        onDismissRequest = {
+            showBottomSheet = false
+        },
+        containerColor = BackgroundDefault,
+        sheetState = bottomSheetState,
+        shape = MaterialTheme.shapes.medium,
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+        ) {
+            Text(
+                "Connection Issue Detected",
+                style = Header,
+                color = Color.White,
+            )
+            VerticalSpacer(height = 16.dp)
+            Text(
+                "We're having trouble processing your request. This could be due to a server error, an invalid API key, or a problem with your network connection. Please verify your API key and ensure your device has a stable internet connection. If the issue persists, try again later.",
+                style = Body,
+                color = Color.White,
+            )
+            VerticalSpacer(height = 24.dp)
+            LunchButton(
+                label = "OK",
+            ) {
+                coroutineScope.launch { bottomSheetState.hide() }.invokeOnCompletion {
+                    if (!bottomSheetState.isVisible) {
+                        showBottomSheet = false
+                    }
+                }
+            }
+            VerticalSpacer(height = 32.dp)
         }
     }
 }

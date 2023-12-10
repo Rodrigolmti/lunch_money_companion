@@ -2,7 +2,7 @@ package com.rodrigolmti.lunch.money.ui.features.start.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rodrigolmti.lunch.money.composition.di.LunchError
+import com.rodrigolmti.lunch.money.core.LunchError
 import com.rodrigolmti.lunch.money.core.Outcome
 import com.rodrigolmti.lunch.money.core.onFailure
 import com.rodrigolmti.lunch.money.core.onSuccess

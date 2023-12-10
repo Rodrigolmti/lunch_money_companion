@@ -1,4 +1,4 @@
-package com.rodrigolmti.lunch.money.composition.data
+package com.rodrigolmti.lunch.money.composition.data.network
 
 import com.rodrigolmti.lunch.money.composition.data.model.response.UserResponse
 import retrofit2.http.GET

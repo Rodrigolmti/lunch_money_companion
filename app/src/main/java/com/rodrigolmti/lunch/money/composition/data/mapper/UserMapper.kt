@@ -11,3 +11,12 @@ fun UserResponse.toModel() = UserModel(
     budgetName = budgetName,
     apiKeyLabel = apiKeyLabel,
 )
+
+fun UserModel.toResponse() = UserResponse(
+    userName = userName,
+    email = email,
+    id = id,
+    accountId = accountId,
+    budgetName = budgetName,
+    apiKeyLabel = apiKeyLabel,
+)

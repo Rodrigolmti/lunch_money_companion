@@ -1,7 +1,7 @@
 package com.rodrigolmti.lunch.money.composition.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.rodrigolmti.lunch.money.composition.data.LunchService
+import com.rodrigolmti.lunch.money.composition.data.network.LunchService
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -28,6 +28,7 @@ internal val networkModule = module {
         .addInterceptor(loggingInterceptor)
         .build()
 
+    single<Json> { json }
     single<OkHttpClient> { okHttpClient }
     single<Interceptor> { loggingInterceptor }
     single<Retrofit> {

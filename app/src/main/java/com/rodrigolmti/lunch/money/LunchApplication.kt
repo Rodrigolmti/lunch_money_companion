@@ -2,6 +2,7 @@ package com.rodrigolmti.lunch.money
 
 import android.app.Application
 import com.rodrigolmti.lunch.money.composition.di.dataModule
+import com.rodrigolmti.lunch.money.composition.di.domainModule
 import com.rodrigolmti.lunch.money.composition.di.featuresModule
 import com.rodrigolmti.lunch.money.core.DispatchersProvider
 import com.rodrigolmti.lunch.money.core.IDispatchersProvider
@@ -21,6 +22,7 @@ class LunchApplication : Application(), KoinComponent {
             androidContext(this@LunchApplication)
             modules(
                 listOf(
+                    domainModule,
                     dataModule,
                     appModule,
                     serviceModule,
