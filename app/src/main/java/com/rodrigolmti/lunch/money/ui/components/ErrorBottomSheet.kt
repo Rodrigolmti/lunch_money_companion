@@ -11,10 +11,6 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.ui.theme.Body
@@ -26,19 +22,18 @@ import kotlinx.coroutines.launch
 
 @Composable
 internal fun ErrorBottomSheet(
-    bottomSheetState: SheetState,
-    coroutineScope: CoroutineScope,
+    sheetState: SheetState,
+    scope: CoroutineScope,
     title: String,
     message: String,
+    onBottomSheetDismissed: () -> Unit = {},
 ) {
-    var showBottomSheet by remember { mutableStateOf(false) }
-
     ModalBottomSheet(
         onDismissRequest = {
-            showBottomSheet = false
+            onBottomSheetDismissed()
         },
         containerColor = MidnightSlate,
-        sheetState = bottomSheetState,
+        sheetState = sheetState,
         shape = MaterialTheme.shapes.medium,
     ) {
         Column(
@@ -61,9 +56,9 @@ internal fun ErrorBottomSheet(
             LunchButton(
                 label = "OK",
             ) {
-                coroutineScope.launch { bottomSheetState.hide() }.invokeOnCompletion {
-                    if (!bottomSheetState.isVisible) {
-                        showBottomSheet = false
+                scope.launch { sheetState.hide() }.invokeOnCompletion {
+                    if (!sheetState.isVisible) {
+                        onBottomSheetDismissed()
                     }
                 }
             }

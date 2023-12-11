@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -28,7 +29,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -72,9 +72,9 @@ fun AuthenticationScreen(
         val viewState by uiModel.viewState.collectAsState()
         var apiToken by rememberSaveable { mutableStateOf("") }
 
-        val keyboardController = LocalSoftwareKeyboardController.current
-        val bottomSheetState = rememberModalBottomSheetState()
-        val coroutineScope = rememberCoroutineScope()
+        var showBottomSheet by remember { mutableStateOf(false) }
+        val sheetState = rememberModalBottomSheetState()
+        val scope = rememberCoroutineScope()
 
         when {
             viewState.isSuccess() -> {
@@ -82,12 +82,18 @@ fun AuthenticationScreen(
             }
 
             viewState.isError() -> {
-                ErrorBottomSheet(
-                    bottomSheetState,
-                    coroutineScope,
-                    stringResource(R.string.connection_error_title),
-                    stringResource(R.string.connection_error_message)
-                )
+                showBottomSheet = true
+            }
+        }
+
+        if (showBottomSheet) {
+            ErrorBottomSheet(
+                sheetState,
+                scope,
+                stringResource(R.string.connection_error_title),
+                stringResource(R.string.connection_error_message)
+            ) {
+                showBottomSheet = false
             }
         }
 
@@ -143,7 +149,6 @@ fun AuthenticationScreen(
                         label = stringResource(R.string.authentication_action_label),
                         isLoading = viewState.isLoading()
                     ) {
-                        keyboardController?.hide()
                         uiModel.onGetStartedClicked(apiToken)
                     }
 
