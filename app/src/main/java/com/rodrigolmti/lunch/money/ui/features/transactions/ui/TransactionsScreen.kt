@@ -121,7 +121,7 @@ private fun TransactionItem(transaction: TransactionModel) {
                     text = transaction.payee,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 2,
-
+                    modifier = Modifier.weight(1f),
                     color = White,
                     style = Body,
                 )
