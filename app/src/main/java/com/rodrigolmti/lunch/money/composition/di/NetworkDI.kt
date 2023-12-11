@@ -16,37 +16,33 @@ import retrofit2.Retrofit
 private const val SERVER_URL = "https://dev.lunchmoney.app/"
 
 internal val networkModule = module {
-    val loggingInterceptor = HttpLoggingInterceptor().apply {
-        if (BuildConfig.DEBUG) {
-            level = HttpLoggingInterceptor.Level.BODY
+    single<Json> {
+        Json {
+            ignoreUnknownKeys = true
         }
     }
-
-    val json = Json {
-        ignoreUnknownKeys = true
+    single<Interceptor> {
+        HttpLoggingInterceptor().apply {
+            if (BuildConfig.DEBUG) {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
+        }
     }
-
-    single<Json> { json }
     single<OkHttpClient> {
         OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor {
                 get<ILunchRepository>().getSessionToken()?.format()
             })
-            .addInterceptor(loggingInterceptor)
+            .addInterceptor(get<Interceptor>())
             .build()
     }
-    single<Interceptor> { loggingInterceptor }
     single<Retrofit> {
         Retrofit.Builder()
             .baseUrl(SERVER_URL)
             .client(get())
             .addConverterFactory(
-                json.asConverterFactory("application/json".toMediaType()),
+                get<Json>().asConverterFactory("application/json".toMediaType()),
             )
             .build()
     }
-}
-
-internal val serviceModule = module {
-    single<LunchService> { get<Retrofit>().create(LunchService::class.java) }
 }

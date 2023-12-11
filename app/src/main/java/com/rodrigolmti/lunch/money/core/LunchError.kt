@@ -6,5 +6,4 @@ sealed class LunchError {
         val message: String,
         val code: Int,
     ) : LunchError()
-    data object UnknownError : LunchError()
 }

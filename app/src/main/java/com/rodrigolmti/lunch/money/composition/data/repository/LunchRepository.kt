@@ -2,7 +2,7 @@ package com.rodrigolmti.lunch.money.composition.data.repository
 
 import com.rodrigolmti.lunch.money.composition.data.mapper.toModel
 import com.rodrigolmti.lunch.money.composition.data.mapper.toResponse
-import com.rodrigolmti.lunch.money.composition.data.model.model.Token
+import com.rodrigolmti.lunch.money.composition.data.model.dto.TokenDTO
 import com.rodrigolmti.lunch.money.composition.data.model.response.UserResponse
 import com.rodrigolmti.lunch.money.composition.data.network.LunchService
 import com.rodrigolmti.lunch.money.core.IDispatchersProvider
@@ -19,31 +19,31 @@ import kotlinx.serialization.json.Json
 import retrofit2.HttpException
 
 internal interface ILunchRepository {
-    suspend fun authenticateUser(token: Token): Outcome<UserModel, LunchError>
+    suspend fun authenticateUser(tokenDTO: TokenDTO): Outcome<UserModel, LunchError>
     suspend fun getTransactions(): Outcome<List<TransactionModel>, LunchError>
     suspend fun cacheTransactionCategories()
     suspend fun storeUser(userModel: UserModel)
     fun getSessionUser(): UserModel?
-    fun getSessionToken(): Token?
+    fun getSessionToken(): TokenDTO?
 }
 
 internal class LunchRepository(
     private val json: Json,
     private val lunchService: LunchService,
     private val dispatchers: IDispatchersProvider,
-    sharedPreferences: SharedPreferencesDelegateFactory,
+    preferences: SharedPreferencesDelegateFactory,
 ) : ILunchRepository {
 
-    private var user: String by sharedPreferences.create("", "user_key")
-    private var token: String by sharedPreferences.create("", "token_key")
+    private var user: String by preferences.create("", "user_key")
+    private var token: String by preferences.create("", "token_key")
 
     private val transactionCategories: MutableList<TransactionCategoryModel> = mutableListOf()
 
-    override suspend fun authenticateUser(token: Token): Outcome<UserModel, LunchError> {
+    override suspend fun authenticateUser(tokenDTO: TokenDTO): Outcome<UserModel, LunchError> {
         return withContext(dispatchers.io()) {
             runCatching {
-                val user = lunchService.getUser(token.format()).toModel()
-                this@LunchRepository.token = token.value
+                val user = lunchService.getUser(tokenDTO.format()).toModel()
+                this@LunchRepository.token = tokenDTO.value
                 user
             }.mapThrowable {
                 handleNetworkError(it)
@@ -69,13 +69,9 @@ internal class LunchRepository(
 
     override suspend fun cacheTransactionCategories() {
         withContext(dispatchers.io()) {
-            runCatching {
-                val categories = lunchService.getCategories().categories.map { it.toModel() }
-                transactionCategories.clear()
-                transactionCategories.addAll(categories)
-            }.mapThrowable {
-                handleNetworkError(it)
-            }
+            val categories = lunchService.getCategories().categories.map { it.toModel() }
+            transactionCategories.clear()
+            transactionCategories.addAll(categories)
         }
     }
 
@@ -92,9 +88,9 @@ internal class LunchRepository(
         }
     }
 
-    override fun getSessionToken(): Token? {
+    override fun getSessionToken(): TokenDTO? {
         if (token.isNotEmpty()) {
-            return Token(token)
+            return TokenDTO(token)
         }
         return null
     }

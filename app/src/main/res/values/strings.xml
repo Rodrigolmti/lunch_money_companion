@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">Lunch Money</string>
+    <string name="app_name">Lunch Money Companion</string>
+
+    <string name="connection_error_title">Connection Issue Detected</string>
+    <string name="connection_error_message">We\'re having trouble processing your request. This could be due to a server error, an invalid API key, or a problem with your network connection. Please verify your API key and ensure your device has a stable internet connection. If the issue persists, try again later.</string>
+
+    <string name="authentication_title">Welcome Back!</string>
+    <string name="authentication_token_label">Api Token</string>
+    <string name="authentication_action_label">LOGIN</string>
+    <string name="authentication_get_key_one">Don\'t have an API Key?</string>
+    <string name="authentication_get_key_two">Get one here.</string>
+    <string name="transaction_label_cleared">Cleared</string>
+    <string name="transaction_label_recurring">Recurring</string>
+    <string name="transaction_label_recurring_suggested">Recurring Suggested</string>
+    <string name="transaction_label_pending">Pending</string>
+    <string name="transaction_label_unknown">Unknown</string>
 </resources>

@@ -9,23 +9,18 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -34,28 +29,29 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.rodrigolmti.lunch.money.R
 import com.rodrigolmti.lunch.money.ui.components.BouncingImageAnimation
 import com.rodrigolmti.lunch.money.ui.components.Center
+import com.rodrigolmti.lunch.money.ui.components.ErrorBottomSheet
 import com.rodrigolmti.lunch.money.ui.components.HorizontalSpacer
 import com.rodrigolmti.lunch.money.ui.components.LunchButton
 import com.rodrigolmti.lunch.money.ui.components.LunchTextField
 import com.rodrigolmti.lunch.money.ui.components.TiledBackgroundScreen
 import com.rodrigolmti.lunch.money.ui.components.VerticalSpacer
-import com.rodrigolmti.lunch.money.ui.theme.BackgroundDefault
 import com.rodrigolmti.lunch.money.ui.theme.Body
-import com.rodrigolmti.lunch.money.ui.theme.ContentBrand
-import com.rodrigolmti.lunch.money.ui.theme.ContentDefault
+import com.rodrigolmti.lunch.money.ui.theme.CharcoalMist
 import com.rodrigolmti.lunch.money.ui.theme.Header
 import com.rodrigolmti.lunch.money.ui.theme.LunchMoneyTheme
-import kotlinx.coroutines.CoroutineScope
+import com.rodrigolmti.lunch.money.ui.theme.SunburstGold
+import com.rodrigolmti.lunch.money.ui.theme.White
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 
 private object DummyAuthenticationUIModel : IAuthenticationUIModel {
     override val viewState = MutableStateFlow<AuthenticationUiState>(AuthenticationUiState.Idle)
@@ -84,8 +80,14 @@ fun AuthenticationScreen(
             viewState.isSuccess() -> {
                 onUserAuthenticated()
             }
+
             viewState.isError() -> {
-                ErrorBottomSheet(bottomSheetState, coroutineScope)
+                ErrorBottomSheet(
+                    bottomSheetState,
+                    coroutineScope,
+                    stringResource(R.string.connection_error_title),
+                    stringResource(R.string.connection_error_message)
+                )
             }
         }
 
@@ -95,7 +97,7 @@ fun AuthenticationScreen(
             Card(
                 shape = MaterialTheme.shapes.medium,
                 colors = CardDefaults.cardColors(
-                    containerColor = ContentDefault
+                    containerColor = CharcoalMist
                 ),
                 border = BorderStroke(
                     width = Dp.Hairline,
@@ -118,10 +120,10 @@ fun AuthenticationScreen(
                     VerticalSpacer(height = 16.dp)
 
                     Text(
-                        text = "Welcome Back!",
+                        text = stringResource(R.string.authentication_title),
                         textAlign = TextAlign.Center,
                         style = Header,
-                        color = Color.White,
+                        color = White,
                         modifier = Modifier.align(alignment = Alignment.CenterHorizontally)
                     )
 
@@ -129,7 +131,7 @@ fun AuthenticationScreen(
 
                     LunchTextField(
                         visualTransformation = PasswordVisualTransformation(),
-                        label = "Api Token",
+                        label = stringResource(R.string.authentication_token_label),
                         text = apiToken
                     ) {
                         apiToken = it
@@ -138,7 +140,7 @@ fun AuthenticationScreen(
                     VerticalSpacer(height = 16.dp)
 
                     LunchButton(
-                        label = "LOGIN",
+                        label = stringResource(R.string.authentication_action_label),
                         isLoading = viewState.isLoading()
                     ) {
                         keyboardController?.hide()
@@ -149,71 +151,25 @@ fun AuthenticationScreen(
 
                     Row {
                         Text(
-                            text = "Don't have an API Key?",
+                            text = stringResource(R.string.authentication_get_key_one),
                             textAlign = TextAlign.Center,
                             style = Body,
-                            color = Color.White
+                            color = White
                         )
                         HorizontalSpacer(4.dp)
                         Text(
-                            text = "Get one here.",
+                            text = stringResource(R.string.authentication_get_key_two),
                             textAlign = TextAlign.Center,
                             modifier = Modifier.clickable { },
                             style = Body.copy(
                                 textDecoration = TextDecoration.Underline
                             ),
-                            color = ContentBrand
+                            color = SunburstGold
                         )
                     }
 
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun ErrorBottomSheet(
-    bottomSheetState: SheetState,
-    coroutineScope: CoroutineScope
-) {
-    var showBottomSheet by remember { mutableStateOf(false) }
-
-    ModalBottomSheet(
-        onDismissRequest = {
-            showBottomSheet = false
-        },
-        containerColor = BackgroundDefault,
-        sheetState = bottomSheetState,
-        shape = MaterialTheme.shapes.medium,
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-        ) {
-            Text(
-                "Connection Issue Detected",
-                style = Header,
-                color = Color.White,
-            )
-            VerticalSpacer(height = 16.dp)
-            Text(
-                "We're having trouble processing your request. This could be due to a server error, an invalid API key, or a problem with your network connection. Please verify your API key and ensure your device has a stable internet connection. If the issue persists, try again later.",
-                style = Body,
-                color = Color.White,
-            )
-            VerticalSpacer(height = 24.dp)
-            LunchButton(
-                label = "OK",
-            ) {
-                coroutineScope.launch { bottomSheetState.hide() }.invokeOnCompletion {
-                    if (!bottomSheetState.isVisible) {
-                        showBottomSheet = false
-                    }
-                }
-            }
-            VerticalSpacer(height = 32.dp)
         }
     }
 }

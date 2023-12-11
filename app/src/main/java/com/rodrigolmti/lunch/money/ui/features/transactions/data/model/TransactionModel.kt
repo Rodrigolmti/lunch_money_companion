@@ -1,18 +1,5 @@
 package com.rodrigolmti.lunch.money.ui.features.transactions.data.model
 
-enum class TransactionStatus {
-    CLEARED, RECURRING, RECURRING_SUGGESTED, PENDING, UNKNOWN
-}
-
-data class TransactionCategoryModel(
-    val id: Int,
-    val name: String,
-    val description: String?,
-    val isIncome: Boolean,
-    val excludeFromBudget: Boolean,
-    val excludeFromTotals: Boolean,
-)
-
 data class TransactionModel(
     val id: Int,
     val date: String,

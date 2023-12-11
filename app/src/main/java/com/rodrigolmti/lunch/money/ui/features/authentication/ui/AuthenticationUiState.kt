@@ -8,6 +8,5 @@ sealed class AuthenticationUiState {
 
     fun isLoading() = this is Loading
     fun isError() = this is Error
-
     fun isSuccess() = this is Success
 }

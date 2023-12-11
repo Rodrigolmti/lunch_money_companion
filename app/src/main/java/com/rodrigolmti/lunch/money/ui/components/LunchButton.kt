@@ -3,17 +3,14 @@ package com.rodrigolmti.lunch.money.ui.components
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.rodrigolmti.lunch.money.ui.theme.BackgroundDefault
+import com.rodrigolmti.lunch.money.ui.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.ui.theme.BodyBold
 import com.rodrigolmti.lunch.money.ui.theme.LunchMoneyTheme
 
@@ -42,7 +39,7 @@ fun LunchButton(
             Text(
                 label,
                 style = BodyBold,
-                color = BackgroundDefault
+                color = MidnightSlate
             )
         }
     }

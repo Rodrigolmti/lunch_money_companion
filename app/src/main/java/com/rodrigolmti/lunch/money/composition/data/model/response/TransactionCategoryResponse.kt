@@ -3,8 +3,9 @@ package com.rodrigolmti.lunch.money.composition.data.model.response
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Serializable
 data class TransactionCategoryBodyResponse(
-    @SerialName("data")
+    @SerialName("categories")
     val categories: List<TransactionCategoryResponse>,
 )
 
