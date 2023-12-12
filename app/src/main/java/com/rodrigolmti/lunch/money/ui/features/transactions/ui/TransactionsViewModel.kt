@@ -20,17 +20,14 @@ class TransactionsViewModel(
     private val _viewState = MutableStateFlow<TransactionsUiState>(TransactionsUiState.Idle)
     override val viewState: StateFlow<TransactionsUiState> = _viewState
 
-    init {
+    override fun getTransactions() {
         viewModelScope.launch {
             _viewState.value = TransactionsUiState.Loading
-
-            getUserTransactions()
-                .onSuccess {
-                    _viewState.value = TransactionsUiState.Success(it)
-                }
-                .onFailure {
-                    _viewState.value = TransactionsUiState.Error
-                }
+            getUserTransactions().onSuccess {
+                _viewState.value = TransactionsUiState.Success(it)
+            }.onFailure {
+                _viewState.value = TransactionsUiState.Error
+            }
         }
     }
 }

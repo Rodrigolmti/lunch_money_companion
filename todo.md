@@ -1,0 +1,6 @@
+- Add validation for authentication field
+- Add empty state / error state for transactions screen
+- Add pull to refresh on transactions screen
+- Change the status bar color
+- Make the transaction detail bottom sheet to expand
+- Fix icon/label bottom bar color

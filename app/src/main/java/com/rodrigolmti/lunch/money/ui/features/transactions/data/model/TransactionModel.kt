@@ -10,7 +10,7 @@ data class TransactionModel(
     val notes: String?,
     val category: TransactionCategoryModel?,
     val recurringId: Int?,
-    val assetId: Int?,
+    val asset: AssetModel?,
     val plaidAccountId: Int?,
     val status: TransactionStatus,
     val isGroup: Boolean,
@@ -24,3 +24,4 @@ data class TransactionModel(
     val price: String?,
     val quantity: String?
 )
+
