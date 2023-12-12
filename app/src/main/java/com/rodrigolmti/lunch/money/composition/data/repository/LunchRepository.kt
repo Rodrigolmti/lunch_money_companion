@@ -58,6 +58,9 @@ internal class LunchRepository(
     override suspend fun getTransactions(): Outcome<List<TransactionModel>, LunchError> {
         return withContext(dispatchers.io()) {
             runCatching {
+
+//                throw Exception("This is a test exception")
+
                 mapTransactions(
                     lunchService.getTransactions(),
                     cachedCategories,

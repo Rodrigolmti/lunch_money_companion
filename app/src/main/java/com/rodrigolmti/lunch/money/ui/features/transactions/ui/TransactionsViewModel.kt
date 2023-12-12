@@ -17,8 +17,12 @@ class TransactionsViewModel(
     private val getUserTransactions: suspend () -> Outcome<List<TransactionModel>, LunchError>
 ) : ITransactionsViewModel() {
 
-    private val _viewState = MutableStateFlow<TransactionsUiState>(TransactionsUiState.Idle)
+    private val _viewState = MutableStateFlow<TransactionsUiState>(TransactionsUiState.Loading)
     override val viewState: StateFlow<TransactionsUiState> = _viewState
+
+    init {
+        getTransactions()
+    }
 
     override fun getTransactions() {
         viewModelScope.launch {
