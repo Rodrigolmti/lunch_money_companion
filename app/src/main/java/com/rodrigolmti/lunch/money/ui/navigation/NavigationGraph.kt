@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
@@ -24,11 +25,13 @@ import androidx.navigation.compose.rememberNavController
 import com.rodrigolmti.lunch.money.IMainActivityViewModel
 import com.rodrigolmti.lunch.money.ui.features.authentication.ui.AuthenticationScreen
 import com.rodrigolmti.lunch.money.ui.features.authentication.ui.IAuthenticationViewModel
+import com.rodrigolmti.lunch.money.ui.features.home.HomeScreen
+import com.rodrigolmti.lunch.money.ui.features.home.IHomeViewModel
 import com.rodrigolmti.lunch.money.ui.features.transactions.ui.ITransactionsViewModel
 import com.rodrigolmti.lunch.money.ui.features.transactions.ui.TransactionsScreen
-import com.rodrigolmti.lunch.money.ui.theme.SunburstGold
 import com.rodrigolmti.lunch.money.ui.theme.CharcoalMist
 import com.rodrigolmti.lunch.money.ui.theme.GraphiteWhisper
+import com.rodrigolmti.lunch.money.ui.theme.SunburstGold
 import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -36,6 +39,7 @@ import org.koin.androidx.compose.koinViewModel
 fun NavigationGraph(viewModel: IMainActivityViewModel) {
 
     val screens = listOf(
+        BottomNavigationRouter.HOME,
         BottomNavigationRouter.TRANSACTIONS,
         BottomNavigationRouter.SETTINGS,
     )
@@ -63,6 +67,7 @@ fun NavigationGraph(viewModel: IMainActivityViewModel) {
                 bottomBar = {
                     BottomNavigation(
                         backgroundColor = CharcoalMist,
+                        contentColor = SunburstGold,
                     ) {
                         screens.forEach { route ->
                             BottomNavigationItem(
@@ -88,6 +93,12 @@ fun NavigationGraph(viewModel: IMainActivityViewModel) {
                     BottomNavigationRouter.SETTINGS -> {
 
                     }
+
+                    BottomNavigationRouter.HOME -> {
+                        val uiModel = koinViewModel<IHomeViewModel>()
+
+                        HomeScreen(uiModel)
+                    }
                 }
             }
         }
@@ -98,6 +109,7 @@ private fun getIconByRoute(route: BottomNavigationRouter): ImageVector {
     return when (route) {
         BottomNavigationRouter.TRANSACTIONS -> Icons.Filled.List
         BottomNavigationRouter.SETTINGS -> Icons.Filled.Settings
+        BottomNavigationRouter.HOME -> Icons.Filled.Home
     }
 }
 
@@ -105,10 +117,12 @@ private fun getLabelByRoute(route: BottomNavigationRouter): String {
     return when (route) {
         BottomNavigationRouter.TRANSACTIONS -> "Transactions"
         BottomNavigationRouter.SETTINGS -> "Settings"
+        BottomNavigationRouter.HOME -> "Home"
     }
 }
 
 enum class BottomNavigationRouter {
+    HOME,
     TRANSACTIONS,
     SETTINGS,
 }

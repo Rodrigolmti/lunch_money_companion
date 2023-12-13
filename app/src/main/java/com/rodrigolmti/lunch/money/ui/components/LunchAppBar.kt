@@ -17,10 +17,10 @@ import com.rodrigolmti.lunch.money.ui.theme.PassingGrey
 import com.rodrigolmti.lunch.money.ui.theme.SunburstGold
 
 @Composable
-internal fun LunchAppBar() {
+internal fun LunchAppBar(title: String) {
     Column{
         Text(
-            text = "Transactions",
+            text = title,
             style = Header,
             color = SunburstGold,
             modifier = Modifier
@@ -43,5 +43,5 @@ internal fun LunchAppBar() {
 @Preview
 @Composable
 internal fun LunchAppBarPreview() {
-    LunchAppBar()
+    LunchAppBar("Lunch Money")
 }

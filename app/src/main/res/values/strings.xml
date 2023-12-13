@@ -2,6 +2,7 @@
     <string name="app_name">Lunch Money Companion</string>
 
     <string name="close_action">Close</string>
+    <string name="common_error_title">Something went wrong</string>
 
     <string name="connection_error_title">Connection Issue Detected</string>
     <string name="connection_error_message">We\'re having trouble processing your request. This could be due to a server error, an invalid API key, or a problem with your network connection. Please verify your API key and ensure your device has a stable internet connection. If the issue persists, try again later.</string>
@@ -17,7 +18,6 @@
     <string name="transaction_label_recurring_suggested">Recurring Suggested</string>
     <string name="transaction_label_pending">Pending</string>
     <string name="transaction_label_unknown">Unknown</string>
-    <string name="transaction_error_title">Something went wrong</string>
     <string name="transaction_error_message">We could\'t load your transactions. Please try again later.</string>
     <string name="transaction_empty_content_message">You have no transactions yet!</string>
     <string name="transaction_detail_label">Transaction Details</string>
@@ -28,4 +28,7 @@
     <string name="transaction_notes_label">Notes</string>
     <string name="transaction_original_name_label">ORIGINAL NAME</string>
     <string name="transaction_paid_from_label">PAID FROM</string>
+    <string name="transactions_title">Transactions</string>
+
+    <string name="home_error_message">We could\'t load your account overview. Please try again later.</string>
 </resources>

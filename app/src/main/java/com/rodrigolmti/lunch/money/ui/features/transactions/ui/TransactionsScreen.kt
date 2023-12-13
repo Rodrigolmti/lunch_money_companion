@@ -16,7 +16,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -82,7 +81,7 @@ fun TransactionsScreen(
                 ErrorBottomSheet(
                     sheetState = errorSheetState,
                     scope = scope,
-                    title = stringResource(R.string.transaction_error_title),
+                    title = stringResource(R.string.common_error_title),
                     message = stringResource(R.string.transaction_error_message),
                 ) {
                     showErrorBottomSheet = false
@@ -130,7 +129,7 @@ private fun BuildSuccessState(
             .padding(top = 16.dp)
     ) {
 
-        LunchAppBar()
+        LunchAppBar(stringResource(R.string.transactions_title))
 
         LazyColumn(
             contentPadding = PaddingValues(bottom = 80.dp, top = 16.dp),
@@ -160,7 +159,7 @@ private fun BuildErrorState() {
         modifier = Modifier
             .padding(top = 16.dp)
     ) {
-        LunchAppBar()
+        LunchAppBar(stringResource(R.string.transactions_title))
 
         Center(
             Modifier.padding(

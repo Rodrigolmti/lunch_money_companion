@@ -7,6 +7,8 @@ import com.rodrigolmti.lunch.money.composition.data.repository.ILunchRepository
 import com.rodrigolmti.lunch.money.composition.data.repository.LunchRepository
 import com.rodrigolmti.lunch.money.composition.data.usecase.ExecuteStartupLogic
 import com.rodrigolmti.lunch.money.composition.data.usecase.ExecuteStartupLogicUseCase
+import com.rodrigolmti.lunch.money.composition.data.usecase.GetAssetOverview
+import com.rodrigolmti.lunch.money.composition.data.usecase.GetAssetOverviewUseCase
 import com.rodrigolmti.lunch.money.composition.data.usecase.IsUserAuthenticated
 import com.rodrigolmti.lunch.money.composition.data.usecase.IsUserAuthenticatedUseCase
 import com.rodrigolmti.lunch.money.core.SharedPreferencesDelegateFactory
@@ -24,10 +26,11 @@ internal val dataModule = module {
         get<Context>().getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE)
     }
     single { SharedPreferencesDelegateFactory(get()) }
-    single<ILunchRepository>{ LunchRepository(get(), get(), get(), get()) }
+    single<ILunchRepository> { LunchRepository(get(), get(), get(), get()) }
 }
 
 internal val domainModule = module {
     factory<IsUserAuthenticatedUseCase> { IsUserAuthenticated(get()) }
-    factory<ExecuteStartupLogicUseCase>{ ExecuteStartupLogic(get()) }
+    factory<ExecuteStartupLogicUseCase> { ExecuteStartupLogic(get()) }
+    factory<GetAssetOverviewUseCase> { GetAssetOverview(get()) }
 }

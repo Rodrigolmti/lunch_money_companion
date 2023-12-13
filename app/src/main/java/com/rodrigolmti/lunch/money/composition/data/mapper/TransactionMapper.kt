@@ -7,6 +7,7 @@ import com.rodrigolmti.lunch.money.composition.data.model.response.TransactionCa
 import com.rodrigolmti.lunch.money.composition.data.model.response.TransactionResponse
 import com.rodrigolmti.lunch.money.ui.features.transactions.data.model.AssetModel
 import com.rodrigolmti.lunch.money.ui.features.transactions.data.model.AssetStatus
+import com.rodrigolmti.lunch.money.ui.features.transactions.data.model.AssetType
 import com.rodrigolmti.lunch.money.ui.features.transactions.data.model.TransactionCategoryModel
 import com.rodrigolmti.lunch.money.ui.features.transactions.data.model.TransactionModel
 import com.rodrigolmti.lunch.money.ui.features.transactions.data.model.TransactionStatus
@@ -53,10 +54,10 @@ fun TransactionResponse.toModel(
 
 fun PlaidAccountResponse.toModel() = AssetModel(
     id = id,
-    typeName = type,
+    type = mapAssetType(type),
     subtypeName = subtype,
     name = name,
-    balance = balance,
+    balance = balance.toDoubleOrNull() ?: 0.0,
     balanceAsOf = balanceLastUpdate,
     currency = currency,
     institutionName = institutionName,
@@ -65,10 +66,10 @@ fun PlaidAccountResponse.toModel() = AssetModel(
 
 fun AssetResponse.toModel() = AssetModel(
     id = id,
-    typeName = typeName,
+    type = mapAssetType(typeName),
     subtypeName = subtypeName,
     name = name,
-    balance = balance,
+    balance = balance.toDoubleOrNull() ?: 0.0,
     balanceAsOf = balanceAsOf,
     currency = currency,
     institutionName = institutionName,
@@ -83,6 +84,24 @@ fun TransactionCategoryResponse.toModel() = TransactionCategoryModel(
     isIncome = isIncome,
     name = name
 )
+
+private fun mapAssetType(typeName: String): AssetType = when (typeName) {
+    "credit" -> AssetType.CREDIT
+    "depository" -> AssetType.DEPOSITORY
+    "brokerage" -> AssetType.BROKERAGE
+    "loan" -> AssetType.LOAN
+    "vehicle" -> AssetType.VEHICLE
+    "investment" -> AssetType.INVESTMENT
+    "other" -> AssetType.OTHER_ASSETS
+    "mortgage" -> AssetType.OTHER_LIABILITIES
+    "real_estate" -> AssetType.REAL_STATE
+    "cash" -> AssetType.CASH
+    "cryptocurrency" -> AssetType.CRYPTOCURRENCY
+    "employee_compensation" -> AssetType.EMPLOYEE_COMPENSATION
+    else -> {
+        AssetType.OTHER_ASSETS
+    }
+}
 
 private fun PlaidAccountResponse.mapStatus(): AssetStatus = when (status) {
     "active" -> AssetStatus.ACTIVE

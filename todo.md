@@ -4,3 +4,4 @@
 - Change the status bar color
 - Make the transaction detail bottom sheet to expand
 - Fix icon/label bottom bar color
+- Get currency rates for conversion

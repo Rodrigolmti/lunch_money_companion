@@ -23,6 +23,7 @@ import retrofit2.HttpException
 internal interface ILunchRepository {
     suspend fun authenticateUser(tokenDTO: TokenDTO): Outcome<UserModel, LunchError>
     suspend fun getTransactions(): Outcome<List<TransactionModel>, LunchError>
+    fun getAssets(): List<AssetModel>
     suspend fun cacheTransactionCategories()
     suspend fun cacheAssets()
     suspend fun storeUser(userModel: UserModel)
@@ -58,9 +59,6 @@ internal class LunchRepository(
     override suspend fun getTransactions(): Outcome<List<TransactionModel>, LunchError> {
         return withContext(dispatchers.io()) {
             runCatching {
-
-//                throw Exception("This is a test exception")
-
                 mapTransactions(
                     lunchService.getTransactions(),
                     cachedCategories,
@@ -71,6 +69,8 @@ internal class LunchRepository(
             }
         }
     }
+
+    override fun getAssets(): List<AssetModel> = cachedAssets
 
     override suspend fun cacheTransactionCategories() {
         withContext(dispatchers.io()) {
