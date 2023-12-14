@@ -3,7 +3,16 @@
 package com.rodrigolmti.lunch.money.ui.features.home
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -12,13 +21,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rodrigolmti.lunch.money.R
 import com.rodrigolmti.lunch.money.ui.components.Center
 import com.rodrigolmti.lunch.money.ui.components.ErrorBottomSheet
+import com.rodrigolmti.lunch.money.ui.components.LunchAppBar
 import com.rodrigolmti.lunch.money.ui.components.LunchLoading
+import com.rodrigolmti.lunch.money.ui.features.transactions.data.model.AssetOverviewModel
+import com.rodrigolmti.lunch.money.ui.theme.CharcoalMist
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -39,6 +55,7 @@ fun HomeScreen(uiModel: IHomeUIModel = DummyIHomeUIModel) {
     var showErrorBottomSheet by remember { mutableStateOf(false) }
     val errorSheetState = rememberModalBottomSheetState()
 
+    val listState = rememberLazyListState()
     val scope = rememberCoroutineScope()
 
     Scaffold {
@@ -62,11 +79,50 @@ fun HomeScreen(uiModel: IHomeUIModel = DummyIHomeUIModel) {
             }
 
             is HomeUiState.Success -> {
+                val overviews = (viewState as HomeUiState.Success).overview
 
+                BuildSuccessState(
+                    listState,
+                    overviews
+                )
             }
         }
     }
 }
+
+@Composable
+private fun BuildSuccessState(
+    listState: LazyListState,
+    overviews: List<AssetOverviewModel>
+) {
+    Column(
+        modifier = Modifier
+            .padding(top = 16.dp)
+    ) {
+
+        LunchAppBar("Home")
+
+        Card(
+            shape = MaterialTheme.shapes.medium,
+            colors = CardDefaults.cardColors(
+                containerColor = CharcoalMist
+            ),
+            border = BorderStroke(
+                width = Dp.Hairline,
+                color = Color.Black
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            OverviewItem(
+                listState = listState,
+                overviews = overviews
+            )
+        }
+    }
+}
+
 
 @Preview
 @Composable
