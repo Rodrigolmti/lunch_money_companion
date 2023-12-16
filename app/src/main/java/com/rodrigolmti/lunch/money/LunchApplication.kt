@@ -1,8 +1,8 @@
 package com.rodrigolmti.lunch.money
 
 import android.app.Application
-import com.rodrigolmti.lunch.money.composition.data.usecase.ExecuteStartupLogicUseCase
-import com.rodrigolmti.lunch.money.composition.data.usecase.IsUserAuthenticatedUseCase
+import com.rodrigolmti.lunch.money.composition.domain.usecase.ExecuteStartupLogicUseCase
+import com.rodrigolmti.lunch.money.composition.domain.usecase.IsUserAuthenticatedUseCase
 import com.rodrigolmti.lunch.money.composition.di.dataModule
 import com.rodrigolmti.lunch.money.composition.di.domainModule
 import com.rodrigolmti.lunch.money.composition.di.featuresModule

@@ -11,10 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
-import com.rodrigolmti.lunch.money.ui.components.Center
-import com.rodrigolmti.lunch.money.ui.components.LunchLoading
-import com.rodrigolmti.lunch.money.ui.navigation.NavigationGraph
-import com.rodrigolmti.lunch.money.ui.theme.LunchMoneyTheme
+import com.rodrigolmti.lunch.money.uikit.components.Center
+import com.rodrigolmti.lunch.money.uikit.components.LunchLoading
+import com.rodrigolmti.lunch.money.features.navigation.NavigationGraph
+import com.rodrigolmti.lunch.money.uikit.theme.LunchMoneyTheme
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

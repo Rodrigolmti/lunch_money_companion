@@ -5,12 +5,10 @@ import android.content.SharedPreferences
 import com.rodrigolmti.lunch.money.composition.data.network.LunchService
 import com.rodrigolmti.lunch.money.composition.data.repository.ILunchRepository
 import com.rodrigolmti.lunch.money.composition.data.repository.LunchRepository
-import com.rodrigolmti.lunch.money.composition.data.usecase.ExecuteStartupLogic
-import com.rodrigolmti.lunch.money.composition.data.usecase.ExecuteStartupLogicUseCase
-import com.rodrigolmti.lunch.money.composition.data.usecase.GetAssetOverview
-import com.rodrigolmti.lunch.money.composition.data.usecase.GetAssetOverviewUseCase
-import com.rodrigolmti.lunch.money.composition.data.usecase.IsUserAuthenticated
-import com.rodrigolmti.lunch.money.composition.data.usecase.IsUserAuthenticatedUseCase
+import com.rodrigolmti.lunch.money.composition.domain.usecase.ExecuteStartupLogic
+import com.rodrigolmti.lunch.money.composition.domain.usecase.ExecuteStartupLogicUseCase
+import com.rodrigolmti.lunch.money.composition.domain.usecase.IsUserAuthenticated
+import com.rodrigolmti.lunch.money.composition.domain.usecase.IsUserAuthenticatedUseCase
 import com.rodrigolmti.lunch.money.core.SharedPreferencesDelegateFactory
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -32,5 +30,4 @@ internal val dataModule = module {
 internal val domainModule = module {
     factory<IsUserAuthenticatedUseCase> { IsUserAuthenticated(get()) }
     factory<ExecuteStartupLogicUseCase> { ExecuteStartupLogic(get()) }
-    factory<GetAssetOverviewUseCase> { GetAssetOverview(get()) }
 }

@@ -12,10 +12,10 @@ import com.rodrigolmti.lunch.money.core.Outcome
 import com.rodrigolmti.lunch.money.core.SharedPreferencesDelegateFactory
 import com.rodrigolmti.lunch.money.core.mapThrowable
 import com.rodrigolmti.lunch.money.core.runCatching
-import com.rodrigolmti.lunch.money.ui.features.authentication.data.model.UserModel
-import com.rodrigolmti.lunch.money.ui.features.transactions.data.model.AssetModel
-import com.rodrigolmti.lunch.money.ui.features.transactions.data.model.TransactionCategoryModel
-import com.rodrigolmti.lunch.money.ui.features.transactions.data.model.TransactionModel
+import com.rodrigolmti.lunch.money.composition.domain.model.UserModel
+import com.rodrigolmti.lunch.money.composition.domain.model.AssetModel
+import com.rodrigolmti.lunch.money.composition.domain.model.TransactionCategoryModel
+import com.rodrigolmti.lunch.money.composition.domain.model.TransactionModel
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import retrofit2.HttpException

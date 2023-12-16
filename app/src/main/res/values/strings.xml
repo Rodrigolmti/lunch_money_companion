@@ -1,6 +1,23 @@
 <resources>
     <string name="app_name">Lunch Money Companion</string>
 
+    <string name="bottom_navigation_transactions">Transactions</string>
+    <string name="bottom_navigation_settings">Settings</string>
+    <string name="bottom_navigation_home">Home</string>
+
+    <string name="asset_type_cash">Cash</string>
+    <string name="asset_type_investment">Investment</string>
+    <string name="asset_type_loan">Loan</string>
+    <string name="asset_type_credit">Credit</string>
+    <string name="asset_type_real_state">Real State</string>
+    <string name="asset_type_depository">Depository</string>
+    <string name="asset_type_brokerage">Brokerage</string>
+    <string name="asset_type_vehicle">Vehicle</string>
+    <string name="asset_type_cryptocurrency">Cryptocurrency</string>
+    <string name="asset_type_employee_compensation">Employee Compensation</string>
+    <string name="asset_type_other_liabilities">Other Liabilities</string>
+    <string name="asset_type_other_assets">Other Assets</string>
+
     <string name="close_action">Close</string>
     <string name="common_error_title">Something went wrong</string>
 
@@ -18,6 +35,7 @@
     <string name="transaction_label_recurring_suggested">Recurring Suggested</string>
     <string name="transaction_label_pending">Pending</string>
     <string name="transaction_label_unknown">Unknown</string>
+    <string name="transaction_label_uncleared">Pending</string>
     <string name="transaction_error_message">We could\'t load your transactions. Please try again later.</string>
     <string name="transaction_empty_content_message">You have no transactions yet!</string>
     <string name="transaction_detail_label">Transaction Details</string>
@@ -31,4 +49,5 @@
     <string name="transactions_title">Transactions</string>
 
     <string name="home_error_message">We could\'t load your account overview. Please try again later.</string>
+    <string name="home_title">Home</string>
 </resources>

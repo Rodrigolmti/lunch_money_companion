@@ -2,13 +2,15 @@ package com.rodrigolmti.lunch.money.composition.di
 
 import com.rodrigolmti.lunch.money.composition.data.model.dto.TokenDTO
 import com.rodrigolmti.lunch.money.composition.data.repository.ILunchRepository
-import com.rodrigolmti.lunch.money.composition.data.usecase.GetAssetOverviewUseCase
-import com.rodrigolmti.lunch.money.ui.features.authentication.ui.AuthenticationViewModel
-import com.rodrigolmti.lunch.money.ui.features.authentication.ui.IAuthenticationViewModel
-import com.rodrigolmti.lunch.money.ui.features.home.HomeViewModel
-import com.rodrigolmti.lunch.money.ui.features.home.IHomeViewModel
-import com.rodrigolmti.lunch.money.ui.features.transactions.ui.ITransactionsViewModel
-import com.rodrigolmti.lunch.money.ui.features.transactions.ui.TransactionsViewModel
+import com.rodrigolmti.lunch.money.composition.di.adapter.HomeFeatureAdapter
+import com.rodrigolmti.lunch.money.composition.di.adapter.TransactionFeatureAdapter
+import com.rodrigolmti.lunch.money.composition.domain.usecase.ExecuteStartupLogicUseCase
+import com.rodrigolmti.lunch.money.features.authentication.ui.AuthenticationViewModel
+import com.rodrigolmti.lunch.money.features.authentication.ui.IAuthenticationViewModel
+import com.rodrigolmti.lunch.money.features.home.ui.HomeViewModel
+import com.rodrigolmti.lunch.money.features.home.ui.IHomeViewModel
+import com.rodrigolmti.lunch.money.features.transactions.ui.ITransactionsViewModel
+import com.rodrigolmti.lunch.money.features.transactions.ui.TransactionsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -24,7 +26,10 @@ private val authenticationModule = module {
 private val homeModule = module {
     viewModel<IHomeViewModel> {
         HomeViewModel(
-            getUserAccountOverview = { get<GetAssetOverviewUseCase>().invoke() },
+            getUserAccountOverview = {
+                HomeFeatureAdapter(get()).getAssetOverview()
+            },
+            refreshUserData = { get<ExecuteStartupLogicUseCase>().invoke() },
         )
     }
 }
@@ -32,7 +37,9 @@ private val homeModule = module {
 private val transactionsModule = module {
     viewModel<ITransactionsViewModel> {
         TransactionsViewModel(
-            getUserTransactions = { get<ILunchRepository>().getTransactions() },
+            getUserTransactions = {
+                TransactionFeatureAdapter(get()).getTransactions()
+            },
         )
     }
 }
