@@ -17,6 +17,7 @@ import com.rodrigolmti.lunch.money.uikit.theme.LunchMoneyTheme
 @Composable
 fun LunchButton(
     label: String,
+    modifier: Modifier = Modifier,
     isEnabled: Boolean = true,
     isLoading: Boolean = false,
     onClick: () -> Unit = {},
@@ -29,7 +30,7 @@ fun LunchButton(
         },
         enabled = isEnabled,
         shape = MaterialTheme.shapes.medium,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
     ) {
 

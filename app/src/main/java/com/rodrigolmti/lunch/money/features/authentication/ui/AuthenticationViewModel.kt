@@ -6,7 +6,6 @@ import com.rodrigolmti.lunch.money.core.LunchError
 import com.rodrigolmti.lunch.money.core.Outcome
 import com.rodrigolmti.lunch.money.core.onFailure
 import com.rodrigolmti.lunch.money.core.onSuccess
-import com.rodrigolmti.lunch.money.composition.domain.model.UserModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -14,8 +13,8 @@ import kotlinx.coroutines.launch
 abstract class IAuthenticationViewModel : ViewModel(), IAuthenticationUIModel
 
 class AuthenticationViewModel(
-    private val authenticateUser: suspend (String) -> Outcome<UserModel, LunchError>,
-    private val storeUser: suspend (UserModel) -> Unit,
+    private val authenticateUser: suspend (String) -> Outcome<Unit, LunchError>,
+    private val postAuthentication: suspend () -> Unit,
 ) : IAuthenticationViewModel() {
     private val _viewState = MutableStateFlow<AuthenticationUiState>(AuthenticationUiState.Idle)
     override val viewState: StateFlow<AuthenticationUiState> = _viewState
@@ -25,7 +24,7 @@ class AuthenticationViewModel(
             _viewState.value = AuthenticationUiState.Loading
             authenticateUser(token)
                 .onSuccess {
-                    storeUser(it)
+                    postAuthentication()
                     _viewState.value = AuthenticationUiState.Success
                 }
                 .onFailure {

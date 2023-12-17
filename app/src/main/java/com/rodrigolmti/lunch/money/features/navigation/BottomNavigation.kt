@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.R
 import com.rodrigolmti.lunch.money.features.home.ui.HomeScreen
 import com.rodrigolmti.lunch.money.features.home.ui.IHomeViewModel
+import com.rodrigolmti.lunch.money.features.settings.SettingsScreen
 import com.rodrigolmti.lunch.money.features.transactions.ui.ITransactionsViewModel
 import com.rodrigolmti.lunch.money.features.transactions.ui.TransactionsScreen
 import com.rodrigolmti.lunch.money.uikit.theme.CharcoalMist
@@ -41,6 +42,7 @@ internal val screens = listOf(
 @Composable
 internal fun BottomNavigation(
     selectedScreen: BottomNavigationRouter,
+    onLogoutRequested: () -> Unit = {},
     onScreenSelected: (BottomNavigationRouter) -> Unit,
 ) {
     Scaffold(
@@ -71,7 +73,9 @@ internal fun BottomNavigation(
             }
 
             BottomNavigationRouter.SETTINGS -> {
-
+                SettingsScreen {
+                    onLogoutRequested()
+                }
             }
 
             BottomNavigationRouter.HOME -> {

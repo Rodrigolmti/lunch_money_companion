@@ -1,15 +1,15 @@
-package com.rodrigolmti.lunch.money
+package com.rodrigolmti.lunch.money.application
 
 import android.app.Application
-import com.rodrigolmti.lunch.money.composition.domain.usecase.ExecuteStartupLogicUseCase
-import com.rodrigolmti.lunch.money.composition.domain.usecase.IsUserAuthenticatedUseCase
-import com.rodrigolmti.lunch.money.composition.di.dataModule
-import com.rodrigolmti.lunch.money.composition.di.domainModule
+import com.rodrigolmti.lunch.money.application.main.IMainActivityViewModel
+import com.rodrigolmti.lunch.money.application.main.MainActivityViewModel
+import com.rodrigolmti.lunch.money.composition.di.compositionModule
+import com.rodrigolmti.lunch.money.composition.di.coreModule
 import com.rodrigolmti.lunch.money.composition.di.featuresModule
 import com.rodrigolmti.lunch.money.composition.di.networkModule
-import com.rodrigolmti.lunch.money.composition.di.serviceModule
-import com.rodrigolmti.lunch.money.core.DispatchersProvider
-import com.rodrigolmti.lunch.money.core.IDispatchersProvider
+import com.rodrigolmti.lunch.money.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.composition.domain.usecase.ExecuteStartupLogicUseCase
+import com.rodrigolmti.lunch.money.composition.domain.usecase.IsUserAuthenticatedUseCase
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.component.KoinComponent
@@ -25,10 +25,9 @@ class LunchApplication : Application(), KoinComponent {
             androidContext(this@LunchApplication)
             modules(
                 listOf(
-                    domainModule,
-                    dataModule,
+                    coreModule,
                     appModule,
-                    serviceModule,
+                    compositionModule,
                     networkModule,
                     featuresModule,
                 )
@@ -38,11 +37,11 @@ class LunchApplication : Application(), KoinComponent {
 }
 
 private val appModule = module {
-    single<IDispatchersProvider> { DispatchersProvider() }
     viewModel<IMainActivityViewModel> {
         MainActivityViewModel(
             isUserAuthenticated = { get<IsUserAuthenticatedUseCase>().invoke() },
-            executeStartupLogic = { get<ExecuteStartupLogicUseCase>().invoke() }
+            executeStartupLogic = { get<ExecuteStartupLogicUseCase>().invoke() },
+            logoutUser = { get<ILunchRepository>().logoutUser() }
         )
     }
 }

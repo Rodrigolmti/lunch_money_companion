@@ -13,12 +13,16 @@ okhttp-version = "4.10.0"
 okhttp-logging-version = "4.10.0"
 retrofit-serialization = "1.0.0"
 androidx-navigation-compose = "2.7.5"
+mockk-version = "1.12.1"
+junit-version = "4.13.2"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle-runtime-ktx" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
+junit = { module = "junit:junit", version.ref = "junit-version" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk-version" }
 
 # Compose
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }

@@ -6,30 +6,20 @@ import com.rodrigolmti.lunch.money.composition.data.mapper.toResponse
 import com.rodrigolmti.lunch.money.composition.data.model.dto.TokenDTO
 import com.rodrigolmti.lunch.money.composition.data.model.response.UserResponse
 import com.rodrigolmti.lunch.money.composition.data.network.LunchService
+import com.rodrigolmti.lunch.money.composition.domain.model.AssetModel
+import com.rodrigolmti.lunch.money.composition.domain.model.TransactionCategoryModel
+import com.rodrigolmti.lunch.money.composition.domain.model.TransactionModel
+import com.rodrigolmti.lunch.money.composition.domain.model.UserModel
+import com.rodrigolmti.lunch.money.composition.domain.repository.ILunchRepository
 import com.rodrigolmti.lunch.money.core.IDispatchersProvider
 import com.rodrigolmti.lunch.money.core.LunchError
 import com.rodrigolmti.lunch.money.core.Outcome
 import com.rodrigolmti.lunch.money.core.SharedPreferencesDelegateFactory
 import com.rodrigolmti.lunch.money.core.mapThrowable
 import com.rodrigolmti.lunch.money.core.runCatching
-import com.rodrigolmti.lunch.money.composition.domain.model.UserModel
-import com.rodrigolmti.lunch.money.composition.domain.model.AssetModel
-import com.rodrigolmti.lunch.money.composition.domain.model.TransactionCategoryModel
-import com.rodrigolmti.lunch.money.composition.domain.model.TransactionModel
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import retrofit2.HttpException
-
-internal interface ILunchRepository {
-    suspend fun authenticateUser(tokenDTO: TokenDTO): Outcome<UserModel, LunchError>
-    suspend fun getTransactions(): Outcome<List<TransactionModel>, LunchError>
-    fun getAssets(): List<AssetModel>
-    suspend fun cacheTransactionCategories()
-    suspend fun cacheAssets()
-    suspend fun storeUser(userModel: UserModel)
-    fun getSessionUser(): UserModel?
-    fun getSessionToken(): TokenDTO?
-}
 
 internal class LunchRepository(
     private val json: Json,
@@ -44,15 +34,27 @@ internal class LunchRepository(
     private val cachedCategories: MutableList<TransactionCategoryModel> = mutableListOf()
     private val cachedAssets: MutableList<AssetModel> = mutableListOf()
 
-    override suspend fun authenticateUser(tokenDTO: TokenDTO): Outcome<UserModel, LunchError> {
+    override suspend fun authenticateUser(tokenDTO: TokenDTO): Outcome<Unit, LunchError> {
         return withContext(dispatchers.io()) {
             runCatching {
-                val user = lunchService.getUser(tokenDTO.format()).toModel()
+                val userResponse = lunchService.getUser(tokenDTO.format())
                 this@LunchRepository.token = tokenDTO.value
-                user
+                this@LunchRepository.user = json
+                    .encodeToString(UserResponse.serializer(), userResponse)
             }.mapThrowable {
                 handleNetworkError(it)
             }
+        }
+    }
+
+    override suspend fun logoutUser(): Outcome<Unit, LunchError> {
+        return runCatching {
+            cachedCategories.clear()
+            cachedAssets.clear()
+            token = ""
+            user = ""
+        }.mapThrowable {
+            LunchError.UnsuccessfulLogout
         }
     }
 
@@ -87,11 +89,6 @@ internal class LunchRepository(
             cachedAssets.clear()
             cachedAssets.addAll(assets + plaidAccounts)
         }
-    }
-
-    override suspend fun storeUser(userModel: UserModel) {
-        val response = userModel.toResponse()
-        user = json.encodeToString(UserResponse.serializer(), response)
     }
 
     override fun getSessionUser(): UserModel? {

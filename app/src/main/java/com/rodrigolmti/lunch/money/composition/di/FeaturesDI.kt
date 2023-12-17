@@ -1,9 +1,9 @@
 package com.rodrigolmti.lunch.money.composition.di
 
 import com.rodrigolmti.lunch.money.composition.data.model.dto.TokenDTO
-import com.rodrigolmti.lunch.money.composition.data.repository.ILunchRepository
 import com.rodrigolmti.lunch.money.composition.di.adapter.HomeFeatureAdapter
 import com.rodrigolmti.lunch.money.composition.di.adapter.TransactionFeatureAdapter
+import com.rodrigolmti.lunch.money.composition.domain.repository.ILunchRepository
 import com.rodrigolmti.lunch.money.composition.domain.usecase.ExecuteStartupLogicUseCase
 import com.rodrigolmti.lunch.money.features.authentication.ui.AuthenticationViewModel
 import com.rodrigolmti.lunch.money.features.authentication.ui.IAuthenticationViewModel
@@ -18,7 +18,7 @@ private val authenticationModule = module {
     viewModel<IAuthenticationViewModel> {
         AuthenticationViewModel(
             authenticateUser = { get<ILunchRepository>().authenticateUser(TokenDTO(it)) },
-            storeUser = { get<ILunchRepository>().storeUser(it) },
+            postAuthentication = { get<ExecuteStartupLogicUseCase>().invoke() },
         )
     }
 }

@@ -1,7 +1,8 @@
 - Add validation for authentication field
 - Fix problem with error bottom sheet loop on transactions screen
-- Add pull to refresh on transactions screen
 - Change the status bar color
 - Make the transaction detail bottom sheet to expand
 - Fix icon/label bottom bar color
 - Get currency rates for conversion
+
+

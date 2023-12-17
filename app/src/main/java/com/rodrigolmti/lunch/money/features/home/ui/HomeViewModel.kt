@@ -13,11 +13,12 @@ import kotlinx.coroutines.launch
 
 abstract class IHomeViewModel : ViewModel(), IHomeUIModel
 
-typealias GetAccountOverview = suspend () -> Outcome<List<AssetOverviewView>, LunchError>
+private typealias GetAccountOverview = suspend () -> Outcome<List<AssetOverviewView>, LunchError>
+private typealias RefreshUserData = suspend () -> Outcome<Unit, LunchError>
 
 class HomeViewModel(
     private val getUserAccountOverview: GetAccountOverview,
-    private val refreshUserData: suspend () -> Outcome<Unit, LunchError>,
+    private val refreshUserData: RefreshUserData,
 ) : IHomeViewModel() {
 
     private val _viewState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)

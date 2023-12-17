@@ -1,6 +1,6 @@
 package com.rodrigolmti.lunch.money.composition.domain.usecase
 
-import com.rodrigolmti.lunch.money.composition.data.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.composition.domain.repository.ILunchRepository
 
 internal interface IsUserAuthenticatedUseCase {
     operator fun invoke(): Boolean
