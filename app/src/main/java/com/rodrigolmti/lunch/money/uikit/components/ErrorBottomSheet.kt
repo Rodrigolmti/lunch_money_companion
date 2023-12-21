@@ -36,33 +36,44 @@ internal fun ErrorBottomSheet(
         sheetState = sheetState,
         shape = MaterialTheme.shapes.medium,
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-        ) {
-            Text(
-                title,
-                style = Header,
-                color = White,
-            )
-            VerticalSpacer(height = 16.dp)
-            Text(
-                message,
-                style = Body,
-                color = White,
-            )
-            VerticalSpacer(height = 24.dp)
-            LunchButton(
-                label = "OK",
-            ) {
-                scope.launch { sheetState.hide() }.invokeOnCompletion {
-                    if (!sheetState.isVisible) {
-                        onBottomSheetDismissed()
-                    }
+        ErrorComponent(title, message) {
+            scope.launch { sheetState.hide() }.invokeOnCompletion {
+                if (!sheetState.isVisible) {
+                    onBottomSheetDismissed()
                 }
             }
-            VerticalSpacer(height = 32.dp)
         }
+    }
+}
+
+@Composable
+fun ErrorComponent(
+    title: String,
+    message: String,
+    onBottomSheetDismissed: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+    ) {
+        Text(
+            title,
+            style = Header,
+            color = White,
+        )
+        VerticalSpacer(height = 16.dp)
+        Text(
+            message,
+            style = Body,
+            color = White,
+        )
+        VerticalSpacer(height = 24.dp)
+        LunchButton(
+            label = "OK",
+        ) {
+            onBottomSheetDismissed()
+        }
+        VerticalSpacer(height = 32.dp)
     }
 }

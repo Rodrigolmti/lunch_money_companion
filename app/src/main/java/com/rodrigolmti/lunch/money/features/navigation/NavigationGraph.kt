@@ -23,7 +23,6 @@ fun NavigationGraph(
     navController: NavHostController,
     viewModel: IMainActivityViewModel
 ) {
-
     var selectedScreen by remember { mutableStateOf(screens.first()) }
     val isUserAuthenticated = viewModel.isUserAuthenticated()
 

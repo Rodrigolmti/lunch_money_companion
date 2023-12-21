@@ -46,11 +46,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         MainActivityUiState.Logout -> {
-                            navController.navigate(authenticationRoute) {
-                                popUpTo(dashboardRoute) {
-                                    inclusive = true
-                                }
-                            }
+                            navController.navigate(authenticationRoute)
                         }
                     }
                 }
@@ -58,3 +54,4 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+

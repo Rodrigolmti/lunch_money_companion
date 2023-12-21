@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
+internal const val DEFAULT_EMPTY_STRING = ""
 
 class SharedPreferencesDelegateFactory(private val sharedPreferences: SharedPreferences) {
 
