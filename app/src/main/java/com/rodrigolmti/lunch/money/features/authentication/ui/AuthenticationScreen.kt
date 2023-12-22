@@ -59,7 +59,6 @@ import com.rodrigolmti.lunch.money.uikit.components.TiledBackgroundScreen
 import com.rodrigolmti.lunch.money.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.uikit.theme.Body
 import com.rodrigolmti.lunch.money.uikit.theme.CharcoalMist
-import com.rodrigolmti.lunch.money.uikit.theme.FadingGrey
 import com.rodrigolmti.lunch.money.uikit.theme.Header
 import com.rodrigolmti.lunch.money.uikit.theme.LunchMoneyTheme
 import com.rodrigolmti.lunch.money.uikit.theme.MidnightSlate
@@ -118,8 +117,8 @@ fun AuthenticationScreen(
                         )
                     }
                     else -> Pair(
-                        "Invalid API Token",
-                        "Please check your API Token and try again. If you don't have one, you can get one from your Lunch Money account settings.",
+                        stringResource(R.string.authentication_invalid_token_title),
+                        stringResource(R.string.authentication_invalid_token_description),
                     )
                 }
 

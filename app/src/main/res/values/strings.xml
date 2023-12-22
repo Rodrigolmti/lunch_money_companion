@@ -50,4 +50,6 @@
 
     <string name="home_error_message">We could\'t load your account overview. Please try again later.</string>
     <string name="home_title">Home</string>
+    <string name="authentication_invalid_token_title">Invalid API Token</string>
+    <string name="authentication_invalid_token_description">Please check your API Token and try again. If you don\'t have one, you can get one from your Lunch Money account settings.</string>
 </resources>

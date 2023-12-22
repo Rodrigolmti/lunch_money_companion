@@ -6,4 +6,8 @@ sealed class TransactionsUiState {
     data object Loading : TransactionsUiState()
     data object Error : TransactionsUiState()
     data class Success(val transactions: List<TransactionView>) : TransactionsUiState()
+
+    fun isLoading() = this is Loading
+    fun isError() = this is Error
+    fun isSuccess() = this is Success
 }

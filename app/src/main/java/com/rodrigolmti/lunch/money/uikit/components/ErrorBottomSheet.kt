@@ -50,13 +50,12 @@ internal fun ErrorBottomSheet(
 fun ErrorComponent(
     title: String,
     message: String,
+    modifier: Modifier = Modifier
+        .fillMaxWidth()
+        .padding(16.dp),
     onBottomSheetDismissed: () -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-    ) {
+    Column(modifier = modifier) {
         Text(
             title,
             style = Header,

@@ -1,7 +1,3 @@
-- Fix problem with error bottom sheet loop on transactions screen
-- Change the status bar color
 - Make the transaction detail bottom sheet to expand
-- Fix icon/label bottom bar color
 - Fix problem with logout showing black screen
-- Invert transactions list order
 - Fix problem with negative and positive values on transactions list

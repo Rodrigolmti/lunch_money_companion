@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.LunchMoney" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Platform.Theme.LunchMoney" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/midnight_slate</item>
+    </style>
+
+    <style name="Theme.LunchMoney.NoActionBar" parent="Platform.Theme.LunchMoney">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

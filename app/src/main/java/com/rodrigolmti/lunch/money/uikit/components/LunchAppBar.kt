@@ -13,7 +13,6 @@ import com.rodrigolmti.lunch.money.uikit.theme.SunburstGold
 @Composable
 internal fun LunchAppBar(
     title: String,
-    onBackClick: () -> Unit = {},
     actionIcon: @Composable (() -> Unit)? = null,
 ) {
     TopAppBar(
@@ -32,5 +31,5 @@ internal fun LunchAppBar(
 @Preview
 @Composable
 internal fun LunchAppBarPreview() {
-    LunchAppBar("Lunch Money", {}, {})
+    LunchAppBar("Lunch Money") {}
 }
