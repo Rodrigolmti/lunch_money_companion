@@ -1,6 +1,3 @@
 - Make the transaction detail bottom sheet to expand
 - Fix problem with negative and positive values on transactions list
-- Add a section to settings screen:
-  - Show who created the app
-  - Show the app version
-  - Show a message saying that the app is not related to the official Lunch Money app
+- Add filter to transactions list

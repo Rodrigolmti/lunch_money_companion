@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.rodrigolmti.lunch.money"
+    namespace = "com.rodrigolmti.lunch.money.companion"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.rodrigolmti.lunch.money"
+        applicationId = "com.rodrigolmti.lunch.money.companion"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
