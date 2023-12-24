@@ -9,6 +9,8 @@ import com.rodrigolmti.lunch.money.features.authentication.ui.AuthenticationView
 import com.rodrigolmti.lunch.money.features.authentication.ui.IAuthenticationViewModel
 import com.rodrigolmti.lunch.money.features.home.ui.HomeViewModel
 import com.rodrigolmti.lunch.money.features.home.ui.IHomeViewModel
+import com.rodrigolmti.lunch.money.features.settings.ISettingsViewModel
+import com.rodrigolmti.lunch.money.features.settings.SettingsViewModel
 import com.rodrigolmti.lunch.money.features.transactions.ui.ITransactionsViewModel
 import com.rodrigolmti.lunch.money.features.transactions.ui.TransactionsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -44,10 +46,19 @@ private val transactionsModule = module {
     }
 }
 
+private val settingsModule = module {
+    viewModel<ISettingsViewModel> {
+        SettingsViewModel(
+            logoutUser = { get<ILunchRepository>().logoutUser() }
+        )
+    }
+}
+
 internal val featuresModule = module {
     includes(
         authenticationModule,
         homeModule,
         transactionsModule,
+        settingsModule
     )
 }

@@ -1,9 +1,19 @@
 package com.rodrigolmti.lunch.money.features.authentication.ui
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 sealed class AuthenticationUiState {
+    @Immutable
     data object Loading : AuthenticationUiState()
+
+    @Immutable
     data object Success : AuthenticationUiState()
+
+    @Immutable
     data object Error : AuthenticationUiState()
+
+    @Immutable
     data object Idle : AuthenticationUiState()
 
     fun isLoading() = this is Loading

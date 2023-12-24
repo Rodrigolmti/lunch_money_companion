@@ -7,6 +7,4 @@ abstract class IMainActivityViewModel : ViewModel() {
     abstract val viewState: StateFlow<MainActivityUiState>
 
     abstract val isUserAuthenticated: () -> Boolean
-
-    abstract fun logout()
 }

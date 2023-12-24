@@ -38,9 +38,14 @@ fun NavigationGraph(
             }
         }
         composable(dashboardRoute) {
-            BottomNavigation(selectedScreen = selectedScreen,
+            BottomNavigation(
+                selectedScreen = selectedScreen,
                 onLogoutRequested = {
-                    viewModel.logout()
+                    navController.navigate(authenticationRoute) {
+                        popUpTo(dashboardRoute) {
+                            inclusive = true
+                        }
+                    }
                 }) {
                 selectedScreen = it
             }

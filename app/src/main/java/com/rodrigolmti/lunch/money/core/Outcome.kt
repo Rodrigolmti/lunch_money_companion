@@ -284,4 +284,12 @@ inline fun <Value, Error> Outcome<Value, Error>.onSuccess(action: (value: Value)
     return this
 }
 
+inline fun <Value, Error> Outcome<Value, Error>.onFinally(action: () -> Unit): Outcome<Value, Error> {
+    contract {
+        callsInPlace(action, InvocationKind.AT_MOST_ONCE)
+    }
+    action()
+    return this
+}
+
 // -------------------

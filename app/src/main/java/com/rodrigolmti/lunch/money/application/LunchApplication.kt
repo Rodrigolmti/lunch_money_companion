@@ -41,7 +41,6 @@ private val appModule = module {
         MainActivityViewModel(
             isUserAuthenticated = { get<IsUserAuthenticatedUseCase>().invoke() },
             executeStartupLogic = { get<ExecuteStartupLogicUseCase>().invoke() },
-            logoutUser = { get<ILunchRepository>().logoutUser() }
         )
     }
 }

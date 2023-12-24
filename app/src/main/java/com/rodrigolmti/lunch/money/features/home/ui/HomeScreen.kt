@@ -18,13 +18,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -35,7 +30,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rodrigolmti.lunch.money.R
 import com.rodrigolmti.lunch.money.features.home.model.AssetOverviewView
 import com.rodrigolmti.lunch.money.uikit.components.Center
-import com.rodrigolmti.lunch.money.uikit.components.ErrorBottomSheet
+import com.rodrigolmti.lunch.money.uikit.components.ErrorState
 import com.rodrigolmti.lunch.money.uikit.components.LunchAppBar
 import com.rodrigolmti.lunch.money.uikit.components.LunchLoading
 import com.rodrigolmti.lunch.money.uikit.theme.CharcoalMist
@@ -58,14 +53,13 @@ private val DummyIHomeUIModel = object : IHomeUIModel {
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(uiModel: IHomeUIModel = DummyIHomeUIModel) {
+fun HomeScreen(
+    uiModel: IHomeUIModel = DummyIHomeUIModel,
+    onError: (String, String) -> Unit = { _, _ -> },
+) {
     val viewState by uiModel.viewState.collectAsStateWithLifecycle()
 
-    var showErrorBottomSheet by remember { mutableStateOf(false) }
-    val errorSheetState = rememberModalBottomSheetState()
-
     val listState = rememberLazyListState()
-    val scope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -91,14 +85,15 @@ fun HomeScreen(uiModel: IHomeUIModel = DummyIHomeUIModel) {
             }
 
             is HomeUiState.Error -> {
-                ErrorBottomSheet(
-                    sheetState = errorSheetState,
-                    scope = scope,
-                    title = stringResource(R.string.common_error_title),
-                    message = stringResource(R.string.home_error_message)
-                ) {
-                    showErrorBottomSheet = false
-                }
+                ErrorState(
+                    stringResource(R.string.home_title),
+                    stringResource(R.string.common_error_title),
+                )
+
+                onError(
+                    stringResource(R.string.common_error_title),
+                    stringResource(R.string.home_error_message)
+                )
             }
 
             is HomeUiState.Success -> {

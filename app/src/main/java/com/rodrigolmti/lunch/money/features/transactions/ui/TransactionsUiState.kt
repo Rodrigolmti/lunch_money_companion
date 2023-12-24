@@ -1,13 +1,17 @@
 package com.rodrigolmti.lunch.money.features.transactions.ui
 
+import androidx.compose.runtime.Immutable
 import com.rodrigolmti.lunch.money.features.transactions.model.TransactionView
+import kotlinx.collections.immutable.ImmutableList
 
+@Immutable
 sealed class TransactionsUiState {
+    @Immutable
     data object Loading : TransactionsUiState()
-    data object Error : TransactionsUiState()
-    data class Success(val transactions: List<TransactionView>) : TransactionsUiState()
 
-    fun isLoading() = this is Loading
-    fun isError() = this is Error
-    fun isSuccess() = this is Success
+    @Immutable
+    data object Error : TransactionsUiState()
+
+    @Immutable
+    data class Success(val transactions: ImmutableList<TransactionView>) : TransactionsUiState()
 }

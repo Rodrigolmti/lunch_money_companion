@@ -1,5 +1,8 @@
 package com.rodrigolmti.lunch.money.features.transactions.model
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class TransactionView(
     val id: String,
     val date: String,
