@@ -1,6 +1,6 @@
 package com.rodrigolmti.lunch.money.companion.composition.domain.model
 
-data class UserModel(
+internal data class UserModel(
     val userName: String,
     val email: String,
     val id: Int,

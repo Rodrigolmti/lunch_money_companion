@@ -9,7 +9,7 @@ import com.rodrigolmti.lunch.money.companion.core.network.Authenticated
 import retrofit2.http.GET
 import retrofit2.http.Header
 
-interface LunchService {
+internal interface LunchService {
 
     @GET("v1/me")
     suspend fun getUser(

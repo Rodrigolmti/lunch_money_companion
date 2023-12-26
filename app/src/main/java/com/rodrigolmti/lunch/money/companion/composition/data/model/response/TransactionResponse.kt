@@ -4,13 +4,13 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TransactionBodyResponse(
+internal data class TransactionBodyResponse(
     @SerialName("transactions")
     val transactions: List<TransactionResponse>
 )
 
 @Serializable
-data class TransactionResponse(
+internal data class TransactionResponse(
     @SerialName("id")
     val id: Int,
     @SerialName("date")
@@ -34,7 +34,7 @@ data class TransactionResponse(
     @SerialName("plaid_account_id")
     val plaidAccountId: Int? = null,
     @SerialName("status")
-    val status: String,
+    val status: TransactionStatusResponse = TransactionStatusResponse.UNKNOWN,
     @SerialName("is_group")
     val isGroup: Boolean,
     @SerialName("group_id")
@@ -56,3 +56,22 @@ data class TransactionResponse(
     @SerialName("quantity")
     val quantity: String? = null
 )
+
+@Serializable
+internal enum class TransactionStatusResponse {
+    @SerialName("cleared")
+    CLEARED,
+
+    @SerialName("uncleared")
+    UNCLEARED,
+
+    @SerialName("recurring")
+    RECURRING,
+
+    @SerialName("recurring_suggested")
+    RECURRING_SUGGESTED,
+
+    @SerialName("pending")
+    PENDING,
+    UNKNOWN,
+}

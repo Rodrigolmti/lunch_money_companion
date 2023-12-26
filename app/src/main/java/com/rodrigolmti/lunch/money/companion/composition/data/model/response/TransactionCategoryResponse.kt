@@ -4,13 +4,13 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TransactionCategoryBodyResponse(
+internal data class TransactionCategoryBodyResponse(
     @SerialName("categories")
     val categories: List<TransactionCategoryResponse>,
 )
 
 @Serializable
-data class TransactionCategoryResponse(
+internal data class TransactionCategoryResponse(
     @SerialName("id")
     val id: Int,
     @SerialName("name")

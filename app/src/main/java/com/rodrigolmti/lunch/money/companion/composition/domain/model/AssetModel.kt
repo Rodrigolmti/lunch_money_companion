@@ -1,6 +1,6 @@
 package com.rodrigolmti.lunch.money.companion.composition.domain.model
 
-enum class AssetType {
+internal enum class AssetType {
     CASH,
     CREDIT,
     INVESTMENT,
@@ -13,9 +13,10 @@ enum class AssetType {
     EMPLOYEE_COMPENSATION,
     OTHER_LIABILITIES,
     OTHER_ASSETS,
+    UNKNOWN,
 }
 
-data class AssetModel(
+internal data class AssetModel(
     val id: Int,
     val type: AssetType,
     val subtypeName: String,

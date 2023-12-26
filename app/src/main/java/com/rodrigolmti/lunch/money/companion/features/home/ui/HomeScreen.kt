@@ -53,7 +53,7 @@ private val DummyIHomeUIModel = object : IHomeUIModel {
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(
+internal fun HomeScreen(
     uiModel: IHomeUIModel = DummyIHomeUIModel,
     onError: (String, String) -> Unit = { _, _ -> },
 ) {
@@ -86,7 +86,6 @@ fun HomeScreen(
 
             is HomeUiState.Error -> {
                 ErrorState(
-                    stringResource(R.string.home_title),
                     stringResource(R.string.common_error_title),
                 )
 

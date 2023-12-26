@@ -3,7 +3,7 @@ package com.rodrigolmti.lunch.money.companion.features.transactions.model
 import androidx.compose.runtime.Immutable
 
 @Immutable
-data class TransactionView(
+internal data class TransactionView(
     val id: String,
     val date: String,
     val payee: String,

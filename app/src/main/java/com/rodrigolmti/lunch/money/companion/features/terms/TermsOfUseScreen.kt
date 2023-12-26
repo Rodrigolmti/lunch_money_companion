@@ -18,7 +18,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun TermsOfUseScreen(
+internal fun TermsOfUseScreen(
     onBack: () -> Unit = {},
 ) {
     val scrollState = rememberScrollState()

@@ -20,14 +20,12 @@ class MainActivityViewModel(
     init {
         viewModelScope.launch {
             if (!isUserAuthenticated()) {
-                _viewState.value =
-                    MainActivityUiState.Finished
+                _viewState.value = MainActivityUiState.Finished
                 return@launch
             }
 
             executeStartupLogic()
-            _viewState.value =
-                MainActivityUiState.Finished
+            _viewState.value = MainActivityUiState.Finished
         }
     }
 }

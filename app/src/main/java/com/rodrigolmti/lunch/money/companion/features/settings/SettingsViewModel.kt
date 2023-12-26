@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 private typealias LogoutUser = suspend () -> Outcome<Unit, LunchError>
 
-class SettingsViewModel(
+internal class SettingsViewModel(
     private val logoutUser: LogoutUser
 ) : ISettingsViewModel() {
 

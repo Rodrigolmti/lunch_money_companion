@@ -5,7 +5,7 @@ import com.rodrigolmti.lunch.money.companion.composition.domain.model.Transactio
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionStatusView
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
 
-fun TransactionModel.toView() = TransactionView(
+internal fun TransactionModel.toView() = TransactionView(
     id = id.toString(),
     date = date,
     amount = amount,
@@ -18,7 +18,7 @@ fun TransactionModel.toView() = TransactionView(
     status = status.toView(),
 )
 
-fun TransactionStatus.toView() = when (this) {
+internal fun TransactionStatus.toView() = when (this) {
     TransactionStatus.CLEARED -> TransactionStatusView.CLEARED
     TransactionStatus.PENDING -> TransactionStatusView.PENDING
     TransactionStatus.UNKNOWN -> TransactionStatusView.UNKNOWN

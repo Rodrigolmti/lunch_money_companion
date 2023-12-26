@@ -1,10 +1,13 @@
 package com.rodrigolmti.lunch.money.companion.composition.data.mapper
 
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.AssetResponse
+import com.rodrigolmti.lunch.money.companion.composition.data.model.response.AssetTypeResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.PlaidAccountResponse
+import com.rodrigolmti.lunch.money.companion.composition.data.model.response.PlaidAccountStatus
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionBodyResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionCategoryResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionResponse
+import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionStatusResponse
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetStatus
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetType
@@ -12,7 +15,7 @@ import com.rodrigolmti.lunch.money.companion.composition.domain.model.Transactio
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionStatus
 
-fun mapTransactions(
+internal fun mapTransactions(
     response: TransactionBodyResponse,
     categories: List<TransactionCategoryModel>,
     assets: List<AssetModel>
@@ -24,7 +27,7 @@ fun mapTransactions(
     responseItem.toModel(category, asset)
 }
 
-fun TransactionResponse.toModel(
+internal fun TransactionResponse.toModel(
     category: TransactionCategoryModel?,
     asset: AssetModel?
 ) = TransactionModel(
@@ -52,21 +55,21 @@ fun TransactionResponse.toModel(
     toBase = toBase
 )
 
-fun PlaidAccountResponse.toModel() = AssetModel(
+internal fun PlaidAccountResponse.toModel() = AssetModel(
     id = id,
-    type = mapAssetType(type),
+    type = type.mapType(),
     subtypeName = subtype,
     name = name,
     balance = balance.toDoubleOrNull() ?: 0.0,
     balanceAsOf = balanceLastUpdate,
     currency = currency,
     institutionName = institutionName,
-    status = mapStatus(),
+    status = status.mapStatus(),
 )
 
-fun AssetResponse.toModel() = AssetModel(
+internal fun AssetResponse.toModel() = AssetModel(
     id = id,
-    type = mapAssetType(typeName),
+    type = type.mapType(),
     subtypeName = subtypeName,
     name = name,
     balance = balance.toDoubleOrNull() ?: 0.0,
@@ -76,7 +79,7 @@ fun AssetResponse.toModel() = AssetModel(
     status = AssetStatus.UNKNOWN,
 )
 
-fun TransactionCategoryResponse.toModel() = TransactionCategoryModel(
+internal fun TransactionCategoryResponse.toModel() = TransactionCategoryModel(
     id = id,
     description = description,
     excludeFromBudget = excludeFromBudget,
@@ -85,40 +88,38 @@ fun TransactionCategoryResponse.toModel() = TransactionCategoryModel(
     name = name
 )
 
-private fun mapAssetType(typeName: String): AssetType = when (typeName) {
-    "credit" -> AssetType.CREDIT
-    "depository" -> AssetType.DEPOSITORY
-    "brokerage" -> AssetType.BROKERAGE
-    "loan" -> AssetType.LOAN
-    "vehicle" -> AssetType.VEHICLE
-    "investment" -> AssetType.INVESTMENT
-    "other" -> AssetType.OTHER_ASSETS
-    "mortgage" -> AssetType.OTHER_LIABILITIES
-    "real_estate" -> AssetType.REAL_STATE
-    "cash" -> AssetType.CASH
-    "cryptocurrency" -> AssetType.CRYPTOCURRENCY
-    "employee_compensation" -> AssetType.EMPLOYEE_COMPENSATION
-    else -> {
-        AssetType.OTHER_ASSETS
-    }
+private fun AssetTypeResponse.mapType(): AssetType = when (this) {
+    AssetTypeResponse.CREDIT -> AssetType.CREDIT
+    AssetTypeResponse.DEPOSITORY -> AssetType.DEPOSITORY
+    AssetTypeResponse.BROKERAGE -> AssetType.BROKERAGE
+    AssetTypeResponse.LOAN -> AssetType.LOAN
+    AssetTypeResponse.VEHICLE -> AssetType.VEHICLE
+    AssetTypeResponse.INVESTMENT -> AssetType.INVESTMENT
+    AssetTypeResponse.OTHER_ASSETS -> AssetType.OTHER_ASSETS
+    AssetTypeResponse.OTHER_LIABILITIES -> AssetType.OTHER_LIABILITIES
+    AssetTypeResponse.REAL_STATE -> AssetType.REAL_STATE
+    AssetTypeResponse.CASH -> AssetType.CASH
+    AssetTypeResponse.CRYPTOCURRENCY -> AssetType.CRYPTOCURRENCY
+    AssetTypeResponse.EMPLOYEE_COMPENSATION -> AssetType.EMPLOYEE_COMPENSATION
+    AssetTypeResponse.UNKNOWN -> AssetType.UNKNOWN
 }
 
-private fun PlaidAccountResponse.mapStatus(): AssetStatus = when (status) {
-    "active" -> AssetStatus.ACTIVE
-    "inactive" -> AssetStatus.INACTIVE
-    "relink" -> AssetStatus.RELINK
-    "syncing" -> AssetStatus.SYNCING
-    "error" -> AssetStatus.ERROR
-    "not found" -> AssetStatus.NOT_FOUND
-    "not supported" -> AssetStatus.NOT_SUPPORTED
+private fun PlaidAccountStatus.mapStatus(): AssetStatus = when (this) {
+    PlaidAccountStatus.ACTIVE -> AssetStatus.ACTIVE
+    PlaidAccountStatus.INACTIVE -> AssetStatus.INACTIVE
+    PlaidAccountStatus.ERROR -> AssetStatus.ERROR
+    PlaidAccountStatus.NOT_FOUND -> AssetStatus.NOT_FOUND
+    PlaidAccountStatus.NOT_SUPPORTED -> AssetStatus.NOT_SUPPORTED
+    PlaidAccountStatus.RELINK -> AssetStatus.RELINK
+    PlaidAccountStatus.SYNCING -> AssetStatus.SYNCING
     else -> AssetStatus.UNKNOWN
 }
 
 private fun TransactionResponse.mapStatus(): TransactionStatus = when (status) {
-    "cleared" -> TransactionStatus.CLEARED
-    "uncleared" -> TransactionStatus.UNCLEARED
-    "recurring" -> TransactionStatus.RECURRING
-    "recurring_suggested" -> TransactionStatus.RECURRING_SUGGESTED
-    "pending" -> TransactionStatus.PENDING
+    TransactionStatusResponse.CLEARED -> TransactionStatus.CLEARED
+    TransactionStatusResponse.PENDING -> TransactionStatus.PENDING
+    TransactionStatusResponse.RECURRING -> TransactionStatus.RECURRING
+    TransactionStatusResponse.UNCLEARED -> TransactionStatus.UNCLEARED
+    TransactionStatusResponse.RECURRING_SUGGESTED -> TransactionStatus.RECURRING_SUGGESTED
     else -> TransactionStatus.UNKNOWN
 }

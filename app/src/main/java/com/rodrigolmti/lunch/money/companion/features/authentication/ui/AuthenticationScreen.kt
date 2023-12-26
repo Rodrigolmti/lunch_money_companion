@@ -76,7 +76,7 @@ private object DummyAuthenticationUIModel : IAuthenticationUIModel {
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun AuthenticationScreen(
+internal fun AuthenticationScreen(
     uiModel: IAuthenticationUIModel = DummyAuthenticationUIModel,
     onUserAuthenticated: () -> Unit = {},
 ) {
@@ -260,7 +260,7 @@ private fun AuthenticationBody(
 
 @Composable
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-fun AuthenticationScreenPreview() {
+private fun AuthenticationScreenPreview() {
     LunchMoneyCompanionTheme {
         AuthenticationScreen()
     }

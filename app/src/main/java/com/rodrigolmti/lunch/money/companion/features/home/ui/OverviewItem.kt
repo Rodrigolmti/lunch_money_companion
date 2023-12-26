@@ -27,7 +27,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 
 @Composable
-fun OverviewItem(
+internal fun OverviewItem(
     overviews: List<AssetOverviewView>,
     listState: LazyListState = rememberLazyListState(),
 ) {
@@ -98,13 +98,13 @@ private fun getAssetTypeLabel(type: AssetTypeView): String {
         AssetTypeView.CRYPTOCURRENCY -> stringResource(R.string.asset_type_cryptocurrency)
         AssetTypeView.EMPLOYEE_COMPENSATION -> stringResource(R.string.asset_type_employee_compensation)
         AssetTypeView.OTHER_LIABILITIES -> stringResource(R.string.asset_type_other_liabilities)
-        AssetTypeView.OTHER_ASSETS -> stringResource(R.string.asset_type_other_assets)
+        AssetTypeView.UNKNOWN, AssetTypeView.OTHER_ASSETS -> stringResource(R.string.asset_type_other_assets)
     }
 }
 
 @Preview
 @Composable
-fun OverviewItemPreview() {
+private fun OverviewItemPreview() {
     OverviewItem(
         overviews = listOf(
             AssetOverviewView(

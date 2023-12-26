@@ -4,17 +4,17 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AssetsBodyResponse(
+internal data class AssetsBodyResponse(
     @SerialName("assets")
     val assets: List<AssetResponse>,
 )
 
 @Serializable
-data class AssetResponse(
+internal data class AssetResponse(
     @SerialName("id")
     val id: Int,
     @SerialName("type_name")
-    val typeName: String,
+    val type: AssetTypeResponse = AssetTypeResponse.UNKNOWN,
     @SerialName("subtype_name")
     val subtypeName: String,
     @SerialName("name")
@@ -28,3 +28,4 @@ data class AssetResponse(
     @SerialName("institution_name")
     val institutionName: String? = null,
 )
+

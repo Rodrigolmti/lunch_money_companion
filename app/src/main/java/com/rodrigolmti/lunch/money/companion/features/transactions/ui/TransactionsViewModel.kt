@@ -12,11 +12,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-abstract class ITransactionsViewModel : ViewModel(), ITransactionsUIModel
+internal abstract class ITransactionsViewModel : ViewModel(), ITransactionsUIModel
 
-typealias GetUserTransactions = suspend () -> Outcome<List<TransactionView>, LunchError>
+internal typealias GetUserTransactions = suspend () -> Outcome<List<TransactionView>, LunchError>
 
-class TransactionsViewModel(
+internal class TransactionsViewModel(
     private val getUserTransactions: GetUserTransactions
 ) : ITransactionsViewModel() {
 

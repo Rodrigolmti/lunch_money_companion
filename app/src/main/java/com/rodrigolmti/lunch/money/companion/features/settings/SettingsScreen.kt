@@ -43,7 +43,7 @@ private val DummyISettingsUIModel = object : ISettingsUIModel {
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun SettingsScreen(
+internal fun SettingsScreen(
     uiModel: ISettingsUIModel = DummyISettingsUIModel,
     onLogout: () -> Unit = {},
     onTermsOfUseClick: () -> Unit = {},
@@ -122,7 +122,7 @@ fun SettingsScreen(
 
 @Preview
 @Composable
-fun SettingsScreenPreview() {
+private fun SettingsScreenPreview() {
     LunchMoneyCompanionTheme {
         SettingsScreen()
     }

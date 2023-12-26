@@ -21,6 +21,6 @@ fun LunchLoading() {
 
 @Preview
 @Composable
-fun LoadingPreview() {
+private fun LoadingPreview() {
     LunchLoading()
 }

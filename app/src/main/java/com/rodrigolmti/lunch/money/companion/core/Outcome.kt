@@ -1,6 +1,4 @@
-@file:OptIn(ExperimentalContracts::class, ExperimentalContracts::class,
-    ExperimentalContracts::class
-)
+@file:OptIn(ExperimentalContracts::class)
 
 package com.rodrigolmti.lunch.money.companion.core
 

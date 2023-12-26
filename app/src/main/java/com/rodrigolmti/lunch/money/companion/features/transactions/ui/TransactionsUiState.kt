@@ -5,13 +5,10 @@ import com.rodrigolmti.lunch.money.companion.features.transactions.model.Transac
 import kotlinx.collections.immutable.ImmutableList
 
 @Immutable
-sealed class TransactionsUiState {
-    @Immutable
+internal sealed class TransactionsUiState {
     data object Loading : TransactionsUiState()
 
-    @Immutable
     data object Error : TransactionsUiState()
 
-    @Immutable
     data class Success(val transactions: ImmutableList<TransactionView>) : TransactionsUiState()
 }

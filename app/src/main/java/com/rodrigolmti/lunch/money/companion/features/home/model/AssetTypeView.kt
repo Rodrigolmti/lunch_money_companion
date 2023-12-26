@@ -1,6 +1,6 @@
 package com.rodrigolmti.lunch.money.companion.features.home.model
 
-enum class AssetTypeView {
+internal enum class AssetTypeView {
     CASH,
     CREDIT,
     INVESTMENT,
@@ -13,4 +13,5 @@ enum class AssetTypeView {
     EMPLOYEE_COMPENSATION,
     OTHER_LIABILITIES,
     OTHER_ASSETS,
+    UNKNOWN
 }

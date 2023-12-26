@@ -61,20 +61,16 @@ internal val screens = listOf(
 )
 
 @Immutable
-sealed class BottomNavigationUiState {
-    @Immutable
+internal sealed class BottomNavigationUiState {
     data class ShowTransactionDetailBottomSheet(val transaction: TransactionView) :
         BottomNavigationUiState()
 
-    @Immutable
     data class ShowErrorBottomSheet(val title: String, val message: String) :
         BottomNavigationUiState()
 
-    @Immutable
     data class ShowInformationBottomSheet(val title: String, val message: String) :
         BottomNavigationUiState()
 
-    @Immutable
     data object Idle : BottomNavigationUiState()
 }
 

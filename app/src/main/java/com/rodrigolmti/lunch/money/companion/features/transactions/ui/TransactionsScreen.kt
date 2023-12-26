@@ -41,7 +41,7 @@ private object DummyITransactionsUIModel : ITransactionsUIModel {
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun TransactionsScreen(
+internal fun TransactionsScreen(
     uiModel: ITransactionsUIModel = DummyITransactionsUIModel,
     onTransactionItemClick: (TransactionView) -> Unit = {},
     onError: (String, String) -> Unit = { _, _ -> },
@@ -74,7 +74,6 @@ fun TransactionsScreen(
 
             TransactionsUiState.Error -> {
                 ErrorState(
-                    stringResource(R.string.transactions_title),
                     stringResource(R.string.transaction_empty_content_message),
                 )
 

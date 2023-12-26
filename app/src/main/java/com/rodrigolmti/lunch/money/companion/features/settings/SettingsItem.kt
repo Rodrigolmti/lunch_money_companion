@@ -28,7 +28,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.LunchMoneyCompanionThem
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 
 @Composable
-fun SettingsItem(
+internal fun SettingsItem(
     label: String,
     description: String? = null,
     icon: ImageVector,
@@ -84,7 +84,7 @@ fun SettingsItem(
 
 @Preview
 @Composable
-fun SettingsItemPreview() {
+private fun SettingsItemPreview() {
     LunchMoneyCompanionTheme {
         Column {
             SettingsItem(

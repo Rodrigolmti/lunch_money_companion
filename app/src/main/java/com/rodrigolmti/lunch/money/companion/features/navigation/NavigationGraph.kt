@@ -21,7 +21,7 @@ internal const val termsOfUseRoute = "/termsOfUse"
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun NavigationGraph(
+internal fun NavigationGraph(
     navController: NavHostController,
     viewModel: IMainActivityViewModel
 ) {

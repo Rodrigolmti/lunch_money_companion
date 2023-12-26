@@ -5,7 +5,7 @@ import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetType
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetModelView
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetTypeView
 
-fun AssetType.toView(): AssetTypeView = when (this) {
+internal fun AssetType.toView(): AssetTypeView = when (this) {
     AssetType.CASH -> AssetTypeView.CASH
     AssetType.INVESTMENT -> AssetTypeView.INVESTMENT
     AssetType.LOAN -> AssetTypeView.LOAN
@@ -18,9 +18,10 @@ fun AssetType.toView(): AssetTypeView = when (this) {
     AssetType.EMPLOYEE_COMPENSATION -> AssetTypeView.EMPLOYEE_COMPENSATION
     AssetType.OTHER_LIABILITIES -> AssetTypeView.OTHER_LIABILITIES
     AssetType.OTHER_ASSETS -> AssetTypeView.OTHER_ASSETS
+    AssetType.UNKNOWN -> AssetTypeView.UNKNOWN
 }
 
-fun AssetModel.toView() = AssetModelView(
+internal fun AssetModel.toView() = AssetModelView(
     name = name,
     balance = balance,
     currency = currency,

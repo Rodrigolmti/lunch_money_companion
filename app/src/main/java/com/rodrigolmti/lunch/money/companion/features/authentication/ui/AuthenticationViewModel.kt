@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-abstract class IAuthenticationViewModel : ViewModel(), IAuthenticationUIModel
+internal abstract class IAuthenticationViewModel : ViewModel(), IAuthenticationUIModel
 
-class AuthenticationViewModel(
+internal class AuthenticationViewModel(
     private val authenticateUser: suspend (String) -> Outcome<Unit, LunchError>,
     private val postAuthentication: suspend () -> Unit,
 ) : IAuthenticationViewModel() {

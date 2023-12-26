@@ -1,6 +1,6 @@
 package com.rodrigolmti.lunch.money.companion.composition.domain.model
 
-enum class AssetStatus {
+internal enum class AssetStatus {
     ACTIVE,
     INACTIVE,
     RELINK,

@@ -55,7 +55,7 @@ fun LunchButton(
 
 @Composable
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-fun ButtonPreview() {
+private fun ButtonPreview() {
     LunchMoneyCompanionTheme {
         Column {
             LunchButton(label = "Authenticate") {}
