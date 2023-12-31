@@ -8,10 +8,12 @@ internal data class AssetModelView(
     val name: String,
     val balance: Double,
     val currency: String,
+    val type: AssetTypeView,
 )
 
 internal fun fakeAssetModelView() = AssetModelView(
     name = ValueGenerator.gen(),
     balance = ValueGenerator.gen(),
     currency = "USD",
+    type = AssetTypeView.entries.toTypedArray().random(),
 )

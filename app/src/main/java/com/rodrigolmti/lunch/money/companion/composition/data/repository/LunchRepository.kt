@@ -27,6 +27,7 @@ private const val TOKEN_KEY = "token_key"
 
 private const val TRANSACTION_CACHE = "transaction_cache"
 private const val ASSET_CACHE = "asset_cache"
+private const val CRYPTO_CACHE = "crypto_cache"
 
 internal class LunchRepository(
     private val json: Json,
@@ -95,8 +96,9 @@ internal class LunchRepository(
         withContext(dispatchers.io()) {
             val assets = lunchService.getAssets().assets.map { it.toModel() }
             val plaidAccounts = lunchService.getPlaidAccounts().accounts.map { it.toModel() }
+            val crypto = lunchService.getCrypto().crypto.map { it.toModel() }
             assetCache.clear()
-            assetCache.put(ASSET_CACHE, assets + plaidAccounts)
+            assetCache.put(ASSET_CACHE, assets + plaidAccounts + crypto)
         }
     }
 

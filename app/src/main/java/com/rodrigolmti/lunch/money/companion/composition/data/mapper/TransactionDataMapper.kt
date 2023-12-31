@@ -2,6 +2,9 @@ package com.rodrigolmti.lunch.money.companion.composition.data.mapper
 
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.AssetResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.AssetTypeResponse
+import com.rodrigolmti.lunch.money.companion.composition.data.model.response.CryptoResponse
+import com.rodrigolmti.lunch.money.companion.composition.data.model.response.CryptoSourceResponse
+import com.rodrigolmti.lunch.money.companion.composition.data.model.response.CryptoStatusResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.PlaidAccountResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.PlaidAccountStatus
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionBodyResponse
@@ -9,6 +12,7 @@ import com.rodrigolmti.lunch.money.companion.composition.data.model.response.Tra
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionStatusResponse
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetModel
+import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetSource
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetStatus
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetType
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionCategoryModel
@@ -67,6 +71,19 @@ internal fun PlaidAccountResponse.toModel() = AssetModel(
     status = status.mapStatus(),
 )
 
+internal fun CryptoResponse.toModel() = AssetModel(
+    id = (id ?: zaboAccountId) ?: -1,
+    type = AssetType.CRYPTOCURRENCY,
+    subtypeName = "crypto",
+    name = name,
+    source = source.mapStatus(),
+    balance = balance.toDoubleOrNull() ?: 0.0,
+    balanceAsOf = balanceAsOf,
+    currency = currency,
+    institutionName = institutionName,
+    status = status.mapStatus(),
+)
+
 internal fun AssetResponse.toModel() = AssetModel(
     id = id,
     type = type.mapType(),
@@ -79,6 +96,12 @@ internal fun AssetResponse.toModel() = AssetModel(
     status = AssetStatus.UNKNOWN,
 )
 
+internal fun CryptoSourceResponse.mapStatus() = when (this) {
+    CryptoSourceResponse.MANUAL -> AssetSource.MANUAL
+    CryptoSourceResponse.SYNCED -> AssetSource.SYNCED
+    CryptoSourceResponse.UNKNOWN -> AssetSource.UNKNOWN
+}
+
 internal fun TransactionCategoryResponse.toModel() = TransactionCategoryModel(
     id = id,
     description = description,
@@ -87,6 +110,12 @@ internal fun TransactionCategoryResponse.toModel() = TransactionCategoryModel(
     isIncome = isIncome,
     name = name
 )
+
+private fun CryptoStatusResponse.mapStatus(): AssetStatus = when (this) {
+    CryptoStatusResponse.ACTIVE -> AssetStatus.ACTIVE
+    CryptoStatusResponse.INACTIVE -> AssetStatus.INACTIVE
+    CryptoStatusResponse.UNKNOWN -> AssetStatus.UNKNOWN
+}
 
 private fun AssetTypeResponse.mapType(): AssetType = when (this) {
     AssetTypeResponse.CREDIT -> AssetType.CREDIT

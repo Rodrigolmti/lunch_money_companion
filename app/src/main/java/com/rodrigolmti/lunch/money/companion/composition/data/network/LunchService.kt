@@ -1,6 +1,7 @@
 package com.rodrigolmti.lunch.money.companion.composition.data.network
 
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.AssetsBodyResponse
+import com.rodrigolmti.lunch.money.companion.composition.data.model.response.CryptoBodyResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.PlaidAccountBodyResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionBodyResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionCategoryBodyResponse
@@ -31,4 +32,8 @@ internal interface LunchService {
     @Authenticated
     @GET("v1/plaid_accounts")
     suspend fun getPlaidAccounts(): PlaidAccountBodyResponse
+
+    @Authenticated
+    @GET("v1/crypto")
+    suspend fun getCrypto(): CryptoBodyResponse
 }

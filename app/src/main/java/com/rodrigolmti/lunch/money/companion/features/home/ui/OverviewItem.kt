@@ -21,6 +21,7 @@ import com.rodrigolmti.lunch.money.companion.core.utils.formatCurrency
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetModelView
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetOverviewView
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetTypeView
+import com.rodrigolmti.lunch.money.companion.features.home.model.fakeAssetOverviewView
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
@@ -68,10 +69,7 @@ internal fun OverviewItem(
                             )
 
                             Text(
-                                text = formatCurrency(
-                                    asset.balance.toFloat(),
-                                    asset.currency
-                                ),
+                                text = formatItemValue(asset),
                                 textAlign = TextAlign.Start,
                                 color = White,
                                 style = Body,
@@ -82,6 +80,17 @@ internal fun OverviewItem(
             }
         }
     }
+}
+
+private fun formatItemValue(asset: AssetModelView): String {
+    if (asset.type == AssetTypeView.CRYPTOCURRENCY) {
+        return asset.balance.toString()
+    }
+
+    return formatCurrency(
+        asset.balance.toFloat(),
+        asset.currency
+    )
 }
 
 @Composable
@@ -107,17 +116,9 @@ private fun getAssetTypeLabel(type: AssetTypeView): String {
 private fun OverviewItemPreview() {
     OverviewItem(
         overviews = listOf(
-            AssetOverviewView(
-                total = 100.0,
-                type = AssetTypeView.CASH,
-                assets = listOf(
-                    AssetModelView(
-                        balance = 100.0,
-                        currency = "USD",
-                        name = "CIBC",
-                    )
-                )
-            )
+            fakeAssetOverviewView(),
+            fakeAssetOverviewView(),
+            fakeAssetOverviewView()
         )
     )
 }

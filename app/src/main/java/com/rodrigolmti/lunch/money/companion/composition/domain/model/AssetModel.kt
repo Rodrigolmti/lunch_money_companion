@@ -16,6 +16,12 @@ internal enum class AssetType {
     UNKNOWN,
 }
 
+internal enum class AssetSource {
+    SYNCED,
+    MANUAL,
+    UNKNOWN,
+}
+
 internal data class AssetModel(
     val id: Int,
     val type: AssetType,
@@ -26,5 +32,6 @@ internal data class AssetModel(
     val currency: String,
     val institutionName: String?,
     val status: AssetStatus,
+    val source : AssetSource = AssetSource.UNKNOWN,
 )
 

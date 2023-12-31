@@ -25,4 +25,5 @@ internal fun AssetModel.toView() = AssetModelView(
     name = name,
     balance = balance,
     currency = currency,
+    type = type.toView(),
 )
