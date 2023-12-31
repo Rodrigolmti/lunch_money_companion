@@ -1,6 +1,8 @@
 # Lunch Money Companion App
 
-![Icon](https://github.com/Rodrigolmti/lunch_money_companion/blob/main/app/src/main/res/drawable/ic_coin.png)
+<p align="center">
+  <img src="https://github.com/Rodrigolmti/lunch_money_companion/blob/main/app/src/main/res/drawable/ic_coin.png" width="150" height="150">
+</p>
 
 ## Introduction
 Welcome to the Lunch Money Companion App, an Android application crafted by Rodrigo Lopes Martins. This app serves as an independent client for the Lunch Money personal finance service, aiming to provide Android users with a seamless experience in visualizing their financial data. Though not affiliated with Lunch Money, this app faithfully replicates the user experience of the official web application using Lunch Money's public APIs.
@@ -10,7 +12,9 @@ Welcome to the Lunch Money Companion App, an Android application crafted by Rodr
 - **User Privacy:** No data collection or storage. Your information stays between you and Lunch Money.
 - **Seamless User Experience:** Mimics the layout and UX of the official Lunch Money web application for familiarity.
 
-![Authentication](https://github.com/Rodrigolmti/lunch_money_companion/blob/main/images/screen_1.png)
+<p align="center">
+  <img src="https://github.com/Rodrigolmti/lunch_money_companion/blob/main/images/screen_1.png" width="300">
+</p>
 
 ## Technology Stack
 - **Jetpack Compose:** Modern UI toolkit for intuitive and responsive layouts.
