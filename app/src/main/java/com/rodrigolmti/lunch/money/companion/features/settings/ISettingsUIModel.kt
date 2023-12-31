@@ -5,5 +5,7 @@ import kotlinx.coroutines.flow.StateFlow
 internal interface ISettingsUIModel {
     val viewState: StateFlow<SettingsScreenUiState>
 
+    fun getUserData()
+
     fun logout()
 }

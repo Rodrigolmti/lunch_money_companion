@@ -19,12 +19,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.rodrigolmti.lunch.money.companion.BuildConfig
+import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
+import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
+import com.rodrigolmti.lunch.money.companion.uikit.components.LunchLoading
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
@@ -44,6 +49,8 @@ internal fun SettingsScreen(
     val padding = PaddingValues(start = 16.dp, end = 16.dp)
 
     LaunchedEffect(Unit) {
+        uiModel.getUserData()
+
         if (viewState is SettingsScreenUiState.Logout) {
             onLogout()
         }
@@ -51,64 +58,88 @@ internal fun SettingsScreen(
 
     Scaffold(
         topBar = {
-            LunchAppBar("Settings")
+            LunchAppBar(stringResource(R.string.settings_screen_title))
         }
     ) {
-        Column {
-            VerticalSpacer(height = 72.dp)
 
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(16.dp),
-            ) {
-
-                Icon(
-                    Icons.Default.AccountCircle,
-                    tint = GraphiteWhisper,
-                    modifier = Modifier
-                        .size(42.dp),
-                    contentDescription = "Profile",
-                )
-                VerticalSpacer(8.dp)
-                Column {
-                    Text(
-                        text = "Rodrigo Lopes Martins",
-                        modifier = Modifier
-                            .padding(padding)
-                            .fillMaxWidth(),
-                        textAlign = TextAlign.Start,
-                        color = SilverLining,
-                        style = BodyBold,
-                    )
-                    VerticalSpacer(8.dp)
-                    Text(
-                        text = "rodrigolmti@gmail.com",
-                        modifier = Modifier
-                            .padding(padding),
-                        color = SilverLining,
-                        style = Body,
-                    )
+        when (viewState) {
+            is SettingsScreenUiState.Loading -> {
+                Center {
+                    LunchLoading()
                 }
             }
 
-            SettingsItem(label = "Terms of Use", icon = Icons.Default.Person) {
-                onTermsOfUseClick()
-            }
-            SettingsItem(
-                label = "Lunch Money for Android",
-                description = "1.0.0 made with ❤️ by Rodrigo L.M",
-                icon = Icons.Default.Person
-            )
-            SettingsItem(
-                label = "Sign Out",
-                color = FadedBlood,
-                icon = Icons.Default.ExitToApp
-            ) {
-                uiModel.logout()
+            is SettingsScreenUiState.Success -> {
+                val data = (viewState as SettingsScreenUiState.Success).data
+
+                Column {
+                    VerticalSpacer(height = 72.dp)
+
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        modifier = Modifier.padding(16.dp),
+                    ) {
+
+                        Icon(
+                            Icons.Default.AccountCircle,
+                            tint = GraphiteWhisper,
+                            modifier = Modifier
+                                .size(42.dp),
+                            contentDescription = stringResource(R.string.settings_screen_profile_label),
+                        )
+                        VerticalSpacer(8.dp)
+                        Column {
+                            Text(
+                                text = data.userName,
+                                modifier = Modifier
+                                    .padding(padding)
+                                    .fillMaxWidth(),
+                                textAlign = TextAlign.Start,
+                                color = SilverLining,
+                                style = BodyBold,
+                            )
+                            VerticalSpacer(8.dp)
+                            Text(
+                                text = data.userEmail,
+                                modifier = Modifier
+                                    .padding(padding),
+                                color = SilverLining,
+                                style = Body,
+                            )
+                        }
+                    }
+
+                    SettingsItem(
+                        label = stringResource(R.string.settings_screen_terms_label),
+                        icon = Icons.Default.Person
+                    ) {
+                        onTermsOfUseClick()
+                    }
+                    SettingsItem(
+                        label = stringResource(R.string.settings_screen_app_description),
+                        description = stringResource(
+                            R.string.settings_screen_app_version,
+                            BuildConfig.VERSION_NAME
+                        ),
+                        icon = Icons.Default.Person
+                    )
+                    SettingsItem(
+                        label = stringResource(R.string.settings_screen_sign_out_action),
+                        color = FadedBlood,
+                        icon = Icons.Default.ExitToApp
+                    ) {
+                        uiModel.logout()
+                    }
+
+                    VerticalSpacer(32.dp)
+                }
             }
 
-            VerticalSpacer(32.dp)
+            else -> {
+                // no-op
+            }
         }
+
     }
 }
 

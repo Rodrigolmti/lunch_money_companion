@@ -2,6 +2,7 @@ package com.rodrigolmti.lunch.money.companion.composition.di
 
 import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.TokenDTO
 import com.rodrigolmti.lunch.money.companion.composition.di.adapter.HomeFeatureAdapter
+import com.rodrigolmti.lunch.money.companion.composition.di.adapter.SettingsFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.di.adapter.TransactionFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
 import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.ExecuteStartupLogicUseCase
@@ -49,7 +50,10 @@ private val transactionsModule = module {
 private val settingsModule = module {
     viewModel<ISettingsViewModel> {
         SettingsViewModel(
-            logoutUser = { get<ILunchRepository>().logoutUser() }
+            logoutUserRunner = { get<ILunchRepository>().logoutUser() },
+            getUserDataRunner = {
+                SettingsFeatureAdapter(get()).getUserData()
+            },
         )
     }
 }
