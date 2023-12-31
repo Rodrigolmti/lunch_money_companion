@@ -14,9 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.R
+import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.core.utils.formatCurrency
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetModelView
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetOverviewView
@@ -102,8 +102,8 @@ private fun getAssetTypeLabel(type: AssetTypeView): String {
     }
 }
 
-@Preview
 @Composable
+@LunchMoneyPreview
 private fun OverviewItemPreview() {
     OverviewItem(
         overviews = listOf(

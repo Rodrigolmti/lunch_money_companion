@@ -20,9 +20,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
@@ -31,20 +32,11 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.FadedBlood
 import com.rodrigolmti.lunch.money.companion.uikit.theme.GraphiteWhisper
 import com.rodrigolmti.lunch.money.companion.uikit.theme.LunchMoneyCompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
-import kotlinx.coroutines.flow.MutableStateFlow
-
-private val DummyISettingsUIModel = object : ISettingsUIModel {
-    override val viewState = MutableStateFlow<SettingsScreenUiState>(SettingsScreenUiState.Idle)
-
-    override fun logout() {
-        // no-op
-    }
-}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun SettingsScreen(
-    uiModel: ISettingsUIModel = DummyISettingsUIModel,
+    uiModel: ISettingsUIModel = DummyISettingsUIModel(),
     onLogout: () -> Unit = {},
     onTermsOfUseClick: () -> Unit = {},
 ) {
@@ -120,10 +112,12 @@ internal fun SettingsScreen(
     }
 }
 
-@Preview
 @Composable
-private fun SettingsScreenPreview() {
+@LunchMoneyPreview
+private fun SettingsScreenPreview(
+    @PreviewParameter(SettingsUIModelProvider::class) uiModel: ISettingsUIModel
+) {
     LunchMoneyCompanionTheme {
-        SettingsScreen()
+        SettingsScreen(uiModel)
     }
 }

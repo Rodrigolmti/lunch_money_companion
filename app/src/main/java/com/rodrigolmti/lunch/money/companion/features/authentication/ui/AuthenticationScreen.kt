@@ -1,4 +1,5 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class,
+@file:OptIn(
+    ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class,
     ExperimentalComposeUiApi::class
 )
 
@@ -6,7 +7,6 @@ package com.rodrigolmti.lunch.money.companion.features.authentication.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -42,16 +42,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.DEVELOPER_URL
+import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.core.utils.openUrl
+import com.rodrigolmti.lunch.money.companion.uikit.components.BottomSheetComponent
 import com.rodrigolmti.lunch.money.companion.uikit.components.BouncingImageAnimation
 import com.rodrigolmti.lunch.money.companion.uikit.components.Center
-import com.rodrigolmti.lunch.money.companion.uikit.components.BottomSheetComponent
 import com.rodrigolmti.lunch.money.companion.uikit.components.HorizontalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchButton
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchTextField
@@ -64,20 +65,12 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.LunchMoneyCompanionThem
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-
-private object DummyAuthenticationUIModel : IAuthenticationUIModel {
-    override val viewState = MutableStateFlow<AuthenticationUiState>(AuthenticationUiState.Idle)
-    override fun onGetStartedClicked(token: String) {
-        // no-op
-    }
-}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun AuthenticationScreen(
-    uiModel: IAuthenticationUIModel = DummyAuthenticationUIModel,
+    uiModel: IAuthenticationUIModel = DummyAuthenticationUIModel(),
     onUserAuthenticated: () -> Unit = {},
 ) {
     Scaffold(
@@ -116,6 +109,7 @@ internal fun AuthenticationScreen(
                             stringResource(R.string.connection_error_message),
                         )
                     }
+
                     else -> Pair(
                         stringResource(R.string.authentication_invalid_token_title),
                         stringResource(R.string.authentication_invalid_token_description),
@@ -259,9 +253,11 @@ private fun AuthenticationBody(
 }
 
 @Composable
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-private fun AuthenticationScreenPreview() {
+@LunchMoneyPreview
+private fun AuthenticationScreenPreview(
+    @PreviewParameter(AuthenticationUIModelProvider::class) uiModel: IAuthenticationUIModel
+) {
     LunchMoneyCompanionTheme {
-        AuthenticationScreen()
+        AuthenticationScreen(uiModel)
     }
 }

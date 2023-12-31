@@ -1,6 +1,7 @@
 package com.rodrigolmti.lunch.money.companion.features.transactions.model
 
 import androidx.compose.runtime.Immutable
+import com.rodrigolmti.lunch.money.companion.core.utils.ValueGenerator
 
 @Immutable
 internal data class TransactionView(
@@ -16,3 +17,15 @@ internal data class TransactionView(
     val status: TransactionStatusView,
 )
 
+internal fun fakeTransactionView() = TransactionView(
+    id = ValueGenerator.genId(),
+    date = ValueGenerator.genDate(),
+    payee = ValueGenerator.gen(),
+    amount = ValueGenerator.gen(),
+    currency = ValueGenerator.gen(),
+    notes = ValueGenerator.gen(),
+    assetName = ValueGenerator.gen(),
+    originalName = ValueGenerator.gen(),
+    categoryName = ValueGenerator.gen(),
+    status = TransactionStatusView.entries.toTypedArray().random(),
+)

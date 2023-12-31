@@ -4,8 +4,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 
@@ -19,8 +19,8 @@ fun LunchLoading() {
     )
 }
 
-@Preview
 @Composable
+@LunchMoneyPreview
 private fun LoadingPreview() {
     LunchLoading()
 }

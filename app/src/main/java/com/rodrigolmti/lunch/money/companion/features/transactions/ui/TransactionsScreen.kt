@@ -21,28 +21,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rodrigolmti.lunch.money.companion.R
+import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
 import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.ErrorState
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchLoading
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
-import kotlinx.coroutines.flow.MutableStateFlow
-
-private object DummyITransactionsUIModel : ITransactionsUIModel {
-    override val viewState = MutableStateFlow<TransactionsUiState>(TransactionsUiState.Loading)
-    override fun getTransactions() {
-        // no-op
-    }
-}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun TransactionsScreen(
-    uiModel: ITransactionsUIModel = DummyITransactionsUIModel,
+    uiModel: ITransactionsUIModel = DummyITransactionsUIModel(),
     onTransactionItemClick: (TransactionView) -> Unit = {},
     onError: (String, String) -> Unit = { _, _ -> },
 ) {
@@ -132,3 +126,10 @@ private fun BuildSuccessState(
     }
 }
 
+@Composable
+@LunchMoneyPreview
+private fun TransactionsScreenPreview(
+    @PreviewParameter(TransactionsUIModelProvider::class) uiModel: ITransactionsUIModel
+) {
+    TransactionsScreen(uiModel)
+}

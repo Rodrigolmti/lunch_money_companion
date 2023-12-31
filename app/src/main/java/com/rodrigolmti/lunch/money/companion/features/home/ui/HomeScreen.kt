@@ -23,11 +23,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rodrigolmti.lunch.money.companion.R
+import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetOverviewView
 import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.ErrorState
@@ -35,26 +36,11 @@ import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchLoading
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-
-private val DummyIHomeUIModel = object : IHomeUIModel {
-    override val viewState: StateFlow<HomeUiState> =
-        MutableStateFlow<HomeUiState>(HomeUiState.Loading)
-
-    override fun getAccountOverview() {
-        // no-op
-    }
-
-    override fun onRefresh() {
-        // no-op
-    }
-}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun HomeScreen(
-    uiModel: IHomeUIModel = DummyIHomeUIModel,
+    uiModel: IHomeUIModel = DummyIHomeUIModel(),
     onError: (String, String) -> Unit = { _, _ -> },
 ) {
     val viewState by uiModel.viewState.collectAsStateWithLifecycle()
@@ -137,9 +123,10 @@ private fun BuildSuccessState(
     }
 }
 
-
-@Preview
 @Composable
-fun HomeScreenPreview() {
-    HomeScreen()
+@LunchMoneyPreview
+private fun HomeScreenPreview(
+    @PreviewParameter(HomeUIModelProvider::class) uiModel: IHomeUIModel
+) {
+    HomeScreen(uiModel)
 }

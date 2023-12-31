@@ -1,6 +1,5 @@
 package com.rodrigolmti.lunch.money.companion.uikit.components
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
@@ -9,8 +8,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.LunchMoneyCompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
@@ -54,7 +53,7 @@ fun LunchButton(
 }
 
 @Composable
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@LunchMoneyPreview
 private fun ButtonPreview() {
     LunchMoneyCompanionTheme {
         Column {
