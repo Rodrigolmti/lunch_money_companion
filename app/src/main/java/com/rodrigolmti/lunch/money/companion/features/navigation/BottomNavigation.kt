@@ -154,12 +154,19 @@ internal fun BottomNavigation(
                     val uiModel = koinViewModel<ITransactionsViewModel>()
 
                     TransactionsScreen(uiModel, {
-                        state.value = BottomNavigationUiState.ShowTransactionDetailBottomSheet(it)
-                        scope.launch { sheetState.show() }
+                        updateBottomSheetState(
+                            state,
+                            BottomNavigationUiState.ShowTransactionDetailBottomSheet(it),
+                            sheetState,
+                            scope
+                        )
                     }, { title, description ->
-                        state.value =
-                            BottomNavigationUiState.ShowErrorBottomSheet(title, description)
-                        scope.launch { sheetState.show() }
+                        updateBottomSheetState(
+                            state,
+                            BottomNavigationUiState.ShowErrorBottomSheet(title, description),
+                            sheetState,
+                            scope
+                        )
                     })
                 }
 
@@ -177,14 +184,27 @@ internal fun BottomNavigation(
                     val uiModel = koinViewModel<IHomeViewModel>()
 
                     HomeScreen(uiModel) { title, description ->
-                        state.value =
-                            BottomNavigationUiState.ShowErrorBottomSheet(title, description)
-                        scope.launch { sheetState.show() }
+                        updateBottomSheetState(
+                            state,
+                            BottomNavigationUiState.ShowInformationBottomSheet(title, description),
+                            sheetState,
+                            scope
+                        )
                     }
                 }
             }
         }
     }
+}
+
+private fun updateBottomSheetState(
+    state: MutableState<BottomNavigationUiState>,
+    newState: BottomNavigationUiState,
+    sheetState: ModalBottomSheetState,
+    scope: CoroutineScope,
+) {
+    state.value = newState
+    scope.launch { sheetState.show() }
 }
 
 @Composable

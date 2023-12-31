@@ -17,15 +17,17 @@ internal data class TransactionView(
     val status: TransactionStatusView,
 )
 
-internal fun fakeTransactionView() = TransactionView(
-    id = ValueGenerator.genId(),
-    date = ValueGenerator.genDate(),
+internal fun fakeTransactionView(
+    status: TransactionStatusView = TransactionStatusView.entries.toTypedArray().random()
+) = TransactionView(
+    id = ValueGenerator.id(),
+    date = ValueGenerator.date("dd/MM/yyyy"),
     payee = ValueGenerator.gen(),
     amount = ValueGenerator.gen(),
-    currency = ValueGenerator.gen(),
+    currency = ValueGenerator.currency(),
     notes = ValueGenerator.gen(),
     assetName = ValueGenerator.gen(),
     originalName = ValueGenerator.gen(),
     categoryName = ValueGenerator.gen(),
-    status = TransactionStatusView.entries.toTypedArray().random(),
+    status = status,
 )

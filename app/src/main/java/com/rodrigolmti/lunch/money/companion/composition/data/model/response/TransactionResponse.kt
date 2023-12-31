@@ -73,5 +73,9 @@ internal enum class TransactionStatusResponse {
 
     @SerialName("pending")
     PENDING,
+
+    @SerialName("delete_pending")
+    DELETE_PENDING,
+
     UNKNOWN,
 }

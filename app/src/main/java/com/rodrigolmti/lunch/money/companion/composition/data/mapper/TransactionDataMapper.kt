@@ -112,7 +112,7 @@ private fun PlaidAccountStatus.mapStatus(): AssetStatus = when (this) {
     PlaidAccountStatus.NOT_SUPPORTED -> AssetStatus.NOT_SUPPORTED
     PlaidAccountStatus.RELINK -> AssetStatus.RELINK
     PlaidAccountStatus.SYNCING -> AssetStatus.SYNCING
-    else -> AssetStatus.UNKNOWN
+    PlaidAccountStatus.UNKNOWN -> AssetStatus.UNKNOWN
 }
 
 private fun TransactionResponse.mapStatus(): TransactionStatus = when (status) {
@@ -121,5 +121,6 @@ private fun TransactionResponse.mapStatus(): TransactionStatus = when (status) {
     TransactionStatusResponse.RECURRING -> TransactionStatus.RECURRING
     TransactionStatusResponse.UNCLEARED -> TransactionStatus.UNCLEARED
     TransactionStatusResponse.RECURRING_SUGGESTED -> TransactionStatus.RECURRING_SUGGESTED
-    else -> TransactionStatus.UNKNOWN
+    TransactionStatusResponse.DELETE_PENDING -> TransactionStatus.DELETE_PENDING
+    TransactionStatusResponse.UNKNOWN -> TransactionStatus.UNKNOWN
 }

@@ -25,4 +25,5 @@ internal fun TransactionStatus.toView() = when (this) {
     TransactionStatus.RECURRING -> TransactionStatusView.RECURRING
     TransactionStatus.RECURRING_SUGGESTED -> TransactionStatusView.RECURRING_SUGGESTED
     TransactionStatus.UNCLEARED -> TransactionStatusView.UNCLEARED
+    TransactionStatus.DELETE_PENDING -> TransactionStatusView.DELETE_PENDING
 }

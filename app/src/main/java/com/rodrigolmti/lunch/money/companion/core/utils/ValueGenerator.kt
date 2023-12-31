@@ -1,6 +1,7 @@
 package com.rodrigolmti.lunch.money.companion.core.utils
 
 import java.text.SimpleDateFormat
+import java.util.Currency
 import java.util.Date
 import java.util.Locale
 import java.util.UUID
@@ -9,20 +10,24 @@ import kotlin.random.Random
 internal class ValueGenerator private constructor() {
 
     companion object {
+        private val availableCurrencies: List<Currency> = Currency.getAvailableCurrencies().toList()
         val instance: ValueGenerator by lazy { ValueGenerator() }
 
         inline fun <reified T : Any> gen(min: T? = null, max: T? = null): T {
             return instance.internalGenerateValue(min, max)
         }
 
-        internal fun genId(): String {
+        internal fun id(): String {
             return instance.generateStringIdInternal()
         }
 
-        internal fun genDate(format: String = "dd/MM/yyyy HH:mm:ss"): String {
+        internal fun date(format: String = "dd/MM/yyyy HH:mm:ss"): String {
             return instance.generateDateStringInternal(format)
         }
 
+        internal fun currency(): String {
+            return availableCurrencies.random().currencyCode
+        }
     }
 
     private inline fun <reified T : Any> internalGenerateValue(min: T? = null, max: T? = null): T {

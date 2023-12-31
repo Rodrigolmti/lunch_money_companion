@@ -23,15 +23,18 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.R
+import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.core.utils.formatCurrency
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionStatusView
 import com.rodrigolmti.lunch.money.companion.uikit.components.HorizontalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
+import com.rodrigolmti.lunch.money.companion.features.transactions.model.fakeTransactionView
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
 import com.rodrigolmti.lunch.money.companion.uikit.theme.EmeraldSpring
+import com.rodrigolmti.lunch.money.companion.uikit.theme.FadedBlood
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 import com.rodrigolmti.lunch.money.companion.uikit.theme.TropicalLagoon
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
@@ -134,11 +137,31 @@ internal fun TransactionItem(
     }
 }
 
+@Composable
+@LunchMoneyPreview
+fun TransactionItemPreview() {
+    Column {
+        TransactionItem(fakeTransactionView(status = TransactionStatusView.CLEARED)) {}
+        VerticalSpacer(height = 8.dp)
+        TransactionItem(fakeTransactionView(status = TransactionStatusView.PENDING)) {}
+        VerticalSpacer(height = 8.dp)
+        TransactionItem(fakeTransactionView(status = TransactionStatusView.UNKNOWN)) {}
+        VerticalSpacer(height = 8.dp)
+        TransactionItem(fakeTransactionView(status = TransactionStatusView.RECURRING)) {}
+        VerticalSpacer(height = 8.dp)
+        TransactionItem(fakeTransactionView(status = TransactionStatusView.UNCLEARED)) {}
+        VerticalSpacer(height = 8.dp)
+        TransactionItem(fakeTransactionView(status = TransactionStatusView.RECURRING_SUGGESTED)) {}
+        VerticalSpacer(height = 8.dp)
+        TransactionItem(fakeTransactionView(status = TransactionStatusView.DELETE_PENDING)) {}
+    }
+}
+
 private fun getTransactionStatusColor(status: TransactionStatusView): Color = when (status) {
     TransactionStatusView.CLEARED -> EmeraldSpring
     TransactionStatusView.RECURRING -> TropicalLagoon
     TransactionStatusView.RECURRING_SUGGESTED -> TropicalLagoon
-    TransactionStatusView.PENDING -> Color.Red
+    TransactionStatusView.PENDING, TransactionStatusView.DELETE_PENDING -> FadedBlood
     TransactionStatusView.UNCLEARED, TransactionStatusView.UNKNOWN -> SilverLining
 }
 
@@ -150,4 +173,5 @@ private fun getTransactionStatusLabel(status: TransactionStatusView): String = w
     TransactionStatusView.PENDING -> stringResource(R.string.transaction_label_pending)
     TransactionStatusView.UNKNOWN -> stringResource(R.string.transaction_label_unknown)
     TransactionStatusView.UNCLEARED -> stringResource(R.string.transaction_label_uncleared)
+    TransactionStatusView.DELETE_PENDING -> stringResource(R.string.transaction_pending_delete)
 }
