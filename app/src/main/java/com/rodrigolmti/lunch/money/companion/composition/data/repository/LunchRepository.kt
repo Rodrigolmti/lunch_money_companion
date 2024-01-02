@@ -68,11 +68,14 @@ internal class LunchRepository(
         }
     }
 
-    override suspend fun getTransactions(): Outcome<List<TransactionModel>, LunchError> {
+    override suspend fun getTransactions(
+        start: String,
+        end: String,
+    ): Outcome<List<TransactionModel>, LunchError> {
         return withContext(dispatchers.io()) {
             runCatching {
                 mapTransactions(
-                    lunchService.getTransactions(),
+                    lunchService.getTransactions(start, end),
                     transactionCache.get(TRANSACTION_CACHE, emptyList()),
                     assetCache.get(ASSET_CACHE, emptyList()),
                 ).reversed()

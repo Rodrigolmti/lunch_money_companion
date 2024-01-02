@@ -21,7 +21,6 @@ import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,7 +34,6 @@ import com.rodrigolmti.lunch.money.companion.features.home.ui.HomeScreen
 import com.rodrigolmti.lunch.money.companion.features.home.ui.IHomeViewModel
 import com.rodrigolmti.lunch.money.companion.features.settings.ISettingsViewModel
 import com.rodrigolmti.lunch.money.companion.features.settings.SettingsScreen
-import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.ITransactionsViewModel
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.TransactionDetailScreen
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.TransactionsScreen
@@ -48,31 +46,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
-internal enum class BottomNavigationRouter {
-    HOME,
-    TRANSACTIONS,
-    SETTINGS,
-}
-
 internal val screens = listOf(
     BottomNavigationRouter.HOME,
     BottomNavigationRouter.TRANSACTIONS,
     BottomNavigationRouter.SETTINGS,
 )
-
-@Immutable
-internal sealed class BottomNavigationUiState {
-    data class ShowTransactionDetailBottomSheet(val transaction: TransactionView) :
-        BottomNavigationUiState()
-
-    data class ShowErrorBottomSheet(val title: String, val message: String) :
-        BottomNavigationUiState()
-
-    data class ShowInformationBottomSheet(val title: String, val message: String) :
-        BottomNavigationUiState()
-
-    data object Idle : BottomNavigationUiState()
-}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

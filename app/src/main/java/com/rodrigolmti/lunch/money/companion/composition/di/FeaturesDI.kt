@@ -40,8 +40,8 @@ private val homeModule = module {
 private val transactionsModule = module {
     viewModel<ITransactionsViewModel> {
         TransactionsViewModel(
-            getUserTransactions = {
-                TransactionFeatureAdapter(get()).getTransactions()
+            getUserTransactions = { start, end ->
+                TransactionFeatureAdapter(get()).getTransactions(start, end)
             },
         )
     }

@@ -31,7 +31,7 @@ import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetOverviewView
 import com.rodrigolmti.lunch.money.companion.uikit.components.Center
-import com.rodrigolmti.lunch.money.companion.uikit.components.ErrorState
+import com.rodrigolmti.lunch.money.companion.uikit.components.EmptyState
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchLoading
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
@@ -71,7 +71,7 @@ internal fun HomeScreen(
             }
 
             is HomeUiState.Error -> {
-                ErrorState(
+                EmptyState(
                     stringResource(R.string.common_error_title),
                 )
 

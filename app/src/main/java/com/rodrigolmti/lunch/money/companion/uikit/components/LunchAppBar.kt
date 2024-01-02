@@ -3,6 +3,7 @@
 package com.rodrigolmti.lunch.money.companion.uikit.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -21,7 +22,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 internal fun LunchAppBar(
     title: String,
     onBackClick: (() -> Unit)? = null,
-    actionIcon: @Composable (() -> Unit)? = null,
+    actionIcon: @Composable RowScope.() -> Unit = {},
 ) {
     TopAppBar(
         navigationIcon = {
@@ -39,7 +40,7 @@ internal fun LunchAppBar(
             }
         },
         actions = {
-            actionIcon?.invoke()
+            actionIcon.invoke(this)
         },
         title = {
             Text(

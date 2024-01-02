@@ -10,7 +10,11 @@ import com.rodrigolmti.lunch.money.companion.core.Outcome
 internal interface ILunchRepository {
     suspend fun authenticateUser(tokenDTO: TokenDTO): Outcome<Unit, LunchError>
     suspend fun logoutUser(): Outcome<Unit, LunchError>
-    suspend fun getTransactions(): Outcome<List<TransactionModel>, LunchError>
+    suspend fun getTransactions(
+        start: String,
+        end: String,
+    ): Outcome<List<TransactionModel>, LunchError>
+
     fun getAssets(): List<AssetModel>
     suspend fun cacheTransactionCategories()
     suspend fun cacheAssets()

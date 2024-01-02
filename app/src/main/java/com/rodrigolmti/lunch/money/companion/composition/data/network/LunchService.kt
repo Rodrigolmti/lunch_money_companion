@@ -9,6 +9,7 @@ import com.rodrigolmti.lunch.money.companion.composition.data.model.response.Use
 import com.rodrigolmti.lunch.money.companion.core.network.Authenticated
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Query
 
 internal interface LunchService {
 
@@ -19,7 +20,10 @@ internal interface LunchService {
 
     @Authenticated
     @GET("v1/transactions")
-    suspend fun getTransactions(): TransactionBodyResponse
+    suspend fun getTransactions(
+        @Query("start_date") start: String,
+        @Query("end_date") end: String,
+    ): TransactionBodyResponse
 
     @Authenticated
     @GET("v1/categories")

@@ -13,7 +13,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 
 @Composable
-internal fun ErrorState(
+internal fun EmptyState(
     message: String,
 ) {
     Center(
@@ -40,7 +40,7 @@ internal fun ErrorState(
 @Composable
 @LunchMoneyPreview
 private fun ErrorStatePreview() {
-    ErrorState(
+    EmptyState(
         message = "Something went wrong",
     )
 }

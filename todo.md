@@ -1,3 +1,2 @@
 - Make the transaction detail bottom sheet to expand
 - Fix problem with negative and positive values on transactions list
-- Add filter to transactions list
