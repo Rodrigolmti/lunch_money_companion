@@ -14,6 +14,8 @@ Welcome to the Lunch Money Companion App, an Android application crafted by Rodr
 
 <p align="center">
   <img src="https://github.com/Rodrigolmti/lunch_money_companion/blob/main/images/screen_1.png" width="300">
+  <img src="https://github.com/Rodrigolmti/lunch_money_companion/blob/main/images/screen_2.png" width="300">
+  <img src="https://github.com/Rodrigolmti/lunch_money_companion/blob/main/images/screen_3.png" width="300">
 </p>
 
 ## Technology Stack
