@@ -36,7 +36,7 @@ internal class SettingsViewModel(
         viewModelScope.launch {
             _viewState.value = SettingsScreenUiState.Loading
             logoutUserRunner().onFinally {
-                _viewState.value = SettingsScreenUiState.Logout
+                _viewState.emit(SettingsScreenUiState.Logout)
             }
         }
     }

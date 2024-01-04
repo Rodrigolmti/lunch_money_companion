@@ -57,8 +57,11 @@ internal fun TransactionsScreen(
 
     var filterState by remember { mutableStateOf(FilterState()) }
 
-    val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden,
-        confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded })
+    val sheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        confirmValueChange = { true },
+        skipHalfExpanded = true
+    )
     val scope = rememberCoroutineScope()
 
     val listState = rememberLazyListState()

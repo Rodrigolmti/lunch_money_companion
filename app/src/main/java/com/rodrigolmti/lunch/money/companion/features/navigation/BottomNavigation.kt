@@ -61,8 +61,11 @@ internal fun BottomNavigation(
     onScreenSelected: (BottomNavigationRouter) -> Unit,
 ) {
     val sheetState =
-        rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden,
-            confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded })
+        rememberModalBottomSheetState(
+            initialValue = ModalBottomSheetValue.Hidden,
+            confirmValueChange = { true },
+            skipHalfExpanded = true
+        )
 
     val state =
         remember { mutableStateOf<BottomNavigationUiState>(BottomNavigationUiState.Idle) }

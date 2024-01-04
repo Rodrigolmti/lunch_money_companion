@@ -47,7 +47,7 @@ internal fun NavigationGraph(
                 },
                 onLogout = {
                     navController.navigate(authenticationRoute) {
-                        popUpTo(dashboardRoute) {
+                        popUpTo(authenticationRoute) {
                             inclusive = true
                         }
                     }

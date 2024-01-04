@@ -48,12 +48,14 @@ internal fun SettingsScreen(
     val viewState by uiModel.viewState.collectAsStateWithLifecycle()
     val padding = PaddingValues(start = 16.dp, end = 16.dp)
 
-    LaunchedEffect(Unit) {
-        uiModel.getUserData()
-
-        if (viewState is SettingsScreenUiState.Logout) {
+    if (viewState is SettingsScreenUiState.Logout) {
+        LaunchedEffect(Unit) {
             onLogout()
         }
+    }
+
+    LaunchedEffect(Unit) {
+        uiModel.getUserData()
     }
 
     Scaffold(
@@ -139,7 +141,6 @@ internal fun SettingsScreen(
                 // no-op
             }
         }
-
     }
 }
 
