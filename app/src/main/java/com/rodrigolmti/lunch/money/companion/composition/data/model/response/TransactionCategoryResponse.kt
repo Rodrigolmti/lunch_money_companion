@@ -1,14 +1,17 @@
 package com.rodrigolmti.lunch.money.companion.composition.data.model.response
 
+import androidx.annotation.Keep
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Keep
 @Serializable
 internal data class TransactionCategoryBodyResponse(
     @SerialName("categories")
     val categories: List<TransactionCategoryResponse>,
 )
 
+@Keep
 @Serializable
 internal data class TransactionCategoryResponse(
     @SerialName("id")

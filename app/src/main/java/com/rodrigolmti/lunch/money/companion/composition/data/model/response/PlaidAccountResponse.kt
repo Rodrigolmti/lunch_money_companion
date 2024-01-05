@@ -1,14 +1,17 @@
 package com.rodrigolmti.lunch.money.companion.composition.data.model.response
 
+import androidx.annotation.Keep
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Keep
 @Serializable
 internal data class PlaidAccountBodyResponse(
     @SerialName("plaid_accounts")
     val accounts: List<PlaidAccountResponse>,
 )
 
+@Keep
 @Serializable
 internal data class PlaidAccountResponse(
     @SerialName("id")
@@ -31,6 +34,7 @@ internal data class PlaidAccountResponse(
     val balanceLastUpdate: String,
 )
 
+@Keep
 @Serializable
 internal enum class PlaidAccountStatus {
     @SerialName("active")

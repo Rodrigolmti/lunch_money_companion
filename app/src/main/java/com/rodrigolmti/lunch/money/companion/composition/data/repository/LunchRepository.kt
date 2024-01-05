@@ -27,7 +27,6 @@ private const val TOKEN_KEY = "token_key"
 
 private const val TRANSACTION_CACHE = "transaction_cache"
 private const val ASSET_CACHE = "asset_cache"
-private const val CRYPTO_CACHE = "crypto_cache"
 
 internal class LunchRepository(
     private val json: Json,

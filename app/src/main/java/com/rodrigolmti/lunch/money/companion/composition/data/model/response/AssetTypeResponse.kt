@@ -1,8 +1,10 @@
 package com.rodrigolmti.lunch.money.companion.composition.data.model.response
 
+import androidx.annotation.Keep
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Keep
 @Serializable
 internal enum class AssetTypeResponse {
     @SerialName("credit")

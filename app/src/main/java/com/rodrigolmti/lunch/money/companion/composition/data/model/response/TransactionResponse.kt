@@ -1,14 +1,17 @@
 package com.rodrigolmti.lunch.money.companion.composition.data.model.response
 
+import androidx.annotation.Keep
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Keep
 @Serializable
 internal data class TransactionBodyResponse(
     @SerialName("transactions")
     val transactions: List<TransactionResponse>
 )
 
+@Keep
 @Serializable
 internal data class TransactionResponse(
     @SerialName("id")
@@ -57,6 +60,7 @@ internal data class TransactionResponse(
     val quantity: String? = null
 )
 
+@Keep
 @Serializable
 internal enum class TransactionStatusResponse {
     @SerialName("cleared")

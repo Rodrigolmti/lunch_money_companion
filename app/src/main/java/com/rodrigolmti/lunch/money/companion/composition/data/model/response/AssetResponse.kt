@@ -1,14 +1,17 @@
 package com.rodrigolmti.lunch.money.companion.composition.data.model.response
 
+import androidx.annotation.Keep
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Keep
 @Serializable
 internal data class AssetsBodyResponse(
     @SerialName("assets")
     val assets: List<AssetResponse>,
 )
 
+@Keep
 @Serializable
 internal data class AssetResponse(
     @SerialName("id")

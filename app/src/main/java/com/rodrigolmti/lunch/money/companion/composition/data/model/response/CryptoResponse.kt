@@ -1,14 +1,17 @@
 package com.rodrigolmti.lunch.money.companion.composition.data.model.response
 
+import androidx.annotation.Keep
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Keep
 @Serializable
 internal data class CryptoBodyResponse(
     @SerialName("crypto")
     val crypto: List<CryptoResponse>
 )
 
+@Keep
 @Serializable
 enum class CryptoSourceResponse {
     @SerialName("synced")
@@ -21,6 +24,7 @@ enum class CryptoSourceResponse {
     UNKNOWN,
 }
 
+@Keep
 @Serializable
 enum class CryptoStatusResponse {
     @SerialName("active")
@@ -33,6 +37,7 @@ enum class CryptoStatusResponse {
     UNKNOWN,
 }
 
+@Keep
 @Serializable
 internal data class CryptoResponse(
     @SerialName("id")
