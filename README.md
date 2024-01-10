@@ -42,8 +42,5 @@ As an independent project, contributions, feedback, and suggestions are always w
 ## Disclaimer
 This application is not officially affiliated with Lunch Money. It is a personal project developed by Rodrigo Lopes Martins, intended to provide an alternative way for Android users to access their Lunch Money data.
 
-## License
-This project is licensed under [MIT License], which allows for personal and commercial use under certain conditions.
-
 ## Acknowledgments
 A special thank you to the Lunch Money team for their open API and the inspiration they provide to the personal finance community.
