@@ -1,9 +1,12 @@
 package com.rodrigolmti.lunch.money.companion.features.transactions.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,35 +31,35 @@ internal fun TransactionDetailScreen(
     transaction: TransactionView,
     onBottomSheetDismissed: () -> Unit = {},
 ) {
+    val scrollState = rememberScrollState()
+
     Column(
         modifier = Modifier
             .fillMaxHeight()
+            .verticalScroll(scrollState)
             .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
             stringResource(R.string.transaction_detail_label),
             style = Header,
             color = White,
         )
-        VerticalSpacer(height = 16.dp)
         LunchTextField(
             label = stringResource(R.string.transaction_date_label),
             readOnly = true,
             text = transaction.date,
         )
-        VerticalSpacer(height = 8.dp)
         LunchTextField(
             label = stringResource(R.string.transaction_category_label),
             readOnly = true,
             text = transaction.categoryName ?: "-",
         )
-        VerticalSpacer(height = 8.dp)
         LunchTextField(
             label = stringResource(R.string.transaction_payee_label),
             readOnly = true,
             text = transaction.payee,
         )
-        VerticalSpacer(height = 8.dp)
         Text(
             text = stringResource(R.string.transaction_amount_label),
             modifier = Modifier.fillMaxWidth(),
@@ -64,7 +67,6 @@ internal fun TransactionDetailScreen(
             color = SilverLining,
             style = Body,
         )
-        VerticalSpacer(height = 8.dp)
         Text(
             text = formatCurrency(
                 transaction.amount,
@@ -73,13 +75,11 @@ internal fun TransactionDetailScreen(
             color = White,
             style = BodyBold,
         )
-        VerticalSpacer(height = 8.dp)
         LunchTextField(
             label = stringResource(R.string.transaction_notes_label),
             readOnly = true,
             text = transaction.notes ?: "-",
         )
-        VerticalSpacer(height = 8.dp)
         Text(
             text = stringResource(R.string.transaction_original_name_label),
             modifier = Modifier.fillMaxWidth(),
@@ -87,7 +87,6 @@ internal fun TransactionDetailScreen(
             color = SilverLining,
             style = Body,
         )
-        VerticalSpacer(height = 8.dp)
         Text(
             text = transaction.originalName ?: "-",
             maxLines = 2,
@@ -95,7 +94,6 @@ internal fun TransactionDetailScreen(
             color = White,
             style = BodyBold,
         )
-        VerticalSpacer(height = 8.dp)
         Text(
             text = stringResource(R.string.transaction_paid_from_label),
             modifier = Modifier.fillMaxWidth(),
@@ -103,7 +101,6 @@ internal fun TransactionDetailScreen(
             color = SilverLining,
             style = Body,
         )
-        VerticalSpacer(height = 8.dp)
         Text(
             text = transaction.assetName ?: "-",
             maxLines = 2,
@@ -111,12 +108,12 @@ internal fun TransactionDetailScreen(
             color = White,
             style = BodyBold,
         )
-        VerticalSpacer(height = 24.dp)
+        VerticalSpacer(height = 8.dp)
         LunchButton(
             label = stringResource(R.string.close_action),
         ) {
             onBottomSheetDismissed()
         }
-        VerticalSpacer(height = 32.dp)
+        VerticalSpacer(height = 16.dp)
     }
 }
