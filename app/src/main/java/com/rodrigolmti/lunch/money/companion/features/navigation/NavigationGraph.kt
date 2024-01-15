@@ -14,7 +14,7 @@ import androidx.navigation.navArgument
 import com.rodrigolmti.lunch.money.companion.application.main.IMainActivityViewModel
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.AuthenticationScreen
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.IAuthenticationViewModel
-import com.rodrigolmti.lunch.money.companion.features.terms.TermsOfUseScreen
+import com.rodrigolmti.lunch.money.companion.features.terms.WebViewScreen
 import org.koin.androidx.compose.koinViewModel
 
 internal const val authenticationRoute = "/authentication"
@@ -66,7 +66,7 @@ internal fun NavigationGraph(
             )
         ) { navBackStackEntry->
             navBackStackEntry.arguments?.getString("url")?.let {
-                TermsOfUseScreen(url = it) {
+                WebViewScreen(url = it) {
                     navController.navigateUp()
                 }
             }
