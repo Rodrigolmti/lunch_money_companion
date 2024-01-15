@@ -7,8 +7,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.rodrigolmti.lunch.money.companion.application.main.IMainActivityViewModel
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.AuthenticationScreen
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.IAuthenticationViewModel
@@ -17,7 +19,7 @@ import org.koin.androidx.compose.koinViewModel
 
 internal const val authenticationRoute = "/authentication"
 internal const val dashboardRoute = "/dashboard"
-internal const val termsOfUseRoute = "/termsOfUse"
+internal const val webviewRouter = "/webview?url={url}"
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -43,7 +45,7 @@ internal fun NavigationGraph(
             BottomNavigation(
                 selectedScreen = selectedScreen,
                 onTermsOfUseClick = {
-                    navController.navigate(termsOfUseRoute)
+                    navController.navigate(webviewRouter.replace("{url}", it))
                 },
                 onLogout = {
                     navController.navigate(authenticationRoute) {
@@ -55,9 +57,18 @@ internal fun NavigationGraph(
                 selectedScreen = it
             }
         }
-        composable(termsOfUseRoute) {
-            TermsOfUseScreen {
-                navController.navigateUp()
+        composable(
+            route = webviewRouter,
+            arguments = listOf(
+                navArgument("url") {
+                    type = NavType.StringType
+                }
+            )
+        ) { navBackStackEntry->
+            navBackStackEntry.arguments?.getString("url")?.let {
+                TermsOfUseScreen(url = it) {
+                    navController.navigateUp()
+                }
             }
         }
     }

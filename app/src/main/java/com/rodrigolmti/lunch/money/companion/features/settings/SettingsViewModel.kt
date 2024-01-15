@@ -9,6 +9,7 @@ import com.rodrigolmti.lunch.money.companion.core.onSuccess
 import com.rodrigolmti.lunch.money.companion.features.settings.model.SettingsView
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 private typealias LogoutUser = suspend () -> Outcome<Unit, LunchError>
@@ -23,20 +24,30 @@ internal class SettingsViewModel(
     override val viewState: StateFlow<SettingsScreenUiState> = _viewState
     override fun getUserData() {
         viewModelScope.launch {
-            _viewState.value = SettingsScreenUiState.Loading
-            getUserDataRunner().onSuccess {
-                _viewState.value = SettingsScreenUiState.Success(it)
+            _viewState.update {
+                SettingsScreenUiState.Loading
+            }
+            getUserDataRunner().onSuccess { result ->
+                _viewState.update {
+                    SettingsScreenUiState.Success(result)
+                }
             }.onFailure {
-                _viewState.value = SettingsScreenUiState.Error
+                _viewState.update {
+                    SettingsScreenUiState.Error
+                }
             }
         }
     }
 
     override fun logout() {
         viewModelScope.launch {
-            _viewState.value = SettingsScreenUiState.Loading
+            _viewState.update {
+                SettingsScreenUiState.Loading
+            }
             logoutUserRunner().onFinally {
-                _viewState.emit(SettingsScreenUiState.Logout)
+                _viewState.update {
+                    SettingsScreenUiState.Logout
+                }
             }
         }
     }

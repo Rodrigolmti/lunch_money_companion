@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rodrigolmti.lunch.money.companion.BuildConfig
 import com.rodrigolmti.lunch.money.companion.R
+import com.rodrigolmti.lunch.money.companion.core.PRIVACY_POLICY_URL
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
@@ -43,7 +44,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 internal fun SettingsScreen(
     uiModel: ISettingsUIModel = DummyISettingsUIModel(),
     onLogout: () -> Unit = {},
-    onTermsOfUseClick: () -> Unit = {},
+    onTermsOfUseClick: (String) -> Unit = {},
 ) {
     val viewState by uiModel.viewState.collectAsStateWithLifecycle()
     val padding = PaddingValues(start = 16.dp, end = 16.dp)
@@ -115,7 +116,7 @@ internal fun SettingsScreen(
                         label = stringResource(R.string.settings_screen_terms_label),
                         icon = Icons.Default.Person
                     ) {
-                        onTermsOfUseClick()
+                        onTermsOfUseClick(PRIVACY_POLICY_URL)
                     }
                     SettingsItem(
                         label = stringResource(R.string.settings_screen_app_description),

@@ -18,5 +18,5 @@ internal data class UserResponse(
     @SerialName("budget_name")
     val budgetName: String,
     @SerialName("api_key_label")
-    val apiKeyLabel: String,
+    val apiKeyLabel: String? = null,
 )

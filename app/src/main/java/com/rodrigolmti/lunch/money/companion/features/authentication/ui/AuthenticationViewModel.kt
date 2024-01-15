@@ -8,6 +8,7 @@ import com.rodrigolmti.lunch.money.companion.core.onFailure
 import com.rodrigolmti.lunch.money.companion.core.onSuccess
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 internal abstract class IAuthenticationViewModel : ViewModel(), IAuthenticationUIModel
@@ -21,14 +22,14 @@ internal class AuthenticationViewModel(
 
     override fun onGetStartedClicked(token: String) {
         viewModelScope.launch {
-            _viewState.value = AuthenticationUiState.Loading
+            _viewState.update { AuthenticationUiState.Loading }
             authenticateUser(token)
                 .onSuccess {
                     postAuthentication()
-                    _viewState.value = AuthenticationUiState.Success
+                    _viewState.update { AuthenticationUiState.Success }
                 }
                 .onFailure {
-                    _viewState.value = AuthenticationUiState.Error
+                    _viewState.update { AuthenticationUiState.Error }
                 }
         }
     }

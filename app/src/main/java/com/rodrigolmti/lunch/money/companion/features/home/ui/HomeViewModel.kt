@@ -9,6 +9,7 @@ import com.rodrigolmti.lunch.money.companion.core.onSuccess
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetOverviewView
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 internal abstract class IHomeViewModel : ViewModel(), IHomeUIModel
@@ -30,22 +31,28 @@ internal class HomeViewModel(
 
     override fun getAccountOverview() {
         viewModelScope.launch {
-            _viewState.value = HomeUiState.Loading
-            getUserAccountOverview().onSuccess {
-                _viewState.value = HomeUiState.Success(it)
+            _viewState.update { HomeUiState.Loading }
+            getUserAccountOverview().onSuccess { result ->
+                _viewState.update {
+                    HomeUiState.Success(result)
+                }
             }.onFailure {
-                _viewState.value = HomeUiState.Error
+                _viewState.update {
+                    HomeUiState.Error
+                }
             }
         }
     }
 
     override fun onRefresh() {
         viewModelScope.launch {
-            _viewState.value = HomeUiState.Loading
+            _viewState.update { HomeUiState.Loading }
             refreshUserData().onSuccess {
                 getAccountOverview()
             }.onFailure {
-                _viewState.value = HomeUiState.Error
+                _viewState.update {
+                    HomeUiState.Error
+                }
             }
         }
     }

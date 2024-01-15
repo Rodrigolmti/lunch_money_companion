@@ -56,7 +56,7 @@ internal val screens = listOf(
 @Composable
 internal fun BottomNavigation(
     selectedScreen: BottomNavigationRouter,
-    onTermsOfUseClick: () -> Unit = {},
+    onTermsOfUseClick: (String) -> Unit = {},
     onLogout: () -> Unit = {},
     onScreenSelected: (BottomNavigationRouter) -> Unit,
 ) {
@@ -157,7 +157,7 @@ internal fun BottomNavigation(
                     SettingsScreen(uiModel, {
                         onLogout()
                     }, {
-                        onTermsOfUseClick()
+                        onTermsOfUseClick(it)
                     })
                 }
 

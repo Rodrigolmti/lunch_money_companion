@@ -6,5 +6,5 @@ internal data class UserModel(
     val id: Int,
     val accountId: Int,
     val budgetName: String,
-    val apiKeyLabel: String,
+    val apiKeyLabel: String? = null,
 )

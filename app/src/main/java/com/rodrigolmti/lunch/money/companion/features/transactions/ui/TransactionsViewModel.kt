@@ -10,6 +10,7 @@ import com.rodrigolmti.lunch.money.companion.features.transactions.model.Transac
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Date
 
@@ -28,11 +29,15 @@ internal class TransactionsViewModel(
 
     override fun getTransactions(start: Date, end: Date) {
         viewModelScope.launch {
-            _viewState.value = TransactionsUiState.Loading
-            getUserTransactions(start, end).onSuccess {
-                _viewState.value = TransactionsUiState.Success(it.toImmutableList())
+            _viewState.update { TransactionsUiState.Loading }
+            getUserTransactions(start, end).onSuccess { result ->
+                _viewState.update {
+                    TransactionsUiState.Success(result.toImmutableList())
+                }
             }.onFailure {
-                _viewState.value = TransactionsUiState.Error
+                _viewState.update {
+                    TransactionsUiState.Error
+                }
             }
         }
     }
