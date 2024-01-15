@@ -9,20 +9,17 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            transition: background-color 0.3s, color 0.3s;
         }
-        .dark-mode {
-            background-color: #121212;
-            color: #e0e0e0;
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
         }
-        header, nav {
-            transition: background-color 0.3s;
-        }
-        header.dark-mode {
-            background-color: #1c1c1c;
-        }
-        nav.dark-mode {
-            background-color: #2a2a2a;
+        nav {
+            background-color: #444;
+            padding: 10px;
+            text-align: center;
         }
         nav a {
             color: #fff;
@@ -33,10 +30,6 @@
             max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-        }
-        .app-version {
-            text-align: center;
-            margin-top: 30px;
         }
     </style>
 </head>
@@ -88,43 +81,5 @@
         By using this application, you acknowledge and agree to these terms of use.
     </p>
 </div>
-<div class="app-version"></div> <!-- Placeholder for app version -->
-
-<script>
-    function adjustTheme(theme) {
-        if (theme === 'dark') {
-            document.body.classList.add('dark-mode');
-            document.querySelector('header').classList.add('dark-mode');
-            document.querySelector('nav').classList.add('dark-mode');
-        }
-    }
-
-    function displayAppVersion(version) {
-        document.querySelector('.app-version').innerText = 'App Version: ' + version;
-    }
-
-     function handleMessage(message) {
-        var data = JSON.parse(message);
-
-        if (data.themeMode) {
-            adjustTheme(data.themeMode);
-        }
-
-        if (data.version) {
-            displayAppVersion(data.version);
-        }
-    }
-
-    // Function to send a message to the native Android code and handle the response
-    function sendMessageToAndroid(message) {
-        window.AndroidBridge.postMessage(message, '', function (response) {
-            handleMessage(response);
-        });
-    }
-
-    // Call sendMessageToAndroid with the "ThemeMode" message
-    sendMessageToAndroid("ThemeMode");
-    sendMessageToAndroid("AppVersion");
-</script>
 </body>
 </html>

@@ -2,7 +2,6 @@ package com.rodrigolmti.lunch.money.companion.features.terms
 
 import android.annotation.SuppressLint
 import android.view.ViewGroup
-import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.foundation.layout.Column
@@ -15,10 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.rodrigolmti.lunch.money.companion.BuildConfig
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
-import org.json.JSONObject
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -57,13 +54,6 @@ internal fun WebViewScreen(
                     settings.displayZoomControls = false
                     settings.useWideViewPort = false
 
-
-                    val pluginManager = PluginManager()
-                    pluginManager.registerPlugin(AppVersionPlugin())
-                    pluginManager.registerPlugin(ThemeModePlugin())
-                    addJavascriptInterface( WebViewBridge(pluginManager), "AndroidBridge")
-
-
                     layoutParams = ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT
@@ -75,61 +65,6 @@ internal fun WebViewScreen(
                 it.loadUrl(url)
             })
         }
-    }
-}
-
-interface WebViewPlugin {
-    val name: String
-
-    fun performAction(inputData: JSONObject?): JSONObject
-}
-
-class PluginManager {
-    private val plugins: MutableMap<String, WebViewPlugin> = HashMap()
-
-    fun registerPlugin(plugin: WebViewPlugin) {
-        plugins[plugin.name] = plugin
-    }
-
-    fun invokePlugin(pluginName: String, inputData: JSONObject?): JSONObject? {
-        val plugin = plugins[pluginName]
-        if (plugin != null) {
-            return plugin.performAction(inputData)
-        }
-        return null
-    }
-}
-
-class AppVersionPlugin : WebViewPlugin {
-    override val name: String
-        get() = "AppVersion"
-
-    override fun performAction(inputData: JSONObject?): JSONObject {
-        // Logic to determine app version
-        return JSONObject().apply {
-            put("version", BuildConfig.VERSION_NAME)
-        }
-    }
-}
-
-class ThemeModePlugin : WebViewPlugin {
-    override val name: String
-        get() = "ThemeMode"
-
-    override fun performAction(inputData: JSONObject?): JSONObject {
-        // Logic to determine theme mode
-        return JSONObject().apply {
-            put("themeMode", "dark")
-        }
-    }
-}
-
-class WebViewBridge(private val pluginManager: PluginManager) {
-    @JavascriptInterface
-    fun postMessage(pluginName: String?, inputData: String?): String {
-        val input = JSONObject(inputData)
-        val output = pluginManager.invokePlugin(pluginName!!, input)
-        return output.toString()
     }
 }
 
