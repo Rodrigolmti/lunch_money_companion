@@ -13,8 +13,8 @@ android {
         applicationId = "com.rodrigolmti.lunch.money.companion"
         minSdk = 26
         targetSdk = 34
-        versionCode = 202304012
-        versionName = "1.0.1"
+        versionCode = 202401151
+        versionName = "1.0.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
