@@ -103,8 +103,9 @@
         document.querySelector('.app-version').innerText = 'App Version: ' + version;
     }
 
-    adjustTheme(window.AndroidBridge.getTheme(adjustTheme));
-    displayAppVersion(window.AndroidBridge.getAppVersion(displayAppVersion));
+    // Request theme mode and app version using AndroidBridge.postMessage()
+    window.AndroidBridge.postMessage("ThemeMode", "");
+    window.AndroidBridge.postMessage("AppVersion", "");
 </script>
 </body>
 </html>
