@@ -103,9 +103,28 @@
         document.querySelector('.app-version').innerText = 'App Version: ' + version;
     }
 
-    // Request theme mode and app version using AndroidBridge.postMessage()
-    window.AndroidBridge.postMessage("ThemeMode", "");
-    window.AndroidBridge.postMessage("AppVersion", "");
+     function handleMessage(message) {
+        var data = JSON.parse(message);
+
+        if (data.themeMode) {
+            adjustTheme(data.themeMode);
+        }
+
+        if (data.version) {
+            displayAppVersion(data.version);
+        }
+    }
+
+    // Function to send a message to the native Android code and handle the response
+    function sendMessageToAndroid(message) {
+        window.AndroidBridge.postMessage(message, function (response) {
+            handleMessage(response);
+        });
+    }
+
+    // Call sendMessageToAndroid with the "ThemeMode" message
+    sendMessageToAndroid("ThemeMode");
+    sendMessageToAndroid("AppVersion");
 </script>
 </body>
 </html>
