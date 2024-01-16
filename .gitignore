@@ -14,3 +14,8 @@
 .externalNativeBuild
 .cxx
 local.properties
+Gemfile
+Gemfile.lock
+fastlane/service-account.json
+buildSrc/build
+fastlane/report.xml

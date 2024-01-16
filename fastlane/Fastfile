@@ -1,0 +1,19 @@
+default_platform(:android)
+
+platform :android do
+    desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "Publish a new version to the Google Play (INTERNAL)"
+  lane :internal do
+
+    gradle(
+      task: "bundle",
+      build_type: "Release"
+    )
+
+  upload_to_play_store(track: 'internal', validate_only: true)
+  end
+end

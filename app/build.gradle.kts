@@ -1,8 +1,8 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     kotlin("plugin.serialization") version "1.9.21"
+    id("jacoco")
 }
 
 android {
@@ -26,6 +26,7 @@ android {
 
     buildTypes {
         debug {
+            enableUnitTestCoverage = true
             isShrinkResources = false
             isMinifyEnabled = false
             isDebuggable = true
@@ -63,6 +64,10 @@ android {
     }
 }
 
+jacoco {
+    toolVersion = "0.8.7"
+}
+
 dependencies {
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
@@ -90,4 +95,14 @@ dependencies {
 
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+
+    testImplementation(libs.kotlin.test.common)
+    testImplementation(libs.kotlin.test.annotations)
+    testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.koin.test.junit)
+    testImplementation(libs.androidx.test.runner)
+    testImplementation(libs.androidx.test.rules)
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
 }
