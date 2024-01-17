@@ -40,7 +40,7 @@ value class Outcome<out Value, out Error> @PublishedApi internal constructor(
      * This function is a shorthand for `getOrElse { null }` (see [getOrElse]) or
      * `fold(onSuccess = { it }, onFailure = { null })` (see [fold]).
      */
-    inline fun getOrNull(): Value? =
+    fun getOrNull(): Value? =
         when {
             isFailure -> null
             else -> value as Value
@@ -70,7 +70,7 @@ value class Outcome<out Value, out Error> @PublishedApi internal constructor(
          */
         @Suppress("INAPPLICABLE_JVM_NAME")
         @JvmName("success")
-        inline fun <Value, Error> success(value: Value): Outcome<Value, Error> =
+        fun <Value, Error> success(value: Value): Outcome<Value, Error> =
             Outcome(value)
 
         /**
@@ -78,7 +78,7 @@ value class Outcome<out Value, out Error> @PublishedApi internal constructor(
          */
         @Suppress("INAPPLICABLE_JVM_NAME")
         @JvmName("failure")
-        inline fun <Value, Error> failure(error: Error): Outcome<Value, Error> =
+        fun <Value, Error> failure(error: Error): Outcome<Value, Error> =
             Outcome(createFailure(error))
     }
 
@@ -163,7 +163,7 @@ inline fun <Value, Error, Map : Value> Outcome<Map, Error>.getOrElse(onFailure: 
  *
  * This function is a shorthand for `getOrElse { defaultValue }` (see [getOrElse]).
  */
-inline fun <Value, Error, Map : Value> Outcome<Map, Error>.getOrDefault(defaultValue: Value): Value {
+fun <Value, Error, Map : Value> Outcome<Map, Error>.getOrDefault(defaultValue: Value): Value {
     if (isFailure) return defaultValue
     return value as Map
 }
