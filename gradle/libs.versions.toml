@@ -21,6 +21,7 @@ androidx-test-runner-version = "1.5.2"
 androidx-test-rules-version = "1.5.0"
 android-gradle-plugin = "8.2.0"
 android-tools = "31.2.0"
+kotlinx-coroutines = "1.7.3"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -37,6 +38,7 @@ koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin-version" 
 koin-test-junit = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin-version" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner-version" }
 androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test-rules-version" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 junit = { module = "junit:junit", version.ref = "junit-version" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk-version" }
 

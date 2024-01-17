@@ -25,24 +25,24 @@ jobs:
       - name: Run unit tests
         run: ./gradlew testDebugUnitTest
 
-      - name: Upload test results
+      - name: Upload unit test results
         uses: actions/upload-artifact@v4
         with:
           name: test-results
           retention-days: 1
           path: app/build/reports/tests
 
-      - name: Run Coverage
+      - name: Run JaCoCo Coverage
         run: ./gradlew jacocoTestReport
 
-      - name: Upload Report
+      - name: Upload JaCoCo report
         uses: actions/upload-artifact@v4
         with:
           name: report.xml
           retention-days: 1
           path: ${{ github.workspace }}/app/build/reports/jacoco/jacocoTestReleaseUnitTestReport/jacocoTestReleaseUnitTestReport.xml
 
-      - name: JaCoCo Code Coverage Report
+      - name: JaCoCo coverage reporter - parse xml report
         id: jacoco_reporter
         uses: PavanMudigonda/jacoco-reporter@v4.9
         with:
@@ -55,22 +55,19 @@ jobs:
           fail_below_threshold: false
           publish_only_summary: false
 
-      - name: Upload Code Coverage Artifacts
+      - name: Upload coverage parsed results
         uses: actions/upload-artifact@v2
         with:
           name: code-coverage-report
           path: "*/coverage-results.md"
           retention-days: 1
 
-      - name: Get the Coverage info
+      - name: Parse coverage information
         run: |
           echo "Total coverage coverage-overall ${{ steps.jacoco.outputs.coverage-overall }}"
           echo "Changed Files coverage ${{ steps.jacoco.outputs.coverage-changed-files }}"
           echo "Coverage coveragePercentage ${{ steps.jacoco_reporter.outputs.coveragePercentage }}"
           echo "Coverage coveragePercentageString ${{ steps.jacoco_reporter.outputs.coveragePercentageString }}"
 
-      - name: Publish Coverage Workflow Build Summary
+      - name: Publish coverage summary
         run: echo "${{ steps.jacoco_reporter.outputs.coverageSummary }}" >> $GITHUB_STEP_SUMMARY
-
-      - name: report
-        run: ls - R

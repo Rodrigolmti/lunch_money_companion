@@ -94,6 +94,7 @@ dependencies {
     debugImplementation(libs.ui.test.manifest)
 
     testImplementation(libs.kotlin.test.common)
+    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.kotlin.test.annotations)
     testImplementation(libs.kotlin.test.junit)
     testImplementation(libs.koin.test)
