@@ -19,6 +19,8 @@ junit-version = "4.13.2"
 kotlinx-collections-immutable = "0.3.6"
 androidx-test-runner-version = "1.5.2"
 androidx-test-rules-version = "1.5.0"
+android-gradle-plugin = "8.2.0"
+android-tools = "31.2.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -62,7 +64,12 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-version" 
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-version" }
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin-compose" }
 
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle-plugin" }
+android-tools-common = { group = "com.android.tools", name = "common", version.ref = "android-tools" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+companion-android-application-jacoco = { id = "companion.android.application.jacoco", version = "unspecified" }
 

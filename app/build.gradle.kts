@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     kotlin("plugin.serialization") version "1.9.21"
+    alias(libs.plugins.companion.android.application.jacoco)
     id("jacoco")
 }
 
@@ -62,10 +63,6 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-}
-
-jacoco {
-    toolVersion = "0.8.7"
 }
 
 dependencies {

@@ -18,4 +18,5 @@ Gemfile
 Gemfile.lock
 fastlane/service-account.json
 buildSrc/build
+build-logic/convention/build
 fastlane/report.xml
