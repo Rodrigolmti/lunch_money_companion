@@ -1,19 +1,15 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
-    kotlin("plugin.serialization") version "1.9.21"
+    alias(libs.plugins.companion.android.application)
     alias(libs.plugins.companion.android.application.jacoco)
+    kotlin("plugin.serialization") version "1.9.21"
     id("jacoco")
 }
 
 android {
     namespace = "com.rodrigolmti.lunch.money.companion"
-    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.rodrigolmti.lunch.money.companion"
-        minSdk = 26
-        targetSdk = 34
         versionCode = 202401151
         versionName = "1.0.2"
 
@@ -56,7 +52,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.7"
     }
     packaging {
         resources {

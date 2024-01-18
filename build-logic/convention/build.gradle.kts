@@ -49,9 +49,17 @@ tasks {
 
 gradlePlugin {
     plugins {
+        register("androidApplication") {
+            id = "companion.android.application"
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
         register("androidApplicationJacoco") {
             id = "companion.android.application.jacoco"
             implementationClass = "AndroidApplicationJacocoConventionPlugin"
+        }
+        register("androidLint") {
+            id = "companion.android.lint"
+            implementationClass = "AndroidLintConventionPlugin"
         }
     }
 }

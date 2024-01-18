@@ -11,10 +11,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+typealias AuthenticateUser = suspend (token: String) -> Outcome<Unit, LunchError>
+
 internal abstract class IAuthenticationViewModel : ViewModel(), IAuthenticationUIModel
 
 internal class AuthenticationViewModel(
-    private val authenticateUser: suspend (String) -> Outcome<Unit, LunchError>,
+    private val authenticateUser: AuthenticateUser,
     private val postAuthentication: suspend () -> Unit,
 ) : IAuthenticationViewModel() {
     private val _viewState = MutableStateFlow<AuthenticationUiState>(AuthenticationUiState.Idle)

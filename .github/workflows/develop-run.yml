@@ -1,4 +1,4 @@
-name: Android Unit Tests
+name: Build develop branch
 
 on:
   push:
@@ -29,8 +29,19 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          retention-days: 1
+          retention-days: 3
           path: app/build/reports/tests
+
+      - name: Check lint
+        run: ./gradlew :app:lintRelease
+
+      - name: Upload lint reports (HTML)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-reports
+          retention-days: 3
+          path: '**/build/reports/lint-results-*.html'
 
       - name: Run JaCoCo Coverage
         run: ./gradlew jacocoTestReport
@@ -39,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: report.xml
-          retention-days: 1
+          retention-days: 3
           path: ${{ github.workspace }}/app/build/reports/jacoco/jacocoTestReleaseUnitTestReport/jacocoTestReleaseUnitTestReport.xml
 
       - name: JaCoCo coverage reporter - parse xml report
@@ -56,11 +67,11 @@ jobs:
           publish_only_summary: false
 
       - name: Upload coverage parsed results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: code-coverage-report
           path: "*/coverage-results.md"
-          retention-days: 1
+          retention-days: 3
 
       - name: Parse coverage information
         run: |
