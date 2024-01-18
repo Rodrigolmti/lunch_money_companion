@@ -1,9 +1,15 @@
 plugins {
+    val ciBuild: Boolean = System.getProperty("ciBuild")?.toBoolean() ?: false
+
     alias(libs.plugins.companion.android.application)
     alias(libs.plugins.companion.android.application.jacoco)
     kotlin("plugin.serialization") version "1.9.21"
-    alias(libs.plugins.googleServices)
-    alias(libs.plugins.firebaseCraslytics)
+
+    if (!ciBuild) {
+        alias(libs.plugins.googleServices)
+        alias(libs.plugins.firebaseCraslytics)
+    }
+
     id("jacoco")
 }
 
