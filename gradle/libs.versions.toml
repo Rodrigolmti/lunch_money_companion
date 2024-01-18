@@ -22,6 +22,7 @@ androidx-test-rules-version = "1.5.0"
 android-gradle-plugin = "8.2.1"
 android-tools = "31.2.1"
 kotlinx-coroutines = "1.7.3"
+firebase-bom = "32.7.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -41,6 +42,10 @@ androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 junit = { module = "junit:junit", version.ref = "junit-version" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk-version" }
+
+# Google
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 
 # Compose
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
@@ -71,6 +76,9 @@ android-tools-common = { group = "com.android.tools", name = "common", version.r
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 
 [plugins]
+googleServices = { id = "com.google.gms.google-services", version = "4.4.0" }
+firebaseCraslytics = { id = "com.google.firebase.crashlytics", version = "2.9.9" }
+
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 

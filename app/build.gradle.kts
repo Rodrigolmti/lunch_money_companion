@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.companion.android.application)
     alias(libs.plugins.companion.android.application.jacoco)
     kotlin("plugin.serialization") version "1.9.21"
+    alias(libs.plugins.googleServices)
+    alias(libs.plugins.firebaseCraslytics)
     id("jacoco")
 }
 
@@ -66,6 +68,9 @@ dependencies {
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.kotlinx.collections.immutable)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
 
     implementation(libs.activity.compose)
     implementation(platform(libs.compose.bom))
