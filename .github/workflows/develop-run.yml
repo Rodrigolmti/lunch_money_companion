@@ -20,7 +20,7 @@ jobs:
           java-version: 17
 
       - name: Grant execute permission to Gradle wrapper
-        run: chmod +x gradlew
+        run: chmod +x gradlew && echo "ciBuild=true" >> gradle.properties
 
       - name: Run unit tests
         run: ./gradlew testDebugUnitTest
