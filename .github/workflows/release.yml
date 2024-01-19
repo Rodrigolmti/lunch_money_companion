@@ -9,14 +9,6 @@ jobs:
     name: Apk uploading on Firebase App Distribution
     runs-on: ubuntu-latest
 
-    env:
-      ANDROID_KEY_ALIAS: ${{secrets.ANDROID_KEY_ALIAS}}
-      ANDROID_KEY_PASSWORD: ${{secrets.ANDROID_KEY_PASSWORD}}
-      ANDROID_STORE_PASSWORD: ${{secrets.ANDROID_STORE_PASSWORD}}
-      ANDROID_SIGNING_KEY: ${{secrets.ANDROID_SIGNING_KEY}}
-      GOOGLE_SERVICES_KEY: ${{secrets.GOOGLE_SERVICES_KEY}}
-      SERVICES_ACCOUNT_KEY: ${{secrets.SERVICES_ACCOUNT_KEY}}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -37,10 +29,15 @@ jobs:
         run: echo ${{secrets.GOOGLE_SERVICES_KEY}} | base64 -d > app/google-services.json
 
       - name: Generate service-account.json file
-        run: echo ${{secrets.SERVICES_ACCOUNT_KEY}} | base64 -d > fastlane/service-account.json
+        run: echo ${{secrets.SERVICES_ACCOUNT_KEY}} | base64 -d > service-account.json
 
       - name: Generate .jks file
         run: echo ${{secrets.ANDROID_SIGNING_KEY}} | base64 -d > keys/release.jks
 
       - name: Upload AAB to Play Store
         run: bundle exec fastlane internal
+        env:
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          ANDROID_SIGNING_KEY: ${{ secrets.ANDROID_SIGNING_KEY }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}

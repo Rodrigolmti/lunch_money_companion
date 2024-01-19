@@ -16,8 +16,9 @@
 local.properties
 Gemfile
 Gemfile.lock
-fastlane/service-account.json
 buildSrc/build
 build-logic/convention/build
 fastlane/report.xml
+
 app/google-services.json
+service-account.json
