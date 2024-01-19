@@ -23,7 +23,7 @@ jobs:
         run: chmod +x gradlew && echo "ciBuild=true" >> gradle.properties
 
       - name: Run unit tests
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew testReleaseUnitTest
 
       - name: Upload test results (XML)
         uses: actions/upload-artifact@v4
@@ -37,7 +37,7 @@ jobs:
         if: success()
         with:
           name: Unit Tests Report
-          path: 'app/build/reports/lint-results-release.xml'
+          path: 'app/build/test-results/testReleaseUnitTest/TEST-*.xml'
           reporter: java-junit
           list-suites: 'all'
           list-tests: 'all'
