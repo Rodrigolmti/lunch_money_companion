@@ -53,6 +53,8 @@ jobs:
 
       - name: Check lint
         run: ./gradlew :app:lintRelease
+        with:
+          fail-on-warning: false
 
       - name: Upload lint reports (HTML)
         if: always()

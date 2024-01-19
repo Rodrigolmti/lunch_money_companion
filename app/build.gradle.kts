@@ -23,6 +23,15 @@ android {
 
     buildFeatures.buildConfig = true
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("../keys/release.jks")
+            keyAlias = System.getenv("ANDROID_KEY_ALIAS")
+            keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
+            storePassword = System.getenv("SIGNING_STORE_PASSWORD")
+        }
+    }
+
     buildTypes {
         debug {
             enableUnitTestCoverage = true
@@ -37,6 +46,7 @@ android {
         release {
             isShrinkResources = true
             isMinifyEnabled = true
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
