@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      GOOGLE_SERVICES_KEY: ${{secrets.GOOGLE_SERVICES_KEY}}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,8 +22,11 @@ jobs:
           distribution: 'corretto'
           java-version: 17
 
+      - name: Generate google-services.json file
+        run: echo ${{secrets.GOOGLE_SERVICES_KEY}} | base64 -d > app/google-services.json
+
       - name: Grant execute permission to Gradle wrapper
-        run: chmod +x gradlew && echo "ciBuild=true" >> gradle.properties
+        run: chmod +x gradlew
 
       - name: Run unit tests
         run: ./gradlew testReleaseUnitTest
