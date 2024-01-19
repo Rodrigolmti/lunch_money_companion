@@ -31,12 +31,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.6'
-
-      - name: Install bundler
-        run: |
-          gem install bundler:2.2.27
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 3
+          bundler-cache: true
 
       - name: Generate google-services.json file
         run: echo ${{secrets.GOOGLE_SERVICES_KEY}} | base64 -d > app/google-services.json
