@@ -9,9 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      GOOGLE_SERVICES_KEY: ${{secrets.GOOGLE_SERVICES_KEY}}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -42,7 +39,7 @@ jobs:
         uses: dorny/test-reporter@v1
         if: success()
         with:
-          name: Unit Tests Report
+          name: Unit Tests Execution Report
           path: 'app/build/test-results/testReleaseUnitTest/TEST-*.xml'
           reporter: java-junit
           list-suites: 'all'
@@ -83,7 +80,7 @@ jobs:
         uses: PavanMudigonda/jacoco-reporter@v4.9
         with:
           coverage_results_path: ${{ github.workspace }}/app/build/reports/jacoco/jacocoTestReleaseUnitTestReport/jacocoTestReleaseUnitTestReport.xml
-          coverage_report_name: Coverage
+          coverage_report_name: Unit Tests Coverage Report
           coverage_report_title: JaCoCo
           github_token: ${{ secrets.GITHUB_TOKEN }}
           skip_check_run: false
