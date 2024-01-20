@@ -1,6 +1,7 @@
 package com.rodrigolmti.lunch.money.companion.composition.di
 
 import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.TokenDTO
+import com.rodrigolmti.lunch.money.companion.composition.di.adapter.BudgetFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.di.adapter.HomeFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.di.adapter.SettingsFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.di.adapter.TransactionFeatureAdapter
@@ -8,6 +9,8 @@ import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunc
 import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.ExecuteStartupLogicUseCase
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.AuthenticationViewModel
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.IAuthenticationViewModel
+import com.rodrigolmti.lunch.money.companion.features.budget.BudgetViewModel
+import com.rodrigolmti.lunch.money.companion.features.budget.IBudgetViewModel
 import com.rodrigolmti.lunch.money.companion.features.home.ui.HomeViewModel
 import com.rodrigolmti.lunch.money.companion.features.home.ui.IHomeViewModel
 import com.rodrigolmti.lunch.money.companion.features.settings.ISettingsViewModel
@@ -47,6 +50,16 @@ private val transactionsModule = module {
     }
 }
 
+private val budgetModule = module {
+    viewModel<IBudgetViewModel> {
+        BudgetViewModel(
+            getBudget = { start, end ->
+                BudgetFeatureAdapter(get()).getBudget(start, end)
+            },
+        )
+    }
+}
+
 private val settingsModule = module {
     viewModel<ISettingsViewModel> {
         SettingsViewModel(
@@ -63,6 +76,7 @@ internal val featuresModule = module {
         authenticationModule,
         homeModule,
         transactionsModule,
+        budgetModule,
         settingsModule
     )
 }

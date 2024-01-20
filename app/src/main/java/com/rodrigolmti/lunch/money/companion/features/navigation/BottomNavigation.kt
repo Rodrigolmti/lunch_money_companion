@@ -16,6 +16,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.MaterialTheme
@@ -30,6 +31,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.R
+import com.rodrigolmti.lunch.money.companion.features.budget.BudgetScreen
+import com.rodrigolmti.lunch.money.companion.features.budget.IBudgetViewModel
 import com.rodrigolmti.lunch.money.companion.features.home.ui.HomeScreen
 import com.rodrigolmti.lunch.money.companion.features.home.ui.IHomeViewModel
 import com.rodrigolmti.lunch.money.companion.features.settings.ISettingsViewModel
@@ -49,6 +52,7 @@ import org.koin.androidx.compose.koinViewModel
 internal val screens = listOf(
     BottomNavigationRouter.HOME,
     BottomNavigationRouter.TRANSACTIONS,
+    BottomNavigationRouter.BUDGET,
     BottomNavigationRouter.SETTINGS,
 )
 
@@ -173,6 +177,19 @@ internal fun BottomNavigation(
                         )
                     }
                 }
+
+                BottomNavigationRouter.BUDGET -> {
+                    val uiModel = koinViewModel<IBudgetViewModel>()
+
+                    BudgetScreen(uiModel) { title, description ->
+                        updateBottomSheetState(
+                            state,
+                            BottomNavigationUiState.ShowInformationBottomSheet(title, description),
+                            sheetState,
+                            scope
+                        )
+                    }
+                }
             }
         }
     }
@@ -231,6 +248,7 @@ private fun getIconByRoute(route: BottomNavigationRouter): ImageVector {
         BottomNavigationRouter.TRANSACTIONS -> Icons.Filled.List
         BottomNavigationRouter.SETTINGS -> Icons.Filled.Settings
         BottomNavigationRouter.HOME -> Icons.Filled.Home
+        BottomNavigationRouter.BUDGET -> Icons.Filled.Search
     }
 }
 
@@ -240,5 +258,6 @@ private fun getLabelByRoute(route: BottomNavigationRouter): String {
         BottomNavigationRouter.TRANSACTIONS -> stringResource(R.string.bottom_navigation_transactions)
         BottomNavigationRouter.SETTINGS -> stringResource(R.string.bottom_navigation_settings)
         BottomNavigationRouter.HOME -> stringResource(R.string.bottom_navigation_home)
+        BottomNavigationRouter.BUDGET -> stringResource(R.string.bottom_navigation_budget)
     }
 }

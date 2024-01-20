@@ -1,11 +1,13 @@
 package com.rodrigolmti.lunch.money.companion.composition.data.repository
 
+import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapBudget
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapTransactions
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.toModel
 import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.TokenDTO
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.UserResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.network.LunchService
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetModel
+import com.rodrigolmti.lunch.money.companion.composition.domain.model.Budget
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionCategoryModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.UserModel
@@ -117,6 +119,20 @@ internal class LunchRepository(
             return TokenDTO(token)
         }
         return null
+    }
+
+    override suspend fun getBudgets(
+        start: String,
+        end: String,
+    ): Outcome<List<Budget>, LunchError> {
+        return withContext(dispatchers.io()) {
+            runCatching {
+                val response = lunchService.getBudgets(start, end)
+                mapBudget(response)
+            }.mapThrowable {
+                handleNetworkError(it)
+            }
+        }
     }
 
     private fun handleNetworkError(throwable: Throwable): LunchError {

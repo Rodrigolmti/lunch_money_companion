@@ -6,18 +6,17 @@ import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.core.map
 import com.rodrigolmti.lunch.money.companion.core.utils.formatDate
-import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
+import com.rodrigolmti.lunch.money.companion.features.budget.BudgetView
 import java.util.Date
 
-internal class TransactionFeatureAdapter(private val lunchRepository: ILunchRepository) {
+internal class BudgetFeatureAdapter(private val lunchRepository: ILunchRepository) {
 
-    suspend fun getTransactions(
+    suspend fun getBudget(
         start: Date,
         end: Date
-    ): Outcome<List<TransactionView>, LunchError> =
-        lunchRepository.getTransactions(formatDate(start), formatDate(end)).map { transactions ->
-            transactions.map { transaction ->
-                transaction.toView()
-            }
+    ): Outcome<List<BudgetView>, LunchError> {
+        return lunchRepository.getBudgets(formatDate(start), formatDate(end)).map { response ->
+            response.map { it.toView() }.filter { it.category != "Uncategorized" }
         }
+    }
 }
