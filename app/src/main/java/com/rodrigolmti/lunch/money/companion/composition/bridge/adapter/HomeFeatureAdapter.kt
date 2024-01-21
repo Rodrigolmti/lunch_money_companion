@@ -1,10 +1,10 @@
-package com.rodrigolmti.lunch.money.companion.composition.di.adapter
+package com.rodrigolmti.lunch.money.companion.composition.bridge.adapter
 
 import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
 import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetOverviewView
-import com.rodrigolmti.lunch.money.companion.composition.di.mapper.toView
+import com.rodrigolmti.lunch.money.companion.composition.bridge.mapper.toView
 import com.rodrigolmti.lunch.money.companion.core.mapThrowable
 import com.rodrigolmti.lunch.money.companion.core.runCatching
 

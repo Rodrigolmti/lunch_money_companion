@@ -1,10 +1,10 @@
 package com.rodrigolmti.lunch.money.companion.composition.di
 
 import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.TokenDTO
-import com.rodrigolmti.lunch.money.companion.composition.di.adapter.BudgetFeatureAdapter
-import com.rodrigolmti.lunch.money.companion.composition.di.adapter.HomeFeatureAdapter
-import com.rodrigolmti.lunch.money.companion.composition.di.adapter.SettingsFeatureAdapter
-import com.rodrigolmti.lunch.money.companion.composition.di.adapter.TransactionFeatureAdapter
+import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.BudgetFeatureAdapter
+import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.HomeFeatureAdapter
+import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.SettingsFeatureAdapter
+import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.TransactionFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
 import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.ExecuteStartupLogicUseCase
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.AuthenticationViewModel

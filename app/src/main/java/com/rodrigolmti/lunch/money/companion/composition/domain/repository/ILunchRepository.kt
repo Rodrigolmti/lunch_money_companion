@@ -24,5 +24,4 @@ internal interface ILunchRepository {
     suspend fun cacheAssets()
     fun getSessionUser(): UserModel?
     fun getSessionToken(): TokenDTO?
-
 }

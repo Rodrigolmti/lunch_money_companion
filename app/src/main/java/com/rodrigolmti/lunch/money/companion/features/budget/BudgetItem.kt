@@ -61,7 +61,6 @@ private fun BudgetItemPreview() {
 
 @Composable
 internal fun BudgetItem(budget: BudgetView) {
-
     val expanded = remember { mutableStateOf(false) }
 
     Card(

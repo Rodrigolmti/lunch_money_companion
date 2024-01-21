@@ -1,6 +1,7 @@
 package com.rodrigolmti.lunch.money.companion.features.budget
 
 import androidx.compose.runtime.Immutable
+import com.rodrigolmti.lunch.money.companion.core.utils.ValueGenerator
 import java.util.UUID
 
 @Immutable
@@ -29,43 +30,43 @@ data class RecurringView(
 fun fakeBudgetView(
     recurring: List<RecurringView> = listOf(
         RecurringView(
-            payee = "Payee",
-            amount = 1.0f,
-            currency = "EUR"
+            payee = ValueGenerator.gen(),
+            amount = ValueGenerator.gen(),
+            currency = ValueGenerator.currency(),
         ),
         RecurringView(
-            payee = "Payee",
-            amount = 1.0f,
-            currency = "EUR"
+            payee = ValueGenerator.gen(),
+            amount = ValueGenerator.gen(),
+            currency = ValueGenerator.currency(),
         ),
         RecurringView(
-            payee = "Payee",
-            amount = 1.0f,
-            currency = "EUR"
+            payee = ValueGenerator.gen(),
+            amount = ValueGenerator.gen(),
+            currency = ValueGenerator.currency(),
         ),
     ),
     items: List<BudgetItemView> = listOf(
         BudgetItemView(
-            totalTransactions = 1,
-            totalSpending = 1.0f,
-            totalBudget = 1.0f,
-            currency = "EUR"
+            totalTransactions = ValueGenerator.gen(),
+            totalSpending = ValueGenerator.gen(),
+            totalBudget = ValueGenerator.gen(),
+            currency = ValueGenerator.currency(),
         ),
         BudgetItemView(
-            totalTransactions = 2,
-            totalSpending = 2.0f,
-            totalBudget = 2.0f,
-            currency = "EUR",
+            totalTransactions = ValueGenerator.gen(),
+            totalSpending = ValueGenerator.gen(),
+            totalBudget = ValueGenerator.gen(),
+            currency = ValueGenerator.currency(),
         ),
         BudgetItemView(
-            totalTransactions = 3,
-            totalSpending = 3.0f,
-            totalBudget = 3.0f,
-            currency = "EUR"
+            totalTransactions = ValueGenerator.gen(),
+            totalSpending = ValueGenerator.gen(),
+            totalBudget = ValueGenerator.gen(),
+            currency = ValueGenerator.currency(),
         ),
     ),
 ) = BudgetView(
-    category = "Household",
+    category = ValueGenerator.gen(),
     recurring = recurring,
     items = items,
 )

@@ -1,4 +1,4 @@
-package com.rodrigolmti.lunch.money.companion.composition.di.mapper
+package com.rodrigolmti.lunch.money.companion.composition.bridge.mapper
 
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.UserModel
 import com.rodrigolmti.lunch.money.companion.features.settings.model.SettingsView

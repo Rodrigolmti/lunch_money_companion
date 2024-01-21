@@ -1,8 +1,6 @@
 package com.rodrigolmti.lunch.money.companion.composition.domain.model
 
-import kotlinx.serialization.SerialName
-
-data class Budget(
+internal data class Budget(
     val categoryName: String,
     val categoryId: Int?,
     val categoryGroupName: String?,
@@ -17,13 +15,13 @@ data class Budget(
     val recurring: List<BudgetRecurring> = emptyList()
 )
 
-data class BudgetRecurring(
+internal data class BudgetRecurring(
     val payee: String,
     val amount: Float,
     val currency: String,
 )
 
-data class Category(
+internal data class Category(
     val numTransactions: Int,
     val spendingToBase: Float,
     val budgetToBase: Float,
@@ -33,7 +31,7 @@ data class Category(
     val date: String
 )
 
-data class CategoryConfig(
+internal data class CategoryConfig(
     val configId: Int,
     val cadence: String,
     val amount: Float,
