@@ -29,6 +29,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.features.budget.BudgetScreen
@@ -123,7 +124,13 @@ internal fun BottomNavigation(
                     screens.forEach { route ->
                         BottomNavigationItem(
                             icon = { Icon(getIconByRoute(route), contentDescription = null) },
-                            label = { Text(getLabelByRoute(route)) },
+                            label = {
+                                Text(
+                                    getLabelByRoute(route),
+                                    overflow = TextOverflow.Ellipsis,
+                                    maxLines = 1,
+                                )
+                            },
                             selected = route == selectedScreen,
                             onClick = { onScreenSelected(route) },
                             modifier = Modifier.padding(8.dp),

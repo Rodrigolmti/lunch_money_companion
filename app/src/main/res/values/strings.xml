@@ -55,6 +55,11 @@
     <string name="budget_title">Budget</string>
     <string name="budget_error_message">We could\'t load your budget data. Please try again later.</string>
     <string name="budget_empty_content_message">You don\'t have a budget yet!</string>
+    <string name="budget_transaction_label">Transactions:</string>
+    <string name="budget_value_label">Budget value:</string>
+    <string name="budget_spending_label">Total Spending:</string>
+    <string name="budget_empty_budget_message">No budget found for this category</string>
+    <string name="budget_recurring_label">Recurring</string>
 
     <string name="home_error_message">We could\'t load your account overview. Please try again later.</string>
     <string name="home_title">Home</string>

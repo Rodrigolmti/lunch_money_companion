@@ -1,9 +1,11 @@
 package com.rodrigolmti.lunch.money.companion.composition.data.mapper
 
+import com.rodrigolmti.lunch.money.companion.composition.data.model.response.BudgetRecurringResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.BudgetResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.CategoryConfigResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.CategoryResponse
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.Budget
+import com.rodrigolmti.lunch.money.companion.composition.domain.model.BudgetRecurring
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.Category
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.CategoryConfig
 
@@ -14,7 +16,6 @@ internal fun mapBudget(budgets: List<BudgetResponse>): List<Budget> {
 }
 
 internal fun BudgetResponse.toModel() = Budget(
-    // TODO: Map to category model?
     categoryName = categoryName,
     categoryId = categoryId,
     categoryGroupName = categoryGroupName,
@@ -26,6 +27,13 @@ internal fun BudgetResponse.toModel() = Budget(
     data = data.map { it.value?.toModel(it.key) }.filterNotNull(),
     config = config?.toModel(),
     order = order,
+    recurring = recurring?.list?.map { it.toModel() } ?: emptyList(),
+)
+
+internal fun BudgetRecurringResponse.toModel() = BudgetRecurring(
+    payee = payee,
+    amount = amount,
+    currency = currency,
 )
 
 internal fun CategoryResponse.toModel(date: String) = Category(

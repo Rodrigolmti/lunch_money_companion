@@ -1,5 +1,7 @@
 package com.rodrigolmti.lunch.money.companion.composition.domain.model
 
+import kotlinx.serialization.SerialName
+
 data class Budget(
     val categoryName: String,
     val categoryId: Int?,
@@ -11,7 +13,14 @@ data class Budget(
     val excludeFromTotals: Boolean,
     val data: List<Category>,
     val config: CategoryConfig?,
-    val order: Int
+    val order: Int,
+    val recurring: List<BudgetRecurring> = emptyList()
+)
+
+data class BudgetRecurring(
+    val payee: String,
+    val amount: Float,
+    val currency: String,
 )
 
 data class Category(

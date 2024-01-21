@@ -27,6 +27,8 @@ data class BudgetResponse(
     val data: Map<String, CategoryResponse?>,
     @SerialName("config")
     val config: CategoryConfigResponse? = null,
+    @SerialName("recurring")
+    val recurring: BudgetRecurringBodyResponse? = null,
     @SerialName("order")
     val order: Int
 )
@@ -46,6 +48,24 @@ data class CategoryResponse(
     val budgetCurrency: String? = null,
     @SerialName("is_automated")
     val isAutomated: Boolean? = null
+)
+
+@Keep
+@Serializable
+data class BudgetRecurringBodyResponse(
+    @SerialName("list")
+    val list: List<BudgetRecurringResponse>
+)
+
+@Keep
+@Serializable
+data class BudgetRecurringResponse(
+    @SerialName("payee")
+    val payee: String,
+    @SerialName("amount")
+    val amount: Float,
+    @SerialName("currency")
+    val currency: String,
 )
 
 @Keep
