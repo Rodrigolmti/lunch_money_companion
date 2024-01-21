@@ -3,8 +3,11 @@
 package com.rodrigolmti.lunch.money.companion.features.navigation
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.ExperimentalMaterialApi
@@ -13,11 +16,6 @@ import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -27,7 +25,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -42,10 +41,15 @@ import com.rodrigolmti.lunch.money.companion.features.transactions.ui.ITransacti
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.TransactionDetailScreen
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.TransactionsScreen
 import com.rodrigolmti.lunch.money.companion.uikit.components.BottomSheetComponent
+import com.rodrigolmti.lunch.money.companion.uikit.components.LunchButton
+import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
+import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
 import com.rodrigolmti.lunch.money.companion.uikit.theme.GraphiteWhisper
+import com.rodrigolmti.lunch.money.companion.uikit.theme.Header
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
+import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -109,6 +113,16 @@ internal fun BottomNavigation(
                         }
                     }
                 }
+
+                is BottomNavigationUiState.ShowDonationBottomSheet -> {
+                    DonationBottomSheet {
+                        scope.launch { sheetState.hide() }.invokeOnCompletion {
+                            if (!sheetState.isVisible) {
+                                state.value = BottomNavigationUiState.Idle
+                            }
+                        }
+                    }
+                }
             }
         },
         modifier = Modifier.fillMaxHeight(),
@@ -123,7 +137,13 @@ internal fun BottomNavigation(
                 ) {
                     screens.forEach { route ->
                         BottomNavigationItem(
-                            icon = { Icon(getIconByRoute(route), contentDescription = null) },
+                            icon = {
+                                Icon(
+                                    getIconByRoute(route), contentDescription = null,
+                                    modifier = Modifier
+                                        .size(24.dp),
+                                )
+                            },
                             label = {
                                 Text(
                                     getLabelByRoute(route),
@@ -165,11 +185,23 @@ internal fun BottomNavigation(
                 BottomNavigationRouter.SETTINGS -> {
                     val uiModel = koinViewModel<ISettingsViewModel>()
 
-                    SettingsScreen(uiModel, {
-                        onLogout()
-                    }, {
-                        onTermsOfUseClick(it)
-                    })
+                    SettingsScreen(
+                        uiModel,
+                        onLogout = {
+                            onLogout()
+                        },
+                        onTermsOfUseClick = {
+                            onTermsOfUseClick(it)
+                        },
+                        onDonationClick = {
+                            updateBottomSheetState(
+                                state,
+                                BottomNavigationUiState.ShowDonationBottomSheet,
+                                sheetState,
+                                scope
+                            )
+                        },
+                    )
                 }
 
                 BottomNavigationRouter.HOME -> {
@@ -250,13 +282,16 @@ private fun BuildErrorState(
     }
 }
 
-private fun getIconByRoute(route: BottomNavigationRouter): ImageVector {
-    return when (route) {
-        BottomNavigationRouter.TRANSACTIONS -> Icons.Filled.List
-        BottomNavigationRouter.SETTINGS -> Icons.Filled.Settings
-        BottomNavigationRouter.HOME -> Icons.Filled.Home
-        BottomNavigationRouter.BUDGET -> Icons.Filled.Search
+@Composable
+private fun getIconByRoute(route: BottomNavigationRouter): Painter {
+    val icon = when (route) {
+        BottomNavigationRouter.TRANSACTIONS -> R.drawable.ic_transactions
+        BottomNavigationRouter.SETTINGS -> R.drawable.ic_settings
+        BottomNavigationRouter.HOME -> R.drawable.ic_home
+        BottomNavigationRouter.BUDGET -> R.drawable.ic_budget
     }
+
+    return painterResource(id = icon)
 }
 
 @Composable

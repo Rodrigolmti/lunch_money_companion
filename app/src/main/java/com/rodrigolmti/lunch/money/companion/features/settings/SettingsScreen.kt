@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -45,6 +46,7 @@ internal fun SettingsScreen(
     uiModel: ISettingsUIModel = DummyISettingsUIModel(),
     onLogout: () -> Unit = {},
     onTermsOfUseClick: (String) -> Unit = {},
+    onDonationClick: () -> Unit = {},
 ) {
     val viewState by uiModel.viewState.collectAsStateWithLifecycle()
     val padding = PaddingValues(start = 16.dp, end = 16.dp)
@@ -114,7 +116,7 @@ internal fun SettingsScreen(
 
                     SettingsItem(
                         label = stringResource(R.string.settings_screen_terms_label),
-                        icon = Icons.Default.Person
+                        icon = painterResource(id = R.drawable.ic_terms)
                     ) {
                         onTermsOfUseClick(PRIVACY_POLICY_URL)
                     }
@@ -124,12 +126,18 @@ internal fun SettingsScreen(
                             R.string.settings_screen_app_version,
                             BuildConfig.VERSION_NAME
                         ),
-                        icon = Icons.Default.Person
+                        icon = painterResource(id = R.drawable.ic_build)
                     )
+                    SettingsItem(
+                        label = stringResource(R.string.settings_screen_donate_action),
+                        icon = painterResource(id = R.drawable.ic_btc)
+                    ) {
+                        onDonationClick()
+                    }
                     SettingsItem(
                         label = stringResource(R.string.settings_screen_sign_out_action),
                         color = FadedBlood,
-                        icon = Icons.Default.ExitToApp
+                        icon = painterResource(id = R.drawable.ic_sign_out)
                     ) {
                         uiModel.logout()
                     }

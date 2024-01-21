@@ -14,5 +14,7 @@ internal sealed class BottomNavigationUiState {
     data class ShowInformationBottomSheet(val title: String, val message: String) :
         BottomNavigationUiState()
 
+    data object ShowDonationBottomSheet : BottomNavigationUiState()
+
     data object Idle : BottomNavigationUiState()
 }

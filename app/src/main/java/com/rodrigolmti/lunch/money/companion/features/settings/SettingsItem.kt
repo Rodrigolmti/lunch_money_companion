@@ -14,10 +14,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.uikit.components.HorizontalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
@@ -31,7 +34,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 internal fun SettingsItem(
     label: String,
     description: String? = null,
-    icon: ImageVector,
+    icon: Painter,
     color: Color = SilverLining,
     onClick: () -> Unit = {},
 ) {
@@ -48,11 +51,11 @@ internal fun SettingsItem(
             ),
     ) {
         Icon(
-            icon,
+            painter = icon,
             tint = color,
             modifier = Modifier
                 .size(24.dp),
-            contentDescription = "-",
+            contentDescription = ""
         )
 
         HorizontalSpacer(8.dp)
@@ -90,16 +93,16 @@ private fun SettingsItemPreview() {
             SettingsItem(
                 label = "Terms of Use",
                 description = "1.0.0 made with ❤️ by Rodrigo Lopes Martins",
-                icon = Icons.Default.Person
+                icon = painterResource(id = R.drawable.ic_btc)
             )
             SettingsItem(
                 label = "Terms of Use",
-                icon = Icons.Default.Person
+                icon = painterResource(id = R.drawable.ic_btc)
             )
             SettingsItem(
                 label = "Terms of Use",
                 color = FadedBlood,
-                icon = Icons.Default.Person
+                icon = painterResource(id = R.drawable.ic_btc)
             )
         }
     }
