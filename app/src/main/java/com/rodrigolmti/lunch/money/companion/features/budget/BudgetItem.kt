@@ -1,19 +1,23 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.rodrigolmti.lunch.money.companion.features.budget
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -47,14 +51,18 @@ private fun BudgetItemPreview() {
         Column {
             BudgetItem(fakeBudgetView())
             VerticalSpacer(height = 8.dp)
-            BudgetItem(fakeBudgetView(
-                recurring = emptyList(),
-                items = emptyList()
-            ))
+            BudgetItem(
+                fakeBudgetView(
+                    recurring = emptyList(),
+                    items = emptyList()
+                )
+            )
             VerticalSpacer(height = 8.dp)
-            BudgetItem(fakeBudgetView(
-                recurring = emptyList(),
-            ))
+            BudgetItem(
+                fakeBudgetView(
+                    recurring = emptyList(),
+                )
+            )
         }
     }
 }
@@ -62,6 +70,7 @@ private fun BudgetItemPreview() {
 @Composable
 internal fun BudgetItem(budget: BudgetView) {
     val expanded = remember { mutableStateOf(false) }
+    val hasRecurring = budget.recurring.isNotEmpty()
 
     Card(
         shape = MaterialTheme.shapes.medium,
@@ -73,6 +82,9 @@ internal fun BudgetItem(budget: BudgetView) {
             color = Color.Black
         ),
         modifier = Modifier
+            .clickable {
+                expanded.value = !expanded.value
+            }
             .fillMaxWidth()
     ) {
 
@@ -82,7 +94,7 @@ internal fun BudgetItem(budget: BudgetView) {
                     start = 16.dp,
                     end = 16.dp,
                     bottom = 16.dp,
-                    top = 8.dp
+                    top = if (hasRecurring) 8.dp else 16.dp,
                 ),
         ) {
 
@@ -100,24 +112,19 @@ internal fun BudgetItem(budget: BudgetView) {
                     style = BodyBold,
                 )
 
-                if (budget.recurring.isNotEmpty()) {
-                    IconButton(
-                        onClick = {
-                            expanded.value = !expanded.value
-                        }
-                    ) {
-                        Icon(
-                            if (expanded.value) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
-                            contentDescription = null,
-                            tint = SilverLining,
-                        )
-                    }
+                if (hasRecurring) {
+                    Icon(
+                        if (expanded.value) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
+                        modifier = Modifier
+                            .size(32.dp),
+                        contentDescription = null,
+                        tint = SilverLining,
+                    )
                 }
             }
 
-            if (budget.recurring.isEmpty()) {
-                VerticalSpacer(height = 16.dp)
-            }
+            VerticalSpacer(height = 16.dp)
+
 
             if (budget.items.isNotEmpty()) {
 
@@ -211,7 +218,7 @@ internal fun BudgetItem(budget: BudgetView) {
                 )
             }
 
-            if (budget.recurring.isNotEmpty() && expanded.value) {
+            if (hasRecurring && expanded.value) {
 
                 VerticalSpacer(height = 16.dp)
 
