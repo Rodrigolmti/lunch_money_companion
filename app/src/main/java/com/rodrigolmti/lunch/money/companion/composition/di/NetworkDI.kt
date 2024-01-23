@@ -3,6 +3,7 @@ package com.rodrigolmti.lunch.money.companion.composition.di
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.rodrigolmti.lunch.money.companion.BuildConfig
 import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.core.ConnectionChecker
 import com.rodrigolmti.lunch.money.companion.core.SERVER_URL
 import com.rodrigolmti.lunch.money.companion.core.network.AuthInterceptor
 import kotlinx.serialization.json.Json
@@ -14,6 +15,9 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 
 internal val networkModule = module {
+    single {
+        ConnectionChecker(get())
+    }
     single<Json> {
         Json {
             ignoreUnknownKeys = true

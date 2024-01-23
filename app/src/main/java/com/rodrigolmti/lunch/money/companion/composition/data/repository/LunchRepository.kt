@@ -12,6 +12,7 @@ import com.rodrigolmti.lunch.money.companion.composition.domain.model.Transactio
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.UserModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.core.ConnectionChecker
 import com.rodrigolmti.lunch.money.companion.core.DEFAULT_EMPTY_STRING
 import com.rodrigolmti.lunch.money.companion.core.IDispatchersProvider
 import com.rodrigolmti.lunch.money.companion.core.LunchError
@@ -34,8 +35,9 @@ internal class LunchRepository(
     private val json: Json,
     private val lunchService: LunchService,
     cacheManager: ICacheManager,
+    private val connectionChecker: ConnectionChecker,
     private val dispatchers: IDispatchersProvider,
-    preferences: SharedPreferencesDelegateFactory,
+    private val preferences: SharedPreferencesDelegateFactory,
 ) : ILunchRepository {
 
     private var user: String by preferences.create(DEFAULT_EMPTY_STRING, USER_KEY)
@@ -46,6 +48,8 @@ internal class LunchRepository(
     private val assetCache = cacheManager.createCache<String, List<AssetModel>>(ASSET_CACHE)
 
     override suspend fun authenticateUser(tokenDTO: TokenDTO): Outcome<Unit, LunchError> {
+        if (!connectionChecker.isConnected()) return Outcome.failure(LunchError.NoConnectionError)
+
         return withContext(dispatchers.io()) {
             runCatching {
                 val userResponse = lunchService.getUser(tokenDTO.format())
@@ -60,12 +64,11 @@ internal class LunchRepository(
 
     override suspend fun logoutUser(): Outcome<Unit, LunchError> {
         return runCatching {
-            token = DEFAULT_EMPTY_STRING
-            user = DEFAULT_EMPTY_STRING
+            preferences.clear()
             transactionCache.clear()
             assetCache.clear()
         }.mapThrowable {
-            LunchError.UnsuccessfulLogout
+            LunchError.UnsuccessfulLogoutError
         }
     }
 
@@ -73,6 +76,8 @@ internal class LunchRepository(
         start: String,
         end: String,
     ): Outcome<List<TransactionModel>, LunchError> {
+        if (!connectionChecker.isConnected()) return Outcome.failure(LunchError.NoConnectionError)
+
         return withContext(dispatchers.io()) {
             runCatching {
                 mapTransactions(
@@ -106,25 +111,12 @@ internal class LunchRepository(
         }
     }
 
-    override fun getSessionUser(): UserModel? {
-        return if (user.isNotEmpty()) {
-            json.decodeFromString(UserResponse.serializer(), user).toModel()
-        } else {
-            null
-        }
-    }
-
-    override fun getSessionToken(): TokenDTO? {
-        if (token.isNotEmpty()) {
-            return TokenDTO(token)
-        }
-        return null
-    }
-
     override suspend fun getBudgets(
         start: String,
         end: String,
     ): Outcome<List<Budget>, LunchError> {
+        if (!connectionChecker.isConnected()) return Outcome.failure(LunchError.NoConnectionError)
+
         return withContext(dispatchers.io()) {
             runCatching {
                 val response = lunchService.getBudgets(start, end)
@@ -153,5 +145,20 @@ internal class LunchRepository(
                 )
             }
         }
+    }
+
+    override fun getSessionUser(): UserModel? {
+        return if (user.isNotEmpty()) {
+            json.decodeFromString(UserResponse.serializer(), user).toModel()
+        } else {
+            null
+        }
+    }
+
+    override fun getSessionToken(): TokenDTO? {
+        if (token.isNotEmpty()) {
+            return TokenDTO(token)
+        }
+        return null
     }
 }

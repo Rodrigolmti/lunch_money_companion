@@ -11,10 +11,14 @@ class SharedPreferencesDelegateFactory(private val sharedPreferences: SharedPref
     fun <T> create(default: T, key: String): ReadWriteProperty<Any?, T> {
         return SharedPreferencesDelegate(sharedPreferences, default, key)
     }
+
+    fun clear() {
+        sharedPreferences.edit().clear().apply()
+    }
 }
 
 internal class SharedPreferencesDelegate<T>(
-    private val prefs: SharedPreferences,
+    private val sharedPreferences: SharedPreferences,
     private val default: T,
     private val key: String,
 ) : ReadWriteProperty<Any?, T> {
@@ -22,17 +26,17 @@ internal class SharedPreferencesDelegate<T>(
     @Suppress("UNCHECKED_CAST")
     override fun getValue(thisRef: Any?, property: KProperty<*>): T {
         return when (default) {
-            is Long -> prefs.getLong(key, default)
-            is String -> prefs.getString(key, default)
-            is Int -> prefs.getInt(key, default)
-            is Boolean -> prefs.getBoolean(key, default)
-            is Float -> prefs.getFloat(key, default)
+            is Long -> sharedPreferences.getLong(key, default)
+            is String -> sharedPreferences.getString(key, default)
+            is Int -> sharedPreferences.getInt(key, default)
+            is Boolean -> sharedPreferences.getBoolean(key, default)
+            is Float -> sharedPreferences.getFloat(key, default)
             else -> throw IllegalArgumentException("Unsupported type.")
         } as T
     }
 
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
-        with(prefs.edit()) {
+        with(sharedPreferences.edit()) {
             when (value) {
                 is Long -> putLong(key, value)
                 is String -> putString(key, value)

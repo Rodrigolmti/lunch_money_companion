@@ -32,12 +32,12 @@ private val dataModule = module {
     }
     single<ICacheManager> { CacheManager() }
     single { SharedPreferencesDelegateFactory(get()) }
-    single<ILunchRepository> { LunchRepository(get(), get(), get(), get(), get()) }
+    single<ILunchRepository> { LunchRepository(get(), get(), get(), get(), get(), get()) }
 }
 
 private val domainModule = module {
     factory<IsUserAuthenticatedUseCase> { IsUserAuthenticated(get()) }
-    factory<ExecuteStartupLogicUseCase> { ExecuteStartupLogic(get()) }
+    factory<ExecuteStartupLogicUseCase> { ExecuteStartupLogic(get(), get()) }
 }
 
 internal val applicationModule = module {

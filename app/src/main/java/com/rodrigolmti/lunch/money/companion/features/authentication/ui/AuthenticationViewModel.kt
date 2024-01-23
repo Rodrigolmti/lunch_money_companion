@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
+import com.rodrigolmti.lunch.money.companion.core.isNoConnectionError
 import com.rodrigolmti.lunch.money.companion.core.onFailure
 import com.rodrigolmti.lunch.money.companion.core.onSuccess
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,6 +32,11 @@ internal class AuthenticationViewModel(
                     _viewState.update { AuthenticationUiState.Success }
                 }
                 .onFailure {
+                    if (it.isNoConnectionError()) {
+                        _viewState.update { AuthenticationUiState.NoConnectionError }
+                        return@onFailure
+                    }
+
                     _viewState.update { AuthenticationUiState.Error }
                 }
         }

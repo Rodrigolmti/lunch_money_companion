@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.ExperimentalMaterialApi
@@ -30,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -86,42 +86,65 @@ internal fun AuthenticationScreen(
             confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded })
         val scope = rememberCoroutineScope()
 
+        val errorState = remember {
+            mutableStateOf<AuthenticationScreenErrorState>(AuthenticationScreenErrorState.Idle)
+        }
+
         val context = LocalContext.current
 
-        when {
-            viewState.isSuccess() -> {
-                onUserAuthenticated()
-            }
-
-            viewState.isError() -> {
+        when (viewState) {
+            AuthenticationUiState.Error -> {
                 LaunchedEffect(Unit) {
+                    errorState.value = AuthenticationScreenErrorState.InvalidTokenError
                     scope.launch { sheetState.show() }
                 }
+            }
+
+            AuthenticationUiState.Idle -> {
+                // Do nothing
+            }
+
+            AuthenticationUiState.Loading -> {
+                // Do nothing
+            }
+
+            AuthenticationUiState.NoConnectionError -> {
+                LaunchedEffect(Unit) {
+                    errorState.value = AuthenticationScreenErrorState.NoConnectionError
+                    scope.launch { sheetState.show() }
+                }
+            }
+
+            AuthenticationUiState.Success -> {
+                onUserAuthenticated()
             }
         }
 
         ModalBottomSheetLayout(
             sheetState = sheetState,
             sheetContent = {
-                val (title, description) = when {
-                    viewState.isError() -> {
-                        Pair(
-                            stringResource(R.string.connection_error_title),
-                            stringResource(R.string.connection_error_message),
-                        )
+                when (errorState.value) {
+                    AuthenticationScreenErrorState.Idle -> {
+                        // Do nothing
                     }
 
-                    else -> Pair(
-                        stringResource(R.string.authentication_invalid_token_title),
-                        stringResource(R.string.authentication_invalid_token_description),
-                    )
-                }
+                    AuthenticationScreenErrorState.InvalidTokenError -> {
+                        BottomSheetComponent(
+                            stringResource(R.string.authentication_invalid_token_title),
+                            stringResource(R.string.authentication_invalid_token_description),
+                        ) {
+                            scope.launch { sheetState.hide() }
+                        }
+                    }
 
-                BottomSheetComponent(
-                    title,
-                    description,
-                ) {
-                    scope.launch { sheetState.hide() }
+                    AuthenticationScreenErrorState.NoConnectionError -> {
+                        BottomSheetComponent(
+                            stringResource(R.string.connection_error_title),
+                            stringResource(R.string.connection_error_message),
+                        ) {
+                            scope.launch { sheetState.hide() }
+                        }
+                    }
                 }
             },
             modifier = Modifier.fillMaxSize(),
@@ -136,6 +159,7 @@ internal fun AuthenticationScreen(
                     apiToken = it
                 },
                 onTokenValidationError = {
+                    errorState.value = AuthenticationScreenErrorState.InvalidTokenError
                     scope.launch { sheetState.show() }
                 },
                 onLoginClicked = {

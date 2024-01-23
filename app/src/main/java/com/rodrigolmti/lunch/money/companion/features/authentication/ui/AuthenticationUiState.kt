@@ -10,9 +10,9 @@ internal sealed class AuthenticationUiState {
 
     data object Error : AuthenticationUiState()
 
+    data object NoConnectionError : AuthenticationUiState()
+
     data object Idle : AuthenticationUiState()
 
     fun isLoading() = this is Loading
-    fun isError() = this is Error
-    fun isSuccess() = this is Success
 }

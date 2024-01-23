@@ -37,9 +37,10 @@ internal fun NavigationGraph(
         composable(authenticationRoute) {
             val uiModel = koinViewModel<IAuthenticationViewModel>()
 
-            AuthenticationScreen(uiModel) {
-                navController.navigate(dashboardRoute)
-            }
+            AuthenticationScreen(
+                uiModel = uiModel,
+                onUserAuthenticated = { navController.navigate(dashboardRoute) }
+            )
         }
         composable(dashboardRoute) {
             BottomNavigation(
@@ -64,7 +65,7 @@ internal fun NavigationGraph(
                     type = NavType.StringType
                 }
             )
-        ) { navBackStackEntry->
+        ) { navBackStackEntry ->
             navBackStackEntry.arguments?.getString("url")?.let {
                 WebViewScreen(url = it) {
                     navController.navigateUp()
