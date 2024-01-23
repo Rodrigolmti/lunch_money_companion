@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.rodrigolmti.lunch.money.companion"
-        versionCode = 202401221
+        versionCode = 202401222
         versionName = "1.0.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
