@@ -16,13 +16,10 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.uikit.components.HorizontalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
-import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
-import com.rodrigolmti.lunch.money.companion.uikit.theme.BodySmall
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadedBlood
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
@@ -64,7 +61,7 @@ internal fun SettingsItem(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = color,
-                style = BodyBold,
+                style = CompanionTheme.typography.bodyBold,
             )
 
             description?.let {
@@ -75,7 +72,7 @@ internal fun SettingsItem(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     color = color,
-                    style = BodySmall,
+                    style = CompanionTheme.typography.bodySmall,
                 )
             }
         }

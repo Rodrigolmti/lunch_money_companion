@@ -19,10 +19,7 @@ import com.rodrigolmti.lunch.money.companion.features.transactions.model.Transac
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchButton
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchTextField
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
-import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Header
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 
@@ -42,7 +39,7 @@ internal fun TransactionDetailScreen(
     ) {
         Text(
             stringResource(R.string.transaction_detail_label),
-            style = Header,
+            style = CompanionTheme.typography.header,
             color = White,
         )
         LunchTextField(
@@ -65,7 +62,7 @@ internal fun TransactionDetailScreen(
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Start,
             color = SilverLining,
-            style = Body,
+            style = CompanionTheme.typography.body,
         )
         Text(
             text = formatCurrency(
@@ -73,7 +70,7 @@ internal fun TransactionDetailScreen(
                 transaction.currency
             ),
             color = White,
-            style = BodyBold,
+            style = CompanionTheme.typography.bodyBold,
         )
         LunchTextField(
             label = stringResource(R.string.transaction_notes_label),
@@ -85,28 +82,28 @@ internal fun TransactionDetailScreen(
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Start,
             color = SilverLining,
-            style = Body,
+            style = CompanionTheme.typography.body,
         )
         Text(
             text = transaction.originalName ?: "-",
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             color = White,
-            style = BodyBold,
+            style = CompanionTheme.typography.bodyBold,
         )
         Text(
             text = stringResource(R.string.transaction_paid_from_label),
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Start,
             color = SilverLining,
-            style = Body,
+            style = CompanionTheme.typography.body,
         )
         Text(
             text = transaction.assetName ?: "-",
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             color = White,
-            style = BodyBold,
+            style = CompanionTheme.typography.bodyBold,
         )
         VerticalSpacer(height = CompanionTheme.spacings.spacingB)
         LunchButton(

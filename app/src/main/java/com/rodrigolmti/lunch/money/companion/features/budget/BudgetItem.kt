@@ -33,8 +33,6 @@ import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.core.utils.formatCurrency
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
-import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.EmeraldSpring
@@ -108,7 +106,7 @@ internal fun BudgetItem(budget: BudgetView) {
                     maxLines = 2,
                     modifier = Modifier.weight(1f),
                     color = White,
-                    style = BodyBold,
+                    style = CompanionTheme.typography.bodyBold,
                 )
 
                 if (hasRecurring) {
@@ -140,13 +138,13 @@ internal fun BudgetItem(budget: BudgetView) {
                             maxLines = 2,
                             modifier = Modifier.weight(1f),
                             color = White,
-                            style = Body,
+                            style = CompanionTheme.typography.body,
                         )
 
                         Text(
                             text = it.totalTransactions.toString(),
                             color = White,
-                            style = BodyBold,
+                            style = CompanionTheme.typography.bodyBold,
                         )
 
                     }
@@ -164,7 +162,7 @@ internal fun BudgetItem(budget: BudgetView) {
                             maxLines = 2,
                             modifier = Modifier.weight(1f),
                             color = White,
-                            style = Body,
+                            style = CompanionTheme.typography.body,
                         )
 
                         Text(
@@ -173,7 +171,7 @@ internal fun BudgetItem(budget: BudgetView) {
                                 it.currency
                             ),
                             color = SunburstGold,
-                            style = BodyBold,
+                            style = CompanionTheme.typography.bodyBold,
                         )
 
                     }
@@ -191,7 +189,7 @@ internal fun BudgetItem(budget: BudgetView) {
                             maxLines = 2,
                             modifier = Modifier.weight(1f),
                             color = White,
-                            style = Body,
+                            style = CompanionTheme.typography.body,
                         )
 
                         Text(
@@ -200,7 +198,7 @@ internal fun BudgetItem(budget: BudgetView) {
                                 it.currency
                             ),
                             color = if (it.totalSpending > it.totalBudget) FadedBlood else EmeraldSpring,
-                            style = BodyBold,
+                            style = CompanionTheme.typography.bodyBold,
                         )
 
                     }
@@ -213,7 +211,7 @@ internal fun BudgetItem(budget: BudgetView) {
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 2,
                     color = White,
-                    style = Body,
+                    style = CompanionTheme.typography.body,
                 )
             }
 
@@ -226,7 +224,7 @@ internal fun BudgetItem(budget: BudgetView) {
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                     color = White,
-                    style = BodyBold,
+                    style = CompanionTheme.typography.bodyBold,
                 )
 
                 VerticalSpacer(height = CompanionTheme.spacings.spacingD)
@@ -244,7 +242,7 @@ internal fun BudgetItem(budget: BudgetView) {
                             modifier = Modifier.weight(1f),
                             overflow = TextOverflow.Ellipsis,
                             maxLines = 1,
-                            style = Body,
+                            style = CompanionTheme.typography.body,
                         )
 
                         Text(
@@ -253,7 +251,7 @@ internal fun BudgetItem(budget: BudgetView) {
                                 it.currency
                             ),
                             color = SunburstGold,
-                            style = BodyBold,
+                            style = CompanionTheme.typography.bodyBold,
                         )
 
                     }

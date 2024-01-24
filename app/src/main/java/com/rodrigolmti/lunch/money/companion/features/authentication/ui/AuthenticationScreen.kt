@@ -59,10 +59,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.components.LunchButton
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchTextField
 import com.rodrigolmti.lunch.money.companion.uikit.components.TiledBackgroundScreen
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
-import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionSpacings
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Header
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
@@ -214,7 +211,7 @@ private fun AuthenticationBody(
                 Text(
                     text = stringResource(R.string.authentication_title),
                     textAlign = TextAlign.Center,
-                    style = Header,
+                    style = CompanionTheme.typography.header,
                     color = White,
                     modifier = Modifier.align(alignment = Alignment.CenterHorizontally)
                 )
@@ -259,7 +256,7 @@ private fun AuthenticationBody(
                     Text(
                         text = stringResource(R.string.authentication_get_key_one),
                         textAlign = TextAlign.Center,
-                        style = Body,
+                        style = CompanionTheme.typography.body,
                         color = White
                     )
                     HorizontalSpacer(4.dp)
@@ -269,7 +266,7 @@ private fun AuthenticationBody(
                         modifier = Modifier.clickable {
                             context.openUrl(DEVELOPER_URL)
                         },
-                        style = Body.copy(
+                        style = CompanionTheme.typography.body.copy(
                             textDecoration = TextDecoration.Underline
                         ),
                         color = SunburstGold

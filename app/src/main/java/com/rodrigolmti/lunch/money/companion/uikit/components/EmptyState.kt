@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 
@@ -31,7 +30,7 @@ internal fun EmptyState(
 
         Text(
             text = message,
-            style = Body,
+            style = CompanionTheme.typography.body,
             color = White,
         )
     }

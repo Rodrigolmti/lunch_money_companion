@@ -16,8 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadingGrey
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
@@ -40,7 +38,7 @@ fun LunchTextField(
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Start,
             color = SilverLining,
-            style = Body,
+            style = CompanionTheme.typography.body,
         )
 
         VerticalSpacer(height = CompanionTheme.spacings.spacingB)

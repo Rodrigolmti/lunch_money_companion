@@ -3,9 +3,7 @@
 package com.rodrigolmti.lunch.money.companion.features.navigation
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomNavigation
@@ -29,7 +27,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.features.budget.BudgetScreen
 import com.rodrigolmti.lunch.money.companion.features.budget.IBudgetViewModel
@@ -41,16 +38,11 @@ import com.rodrigolmti.lunch.money.companion.features.transactions.ui.ITransacti
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.TransactionDetailScreen
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.TransactionsScreen
 import com.rodrigolmti.lunch.money.companion.uikit.components.BottomSheetComponent
-import com.rodrigolmti.lunch.money.companion.uikit.components.LunchButton
-import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.GraphiteWhisper
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Header
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
-import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel

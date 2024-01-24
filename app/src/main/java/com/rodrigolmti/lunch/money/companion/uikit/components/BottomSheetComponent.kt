@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Header
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 
 @Composable
@@ -25,13 +23,13 @@ fun BottomSheetComponent(
     ) {
         Text(
             title,
-            style = Header,
+            style = CompanionTheme.typography.header,
             color = White,
         )
         VerticalSpacer(height = CompanionTheme.spacings.spacingD)
         Text(
             message,
-            style = Body,
+            style = CompanionTheme.typography.body,
             color = White,
         )
         VerticalSpacer(height = CompanionTheme.spacings.spacingE)

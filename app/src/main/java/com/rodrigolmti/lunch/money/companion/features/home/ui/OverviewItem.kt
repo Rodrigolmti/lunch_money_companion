@@ -21,8 +21,6 @@ import com.rodrigolmti.lunch.money.companion.features.home.model.AssetModelView
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetOverviewView
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetTypeView
 import com.rodrigolmti.lunch.money.companion.features.home.model.fakeAssetOverviewView
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
-import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
@@ -55,7 +53,7 @@ internal fun OverviewItem(
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Start,
                     color = White,
-                    style = Body,
+                    style = CompanionTheme.typography.body,
                 )
                 overview.assets.forEach { asset ->
                     Column(
@@ -68,14 +66,14 @@ internal fun OverviewItem(
                                 modifier = Modifier.weight(1f),
                                 textAlign = TextAlign.Start,
                                 color = SunburstGold,
-                                style = BodyBold,
+                                style = CompanionTheme.typography.bodyBold,
                             )
 
                             Text(
                                 text = formatItemValue(asset),
                                 textAlign = TextAlign.Start,
                                 color = White,
-                                style = Body,
+                                style = CompanionTheme.typography.body,
                             )
                         }
                     }

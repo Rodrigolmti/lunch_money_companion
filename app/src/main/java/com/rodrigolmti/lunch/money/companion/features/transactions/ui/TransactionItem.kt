@@ -29,8 +29,6 @@ import com.rodrigolmti.lunch.money.companion.features.transactions.model.Transac
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.fakeTransactionView
 import com.rodrigolmti.lunch.money.companion.uikit.components.HorizontalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
-import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.EmeraldSpring
@@ -88,7 +86,7 @@ internal fun TransactionItem(
                         maxLines = 2,
                         modifier = Modifier.weight(1f),
                         color = White,
-                        style = Body,
+                        style = CompanionTheme.typography.body,
                     )
 
                     HorizontalSpacer(CompanionTheme.spacings.spacingB)
@@ -99,7 +97,7 @@ internal fun TransactionItem(
                             transaction.currency
                         ),
                         color = White,
-                        style = BodyBold,
+                        style = CompanionTheme.typography.bodyBold,
                     )
                 }
 
@@ -113,7 +111,7 @@ internal fun TransactionItem(
                     Text(
                         text = transaction.date,
                         color = White,
-                        style = Body,
+                        style = CompanionTheme.typography.body,
                     )
 
                     HorizontalSpacer(CompanionTheme.spacings.spacingB)
@@ -121,7 +119,7 @@ internal fun TransactionItem(
                     Text(
                         text = getTransactionStatusLabel(transaction.status),
                         color = getTransactionStatusColor(transaction.status),
-                        style = Body,
+                        style = CompanionTheme.typography.body,
                     )
                 }
             }

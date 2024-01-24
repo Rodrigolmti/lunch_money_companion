@@ -8,9 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
-import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.companion.uikit.theme.NightSkyMist
@@ -45,7 +43,7 @@ fun LunchButton(
         } else {
             Text(
                 label,
-                style = BodyBold,
+                style = CompanionTheme.typography.bodyBold,
                 color = MidnightSlate
             )
         }

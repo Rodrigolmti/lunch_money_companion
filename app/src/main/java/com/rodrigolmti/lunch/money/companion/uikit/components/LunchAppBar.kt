@@ -14,7 +14,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Header
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 
@@ -49,7 +48,7 @@ internal fun LunchAppBar(
             Text(
                 text = title,
                 color = SunburstGold,
-                style = Header,
+                style = CompanionTheme.typography.header,
             )
         })
 }

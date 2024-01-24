@@ -11,6 +11,10 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+private val LocalCompanionTypography = staticCompositionLocalOf<CompanionTypography> {
+    error("No LocalCompanionTypography provided")
+}
+
 private val LocalCompanionSpacings = staticCompositionLocalOf<CompanionSpacings> {
     error("No LocalCompanionSpacings provided")
 }
@@ -30,6 +34,9 @@ object CompanionTheme {
         @Composable
         get() = LocalCompanionSpacings.current
 
+    val typography: CompanionTypography
+        @Composable
+        get() = LocalCompanionTypography.current
 }
 
 @Composable
@@ -45,6 +52,7 @@ fun CompanionTheme(content: @Composable () -> Unit) {
 
     CompositionLocalProvider(
         LocalCompanionSpacings provides CompanionSpacings,
+        LocalCompanionTypography provides CompanionTypography,
     ) {
         MaterialTheme(
             colorScheme = DarkColorScheme,

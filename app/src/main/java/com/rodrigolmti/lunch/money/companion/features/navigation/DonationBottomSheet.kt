@@ -13,9 +13,7 @@ import com.rodrigolmti.lunch.money.companion.core.BTC_WALLET
 import com.rodrigolmti.lunch.money.companion.core.utils.copyToClipboard
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchButton
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Header
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 
 @Composable
@@ -31,13 +29,13 @@ fun DonationBottomSheet(
     ) {
         Text(
             stringResource(R.string.donation_title),
-            style = Header,
+            style = CompanionTheme.typography.header,
             color = White,
         )
         VerticalSpacer(height = CompanionTheme.spacings.spacingD)
         Text(
             stringResource(R.string.donation_description),
-            style = Body,
+            style = CompanionTheme.typography.body,
             color = White,
         )
         VerticalSpacer(height = CompanionTheme.spacings.spacingE)

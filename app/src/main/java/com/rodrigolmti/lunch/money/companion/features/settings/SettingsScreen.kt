@@ -31,8 +31,6 @@ import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchLoading
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
-import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadedBlood
 import com.rodrigolmti.lunch.money.companion.uikit.theme.GraphiteWhisper
@@ -102,7 +100,7 @@ internal fun SettingsScreen(
                                     .fillMaxWidth(),
                                 textAlign = TextAlign.Start,
                                 color = SilverLining,
-                                style = BodyBold,
+                                style = CompanionTheme.typography.bodyBold,
                             )
                             VerticalSpacer(CompanionTheme.spacings.spacingB)
                             Text(
@@ -110,7 +108,7 @@ internal fun SettingsScreen(
                                 modifier = Modifier
                                     .padding(padding),
                                 color = SilverLining,
-                                style = Body,
+                                style = CompanionTheme.typography.body,
                             )
                         }
                     }

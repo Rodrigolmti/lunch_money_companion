@@ -19,7 +19,6 @@ import com.rodrigolmti.lunch.money.companion.uikit.components.HorizontalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchButton
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
-import com.rodrigolmti.lunch.money.companion.uikit.theme.Header
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 
@@ -54,7 +53,7 @@ fun TransactionFilterBottomSheet(
                 textAlign = TextAlign.Center,
                 modifier = Modifier.weight(1f),
                 color = White,
-                style = Header,
+                style = CompanionTheme.typography.header,
             )
 
             HorizontalSpacer(width = CompanionTheme.spacings.spacingB)
