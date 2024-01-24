@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.R
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 
 @Composable
 fun BouncingImageAnimation() {
@@ -47,7 +48,7 @@ fun BouncingImageAnimation() {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            .height(80.dp)
+            .height(CompanionTheme.spacings.spacingJ)
     ) {
         val density = LocalDensity.current
 
@@ -68,7 +69,7 @@ fun BouncingImageAnimation() {
 
             Canvas(
                 modifier = Modifier
-                    .size(40.dp)
+                    .size(CompanionTheme.spacings.spacingG)
             ) {
                 val shadowWidth = size.width
                 val shadowHeight = size.height * shadowScale

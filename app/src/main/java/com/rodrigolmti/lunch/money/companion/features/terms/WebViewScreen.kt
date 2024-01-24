@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -36,7 +37,7 @@ internal fun WebViewScreen(
     ) {
         Column(
             modifier = Modifier
-                .padding(top = 56.dp)
+                .padding(top = CompanionTheme.spacings.spacingH)
                 .verticalScroll(scrollState)
         ) {
             AndroidView(factory = {

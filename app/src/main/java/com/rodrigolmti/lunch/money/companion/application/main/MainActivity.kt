@@ -13,7 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.rodrigolmti.lunch.money.companion.features.navigation.NavigationGraph
 import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchLoading
-import com.rodrigolmti.lunch.money.companion.uikit.theme.LunchMoneyCompanionTheme
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
 
             val navController = rememberNavController()
 
-            LunchMoneyCompanionTheme {
+            CompanionTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = colorScheme.background

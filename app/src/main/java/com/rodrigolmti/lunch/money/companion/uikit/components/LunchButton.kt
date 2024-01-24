@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
-import com.rodrigolmti.lunch.money.companion.uikit.theme.LunchMoneyCompanionTheme
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.companion.uikit.theme.NightSkyMist
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
@@ -55,10 +55,10 @@ fun LunchButton(
 @Composable
 @LunchMoneyPreview
 private fun ButtonPreview() {
-    LunchMoneyCompanionTheme {
+    CompanionTheme {
         Column {
             LunchButton(label = "Authenticate") {}
-            VerticalSpacer(height = 8.dp)
+            VerticalSpacer(height = CompanionTheme.spacings.spacingB)
             LunchButton(label = "Authenticate", isLoading = true) {}
         }
     }

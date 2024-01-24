@@ -4,10 +4,16 @@ import android.app.Activity
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+
+private val LocalCompanionSpacings = staticCompositionLocalOf<CompanionSpacings> {
+    error("No LocalCompanionSpacings provided")
+}
 
 private val DarkColorScheme = darkColorScheme(
     primary = CharcoalMist,
@@ -18,8 +24,16 @@ private val DarkColorScheme = darkColorScheme(
     onSurface = CharcoalMist,
 )
 
+object CompanionTheme {
+
+    val spacings: CompanionSpacings
+        @Composable
+        get() = LocalCompanionSpacings.current
+
+}
+
 @Composable
-fun LunchMoneyCompanionTheme(content: @Composable () -> Unit) {
+fun CompanionTheme(content: @Composable () -> Unit) {
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
@@ -29,8 +43,12 @@ fun LunchMoneyCompanionTheme(content: @Composable () -> Unit) {
         }
     }
 
-    MaterialTheme(
-        colorScheme = DarkColorScheme,
-        content = content
-    )
+    CompositionLocalProvider(
+        LocalCompanionSpacings provides CompanionSpacings,
+    ) {
+        MaterialTheme(
+            colorScheme = DarkColorScheme,
+            content = content
+        )
+    }
 }

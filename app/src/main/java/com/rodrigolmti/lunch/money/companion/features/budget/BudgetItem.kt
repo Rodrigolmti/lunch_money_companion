@@ -29,7 +29,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.core.utils.formatCurrency
@@ -37,9 +36,9 @@ import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.EmeraldSpring
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadedBlood
-import com.rodrigolmti.lunch.money.companion.uikit.theme.LunchMoneyCompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
@@ -47,17 +46,17 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 @Composable
 @LunchMoneyPreview
 private fun BudgetItemPreview() {
-    LunchMoneyCompanionTheme {
+    CompanionTheme {
         Column {
             BudgetItem(fakeBudgetView())
-            VerticalSpacer(height = 8.dp)
+            VerticalSpacer(height = CompanionTheme.spacings.spacingB)
             BudgetItem(
                 fakeBudgetView(
                     recurring = emptyList(),
                     items = emptyList()
                 )
             )
-            VerticalSpacer(height = 8.dp)
+            VerticalSpacer(height = CompanionTheme.spacings.spacingB)
             BudgetItem(
                 fakeBudgetView(
                     recurring = emptyList(),
@@ -91,10 +90,10 @@ internal fun BudgetItem(budget: BudgetView) {
         Column(
             modifier = Modifier
                 .padding(
-                    start = 16.dp,
-                    end = 16.dp,
-                    bottom = 16.dp,
-                    top = if (hasRecurring) 8.dp else 16.dp,
+                    start = CompanionTheme.spacings.spacingD,
+                    end = CompanionTheme.spacings.spacingD,
+                    bottom = CompanionTheme.spacings.spacingD,
+                    top = if (hasRecurring) CompanionTheme.spacings.spacingB else CompanionTheme.spacings.spacingD,
                 ),
         ) {
 
@@ -116,14 +115,14 @@ internal fun BudgetItem(budget: BudgetView) {
                     Icon(
                         if (expanded.value) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
                         modifier = Modifier
-                            .size(32.dp),
+                            .size(CompanionTheme.spacings.spacingF),
                         contentDescription = null,
                         tint = SilverLining,
                     )
                 }
             }
 
-            VerticalSpacer(height = 16.dp)
+            VerticalSpacer(height = CompanionTheme.spacings.spacingD)
 
 
             if (budget.items.isNotEmpty()) {
@@ -152,7 +151,7 @@ internal fun BudgetItem(budget: BudgetView) {
 
                     }
 
-                    VerticalSpacer(height = 16.dp)
+                    VerticalSpacer(height = CompanionTheme.spacings.spacingD)
 
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -179,7 +178,7 @@ internal fun BudgetItem(budget: BudgetView) {
 
                     }
 
-                    VerticalSpacer(height = 16.dp)
+                    VerticalSpacer(height = CompanionTheme.spacings.spacingD)
 
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -220,7 +219,7 @@ internal fun BudgetItem(budget: BudgetView) {
 
             if (hasRecurring && expanded.value) {
 
-                VerticalSpacer(height = 16.dp)
+                VerticalSpacer(height = CompanionTheme.spacings.spacingD)
 
                 Text(
                     stringResource(R.string.budget_recurring_label),
@@ -230,7 +229,7 @@ internal fun BudgetItem(budget: BudgetView) {
                     style = BodyBold,
                 )
 
-                VerticalSpacer(height = 16.dp)
+                VerticalSpacer(height = CompanionTheme.spacings.spacingD)
 
                 budget.recurring.forEach {
 
@@ -259,11 +258,11 @@ internal fun BudgetItem(budget: BudgetView) {
 
                     }
 
-                    VerticalSpacer(height = 8.dp)
+                    VerticalSpacer(height = CompanionTheme.spacings.spacingB)
 
                     Divider()
 
-                    VerticalSpacer(height = 8.dp)
+                    VerticalSpacer(height = CompanionTheme.spacings.spacingB)
                 }
             }
         }

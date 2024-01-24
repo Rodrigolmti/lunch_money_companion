@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.formatCurrency
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
@@ -22,6 +21,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.components.LunchTextField
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Header
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
@@ -37,8 +37,8 @@ internal fun TransactionDetailScreen(
         modifier = Modifier
             .fillMaxHeight()
             .verticalScroll(scrollState)
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+            .padding(CompanionTheme.spacings.spacingD),
+        verticalArrangement = Arrangement.spacedBy(CompanionTheme.spacings.spacingD)
     ) {
         Text(
             stringResource(R.string.transaction_detail_label),
@@ -108,12 +108,12 @@ internal fun TransactionDetailScreen(
             color = White,
             style = BodyBold,
         )
-        VerticalSpacer(height = 8.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
         LunchButton(
             label = stringResource(R.string.close_action),
         ) {
             onBottomSheetDismissed()
         }
-        VerticalSpacer(height = 16.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingD)
     }
 }

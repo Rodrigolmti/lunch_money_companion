@@ -21,18 +21,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.core.utils.formatCurrency
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionStatusView
-import com.rodrigolmti.lunch.money.companion.uikit.components.HorizontalSpacer
-import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.fakeTransactionView
+import com.rodrigolmti.lunch.money.companion.uikit.components.HorizontalSpacer
+import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.EmeraldSpring
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadedBlood
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
@@ -64,10 +64,10 @@ internal fun TransactionItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    top = 16.dp,
-                    start = 16.dp,
-                    end = 8.dp,
-                    bottom = 16.dp
+                    top = CompanionTheme.spacings.spacingD,
+                    start = CompanionTheme.spacings.spacingD,
+                    end = CompanionTheme.spacings.spacingB,
+                    bottom = CompanionTheme.spacings.spacingD
                 ),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
@@ -91,7 +91,7 @@ internal fun TransactionItem(
                         style = Body,
                     )
 
-                    HorizontalSpacer(8.dp)
+                    HorizontalSpacer(CompanionTheme.spacings.spacingB)
 
                     Text(
                         text = formatCurrency(
@@ -103,7 +103,7 @@ internal fun TransactionItem(
                     )
                 }
 
-                VerticalSpacer(height = 8.dp)
+                VerticalSpacer(height = CompanionTheme.spacings.spacingB)
 
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -116,7 +116,7 @@ internal fun TransactionItem(
                         style = Body,
                     )
 
-                    HorizontalSpacer(8.dp)
+                    HorizontalSpacer(CompanionTheme.spacings.spacingB)
 
                     Text(
                         text = getTransactionStatusLabel(transaction.status),
@@ -126,7 +126,7 @@ internal fun TransactionItem(
                 }
             }
 
-            HorizontalSpacer(width = 8.dp)
+            HorizontalSpacer(width = CompanionTheme.spacings.spacingB)
 
             Icon(
                 Icons.Filled.KeyboardArrowRight,
@@ -142,17 +142,17 @@ internal fun TransactionItem(
 fun TransactionItemPreview() {
     Column {
         TransactionItem(fakeTransactionView(status = TransactionStatusView.CLEARED)) {}
-        VerticalSpacer(height = 8.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
         TransactionItem(fakeTransactionView(status = TransactionStatusView.PENDING)) {}
-        VerticalSpacer(height = 8.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
         TransactionItem(fakeTransactionView(status = TransactionStatusView.UNKNOWN)) {}
-        VerticalSpacer(height = 8.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
         TransactionItem(fakeTransactionView(status = TransactionStatusView.RECURRING)) {}
-        VerticalSpacer(height = 8.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
         TransactionItem(fakeTransactionView(status = TransactionStatusView.UNCLEARED)) {}
-        VerticalSpacer(height = 8.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
         TransactionItem(fakeTransactionView(status = TransactionStatusView.RECURRING_SUGGESTED)) {}
-        VerticalSpacer(height = 8.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
         TransactionItem(fakeTransactionView(status = TransactionStatusView.DELETE_PENDING)) {}
     }
 }

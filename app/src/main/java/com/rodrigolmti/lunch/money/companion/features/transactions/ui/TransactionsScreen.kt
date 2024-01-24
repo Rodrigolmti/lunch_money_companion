@@ -15,9 +15,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -35,7 +32,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
@@ -44,6 +40,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.EmptyState
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchLoading
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 import kotlinx.coroutines.launch
@@ -80,7 +77,7 @@ internal fun TransactionsScreen(
                 }) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_filter),
-                        modifier = Modifier.size(24.dp),
+                        modifier = Modifier.size(CompanionTheme.spacings.spacingE),
                         contentDescription = null,
                         tint = SunburstGold,
                     )
@@ -90,7 +87,7 @@ internal fun TransactionsScreen(
                 }) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_refresh),
-                        modifier = Modifier.size(24.dp),
+                        modifier = Modifier.size(CompanionTheme.spacings.spacingE),
                         contentDescription = null,
                         tint = SunburstGold,
                     )
@@ -174,15 +171,18 @@ private fun BuildSuccessState(
 ) {
     Column(
         modifier = Modifier
-            .padding(top = 64.dp)
+            .padding(top = CompanionTheme.spacings.spacingI)
     ) {
         LazyColumn(
-            contentPadding = PaddingValues(bottom = 80.dp, top = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(
+                bottom = CompanionTheme.spacings.spacingJ,
+                top = CompanionTheme.spacings.spacingD
+            ),
+            verticalArrangement = Arrangement.spacedBy(CompanionTheme.spacings.spacingB),
             modifier = Modifier
                 .padding(
-                    start = 16.dp,
-                    end = 16.dp,
+                    start = CompanionTheme.spacings.spacingD,
+                    end = CompanionTheme.spacings.spacingD,
                 ),
             state = listState,
         ) {

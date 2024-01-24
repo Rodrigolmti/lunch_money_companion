@@ -8,13 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.BTC_WALLET
 import com.rodrigolmti.lunch.money.companion.core.utils.copyToClipboard
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchButton
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Header
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 
@@ -27,20 +27,20 @@ fun DonationBottomSheet(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(CompanionTheme.spacings.spacingD),
     ) {
         Text(
             stringResource(R.string.donation_title),
             style = Header,
             color = White,
         )
-        VerticalSpacer(height = 16.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingD)
         Text(
             stringResource(R.string.donation_description),
             style = Body,
             color = White,
         )
-        VerticalSpacer(height = 24.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingE)
         LunchButton(
             label = stringResource(R.string.donation_action),
         ) {
@@ -50,6 +50,6 @@ fun DonationBottomSheet(
             )
             onDismiss()
         }
-        VerticalSpacer(height = 32.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingF)
     }
 }

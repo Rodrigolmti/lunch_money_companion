@@ -61,12 +61,15 @@ import com.rodrigolmti.lunch.money.companion.uikit.components.TiledBackgroundScr
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionSpacings
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Header
-import com.rodrigolmti.lunch.money.companion.uikit.theme.LunchMoneyCompanionTheme
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 import kotlinx.coroutines.launch
+
+private const val tokenLength = 32
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -193,20 +196,20 @@ private fun AuthenticationBody(
                 color = Color.Black
             ),
             modifier = Modifier
-                .padding(16.dp)
+                .padding(CompanionTheme.spacings.spacingD)
         ) {
 
             Column(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier.padding(CompanionTheme.spacings.spacingD),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                VerticalSpacer(height = 16.dp)
+                VerticalSpacer(height = CompanionTheme.spacings.spacingD)
 
                 BouncingImageAnimation()
 
-                VerticalSpacer(height = 16.dp)
+                VerticalSpacer(height = CompanionTheme.spacings.spacingD)
 
                 Text(
                     text = stringResource(R.string.authentication_title),
@@ -216,13 +219,13 @@ private fun AuthenticationBody(
                     modifier = Modifier.align(alignment = Alignment.CenterHorizontally)
                 )
 
-                VerticalSpacer(height = 16.dp)
+                VerticalSpacer(height = CompanionTheme.spacings.spacingD)
 
                 LunchTextField(
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardActions = KeyboardActions(
                         onDone = {
-                            if (apiToken.isBlank() || apiToken.length < 32) {
+                            if (apiToken.isBlank() || apiToken.length < tokenLength) {
                                 onTokenValidationError()
                                 return@KeyboardActions
                             }
@@ -236,13 +239,13 @@ private fun AuthenticationBody(
                     onTextChanged(it)
                 }
 
-                VerticalSpacer(height = 16.dp)
+                VerticalSpacer(height = CompanionTheme.spacings.spacingD)
 
                 LunchButton(
                     label = stringResource(R.string.authentication_action_label),
                     isLoading = isLoading
                 ) {
-                    if (apiToken.isBlank() || apiToken.length < 32) {
+                    if (apiToken.isBlank() || apiToken.length < tokenLength) {
                         onTokenValidationError()
                         return@LunchButton
                     }
@@ -250,7 +253,7 @@ private fun AuthenticationBody(
                     onLoginClicked()
                 }
 
-                VerticalSpacer(height = 16.dp)
+                VerticalSpacer(height = CompanionTheme.spacings.spacingD)
 
                 Row {
                     Text(
@@ -282,7 +285,7 @@ private fun AuthenticationBody(
 private fun AuthenticationScreenPreview(
     @PreviewParameter(AuthenticationUIModelProvider::class) uiModel: IAuthenticationUIModel
 ) {
-    LunchMoneyCompanionTheme {
+    CompanionTheme {
         AuthenticationScreen(uiModel)
     }
 }

@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.core.utils.formatCurrency
@@ -24,6 +23,7 @@ import com.rodrigolmti.lunch.money.companion.features.home.model.AssetTypeView
 import com.rodrigolmti.lunch.money.companion.features.home.model.fakeAssetOverviewView
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 
@@ -33,12 +33,15 @@ internal fun OverviewItem(
     listState: LazyListState = rememberLazyListState(),
 ) {
     LazyColumn(
-        contentPadding = PaddingValues(bottom = 16.dp, top = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(
+            bottom = CompanionTheme.spacings.spacingD,
+            top = CompanionTheme.spacings.spacingD
+        ),
+        verticalArrangement = Arrangement.spacedBy(CompanionTheme.spacings.spacingB),
         modifier = Modifier
             .padding(
-                start = 16.dp,
-                end = 16.dp,
+                start = CompanionTheme.spacings.spacingD,
+                end = CompanionTheme.spacings.spacingD,
             ),
         state = listState,
     ) {
@@ -57,7 +60,7 @@ internal fun OverviewItem(
                 overview.assets.forEach { asset ->
                     Column(
                         modifier = Modifier
-                            .padding(start = 16.dp)
+                            .padding(start = CompanionTheme.spacings.spacingD)
                     ) {
                         Row(horizontalArrangement = Arrangement.SpaceBetween) {
                             Text(

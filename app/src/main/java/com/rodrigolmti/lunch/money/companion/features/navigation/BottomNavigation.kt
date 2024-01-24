@@ -45,6 +45,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.components.LunchButton
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.GraphiteWhisper
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Header
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
@@ -141,7 +142,7 @@ internal fun BottomNavigation(
                                 Icon(
                                     getIconByRoute(route), contentDescription = null,
                                     modifier = Modifier
-                                        .size(24.dp),
+                                        .size(CompanionTheme.spacings.spacingE),
                                 )
                             },
                             label = {
@@ -153,7 +154,7 @@ internal fun BottomNavigation(
                             },
                             selected = route == selectedScreen,
                             onClick = { onScreenSelected(route) },
-                            modifier = Modifier.padding(8.dp),
+                            modifier = Modifier.padding(CompanionTheme.spacings.spacingB),
                             selectedContentColor = SunburstGold,
                             unselectedContentColor = GraphiteWhisper,
                         )

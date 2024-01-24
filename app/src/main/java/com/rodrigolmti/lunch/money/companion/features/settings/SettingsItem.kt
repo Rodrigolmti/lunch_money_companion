@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -27,7 +24,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.BodySmall
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadedBlood
-import com.rodrigolmti.lunch.money.companion.uikit.theme.LunchMoneyCompanionTheme
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 
 @Composable
@@ -44,21 +41,21 @@ internal fun SettingsItem(
             .clickable { onClick() }
             .fillMaxWidth()
             .padding(
-                start = 16.dp,
-                end = 16.dp,
-                top = 12.dp,
-                bottom = 12.dp,
+                start = CompanionTheme.spacings.spacingD,
+                end = CompanionTheme.spacings.spacingD,
+                top = CompanionTheme.spacings.spacingC,
+                bottom = CompanionTheme.spacings.spacingC,
             ),
     ) {
         Icon(
             painter = icon,
             tint = color,
             modifier = Modifier
-                .size(24.dp),
+                .size(CompanionTheme.spacings.spacingE),
             contentDescription = ""
         )
 
-        HorizontalSpacer(8.dp)
+        HorizontalSpacer(CompanionTheme.spacings.spacingB)
 
         Column {
             Text(
@@ -71,7 +68,7 @@ internal fun SettingsItem(
             )
 
             description?.let {
-                VerticalSpacer(4.dp)
+                VerticalSpacer(CompanionTheme.spacings.spacingA)
                 Text(
                     text = description,
                     textAlign = TextAlign.Start,
@@ -88,7 +85,7 @@ internal fun SettingsItem(
 @Composable
 @LunchMoneyPreview
 private fun SettingsItemPreview() {
-    LunchMoneyCompanionTheme {
+    CompanionTheme {
         Column {
             SettingsItem(
                 label = "Terms of Use",

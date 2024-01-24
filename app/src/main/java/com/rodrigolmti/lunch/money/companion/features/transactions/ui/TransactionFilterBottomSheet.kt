@@ -14,11 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.uikit.components.HorizontalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchButton
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Header
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
@@ -31,7 +31,7 @@ fun TransactionFilterBottomSheet(
     onFilter: () -> Unit = {},
 ) {
     Column(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(CompanionTheme.spacings.spacingD)
     ) {
 
         Row(
@@ -45,7 +45,7 @@ fun TransactionFilterBottomSheet(
                 )
             }
 
-            HorizontalSpacer(width = 8.dp)
+            HorizontalSpacer(width = CompanionTheme.spacings.spacingB)
 
             Text(
                 text = label,
@@ -57,7 +57,7 @@ fun TransactionFilterBottomSheet(
                 style = Header,
             )
 
-            HorizontalSpacer(width = 8.dp)
+            HorizontalSpacer(width = CompanionTheme.spacings.spacingB)
 
             IconButton(onClick = onNextMonthClick) {
                 Icon(
@@ -68,7 +68,7 @@ fun TransactionFilterBottomSheet(
             }
         }
 
-        VerticalSpacer(height = 32.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingF)
 
         LunchButton(
             label = "Filter",
@@ -76,7 +76,7 @@ fun TransactionFilterBottomSheet(
             onFilter()
         }
 
-        VerticalSpacer(height = 64.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingI)
     }
 }
 

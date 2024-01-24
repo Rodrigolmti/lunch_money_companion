@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -35,9 +33,9 @@ import com.rodrigolmti.lunch.money.companion.uikit.components.LunchLoading
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
 import com.rodrigolmti.lunch.money.companion.uikit.theme.BodyBold
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadedBlood
 import com.rodrigolmti.lunch.money.companion.uikit.theme.GraphiteWhisper
-import com.rodrigolmti.lunch.money.companion.uikit.theme.LunchMoneyCompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -49,7 +47,10 @@ internal fun SettingsScreen(
     onDonationClick: () -> Unit = {},
 ) {
     val viewState by uiModel.viewState.collectAsStateWithLifecycle()
-    val padding = PaddingValues(start = 16.dp, end = 16.dp)
+    val padding = PaddingValues(
+        start = CompanionTheme.spacings.spacingD,
+        end = CompanionTheme.spacings.spacingD
+    )
 
     if (viewState is SettingsScreenUiState.Logout) {
         LaunchedEffect(Unit) {
@@ -78,11 +79,11 @@ internal fun SettingsScreen(
                 val data = (viewState as SettingsScreenUiState.Success).data
 
                 Column {
-                    VerticalSpacer(height = 72.dp)
+                    VerticalSpacer(height = CompanionTheme.spacings.spacingJ)
 
                     Row(
                         horizontalArrangement = Arrangement.Center,
-                        modifier = Modifier.padding(16.dp),
+                        modifier = Modifier.padding(CompanionTheme.spacings.spacingD),
                     ) {
 
                         Icon(
@@ -92,7 +93,7 @@ internal fun SettingsScreen(
                                 .size(42.dp),
                             contentDescription = stringResource(R.string.settings_screen_profile_label),
                         )
-                        VerticalSpacer(8.dp)
+                        VerticalSpacer(CompanionTheme.spacings.spacingB)
                         Column {
                             Text(
                                 text = data.userName,
@@ -103,7 +104,7 @@ internal fun SettingsScreen(
                                 color = SilverLining,
                                 style = BodyBold,
                             )
-                            VerticalSpacer(8.dp)
+                            VerticalSpacer(CompanionTheme.spacings.spacingB)
                             Text(
                                 text = data.userEmail,
                                 modifier = Modifier
@@ -142,7 +143,7 @@ internal fun SettingsScreen(
                         uiModel.logout()
                     }
 
-                    VerticalSpacer(32.dp)
+                    VerticalSpacer(CompanionTheme.spacings.spacingF)
                 }
             }
 
@@ -158,7 +159,7 @@ internal fun SettingsScreen(
 private fun SettingsScreenPreview(
     @PreviewParameter(SettingsUIModelProvider::class) uiModel: ISettingsUIModel
 ) {
-    LunchMoneyCompanionTheme {
+    CompanionTheme {
         SettingsScreen(uiModel)
     }
 }

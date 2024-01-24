@@ -12,8 +12,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Header
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
@@ -32,7 +32,10 @@ internal fun LunchAppBar(
                     contentDescription = null,
                     tint = SilverLining,
                     modifier = androidx.compose.ui.Modifier
-                        .padding(start = 16.dp, end = 16.dp)
+                        .padding(
+                            start = CompanionTheme.spacings.spacingD,
+                            end = CompanionTheme.spacings.spacingD
+                        )
                         .clickable {
                             onBackClick()
                         }

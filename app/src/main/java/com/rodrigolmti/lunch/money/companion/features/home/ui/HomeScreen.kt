@@ -37,6 +37,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.components.EmptyState
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchLoading
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -57,7 +58,7 @@ internal fun HomeScreen(
                 }) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_refresh),
-                        modifier = Modifier.size(24.dp),
+                        modifier = Modifier.size(CompanionTheme.spacings.spacingE),
                         contentDescription = null,
                         tint = SunburstGold,
                     )
@@ -103,7 +104,7 @@ private fun BuildSuccessState(
 ) {
     Column(
         modifier = Modifier
-            .padding(top = 64.dp)
+            .padding(top = CompanionTheme.spacings.spacingI)
     ) {
         Card(
             shape = MaterialTheme.shapes.medium,
@@ -116,7 +117,7 @@ private fun BuildSuccessState(
             ),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(CompanionTheme.spacings.spacingD)
         ) {
             OverviewItem(
                 listState = listState,

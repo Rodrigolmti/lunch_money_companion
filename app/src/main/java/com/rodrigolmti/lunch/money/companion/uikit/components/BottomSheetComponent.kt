@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Header
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 
@@ -21,25 +21,25 @@ fun BottomSheetComponent(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(CompanionTheme.spacings.spacingD),
     ) {
         Text(
             title,
             style = Header,
             color = White,
         )
-        VerticalSpacer(height = 16.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingD)
         Text(
             message,
             style = Body,
             color = White,
         )
-        VerticalSpacer(height = 24.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingE)
         LunchButton(
             label = "OK",
         ) {
             onBottomSheetDismissed()
         }
-        VerticalSpacer(height = 32.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingF)
     }
 }

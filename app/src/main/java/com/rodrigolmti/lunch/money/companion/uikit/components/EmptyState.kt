@@ -6,10 +6,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 
 @Composable
@@ -18,8 +18,8 @@ internal fun EmptyState(
 ) {
     Center(
         Modifier.padding(
-            start = 16.dp,
-            end = 16.dp,
+            start = CompanionTheme.spacings.spacingD,
+            end = CompanionTheme.spacings.spacingD,
         )
     ) {
         Image(
@@ -27,7 +27,7 @@ internal fun EmptyState(
             contentDescription = "White Coin Image",
         )
 
-        VerticalSpacer(height = 16.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingD)
 
         Text(
             text = message,

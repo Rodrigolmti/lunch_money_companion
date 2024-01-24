@@ -18,6 +18,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.uikit.theme.Body
+import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadingGrey
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.companion.uikit.theme.NightSkyMist
@@ -42,14 +43,14 @@ fun LunchTextField(
             style = Body,
         )
 
-        VerticalSpacer(height = 8.dp)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
 
         TextField(
             value = text,
             onValueChange = onValueChange,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(0.dp),
+                .padding(CompanionTheme.spacings.spacingNone),
             singleLine = true,
             readOnly = readOnly,
             visualTransformation = visualTransformation,
