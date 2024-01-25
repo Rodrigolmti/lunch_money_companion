@@ -16,6 +16,10 @@ internal data class TransactionBodyResponse(
 internal data class TransactionResponse(
     @SerialName("id")
     val id: Int,
+    @SerialName("is_income")
+    val isIncome: Boolean? = null,
+    @SerialName("exclude_from_totals")
+    val excludeFromTotals: Boolean? = null,
     @SerialName("date")
     val date: String,
     @SerialName("payee")

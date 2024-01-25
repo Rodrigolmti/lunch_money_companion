@@ -1,10 +1,10 @@
 package com.rodrigolmti.lunch.money.companion.composition.di
 
-import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.TokenDTO
 import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.BudgetFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.HomeFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.SettingsFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.TransactionFeatureAdapter
+import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.TokenDTO
 import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
 import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.ExecuteStartupLogicUseCase
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.AuthenticationViewModel
@@ -32,8 +32,8 @@ private val authenticationModule = module {
 private val homeModule = module {
     viewModel<IHomeViewModel> {
         HomeViewModel(
-            getUserAccountOverview = {
-                HomeFeatureAdapter(get()).getAssetOverview()
+            getUserAccountOverview = { start, end ->
+                HomeFeatureAdapter(get()).getAssetOverview(start, end)
             },
             refreshUserData = { get<ExecuteStartupLogicUseCase>().invoke() },
         )

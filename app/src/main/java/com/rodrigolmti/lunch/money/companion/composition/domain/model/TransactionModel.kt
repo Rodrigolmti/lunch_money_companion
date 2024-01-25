@@ -5,6 +5,8 @@ internal data class TransactionModel(
     val date: String,
     val payee: String,
     val amount: Float,
+    val isIncome: Boolean,
+    val excludeFromTotals: Boolean,
     val currency: String,
     val toBase: Double,
     val notes: String?,

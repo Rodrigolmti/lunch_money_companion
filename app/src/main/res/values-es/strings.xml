@@ -1,0 +1,87 @@
+<resources>
+    <string name="app_name">Compañero de Lunch Money</string>
+
+    <string name="bottom_navigation_transactions">Transacciones</string>
+    <string name="bottom_navigation_settings">Configuración</string>
+    <string name="bottom_navigation_home">Inicio</string>
+    <string name="bottom_navigation_budget">Presupuesto</string>
+
+    <string name="asset_type_cash">Efectivo</string>
+    <string name="asset_type_investment">Inversión</string>
+    <string name="asset_type_loan">Préstamo</string>
+    <string name="asset_type_credit">Crédito</string>
+    <string name="asset_type_real_state">Bienes Raíces</string>
+    <string name="asset_type_depository">Depósito</string>
+    <string name="asset_type_brokerage">Corretaje</string>
+    <string name="asset_type_vehicle">Vehículo</string>
+    <string name="asset_type_cryptocurrency">Criptomoneda</string>
+    <string name="asset_type_employee_compensation">Compensación de Empleado</string>
+    <string name="asset_type_other_liabilities">Otras Obligaciones</string>
+    <string name="asset_type_other_assets">Otros Activos</string>
+
+    <string name="close_action">Cerrar</string>
+    <string name="common_error_title">Algo salió mal</string>
+
+    <string name="connection_error_title">Problema de Conexión Detectado</string>
+    <string name="connection_error_message">Estamos teniendo problemas para procesar tu solicitud. Esto podría deberse a un error en el servidor, una clave de API no válida o un problema con tu conexión de red. Por favor, verifica tu clave de API y asegúrate de que tu dispositivo tenga una conexión a Internet estable. Si el problema persiste, inténtalo nuevamente más tarde.</string>
+
+    <string name="authentication_title">¡Bienvenido de nuevo!</string>
+    <string name="authentication_token_label">Clave de API</string>
+    <string name="authentication_action_label">INICIAR SESIÓN</string>
+    <string name="authentication_get_key_one">¿No tienes una Clave de API?</string>
+    <string name="authentication_get_key_two">Obtén una aquí.</string>
+    <string name="authentication_invalid_token_title">Clave de API no válida</string>
+    <string name="authentication_invalid_token_description">Por favor, verifica tu Clave de API e inténtalo de nuevo. Si no tienes una, puedes obtenerla en la configuración de tu cuenta de Lunch Money.</string>
+
+    <string name="transaction_label_cleared">Liquidada</string>
+    <string name="transaction_label_recurring">Recurrente</string>
+    <string name="transaction_label_recurring_suggested">Recurrente Sugerida</string>
+    <string name="transaction_label_pending">Pendiente</string>
+    <string name="transaction_label_unknown">Desconocida</string>
+    <string name="transaction_pending_delete">Exclusión Pendiente</string>
+    <string name="transaction_label_uncleared">Pendiente</string>
+    <string name="transaction_error_message">No pudimos cargar tus transacciones. Por favor, inténtalo nuevamente más tarde.</string>
+    <string name="transaction_empty_content_message">¡Aún no tienes transacciones!</string>
+    <string name="transaction_detail_label">Detalles de la Transacción</string>
+    <string name="transaction_date_label">Fecha</string>
+    <string name="transaction_category_label">Categoría</string>
+    <string name="transaction_payee_label">Nombre del Beneficiario</string>
+    <string name="transaction_amount_label">CANTIDAD</string>
+    <string name="transaction_notes_label">Notas</string>
+    <string name="transaction_original_name_label">NOMBRE ORIGINAL</string>
+    <string name="transaction_paid_from_label">PAGADO DESDE</string>
+    <string name="transactions_title">Transacciones</string>
+
+    <string name="budget_title">Presupuesto</string>
+    <string name="budget_error_message">No pudimos cargar tus datos de presupuesto. Por favor, inténtalo nuevamente más tarde.</string>
+    <string name="budget_empty_content_message">¡Todavía no tienes un presupuesto!</string>
+    <string name="budget_transaction_label">Transacciones:</string>
+    <string name="budget_value_label">Valor del Presupuesto:</string>
+    <string name="budget_spending_label">Gastos Totales:</string>
+    <string name="budget_empty_budget_message">No se encontró presupuesto para esta categoría</string>
+    <string name="budget_recurring_label">Recurrente</string>
+
+    <string name="home_error_message">No pudimos cargar la descripción general de tu cuenta. Por favor, inténtalo nuevamente más tarde.</string>
+    <string name="home_title">Inicio</string>
+    <string name="home_period_label">Resumen del Período</string>
+    <string name="home_income_label">Ingresos</string>
+    <string name="home_total_income_label">Ingresos Totales</string>
+    <string name="home_expenses_label">Gastos</string>
+    <string name="home_total_expenses_label">Gastos Totales</string>
+    <string name="home_net_income_label">Ingresos Netos</string>
+    <string name="home_savings_rate_label">Tasa de Ahorro Actual</string>
+
+    <string name="terms_of_use_title">Términos de Uso</string>
+
+    <string name="settings_screen_app_description">Compañero de Lunch Money para Android</string>
+    <string name="settings_screen_app_version">%1$s</string>
+    <string name="settings_screen_terms_label">Términos de Uso</string>
+    <string name="settings_screen_donate_action">Apoyar la Aplicación</string>
+    <string name="settings_screen_sign_out_action">Cerrar Sesión</string>
+    <string name="settings_screen_profile_label">Perfil</string>
+    <string name="settings_screen_title">Configuración</string>
+
+    <string name="donation_title">Apoyar a los Desarrolladores</string>
+    <string name="donation_description">Expresa tu aprecio por la aplicación Compañero de Lunch Money haciendo una donación en BTC. Tu generosidad nos ayuda a mejorar las características, aumentar la seguridad y ampliar nuestro alcance, asegurando que más personas se beneficien de nuestros servicios. ¡Únete a nosotros en la construcción de un futuro financiero seguro juntos!</string>
+    <string name="donation_action">Copiar Dirección BTC</string>
+</resources>

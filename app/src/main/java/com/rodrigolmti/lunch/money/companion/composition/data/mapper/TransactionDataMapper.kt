@@ -56,7 +56,9 @@ internal fun TransactionResponse.toModel(
     recurringId = recurringId,
     status = mapStatus(),
     subtype = subtype,
-    toBase = toBase
+    toBase = toBase,
+    excludeFromTotals = excludeFromTotals ?: false,
+    isIncome = isIncome ?: false,
 )
 
 internal fun PlaidAccountResponse.toModel() = AssetModel(

@@ -2,13 +2,9 @@ package com.rodrigolmti.lunch.money.companion.features.home.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,54 +24,40 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 @Composable
 internal fun OverviewItem(
     overviews: List<AssetOverviewView>,
-    listState: LazyListState = rememberLazyListState(),
 ) {
-    LazyColumn(
-        contentPadding = PaddingValues(
-            bottom = CompanionTheme.spacings.spacingD,
-            top = CompanionTheme.spacings.spacingD
-        ),
-        verticalArrangement = Arrangement.spacedBy(CompanionTheme.spacings.spacingB),
+
+    Column(
         modifier = Modifier
-            .padding(
-                start = CompanionTheme.spacings.spacingD,
-                end = CompanionTheme.spacings.spacingD,
-            ),
-        state = listState,
+            .padding(CompanionTheme.spacings.spacingD),
     ) {
-        items(overviews.size) { index ->
+        overviews.forEach { overview ->
+            Text(
+                text = "${getAssetTypeLabel(overview.type)} (${overview.assets.size})",
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Start,
+                color = White,
+                style = CompanionTheme.typography.body,
+            )
+            overview.assets.forEach { asset ->
+                Column(
+                    modifier = Modifier
+                        .padding(start = CompanionTheme.spacings.spacingD)
+                ) {
+                    Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                        Text(
+                            text = asset.name,
+                            modifier = Modifier.weight(1f),
+                            textAlign = TextAlign.Start,
+                            color = SunburstGold,
+                            style = CompanionTheme.typography.bodyBold,
+                        )
 
-            val overview = overviews[index]
-
-            Column {
-                Text(
-                    text = "${getAssetTypeLabel(overview.type)} (${overview.assets.size})",
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Start,
-                    color = White,
-                    style = CompanionTheme.typography.body,
-                )
-                overview.assets.forEach { asset ->
-                    Column(
-                        modifier = Modifier
-                            .padding(start = CompanionTheme.spacings.spacingD)
-                    ) {
-                        Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                            Text(
-                                text = asset.name,
-                                modifier = Modifier.weight(1f),
-                                textAlign = TextAlign.Start,
-                                color = SunburstGold,
-                                style = CompanionTheme.typography.bodyBold,
-                            )
-
-                            Text(
-                                text = formatItemValue(asset),
-                                textAlign = TextAlign.Start,
-                                color = White,
-                                style = CompanionTheme.typography.body,
-                            )
-                        }
+                        Text(
+                            text = formatItemValue(asset),
+                            textAlign = TextAlign.Start,
+                            color = White,
+                            style = CompanionTheme.typography.body,
+                        )
                     }
                 }
             }

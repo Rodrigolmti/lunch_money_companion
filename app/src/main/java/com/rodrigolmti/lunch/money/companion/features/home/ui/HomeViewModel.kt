@@ -6,15 +6,16 @@ import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.onFailure
 import com.rodrigolmti.lunch.money.companion.core.onSuccess
-import com.rodrigolmti.lunch.money.companion.features.home.model.AssetOverviewView
+import com.rodrigolmti.lunch.money.companion.features.home.model.HomeView
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.Date
 
 internal abstract class IHomeViewModel : ViewModel(), IHomeUIModel
 
-private typealias GetAccountOverview = suspend () -> Outcome<List<AssetOverviewView>, LunchError>
+private typealias GetAccountOverview = suspend (start: Date, end: Date) -> Outcome<HomeView, LunchError>
 private typealias RefreshUserData = suspend () -> Outcome<Unit, LunchError>
 
 internal class HomeViewModel(
@@ -25,14 +26,10 @@ internal class HomeViewModel(
     private val _viewState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     override val viewState: StateFlow<HomeUiState> = _viewState
 
-    init {
-        getAccountOverview()
-    }
-
-    override fun getAccountOverview() {
+    override fun getAccountOverview(start: Date, end: Date) {
         viewModelScope.launch {
             _viewState.update { HomeUiState.Loading }
-            getUserAccountOverview().onSuccess { result ->
+            getUserAccountOverview(start, end).onSuccess { result ->
                 _viewState.update {
                     HomeUiState.Success(result)
                 }
@@ -44,11 +41,11 @@ internal class HomeViewModel(
         }
     }
 
-    override fun onRefresh() {
+    override fun onRefresh(start: Date, end: Date) {
         viewModelScope.launch {
             _viewState.update { HomeUiState.Loading }
             refreshUserData().onSuccess {
-                getAccountOverview()
+                getAccountOverview(start, end)
             }.onFailure {
                 _viewState.update {
                     HomeUiState.Error

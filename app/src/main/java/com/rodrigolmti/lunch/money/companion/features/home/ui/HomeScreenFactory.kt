@@ -1,18 +1,20 @@
 package com.rodrigolmti.lunch.money.companion.features.home.ui
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import com.rodrigolmti.lunch.money.companion.features.home.model.HomeView
 import com.rodrigolmti.lunch.money.companion.features.home.model.fakeAssetOverviewView
+import com.rodrigolmti.lunch.money.companion.features.home.model.fakePeriodSummaryView
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import java.util.Date
 
 internal class DummyIHomeUIModel(state: HomeUiState = HomeUiState.Loading) : IHomeUIModel {
     override val viewState: StateFlow<HomeUiState> = MutableStateFlow(state)
-
-    override fun getAccountOverview() {
+    override fun getAccountOverview(start: Date, end: Date) {
         // no-op
     }
 
-    override fun onRefresh() {
+    override fun onRefresh(start: Date, end: Date) {
         // no-op
     }
 }
@@ -24,10 +26,13 @@ internal class HomeUIModelProvider : PreviewParameterProvider<IHomeUIModel> {
             DummyIHomeUIModel(HomeUiState.Error),
             DummyIHomeUIModel(
                 HomeUiState.Success(
-                    listOf(
-                        fakeAssetOverviewView(),
-                        fakeAssetOverviewView(),
-                        fakeAssetOverviewView(),
+                    HomeView(
+                        overviews = listOf(
+                            fakeAssetOverviewView(),
+                            fakeAssetOverviewView(),
+                            fakeAssetOverviewView(),
+                        ),
+                        summary = fakePeriodSummaryView()
                     )
                 )
             )
