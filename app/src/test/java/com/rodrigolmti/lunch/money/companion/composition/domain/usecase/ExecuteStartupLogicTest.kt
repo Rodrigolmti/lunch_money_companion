@@ -1,9 +1,11 @@
 package com.rodrigolmti.lunch.money.companion.composition.domain.usecase
 
 import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.core.ConnectionChecker
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.coVerifyOrder
+import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.runs
@@ -13,7 +15,8 @@ import kotlin.test.Test
 class ExecuteStartupLogicTest {
 
     private val lunchRepository: ILunchRepository = mockk()
-    private val sut = ExecuteStartupLogic(lunchRepository)
+    private val connectionChecker: ConnectionChecker = mockk(relaxed = true)
+    private val sut = ExecuteStartupLogic(lunchRepository, connectionChecker)
 
     @Test
     fun `invoke should call cache transaction categories`(): Unit = runBlocking {
@@ -55,8 +58,18 @@ class ExecuteStartupLogicTest {
             assert(result.isFailure)
         }
 
-    private fun init() {
+    @Test
+    fun `invoke should return no connection error`() = runBlocking {
+        init(connected = false)
+
+        val result = sut()
+
+        assert(result.isFailure)
+    }
+
+    private fun init(connected: Boolean  = true) {
         coEvery { lunchRepository.cacheTransactionCategories() } just runs
         coEvery { lunchRepository.cacheAssets() } just runs
+        every { connectionChecker.isConnected() } returns connected
     }
 }
