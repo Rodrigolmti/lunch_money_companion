@@ -1,5 +1,6 @@
 package com.rodrigolmti.lunch.money.companion.features.transactions.ui
 
+import com.rodrigolmti.lunch.money.companion.core.utils.getCurrentMonthDates
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -19,15 +20,7 @@ class FilterState(private val date: Calendar = Calendar.getInstance()) {
         return FilterState(newDate)
     }
 
-    fun getFilter(): Pair<Date, Date> {
-        val startOfMonth = date.clone() as Calendar
-        startOfMonth.set(Calendar.DAY_OF_MONTH, 1)
-
-        val endOfMonth = date.clone() as Calendar
-        endOfMonth.set(Calendar.DAY_OF_MONTH, endOfMonth.getActualMaximum(Calendar.DAY_OF_MONTH))
-
-        return Pair(startOfMonth.time, endOfMonth.time)
-    }
+    fun getFilter(): Pair<Date, Date> = getCurrentMonthDates(date)
 
     fun getDisplay(): String {
         val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())

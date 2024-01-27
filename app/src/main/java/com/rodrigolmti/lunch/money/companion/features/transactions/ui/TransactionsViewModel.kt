@@ -6,6 +6,7 @@ import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.core.onFailure
 import com.rodrigolmti.lunch.money.companion.core.onSuccess
+import com.rodrigolmti.lunch.money.companion.core.utils.getCurrentMonthDates
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,11 +22,16 @@ internal typealias GetUserTransactions = suspend (
 ) -> Outcome<List<TransactionView>, LunchError>
 
 internal class TransactionsViewModel(
-    private val getUserTransactions: GetUserTransactions
+    private val getUserTransactions: GetUserTransactions,
 ) : ITransactionsViewModel() {
 
     private val _viewState = MutableStateFlow<TransactionsUiState>(TransactionsUiState.Loading)
     override val viewState: StateFlow<TransactionsUiState> = _viewState
+
+    init {
+        val (start, end) = getCurrentMonthDates()
+        getTransactions(start, end)
+    }
 
     override fun getTransactions(start: Date, end: Date) {
         viewModelScope.launch {

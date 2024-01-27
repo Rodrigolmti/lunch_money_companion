@@ -69,10 +69,6 @@ internal fun HomeScreen(
     )
     val scope = rememberCoroutineScope()
 
-    LaunchedEffect(Unit) {
-        getSummary(filterState, uiModel)
-    }
-
     Scaffold(
         topBar = {
             LunchAppBar(stringResource(R.string.home_title)) {

@@ -1,6 +1,9 @@
 package com.rodrigolmti.lunch.money.companion.core.utils
 
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.YearMonth
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -17,4 +20,14 @@ fun String.toDate(): Date? {
 fun Date.formatToMonthYear(): String {
     val format = SimpleDateFormat("MMMM - yyyy", Locale.getDefault())
     return format.format(this.time)
+}
+
+fun getCurrentMonthDates(date: Calendar = Calendar.getInstance()): Pair<Date, Date> {
+    val startOfMonth = date.clone() as Calendar
+    startOfMonth.set(Calendar.DAY_OF_MONTH, 1)
+
+    val endOfMonth = date.clone() as Calendar
+    endOfMonth.set(Calendar.DAY_OF_MONTH, endOfMonth.getActualMaximum(Calendar.DAY_OF_MONTH))
+
+    return Pair(startOfMonth.time, endOfMonth.time)
 }

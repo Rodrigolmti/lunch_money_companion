@@ -6,6 +6,7 @@ import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.onFailure
 import com.rodrigolmti.lunch.money.companion.core.onSuccess
+import com.rodrigolmti.lunch.money.companion.core.utils.getCurrentMonthDates
 import com.rodrigolmti.lunch.money.companion.features.home.model.HomeView
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,6 +26,11 @@ internal class HomeViewModel(
 
     private val _viewState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     override val viewState: StateFlow<HomeUiState> = _viewState
+
+    init {
+        val (start, end) = getCurrentMonthDates()
+        getAccountOverview(start, end)
+    }
 
     override fun getAccountOverview(start: Date, end: Date) {
         viewModelScope.launch {

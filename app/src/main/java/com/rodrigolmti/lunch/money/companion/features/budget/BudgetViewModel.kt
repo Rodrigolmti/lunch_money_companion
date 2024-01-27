@@ -6,6 +6,7 @@ import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.core.onFailure
 import com.rodrigolmti.lunch.money.companion.core.onSuccess
+import com.rodrigolmti.lunch.money.companion.core.utils.getCurrentMonthDates
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,6 +24,11 @@ internal class BudgetViewModel(
 
     private val _viewState = MutableStateFlow<BudgetUiState>(BudgetUiState.Loading)
     override val viewState: StateFlow<BudgetUiState> = _viewState
+
+    init {
+        val (start, end) = getCurrentMonthDates()
+        getBudgetData(start, end)
+    }
 
     override fun getBudgetData(start: Date, end: Date) {
         viewModelScope.launch {
