@@ -40,7 +40,7 @@
     <string name="transaction_label_unknown">Desconhecida</string>
     <string name="transaction_pending_delete">Exclusão Pendente</string>
     <string name="transaction_label_uncleared">Pendente</string>
-    <string name="transaction_error_message">Não foi possível carregar suas transações. Por favor, tente novamente mais tarde.</string>
+    <string name="transactions_error_message">Não foi possível carregar suas transações. Por favor, tente novamente mais tarde.</string>
     <string name="transaction_empty_content_message">Você não possui transações ainda!</string>
     <string name="transaction_detail_label">Detalhes da Transação</string>
     <string name="transaction_date_label">Data</string>
@@ -51,6 +51,11 @@
     <string name="transaction_original_name_label">NOME ORIGINAL</string>
     <string name="transaction_paid_from_label">PAGO DE</string>
     <string name="transactions_title">Transações</string>
+
+    <string name="transaction_title">Detalhes da Transação</string>
+    <string name="transaction_error_message">Desculpe, não foi possível exibir os detalhes da transação neste momento.</string>
+    <string name="transaction_modal_error_title">Ops, ocorreu um problema</string>
+    <string name="transaction_modal_error_message">Não conseguimos obter as informações da transação. Por favor, tente novamente.</string>
 
     <string name="budget_title">Orçamento</string>
     <string name="budget_error_message">Não foi possível carregar os dados do seu orçamento. Por favor, tente novamente mais tarde.</string>

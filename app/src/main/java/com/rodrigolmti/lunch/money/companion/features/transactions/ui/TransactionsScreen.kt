@@ -49,7 +49,7 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun TransactionsScreen(
     uiModel: ITransactionsUIModel = DummyITransactionsUIModel(),
-    onTransactionItemClick: (TransactionView) -> Unit = {},
+    onTransactionItemClick: (Int) -> Unit = {},
     onError: (String, String) -> Unit = { _, _ -> },
 ) {
     val viewState by uiModel.viewState.collectAsStateWithLifecycle()
@@ -130,7 +130,7 @@ internal fun TransactionsScreen(
 
                     onError(
                         stringResource(R.string.common_error_title),
-                        stringResource(R.string.transaction_error_message)
+                        stringResource(R.string.transactions_error_message)
                     )
                 }
 
@@ -147,7 +147,7 @@ internal fun TransactionsScreen(
                         listState,
                         transactions,
                     ) { transaction ->
-                        onTransactionItemClick(transaction)
+                        onTransactionItemClick(transaction.id)
                     }
                 }
             }
@@ -206,5 +206,7 @@ private fun BuildSuccessState(
 private fun TransactionsScreenPreview(
     @PreviewParameter(TransactionsUIModelProvider::class) uiModel: ITransactionsUIModel
 ) {
-    TransactionsScreen(uiModel)
+    CompanionTheme {
+        TransactionsScreen(uiModel)
+    }
 }

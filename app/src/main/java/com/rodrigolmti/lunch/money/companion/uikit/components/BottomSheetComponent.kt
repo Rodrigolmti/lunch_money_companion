@@ -38,6 +38,6 @@ fun BottomSheetComponent(
         ) {
             onBottomSheetDismissed()
         }
-        VerticalSpacer(height = CompanionTheme.spacings.spacingF)
+        VerticalSpacer(height = CompanionTheme.spacings.spacingE)
     }
 }

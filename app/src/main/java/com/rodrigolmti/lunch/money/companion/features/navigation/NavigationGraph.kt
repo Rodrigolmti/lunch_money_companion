@@ -15,11 +15,14 @@ import com.rodrigolmti.lunch.money.companion.application.main.IMainActivityViewM
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.AuthenticationScreen
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.IAuthenticationViewModel
 import com.rodrigolmti.lunch.money.companion.features.terms.WebViewScreen
+import com.rodrigolmti.lunch.money.companion.features.transactions.ui.detail.ITransactionDetailViewModel
+import com.rodrigolmti.lunch.money.companion.features.transactions.ui.detail.TransactionsDetailScreen
 import org.koin.androidx.compose.koinViewModel
 
 internal const val authenticationRoute = "/authentication"
 internal const val dashboardRoute = "/dashboard"
 internal const val webviewRouter = "/webview?url={url}"
+internal const val transactionDetailRouter = "/transaction?id={id}"
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -54,8 +57,26 @@ internal fun NavigationGraph(
                             inclusive = true
                         }
                     }
-                }) {
-                selectedScreen = it
+                },
+                onScreenSelected = { selectedScreen = it },
+                onTransactionSelected = {
+                    navController.navigate(transactionDetailRouter.replace("{id}", it.toString()))
+                })
+        }
+        composable(
+            route = transactionDetailRouter,
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.IntType
+                }
+            )
+        ) { navBackStackEntry ->
+            val uiModel = koinViewModel<ITransactionDetailViewModel>()
+
+            navBackStackEntry.arguments?.getInt("id")?.let {
+                TransactionsDetailScreen(id = it, uiModel = uiModel) {
+                    navController.navigateUp()
+                }
             }
         }
         composable(

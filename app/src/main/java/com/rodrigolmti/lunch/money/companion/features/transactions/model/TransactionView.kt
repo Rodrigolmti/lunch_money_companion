@@ -5,7 +5,7 @@ import com.rodrigolmti.lunch.money.companion.core.utils.ValueGenerator
 
 @Immutable
 internal data class TransactionView(
-    val id: String,
+    val id: Int,
     val date: String,
     val payee: String,
     val amount: Float,
@@ -20,7 +20,7 @@ internal data class TransactionView(
 internal fun fakeTransactionView(
     status: TransactionStatusView = TransactionStatusView.entries.toTypedArray().random()
 ) = TransactionView(
-    id = ValueGenerator.id(),
+    id = ValueGenerator.gen(),
     date = ValueGenerator.date("dd/MM/yyyy"),
     payee = ValueGenerator.gen(),
     amount = ValueGenerator.gen(),

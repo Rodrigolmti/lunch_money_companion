@@ -6,10 +6,12 @@ import com.rodrigolmti.lunch.money.companion.composition.data.model.response.Cry
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.PlaidAccountBodyResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionBodyResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionCategoryBodyResponse
+import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.UserResponse
 import com.rodrigolmti.lunch.money.companion.core.network.Authenticated
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 internal interface LunchService {
@@ -25,6 +27,12 @@ internal interface LunchService {
         @Query("start_date") start: String,
         @Query("end_date") end: String,
     ): TransactionBodyResponse
+
+    @Authenticated
+    @GET("v1/transactions/{id}")
+    suspend fun getTransaction(
+        @Path("id") id: Int,
+    ): TransactionResponse
 
     @Authenticated
     @GET("v1/categories")

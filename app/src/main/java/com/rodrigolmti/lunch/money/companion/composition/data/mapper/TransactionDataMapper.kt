@@ -24,11 +24,19 @@ internal fun mapTransactions(
     categories: List<TransactionCategoryModel>,
     assets: List<AssetModel>
 ): List<TransactionModel> = response.transactions.map { responseItem ->
+    mapTransaction(responseItem, categories, assets)
+}
+
+internal fun mapTransaction(
+    responseItem: TransactionResponse,
+    categories: List<TransactionCategoryModel>,
+    assets: List<AssetModel>,
+) : TransactionModel {
     val category = categories.firstOrNull { category -> category.id == responseItem.categoryId }
     val asset = assets.firstOrNull { asset ->
         asset.id == responseItem.assetId || asset.id == responseItem.plaidAccountId
     }
-    responseItem.toModel(category, asset)
+    return responseItem.toModel(category, asset)
 }
 
 internal fun TransactionResponse.toModel(

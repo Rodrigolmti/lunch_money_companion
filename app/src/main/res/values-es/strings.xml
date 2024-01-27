@@ -40,7 +40,7 @@
     <string name="transaction_label_unknown">Desconocida</string>
     <string name="transaction_pending_delete">Exclusión Pendiente</string>
     <string name="transaction_label_uncleared">Pendiente</string>
-    <string name="transaction_error_message">No pudimos cargar tus transacciones. Por favor, inténtalo nuevamente más tarde.</string>
+    <string name="transactions_error_message">No pudimos cargar tus transacciones. Por favor, inténtalo nuevamente más tarde.</string>
     <string name="transaction_empty_content_message">¡Aún no tienes transacciones!</string>
     <string name="transaction_detail_label">Detalles de la Transacción</string>
     <string name="transaction_date_label">Fecha</string>
@@ -51,6 +51,11 @@
     <string name="transaction_original_name_label">NOMBRE ORIGINAL</string>
     <string name="transaction_paid_from_label">PAGADO DESDE</string>
     <string name="transactions_title">Transacciones</string>
+
+    <string name="transaction_title">Detalles de la Transacción</string>
+    <string name="transaction_error_message">Lo sentimos, no es posible mostrar los detalles de la transacción en este momento.</string>
+    <string name="transaction_modal_error_title">¡Ups, ocurrió un problema!</string>
+    <string name="transaction_modal_error_message">No pudimos obtener la información de la transacción. Por favor, inténtalo de nuevo.</string>
 
     <string name="budget_title">Presupuesto</string>
     <string name="budget_error_message">No pudimos cargar tus datos de presupuesto. Por favor, inténtalo nuevamente más tarde.</string>

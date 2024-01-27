@@ -35,7 +35,6 @@ import com.rodrigolmti.lunch.money.companion.features.home.ui.IHomeViewModel
 import com.rodrigolmti.lunch.money.companion.features.settings.ISettingsViewModel
 import com.rodrigolmti.lunch.money.companion.features.settings.SettingsScreen
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.ITransactionsViewModel
-import com.rodrigolmti.lunch.money.companion.features.transactions.ui.TransactionDetailScreen
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.TransactionsScreen
 import com.rodrigolmti.lunch.money.companion.uikit.components.BottomSheetComponent
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
@@ -61,6 +60,7 @@ internal fun BottomNavigation(
     onTermsOfUseClick: (String) -> Unit = {},
     onLogout: () -> Unit = {},
     onScreenSelected: (BottomNavigationRouter) -> Unit,
+    onTransactionSelected: (Int) -> Unit,
 ) {
     val sheetState =
         rememberModalBottomSheetState(
@@ -84,10 +84,6 @@ internal fun BottomNavigation(
 
                 is BottomNavigationUiState.ShowErrorBottomSheet -> {
                     BuildErrorState(scope, sheetState, state)
-                }
-
-                is BottomNavigationUiState.ShowTransactionDetailBottomSheet -> {
-                    BuildTransactionDetailState(state, scope, sheetState)
                 }
 
                 is BottomNavigationUiState.ShowInformationBottomSheet -> {
@@ -159,12 +155,7 @@ internal fun BottomNavigation(
                     val uiModel = koinViewModel<ITransactionsViewModel>()
 
                     TransactionsScreen(uiModel, {
-                        updateBottomSheetState(
-                            state,
-                            BottomNavigationUiState.ShowTransactionDetailBottomSheet(it),
-                            sheetState,
-                            scope
-                        )
+                        onTransactionSelected(it)
                     }, { title, description ->
                         updateBottomSheetState(
                             state,
@@ -238,26 +229,6 @@ private fun updateBottomSheetState(
 }
 
 @Composable
-private fun BuildTransactionDetailState(
-    state: MutableState<BottomNavigationUiState>,
-    scope: CoroutineScope,
-    sheetState: ModalBottomSheetState
-) {
-    val selectedTransaction =
-        (state.value as BottomNavigationUiState.ShowTransactionDetailBottomSheet).transaction
-    TransactionDetailScreen(
-        transaction = selectedTransaction,
-        onBottomSheetDismissed = {
-            scope.launch { sheetState.hide() }.invokeOnCompletion {
-                if (!sheetState.isVisible) {
-                    state.value = BottomNavigationUiState.Idle
-                }
-            }
-        }
-    )
-}
-
-@Composable
 private fun BuildErrorState(
     scope: CoroutineScope,
     sheetState: ModalBottomSheetState,
@@ -265,7 +236,7 @@ private fun BuildErrorState(
 ) {
     BottomSheetComponent(
         title = stringResource(R.string.common_error_title),
-        message = stringResource(R.string.transaction_error_message),
+        message = stringResource(R.string.transactions_error_message),
     ) {
         scope.launch { sheetState.hide() }.invokeOnCompletion {
             if (!sheetState.isVisible) {

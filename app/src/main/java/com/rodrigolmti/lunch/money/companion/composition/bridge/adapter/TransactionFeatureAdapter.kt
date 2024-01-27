@@ -20,4 +20,11 @@ internal class TransactionFeatureAdapter(private val lunchRepository: ILunchRepo
                 transaction.toView()
             }
         }
+
+    suspend fun getTransaction(
+        id: Int
+    ): Outcome<TransactionView, LunchError> =
+        lunchRepository.getTransaction(id).map { transaction ->
+            transaction.toView()
+        }
 }

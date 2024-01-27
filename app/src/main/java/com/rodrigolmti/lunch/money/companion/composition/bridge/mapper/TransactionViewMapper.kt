@@ -6,7 +6,7 @@ import com.rodrigolmti.lunch.money.companion.features.transactions.model.Transac
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
 
 internal fun TransactionModel.toView() = TransactionView(
-    id = id.toString(),
+    id = id,
     date = date,
     amount = amount,
     currency = currency,

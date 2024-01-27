@@ -40,7 +40,7 @@
     <string name="transaction_label_unknown">Unknown</string>
     <string name="transaction_pending_delete">Pending Exclusion</string>
     <string name="transaction_label_uncleared">Pending</string>
-    <string name="transaction_error_message">We could\'t load your transactions. Please try again later.</string>
+    <string name="transactions_error_message">We could\'t load your transactions. Please try again later.</string>
     <string name="transaction_empty_content_message">You have no transactions yet!</string>
     <string name="transaction_detail_label">Transaction Details</string>
     <string name="transaction_date_label">Date</string>
@@ -51,6 +51,11 @@
     <string name="transaction_original_name_label">ORIGINAL NAME</string>
     <string name="transaction_paid_from_label">PAID FROM</string>
     <string name="transactions_title">Transactions</string>
+
+    <string name="transaction_title">Transaction Detail</string>
+    <string name="transaction_error_message">Sorry, it\'s not possible to display the transaction details at this time.</string>
+    <string name="transaction_modal_error_title">Oops, an issue occurred</string>
+    <string name="transaction_modal_error_message">We could\'t fetch the transaction information. Please try again.</string>
 
     <string name="budget_title">Budget</string>
     <string name="budget_error_message">We could\'t load your budget data. Please try again later.</string>

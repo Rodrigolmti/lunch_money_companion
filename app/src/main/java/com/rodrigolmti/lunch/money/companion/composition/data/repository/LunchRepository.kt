@@ -1,6 +1,7 @@
 package com.rodrigolmti.lunch.money.companion.composition.data.repository
 
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapBudget
+import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapTransaction
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapTransactions
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.toModel
 import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.TokenDTO
@@ -85,6 +86,22 @@ internal class LunchRepository(
                     transactionCache.get(TRANSACTION_CACHE, emptyList()),
                     assetCache.get(ASSET_CACHE, emptyList()),
                 ).reversed()
+            }.mapThrowable {
+                handleNetworkError(it)
+            }
+        }
+    }
+
+    override suspend fun getTransaction(id: Int): Outcome<TransactionModel, LunchError> {
+        if (!connectionChecker.isConnected()) return Outcome.failure(LunchError.NoConnectionError)
+
+        return withContext(dispatchers.io()) {
+            runCatching {
+                mapTransaction(
+                    lunchService.getTransaction(id),
+                    transactionCache.get(TRANSACTION_CACHE, emptyList()),
+                    assetCache.get(ASSET_CACHE, emptyList()),
+                )
             }.mapThrowable {
                 handleNetworkError(it)
             }
