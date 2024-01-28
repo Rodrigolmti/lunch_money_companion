@@ -89,8 +89,9 @@
     <string name="settings_screen_title">Configurações</string>
 
     <string name="donation_title">Apoie os Desenvolvedores</string>
-    <string name="donation_description">Demonstre sua apreciação pelo aplicativo Lunch Money Companion fazendo uma doação em BTC. Sua generosidade nos ajuda a melhorar recursos, aprimorar a segurança e expandir nosso alcance, garantindo que mais pessoas se beneficiem de nossos serviços. Junte-se a nós na construção de um futuro financeiro seguro juntos!</string>
-    <string name="donation_action">Copiar Endereço BTC</string>
+    <string name="donation_description">Demonstre seu apreço pelo aplicativo Companheiro do Lunch Money fazendo uma doação em BTC ou comprando um livro para nós. Suas generosas contribuições nos auxiliam a aprimorar recursos, reforçar a segurança e ampliar nosso alcance, garantindo que mais pessoas possam se beneficiar de nossos serviços. Junte-se a nós na construção de um futuro financeiro seguro juntos!</string>
+    <string name="donation_btc_action">Copiar Endereço BTC</string>
+    <string name="donation_book_action">Compre-me um Livro</string>
 
     <string name="recurring_title">Recorrente</string>
     <string name="recurring_cleared_label">Concluída</string>

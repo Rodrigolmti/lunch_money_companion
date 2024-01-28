@@ -6,6 +6,7 @@ import com.rodrigolmti.lunch.money.companion.application.main.IMainActivityViewM
 import com.rodrigolmti.lunch.money.companion.application.main.MainActivityViewModel
 import com.rodrigolmti.lunch.money.companion.composition.data.network.LunchService
 import com.rodrigolmti.lunch.money.companion.composition.data.repository.LunchRepository
+import com.rodrigolmti.lunch.money.companion.composition.data.repository.ScreenShootRepository
 import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
 import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.ExecuteStartupLogic
 import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.ExecuteStartupLogicUseCase
@@ -32,6 +33,8 @@ private val dataModule = module {
     }
     single<ICacheManager> { CacheManager() }
     single { SharedPreferencesDelegateFactory(get()) }
+
+//    single<ILunchRepository> { ScreenShootRepository(get()) }
     single<ILunchRepository> { LunchRepository(get(), get(), get(), get(), get(), get()) }
 }
 

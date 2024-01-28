@@ -31,7 +31,7 @@ import retrofit2.HttpException
 private const val USER_KEY = "user_key"
 private const val TOKEN_KEY = "token_key"
 
-private const val TRANSACTION_CACHE = "transaction_cache"
+private const val CATEGORIES_CACHE = "categories_cache"
 private const val ASSET_CACHE = "asset_cache"
 
 internal class LunchRepository(
@@ -46,8 +46,8 @@ internal class LunchRepository(
     private var user: String by preferences.create(DEFAULT_EMPTY_STRING, USER_KEY)
     private var token: String by preferences.create(DEFAULT_EMPTY_STRING, TOKEN_KEY)
 
-    private val transactionCache =
-        cacheManager.createCache<String, List<TransactionCategoryModel>>(TRANSACTION_CACHE)
+    private val categoriesCache =
+        cacheManager.createCache<String, List<TransactionCategoryModel>>(CATEGORIES_CACHE)
     private val assetCache = cacheManager.createCache<String, List<AssetModel>>(ASSET_CACHE)
 
     override suspend fun authenticateUser(tokenDTO: TokenDTO): Outcome<Unit, LunchError> {
@@ -68,7 +68,7 @@ internal class LunchRepository(
     override suspend fun logoutUser(): Outcome<Unit, LunchError> {
         return runCatching {
             preferences.clear()
-            transactionCache.clear()
+            categoriesCache.clear()
             assetCache.clear()
         }.mapThrowable {
             LunchError.UnsuccessfulLogoutError
@@ -85,7 +85,7 @@ internal class LunchRepository(
             runCatching {
                 mapTransactions(
                     lunchService.getTransactions(start, end),
-                    transactionCache.get(TRANSACTION_CACHE, emptyList()),
+                    categoriesCache.get(CATEGORIES_CACHE, emptyList()),
                     assetCache.get(ASSET_CACHE, emptyList()),
                 ).reversed()
             }.mapThrowable {
@@ -113,7 +113,7 @@ internal class LunchRepository(
             runCatching {
                 mapTransaction(
                     lunchService.getTransaction(id),
-                    transactionCache.get(TRANSACTION_CACHE, emptyList()),
+                    categoriesCache.get(CATEGORIES_CACHE, emptyList()),
                     assetCache.get(ASSET_CACHE, emptyList()),
                 )
             }.mapThrowable {
@@ -127,8 +127,8 @@ internal class LunchRepository(
     override suspend fun cacheTransactionCategories() {
         withContext(dispatchers.io()) {
             val categories = lunchService.getCategories().categories.map { it.toModel() }
-            transactionCache.clear()
-            transactionCache.put(TRANSACTION_CACHE, categories)
+            categoriesCache.clear()
+            categoriesCache.put(CATEGORIES_CACHE, categories)
         }
     }
 

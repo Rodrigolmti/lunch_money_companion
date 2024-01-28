@@ -10,7 +10,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.BTC_WALLET
+import com.rodrigolmti.lunch.money.companion.core.BUY_ME_A_BOOK_URL
 import com.rodrigolmti.lunch.money.companion.core.utils.copyToClipboard
+import com.rodrigolmti.lunch.money.companion.core.utils.openUrl
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchButton
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
@@ -40,12 +42,19 @@ fun DonationBottomSheet(
         )
         VerticalSpacer(height = CompanionTheme.spacings.spacingE)
         LunchButton(
-            label = stringResource(R.string.donation_action),
+            label = stringResource(R.string.donation_btc_action),
         ) {
             context.copyToClipboard(
                 "Bitcoin Wallet",
                 BTC_WALLET
             )
+            onDismiss()
+        }
+        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
+        LunchButton(
+            label = stringResource(R.string.donation_book_action),
+        ) {
+            context.openUrl(BUY_ME_A_BOOK_URL)
             onDismiss()
         }
         VerticalSpacer(height = CompanionTheme.spacings.spacingF)
