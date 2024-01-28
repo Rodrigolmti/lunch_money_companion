@@ -5,6 +5,7 @@
     <string name="bottom_navigation_settings">Settings</string>
     <string name="bottom_navigation_home">Home</string>
     <string name="bottom_navigation_budget">Budget</string>
+    <string name="bottom_navigation_recurring">Recurring</string>
 
     <string name="asset_type_cash">Cash</string>
     <string name="asset_type_investment">Investment</string>
@@ -69,6 +70,7 @@
     <string name="home_error_message">We could\'t load your account overview. Please try again later.</string>
     <string name="home_title">Home</string>
     <string name="home_period_label">Period Summary</string>
+    <string name="home_account_label">Account Summary</string>
     <string name="home_income_label">Income</string>
     <string name="home_total_income_label">Total Income Earned</string>
     <string name="home_expenses_label">Expenses</string>
@@ -89,4 +91,8 @@
     <string name="donation_title">Support Developers</string>
     <string name="donation_description">Express your appreciation for the Lunch Money Companion App by making a BTC donation. Your generosity helps us improve features, enhance security, and extend our reach, ensuring more people benefit from our services. Join us in building a secure financial future together!</string>
     <string name="donation_action">Copy BTC Address</string>
+
+    <string name="recurring_title">Recurring</string>
+    <string name="recurring_cleared_label">Cleared</string>
+    <string name="recurring_suggested_label">Suggested</string>
 </resources>

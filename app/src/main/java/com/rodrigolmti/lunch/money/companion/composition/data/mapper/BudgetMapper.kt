@@ -4,18 +4,18 @@ import com.rodrigolmti.lunch.money.companion.composition.data.model.response.Bud
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.BudgetResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.CategoryConfigResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.CategoryResponse
-import com.rodrigolmti.lunch.money.companion.composition.domain.model.Budget
-import com.rodrigolmti.lunch.money.companion.composition.domain.model.BudgetRecurring
-import com.rodrigolmti.lunch.money.companion.composition.domain.model.Category
-import com.rodrigolmti.lunch.money.companion.composition.domain.model.CategoryConfig
+import com.rodrigolmti.lunch.money.companion.composition.domain.model.BudgetModel
+import com.rodrigolmti.lunch.money.companion.composition.domain.model.BudgetRecurringModel
+import com.rodrigolmti.lunch.money.companion.composition.domain.model.CategoryModel
+import com.rodrigolmti.lunch.money.companion.composition.domain.model.CategoryConfigModel
 
-internal fun mapBudget(budgets: List<BudgetResponse>): List<Budget> {
+internal fun mapBudget(budgets: List<BudgetResponse>): List<BudgetModel> {
     return budgets.map {
         it.toModel()
     }
 }
 
-internal fun BudgetResponse.toModel() = Budget(
+internal fun BudgetResponse.toModel() = BudgetModel(
     categoryName = categoryName,
     categoryId = categoryId,
     categoryGroupName = categoryGroupName,
@@ -30,13 +30,13 @@ internal fun BudgetResponse.toModel() = Budget(
     recurring = recurring?.list?.map { it.toModel() } ?: emptyList(),
 )
 
-internal fun BudgetRecurringResponse.toModel() = BudgetRecurring(
+internal fun BudgetRecurringResponse.toModel() = BudgetRecurringModel(
     payee = payee,
     amount = amount,
     currency = currency,
 )
 
-internal fun CategoryResponse.toModel(date: String) = Category(
+internal fun CategoryResponse.toModel(date: String) = CategoryModel(
     numTransactions = numTransactions ?: 0,
     spendingToBase = spendingToBase ?: 0.0f,
     budgetToBase = budgetToBase ?: 0.0f,
@@ -46,7 +46,7 @@ internal fun CategoryResponse.toModel(date: String) = Category(
     date = date,
 )
 
-internal fun CategoryConfigResponse.toModel() = CategoryConfig(
+internal fun CategoryConfigResponse.toModel() = CategoryConfigModel(
     configId = configId,
     cadence = cadence,
     amount = amount,

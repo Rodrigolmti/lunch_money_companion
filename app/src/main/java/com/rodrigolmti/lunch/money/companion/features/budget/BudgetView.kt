@@ -9,7 +9,6 @@ data class BudgetView(
     val category: String,
     val uuid: UUID = UUID.randomUUID(),
     val items: List<BudgetItemView>,
-    val recurring: List<RecurringView> = emptyList(),
 )
 
 @Immutable
@@ -20,31 +19,7 @@ data class BudgetItemView(
     val currency: String
 )
 
-@Immutable
-data class RecurringView(
-    val payee: String,
-    val amount: Float,
-    val currency: String,
-)
-
 fun fakeBudgetView(
-    recurring: List<RecurringView> = listOf(
-        RecurringView(
-            payee = ValueGenerator.gen(),
-            amount = ValueGenerator.gen(),
-            currency = ValueGenerator.currency(),
-        ),
-        RecurringView(
-            payee = ValueGenerator.gen(),
-            amount = ValueGenerator.gen(),
-            currency = ValueGenerator.currency(),
-        ),
-        RecurringView(
-            payee = ValueGenerator.gen(),
-            amount = ValueGenerator.gen(),
-            currency = ValueGenerator.currency(),
-        ),
-    ),
     items: List<BudgetItemView> = listOf(
         BudgetItemView(
             totalTransactions = ValueGenerator.gen(),
@@ -67,6 +42,5 @@ fun fakeBudgetView(
     ),
 ) = BudgetView(
     category = ValueGenerator.gen(),
-    recurring = recurring,
     items = items,
 )

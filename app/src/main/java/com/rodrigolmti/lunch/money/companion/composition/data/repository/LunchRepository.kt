@@ -1,6 +1,7 @@
 package com.rodrigolmti.lunch.money.companion.composition.data.repository
 
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapBudget
+import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapRecurrings
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapTransaction
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapTransactions
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.toModel
@@ -8,7 +9,8 @@ import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.TokenDTO
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.UserResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.network.LunchService
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetModel
-import com.rodrigolmti.lunch.money.companion.composition.domain.model.Budget
+import com.rodrigolmti.lunch.money.companion.composition.domain.model.BudgetModel
+import com.rodrigolmti.lunch.money.companion.composition.domain.model.RecurringModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionCategoryModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.UserModel
@@ -92,6 +94,18 @@ internal class LunchRepository(
         }
     }
 
+    override suspend fun getRecurring(): Outcome<List<RecurringModel>, LunchError> {
+        if (!connectionChecker.isConnected()) return Outcome.failure(LunchError.NoConnectionError)
+
+        return withContext(dispatchers.io()) {
+            runCatching {
+                mapRecurrings(lunchService.getRecurring())
+            }.mapThrowable {
+                handleNetworkError(it)
+            }
+        }
+    }
+
     override suspend fun getTransaction(id: Int): Outcome<TransactionModel, LunchError> {
         if (!connectionChecker.isConnected()) return Outcome.failure(LunchError.NoConnectionError)
 
@@ -131,7 +145,7 @@ internal class LunchRepository(
     override suspend fun getBudgets(
         start: String,
         end: String,
-    ): Outcome<List<Budget>, LunchError> {
+    ): Outcome<List<BudgetModel>, LunchError> {
         if (!connectionChecker.isConnected()) return Outcome.failure(LunchError.NoConnectionError)
 
         return withContext(dispatchers.io()) {

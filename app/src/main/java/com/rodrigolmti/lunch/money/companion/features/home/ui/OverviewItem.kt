@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,6 +18,7 @@ import com.rodrigolmti.lunch.money.companion.features.home.model.AssetModelView
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetOverviewView
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetTypeView
 import com.rodrigolmti.lunch.money.companion.features.home.model.fakeAssetOverviewView
+import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
@@ -30,6 +32,16 @@ internal fun OverviewItem(
         modifier = Modifier
             .padding(CompanionTheme.spacings.spacingD),
     ) {
+        Text(
+            stringResource(R.string.home_account_label),
+            color = White,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center,
+            style = CompanionTheme.typography.body
+        )
+        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
+        Divider()
+        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
         overviews.forEach { overview ->
             Text(
                 text = "${getAssetTypeLabel(overview.type)} (${overview.assets.size})",

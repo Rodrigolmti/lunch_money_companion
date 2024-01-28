@@ -5,6 +5,7 @@
     <string name="bottom_navigation_settings">Configuración</string>
     <string name="bottom_navigation_home">Inicio</string>
     <string name="bottom_navigation_budget">Presupuesto</string>
+    <string name="bottom_navigation_recurring">Recurrente</string>
 
     <string name="asset_type_cash">Efectivo</string>
     <string name="asset_type_investment">Inversión</string>
@@ -69,6 +70,7 @@
     <string name="home_error_message">No pudimos cargar la descripción general de tu cuenta. Por favor, inténtalo nuevamente más tarde.</string>
     <string name="home_title">Inicio</string>
     <string name="home_period_label">Resumen del Período</string>
+    <string name="home_account_label">Resumen de Cuentas</string>
     <string name="home_income_label">Ingresos</string>
     <string name="home_total_income_label">Ingresos Totales</string>
     <string name="home_expenses_label">Gastos</string>
@@ -89,4 +91,8 @@
     <string name="donation_title">Apoyar a los Desarrolladores</string>
     <string name="donation_description">Expresa tu aprecio por la aplicación Compañero de Lunch Money haciendo una donación en BTC. Tu generosidad nos ayuda a mejorar las características, aumentar la seguridad y ampliar nuestro alcance, asegurando que más personas se beneficien de nuestros servicios. ¡Únete a nosotros en la construcción de un futuro financiero seguro juntos!</string>
     <string name="donation_action">Copiar Dirección BTC</string>
+
+    <string name="recurring_title">Recurrente</string>
+    <string name="recurring_cleared_label">Liquidada</string>
+    <string name="recurring_suggested_label">Sugerida</string>
 </resources>

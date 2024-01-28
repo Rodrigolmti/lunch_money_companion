@@ -9,15 +9,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,7 +31,6 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.EmeraldSpring
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadedBlood
-import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 
@@ -50,14 +43,7 @@ private fun BudgetItemPreview() {
             VerticalSpacer(height = CompanionTheme.spacings.spacingB)
             BudgetItem(
                 fakeBudgetView(
-                    recurring = emptyList(),
                     items = emptyList()
-                )
-            )
-            VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-            BudgetItem(
-                fakeBudgetView(
-                    recurring = emptyList(),
                 )
             )
         }
@@ -67,7 +53,6 @@ private fun BudgetItemPreview() {
 @Composable
 internal fun BudgetItem(budget: BudgetView) {
     val expanded = remember { mutableStateOf(false) }
-    val hasRecurring = budget.recurring.isNotEmpty()
 
     Card(
         shape = MaterialTheme.shapes.medium,
@@ -87,12 +72,7 @@ internal fun BudgetItem(budget: BudgetView) {
 
         Column(
             modifier = Modifier
-                .padding(
-                    start = CompanionTheme.spacings.spacingD,
-                    end = CompanionTheme.spacings.spacingD,
-                    bottom = CompanionTheme.spacings.spacingD,
-                    top = if (hasRecurring) CompanionTheme.spacings.spacingB else CompanionTheme.spacings.spacingD,
-                ),
+                .padding(CompanionTheme.spacings.spacingD),
         ) {
 
             Row(
@@ -108,16 +88,6 @@ internal fun BudgetItem(budget: BudgetView) {
                     color = White,
                     style = CompanionTheme.typography.bodyBold,
                 )
-
-                if (hasRecurring) {
-                    Icon(
-                        if (expanded.value) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
-                        modifier = Modifier
-                            .size(CompanionTheme.spacings.spacingF),
-                        contentDescription = null,
-                        tint = SilverLining,
-                    )
-                }
             }
 
             VerticalSpacer(height = CompanionTheme.spacings.spacingD)
@@ -213,55 +183,6 @@ internal fun BudgetItem(budget: BudgetView) {
                     color = White,
                     style = CompanionTheme.typography.body,
                 )
-            }
-
-            if (hasRecurring && expanded.value) {
-
-                VerticalSpacer(height = CompanionTheme.spacings.spacingD)
-
-                Text(
-                    stringResource(R.string.budget_recurring_label),
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    color = White,
-                    style = CompanionTheme.typography.bodyBold,
-                )
-
-                VerticalSpacer(height = CompanionTheme.spacings.spacingD)
-
-                budget.recurring.forEach {
-
-                    Row(
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-
-                        Text(
-                            text = it.payee,
-                            color = White,
-                            modifier = Modifier.weight(1f),
-                            overflow = TextOverflow.Ellipsis,
-                            maxLines = 1,
-                            style = CompanionTheme.typography.body,
-                        )
-
-                        Text(
-                            text = formatCurrency(
-                                it.amount,
-                                it.currency
-                            ),
-                            color = SunburstGold,
-                            style = CompanionTheme.typography.bodyBold,
-                        )
-
-                    }
-
-                    VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-
-                    Divider()
-
-                    VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-                }
             }
         }
     }

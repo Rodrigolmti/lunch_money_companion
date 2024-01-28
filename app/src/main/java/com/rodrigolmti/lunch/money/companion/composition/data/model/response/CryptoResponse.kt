@@ -13,7 +13,7 @@ internal data class CryptoBodyResponse(
 
 @Keep
 @Serializable
-enum class CryptoSourceResponse {
+internal enum class CryptoSourceResponse {
     @SerialName("synced")
     SYNCED,
 
@@ -26,7 +26,7 @@ enum class CryptoSourceResponse {
 
 @Keep
 @Serializable
-enum class CryptoStatusResponse {
+internal enum class CryptoStatusResponse {
     @SerialName("active")
     ACTIVE,
 

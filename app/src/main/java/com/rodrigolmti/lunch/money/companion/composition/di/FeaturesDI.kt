@@ -2,6 +2,7 @@ package com.rodrigolmti.lunch.money.companion.composition.di
 
 import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.BudgetFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.HomeFeatureAdapter
+import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.RecurringFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.SettingsFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.TransactionFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.TokenDTO
@@ -13,6 +14,8 @@ import com.rodrigolmti.lunch.money.companion.features.budget.BudgetViewModel
 import com.rodrigolmti.lunch.money.companion.features.budget.IBudgetViewModel
 import com.rodrigolmti.lunch.money.companion.features.home.ui.HomeViewModel
 import com.rodrigolmti.lunch.money.companion.features.home.ui.IHomeViewModel
+import com.rodrigolmti.lunch.money.companion.features.recurring.IRecurringViewModel
+import com.rodrigolmti.lunch.money.companion.features.recurring.RecurringViewModel
 import com.rodrigolmti.lunch.money.companion.features.settings.ISettingsViewModel
 import com.rodrigolmti.lunch.money.companion.features.settings.SettingsViewModel
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.ITransactionsViewModel
@@ -59,6 +62,16 @@ private val transactionsModule = module {
     }
 }
 
+private val recurringModel = module {
+    viewModel<IRecurringViewModel> {
+        RecurringViewModel(
+            getRecurring = {
+                RecurringFeatureAdapter(get()).getRecurring()
+            },
+        )
+    }
+}
+
 private val budgetModule = module {
     viewModel<IBudgetViewModel> {
         BudgetViewModel(
@@ -84,6 +97,7 @@ internal val featuresModule = module {
     includes(
         authenticationModule,
         homeModule,
+        recurringModel,
         transactionsModule,
         budgetModule,
         settingsModule

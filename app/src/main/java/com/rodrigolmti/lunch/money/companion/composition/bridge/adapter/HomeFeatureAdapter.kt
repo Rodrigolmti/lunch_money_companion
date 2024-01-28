@@ -12,6 +12,7 @@ import com.rodrigolmti.lunch.money.companion.core.utils.formatDate
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetOverviewView
 import com.rodrigolmti.lunch.money.companion.features.home.model.HomeView
 import com.rodrigolmti.lunch.money.companion.features.home.model.PeriodSummaryView
+import kotlinx.collections.immutable.toImmutableList
 import java.util.Date
 
 internal class HomeFeatureAdapter(private val lunchRepository: ILunchRepository) {
@@ -38,7 +39,7 @@ internal class HomeFeatureAdapter(private val lunchRepository: ILunchRepository)
             val savingsRate = if (totalIncome > 0) (netIncome / totalIncome) * 100 else 0.0
 
             HomeView(
-                overviews = overviews,
+                overviews = overviews.toImmutableList(),
                 summary = PeriodSummaryView(
                     totalIncome = totalIncome,
                     totalExpense = totalExpense,

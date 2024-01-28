@@ -4,6 +4,7 @@ import com.rodrigolmti.lunch.money.companion.composition.data.model.response.Ass
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.BudgetResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.CryptoBodyResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.PlaidAccountBodyResponse
+import com.rodrigolmti.lunch.money.companion.composition.data.model.response.RecurringBodyResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionBodyResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionCategoryBodyResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionResponse
@@ -27,6 +28,10 @@ internal interface LunchService {
         @Query("start_date") start: String,
         @Query("end_date") end: String,
     ): TransactionBodyResponse
+
+    @Authenticated
+    @GET("v1/recurring_expenses")
+    suspend fun getRecurring(): RecurringBodyResponse
 
     @Authenticated
     @GET("v1/transactions/{id}")

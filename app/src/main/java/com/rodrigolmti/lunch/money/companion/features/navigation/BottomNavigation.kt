@@ -32,6 +32,8 @@ import com.rodrigolmti.lunch.money.companion.features.budget.BudgetScreen
 import com.rodrigolmti.lunch.money.companion.features.budget.IBudgetViewModel
 import com.rodrigolmti.lunch.money.companion.features.home.ui.HomeScreen
 import com.rodrigolmti.lunch.money.companion.features.home.ui.IHomeViewModel
+import com.rodrigolmti.lunch.money.companion.features.recurring.IRecurringViewModel
+import com.rodrigolmti.lunch.money.companion.features.recurring.RecurringScreen
 import com.rodrigolmti.lunch.money.companion.features.settings.ISettingsViewModel
 import com.rodrigolmti.lunch.money.companion.features.settings.SettingsScreen
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.ITransactionsViewModel
@@ -49,6 +51,7 @@ import org.koin.androidx.compose.koinViewModel
 internal val screens = listOf(
     BottomNavigationRouter.HOME,
     BottomNavigationRouter.TRANSACTIONS,
+    BottomNavigationRouter.RECURRING,
     BottomNavigationRouter.BUDGET,
     BottomNavigationRouter.SETTINGS,
 )
@@ -213,6 +216,19 @@ internal fun BottomNavigation(
                         )
                     }
                 }
+
+                BottomNavigationRouter.RECURRING -> {
+                    val uiModel = koinViewModel<IRecurringViewModel>()
+
+                    RecurringScreen(uiModel) { title, description ->
+                        updateBottomSheetState(
+                            state,
+                            BottomNavigationUiState.ShowInformationBottomSheet(title, description),
+                            sheetState,
+                            scope
+                        )
+                    }
+                }
             }
         }
     }
@@ -253,6 +269,7 @@ private fun getIconByRoute(route: BottomNavigationRouter): Painter {
         BottomNavigationRouter.SETTINGS -> R.drawable.ic_settings
         BottomNavigationRouter.HOME -> R.drawable.ic_home
         BottomNavigationRouter.BUDGET -> R.drawable.ic_budget
+        BottomNavigationRouter.RECURRING -> R.drawable.ic_recurring
     }
 
     return painterResource(id = icon)
@@ -265,5 +282,6 @@ private fun getLabelByRoute(route: BottomNavigationRouter): String {
         BottomNavigationRouter.SETTINGS -> stringResource(R.string.bottom_navigation_settings)
         BottomNavigationRouter.HOME -> stringResource(R.string.bottom_navigation_home)
         BottomNavigationRouter.BUDGET -> stringResource(R.string.bottom_navigation_budget)
+        BottomNavigationRouter.RECURRING -> stringResource(R.string.bottom_navigation_recurring)
     }
 }

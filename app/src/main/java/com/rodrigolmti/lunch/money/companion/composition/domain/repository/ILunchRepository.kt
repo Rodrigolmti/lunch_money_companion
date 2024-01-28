@@ -2,7 +2,8 @@ package com.rodrigolmti.lunch.money.companion.composition.domain.repository
 
 import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.TokenDTO
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetModel
-import com.rodrigolmti.lunch.money.companion.composition.domain.model.Budget
+import com.rodrigolmti.lunch.money.companion.composition.domain.model.BudgetModel
+import com.rodrigolmti.lunch.money.companion.composition.domain.model.RecurringModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.UserModel
 import com.rodrigolmti.lunch.money.companion.core.LunchError
@@ -15,11 +16,14 @@ internal interface ILunchRepository {
         start: String,
         end: String,
     ): Outcome<List<TransactionModel>, LunchError>
+
+    suspend fun getRecurring(): Outcome<List<RecurringModel>, LunchError>
     suspend fun getTransaction(id: Int): Outcome<TransactionModel, LunchError>
     suspend fun getBudgets(
         start: String,
         end: String,
-    ): Outcome<List<Budget>, LunchError>
+    ): Outcome<List<BudgetModel>, LunchError>
+
     fun getAssets(): List<AssetModel>
     suspend fun cacheTransactionCategories()
     suspend fun cacheAssets()

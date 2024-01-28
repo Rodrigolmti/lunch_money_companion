@@ -1,6 +1,6 @@
 package com.rodrigolmti.lunch.money.companion.composition.domain.model
 
-internal data class Budget(
+internal data class BudgetModel(
     val categoryName: String,
     val categoryId: Int?,
     val categoryGroupName: String?,
@@ -9,19 +9,19 @@ internal data class Budget(
     val isIncome: Boolean,
     val excludeFromBudget: Boolean,
     val excludeFromTotals: Boolean,
-    val data: List<Category>,
-    val config: CategoryConfig?,
+    val data: List<CategoryModel>,
+    val config: CategoryConfigModel?,
     val order: Int,
-    val recurring: List<BudgetRecurring> = emptyList()
+    val recurring: List<BudgetRecurringModel> = emptyList()
 )
 
-internal data class BudgetRecurring(
+internal data class BudgetRecurringModel(
     val payee: String,
     val amount: Float,
     val currency: String,
 )
 
-internal data class Category(
+internal data class CategoryModel(
     val numTransactions: Int,
     val spendingToBase: Float,
     val budgetToBase: Float,
@@ -31,7 +31,7 @@ internal data class Category(
     val date: String
 )
 
-internal data class CategoryConfig(
+internal data class CategoryConfigModel(
     val configId: Int,
     val cadence: String,
     val amount: Float,

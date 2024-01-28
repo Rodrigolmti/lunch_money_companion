@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Keep
 @Serializable
-data class BudgetResponse(
+internal data class BudgetResponse(
     @SerialName("category_name")
     val categoryName: String,
     @SerialName("category_id")
@@ -35,7 +35,7 @@ data class BudgetResponse(
 
 @Keep
 @Serializable
-data class CategoryResponse(
+internal data class CategoryResponse(
     @SerialName("num_transactions")
     val numTransactions: Int? = null,
     @SerialName("spending_to_base")
@@ -52,14 +52,14 @@ data class CategoryResponse(
 
 @Keep
 @Serializable
-data class BudgetRecurringBodyResponse(
+internal data class BudgetRecurringBodyResponse(
     @SerialName("list")
     val list: List<BudgetRecurringResponse>
 )
 
 @Keep
 @Serializable
-data class BudgetRecurringResponse(
+internal data class BudgetRecurringResponse(
     @SerialName("payee")
     val payee: String,
     @SerialName("amount")
@@ -70,7 +70,7 @@ data class BudgetRecurringResponse(
 
 @Keep
 @Serializable
-data class CategoryConfigResponse(
+internal data class CategoryConfigResponse(
     @SerialName("config_id")
     val configId: Int,
     @SerialName("cadence")
