@@ -16,6 +16,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -31,6 +33,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchLoading
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
+import com.rodrigolmti.lunch.money.companion.uikit.modal.ConfirmationDialog
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadedBlood
 import com.rodrigolmti.lunch.money.companion.uikit.theme.GraphiteWhisper
@@ -44,6 +47,8 @@ internal fun SettingsScreen(
     onTermsOfUseClick: (String) -> Unit = {},
     onDonationClick: () -> Unit = {},
 ) {
+    val openAlertDialog = remember { mutableStateOf(false) }
+
     val viewState by uiModel.viewState.collectAsStateWithLifecycle()
     val padding = PaddingValues(
         start = CompanionTheme.spacings.spacingD,
@@ -54,6 +59,15 @@ internal fun SettingsScreen(
         LaunchedEffect(Unit) {
             onLogout()
         }
+    }
+
+    if (openAlertDialog.value)  {
+        ConfirmationDialog(
+            onConfirmation = { uiModel.logout() },
+            onFinish = { openAlertDialog.value = false },
+            dialogTitle = stringResource(id = R.string.settings_logout_title),
+            dialogText = stringResource(R.string.settings_logout_description)
+        )
     }
 
     LaunchedEffect(Unit) {
@@ -138,7 +152,7 @@ internal fun SettingsScreen(
                         color = FadedBlood,
                         icon = painterResource(id = R.drawable.ic_sign_out)
                     ) {
-                        uiModel.logout()
+                        openAlertDialog.value = true
                     }
 
                     VerticalSpacer(CompanionTheme.spacings.spacingF)

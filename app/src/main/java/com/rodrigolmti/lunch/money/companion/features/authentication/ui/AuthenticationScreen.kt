@@ -51,7 +51,7 @@ import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.DEVELOPER_URL
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.core.utils.openUrl
-import com.rodrigolmti.lunch.money.companion.uikit.components.BottomSheetComponent
+import com.rodrigolmti.lunch.money.companion.uikit.modal.BottomSheetComponent
 import com.rodrigolmti.lunch.money.companion.uikit.components.BouncingImageAnimation
 import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.HorizontalSpacer

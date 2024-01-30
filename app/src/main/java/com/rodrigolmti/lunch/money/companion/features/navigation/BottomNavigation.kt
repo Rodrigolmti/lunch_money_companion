@@ -38,7 +38,7 @@ import com.rodrigolmti.lunch.money.companion.features.settings.ISettingsViewMode
 import com.rodrigolmti.lunch.money.companion.features.settings.SettingsScreen
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.ITransactionsViewModel
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.TransactionsScreen
-import com.rodrigolmti.lunch.money.companion.uikit.components.BottomSheetComponent
+import com.rodrigolmti.lunch.money.companion.uikit.modal.BottomSheetComponent
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.GraphiteWhisper

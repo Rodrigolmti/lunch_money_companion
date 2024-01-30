@@ -22,6 +22,9 @@
 
     <string name="close_action">Cerrar</string>
     <string name="common_error_title">Algo salió mal</string>
+    <string name="common_yes_action">Si</string>
+    <string name="common_no_action">No</string>
+    <string name="common_ok_action">OK</string>
 
     <string name="connection_error_title">Problema de Conexión Detectado</string>
     <string name="connection_error_message">Estamos teniendo problemas para procesar tu solicitud. Esto podría deberse a un error en el servidor, una clave de API no válida o un problema con tu conexión de red. Por favor, verifica tu clave de API y asegúrate de que tu dispositivo tenga una conexión a Internet estable. Si el problema persiste, inténtalo nuevamente más tarde.</string>
@@ -87,6 +90,8 @@
     <string name="settings_screen_sign_out_action">Cerrar Sesión</string>
     <string name="settings_screen_profile_label">Perfil</string>
     <string name="settings_screen_title">Configuración</string>
+    <string name="settings_logout_title">Confirmación de Cierre de Sesión</string>
+    <string name="settings_logout_description">¿Estás seguro de que deseas cerrar sesión?</string>
 
     <string name="donation_title">Apoyar a los Desarrolladores</string>
     <string name="donation_description">Muestra tu aprecio por la aplicación Compañero de Lunch Money haciendo una donación en BTC o comprándonos un libro. Tus generosas contribuciones nos ayudan a mejorar las características, fortalecer la seguridad y ampliar nuestro alcance, asegurando que más personas puedan beneficiarse de nuestros servicios. ¡Únete a nosotros en la creación de un futuro financiero seguro juntos!</string>

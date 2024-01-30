@@ -28,6 +28,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.EmeraldSpring
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadedBlood
+import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.TropicalLagoon
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
@@ -83,7 +84,7 @@ internal fun RecurringItem(budget: RecurringView) {
                         budget.amount,
                         budget.currency
                     ),
-                    color = if (budget.amount > 0) EmeraldSpring else FadedBlood,
+                    color = White,
                     style = CompanionTheme.typography.bodyBold,
                 )
             }

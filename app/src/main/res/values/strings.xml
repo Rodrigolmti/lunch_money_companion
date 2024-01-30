@@ -22,6 +22,9 @@
 
     <string name="close_action">Close</string>
     <string name="common_error_title">Something went wrong</string>
+    <string name="common_yes_action">Yes</string>
+    <string name="common_no_action">No</string>
+    <string name="common_ok_action">OK</string>
 
     <string name="connection_error_title">Connection Issue Detected</string>
     <string name="connection_error_message">We\'re having trouble processing your request. This could be due to a server error, an invalid API key, or a problem with your network connection. Please verify your API key and ensure your device has a stable internet connection. If the issue persists, try again later.</string>
@@ -87,6 +90,8 @@
     <string name="settings_screen_sign_out_action">Sign Out</string>
     <string name="settings_screen_profile_label">Profile</string>
     <string name="settings_screen_title">Settings</string>
+    <string name="settings_logout_title">Logout Confirmation</string>
+    <string name="settings_logout_description">Are you sure you want to log out?</string>
 
     <string name="donation_title">Support Developers</string>
     <string name="donation_description">Show your appreciation for the Lunch Money Companion App by making a BTC donation or buying us a book. Your generous contributions assist us in enhancing features, strengthening security, and expanding our reach, ensuring that more people can benefit from our services. Join us in creating a secure financial future together!</string>
