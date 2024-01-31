@@ -46,6 +46,7 @@ internal fun SettingsScreen(
     onLogout: () -> Unit = {},
     onTermsOfUseClick: (String) -> Unit = {},
     onDonationClick: () -> Unit = {},
+    onAnalyzeClick: () -> Unit = {}
 ) {
     val openAlertDialog = remember { mutableStateOf(false) }
 
@@ -126,7 +127,12 @@ internal fun SettingsScreen(
                             )
                         }
                     }
-
+//                    SettingsItem(
+//                        label = stringResource(R.string.settings_screen_analyze_action),
+//                        icon = painterResource(id = R.drawable.ic_analyze)
+//                    ) {
+//                        onAnalyzeClick()
+//                    }
                     SettingsItem(
                         label = stringResource(R.string.settings_screen_terms_label),
                         icon = painterResource(id = R.drawable.ic_terms)

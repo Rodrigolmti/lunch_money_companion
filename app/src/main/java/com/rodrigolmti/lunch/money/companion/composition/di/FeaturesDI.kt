@@ -1,5 +1,6 @@
 package com.rodrigolmti.lunch.money.companion.composition.di
 
+import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.AnalyzeFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.BudgetFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.HomeFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.RecurringFeatureAdapter
@@ -8,6 +9,8 @@ import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.Transact
 import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.TokenDTO
 import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
 import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.ExecuteStartupLogicUseCase
+import com.rodrigolmti.lunch.money.companion.features.analyze.AnalyzeViewModel
+import com.rodrigolmti.lunch.money.companion.features.analyze.IAnalyzeViewModel
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.AuthenticationViewModel
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.IAuthenticationViewModel
 import com.rodrigolmti.lunch.money.companion.features.budget.BudgetViewModel
@@ -30,6 +33,16 @@ private val authenticationModule = module {
         AuthenticationViewModel(
             authenticateUser = { get<ILunchRepository>().authenticateUser(TokenDTO(it)) },
             postAuthentication = { get<ExecuteStartupLogicUseCase>().invoke() },
+        )
+    }
+}
+
+private val analyzeModule = module {
+    viewModel<IAnalyzeViewModel> {
+        AnalyzeViewModel(
+            getGroupTransaction = { start, end ->
+                AnalyzeFeatureAdapter(get(), get()).getSumGroupedTransactions(start, end)
+            },
         )
     }
 }
@@ -96,6 +109,7 @@ private val settingsModule = module {
 internal val featuresModule = module {
     includes(
         authenticationModule,
+        analyzeModule,
         homeModule,
         recurringModel,
         transactionsModule,

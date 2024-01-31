@@ -75,11 +75,14 @@
     <string name="home_period_label">Resumen del Período</string>
     <string name="home_account_label">Resumen de Cuentas</string>
     <string name="home_income_label">Ingresos</string>
+    <string name="home_pending_label">Sincronización pendiente</string>
+    <string name="home_pending_description">Cuentas con problemas de conexión a Plaid. Reconéctalas en la página de Cuentas.</string>
     <string name="home_total_income_label">Ingresos Totales</string>
     <string name="home_expenses_label">Gastos</string>
     <string name="home_total_expenses_label">Gastos Totales</string>
     <string name="home_net_income_label">Ingresos Netos</string>
     <string name="home_savings_rate_label">Tasa de Ahorro Actual</string>
+    <string name="home_reconnect_now_action">Reconectar Ahora</string>
 
     <string name="terms_of_use_title">Términos de Uso</string>
 
@@ -88,6 +91,7 @@
     <string name="settings_screen_terms_label">Términos de Uso</string>
     <string name="settings_screen_donate_action">Apoyar la Aplicación</string>
     <string name="settings_screen_sign_out_action">Cerrar Sesión</string>
+    <string name="settings_screen_analyze_action">Analizar</string>
     <string name="settings_screen_profile_label">Perfil</string>
     <string name="settings_screen_title">Configuración</string>
     <string name="settings_logout_title">Confirmación de Cierre de Sesión</string>

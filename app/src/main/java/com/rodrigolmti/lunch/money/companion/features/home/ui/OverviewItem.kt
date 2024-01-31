@@ -109,11 +109,13 @@ private fun getAssetTypeLabel(type: AssetTypeView): String {
 @Composable
 @LunchMoneyPreview
 private fun OverviewItemPreview() {
-    OverviewItem(
-        overviews = listOf(
-            fakeAssetOverviewView(),
-            fakeAssetOverviewView(),
-            fakeAssetOverviewView()
+    CompanionTheme {
+        OverviewItem(
+            overviews = listOf(
+                fakeAssetOverviewView(),
+                fakeAssetOverviewView(),
+                fakeAssetOverviewView()
+            )
         )
-    )
+    }
 }

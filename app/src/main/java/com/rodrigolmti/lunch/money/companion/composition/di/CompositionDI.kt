@@ -10,6 +10,8 @@ import com.rodrigolmti.lunch.money.companion.composition.data.repository.ScreenS
 import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
 import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.ExecuteStartupLogic
 import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.ExecuteStartupLogicUseCase
+import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.GetTransactionSumByCategory
+import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.GetTransactionSumByCategoryUseCase
 import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.IsUserAuthenticated
 import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.IsUserAuthenticatedUseCase
 import com.rodrigolmti.lunch.money.companion.core.DispatchersProvider
@@ -41,6 +43,7 @@ private val dataModule = module {
 private val domainModule = module {
     factory<IsUserAuthenticatedUseCase> { IsUserAuthenticated(get()) }
     factory<ExecuteStartupLogicUseCase> { ExecuteStartupLogic(get(), get()) }
+    factory<GetTransactionSumByCategoryUseCase> { GetTransactionSumByCategory() }
 }
 
 internal val applicationModule = module {

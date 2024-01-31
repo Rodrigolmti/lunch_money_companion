@@ -74,12 +74,15 @@
     <string name="home_title">Home</string>
     <string name="home_period_label">Period Summary</string>
     <string name="home_account_label">Account Summary</string>
+    <string name="home_pending_label">Pending Sync</string>
+    <string name="home_pending_description">Accounts with Plaid connection issues. Reconnect in Accounts page.</string>
     <string name="home_income_label">Income</string>
     <string name="home_total_income_label">Total Income Earned</string>
     <string name="home_expenses_label">Expenses</string>
     <string name="home_total_expenses_label">Total Expenses</string>
     <string name="home_net_income_label">Net Income</string>
     <string name="home_savings_rate_label">Current Savings Rate</string>
+    <string name="home_reconnect_now_action">Reconnect Now</string>
 
     <string name="terms_of_use_title">Terms of Use</string>
 
@@ -88,6 +91,7 @@
     <string name="settings_screen_terms_label">Terms of Use</string>
     <string name="settings_screen_donate_action">Support the App</string>
     <string name="settings_screen_sign_out_action">Sign Out</string>
+    <string name="settings_screen_analyze_action">Analyze</string>
     <string name="settings_screen_profile_label">Profile</string>
     <string name="settings_screen_title">Settings</string>
     <string name="settings_logout_title">Logout Confirmation</string>

@@ -35,23 +35,18 @@ import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.core.utils.formatCurrency
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
-import com.rodrigolmti.lunch.money.companion.uikit.modal.BottomSheetComponent
 import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.EmptyState
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchLoading
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchTextField
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
+import com.rodrigolmti.lunch.money.companion.uikit.modal.BottomSheetComponent
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 import kotlinx.coroutines.launch
-
-sealed class TransactionsDetailErrorState {
-    data object Idle : TransactionsDetailErrorState()
-    data object GetTransactionError : TransactionsDetailErrorState()
-}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

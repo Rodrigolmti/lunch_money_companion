@@ -23,7 +23,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -201,11 +200,35 @@ private fun BuildSuccessState(view: HomeView) {
             ),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(CompanionTheme.spacings.spacingD)
+                .padding(
+                    top = CompanionTheme.spacings.spacingD,
+                    start = CompanionTheme.spacings.spacingD,
+                    end = CompanionTheme.spacings.spacingD,
+                )
         ) {
             OverviewItem(
                 overviews = view.overviews
             )
+        }
+
+        if (view.pendingAssets.isNotEmpty()) {
+            Card(
+                shape = MaterialTheme.shapes.medium,
+                colors = CardDefaults.cardColors(
+                    containerColor = CharcoalMist
+                ),
+                border = BorderStroke(
+                    width = Dp.Hairline,
+                    color = Color.Black
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(CompanionTheme.spacings.spacingD)
+            ) {
+                PendingAssetsItem(
+                    assets = view.pendingAssets
+                )
+            }
         }
 
         VerticalSpacer(height = CompanionTheme.spacings.spacingJ)

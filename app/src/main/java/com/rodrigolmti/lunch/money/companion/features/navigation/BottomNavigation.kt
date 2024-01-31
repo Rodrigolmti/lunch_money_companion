@@ -64,6 +64,7 @@ internal fun BottomNavigation(
     onLogout: () -> Unit = {},
     onScreenSelected: (BottomNavigationRouter) -> Unit,
     onTransactionSelected: (Int) -> Unit,
+    onAnalyzeClick: () -> Unit = {},
 ) {
     val sheetState =
         rememberModalBottomSheetState(
@@ -174,6 +175,9 @@ internal fun BottomNavigation(
 
                     SettingsScreen(
                         uiModel,
+                        onAnalyzeClick = {
+                            onAnalyzeClick()
+                        },
                         onLogout = {
                             onLogout()
                         },

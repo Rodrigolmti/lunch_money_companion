@@ -1,6 +1,7 @@
 package com.rodrigolmti.lunch.money.companion.composition.bridge.adapter
 
 import com.rodrigolmti.lunch.money.companion.composition.bridge.mapper.toView
+import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetStatus
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
 import com.rodrigolmti.lunch.money.companion.core.LunchError
@@ -15,7 +16,9 @@ import com.rodrigolmti.lunch.money.companion.features.home.model.PeriodSummaryVi
 import kotlinx.collections.immutable.toImmutableList
 import java.util.Date
 
-internal class HomeFeatureAdapter(private val lunchRepository: ILunchRepository) {
+internal class HomeFeatureAdapter(
+    private val lunchRepository: ILunchRepository,
+) {
 
     suspend fun getAssetOverview(
         start: Date,
@@ -46,7 +49,10 @@ internal class HomeFeatureAdapter(private val lunchRepository: ILunchRepository)
                     netIncome = netIncome,
                     savingsRate = (savingsRate.toFloat()).toInt(),
                     currency = transactions.first().currency
-                )
+                ),
+                pendingAssets = assets.filter {
+                    it.status == AssetStatus.RELINK || it.status == AssetStatus.ERROR
+                }.map { it.name },
             )
         }.mapThrowable {
             LunchError.EmptyDataError

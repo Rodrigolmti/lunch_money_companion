@@ -7,4 +7,5 @@ import kotlinx.collections.immutable.ImmutableList
 internal data class HomeView(
     val overviews: ImmutableList<AssetOverviewView>,
     val summary: PeriodSummaryView,
+    val pendingAssets: List<String>,
 )

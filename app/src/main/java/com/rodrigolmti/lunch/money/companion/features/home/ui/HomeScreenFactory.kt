@@ -1,6 +1,7 @@
 package com.rodrigolmti.lunch.money.companion.features.home.ui
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import com.rodrigolmti.lunch.money.companion.core.utils.ValueGenerator
 import com.rodrigolmti.lunch.money.companion.features.home.model.HomeView
 import com.rodrigolmti.lunch.money.companion.features.home.model.fakeAssetOverviewView
 import com.rodrigolmti.lunch.money.companion.features.home.model.fakePeriodSummaryView
@@ -33,7 +34,12 @@ internal class HomeUIModelProvider : PreviewParameterProvider<IHomeUIModel> {
                             fakeAssetOverviewView(),
                             fakeAssetOverviewView(),
                         ).toImmutableList(),
-                        summary = fakePeriodSummaryView()
+                        summary = fakePeriodSummaryView(),
+                        pendingAssets = listOf(
+                            ValueGenerator.gen(),
+                            ValueGenerator.gen(),
+                            ValueGenerator.gen(),
+                        )
                     )
                 )
             )

@@ -7,7 +7,7 @@ import com.rodrigolmti.lunch.money.companion.core.utils.ValueGenerator
 internal data class AssetOverviewView(
     val total: Double,
     val type: AssetTypeView,
-    val assets: List<AssetModelView>
+    val assets: List<AssetModelView>,
 )
 
 internal fun fakeAssetOverviewView() = AssetOverviewView(
