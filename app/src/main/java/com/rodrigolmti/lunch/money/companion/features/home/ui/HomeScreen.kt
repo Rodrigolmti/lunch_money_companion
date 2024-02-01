@@ -37,9 +37,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
+import com.rodrigolmti.lunch.money.companion.features.analyze.FilterBottomSheet
 import com.rodrigolmti.lunch.money.companion.features.home.model.HomeView
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.FilterState
-import com.rodrigolmti.lunch.money.companion.features.transactions.ui.TransactionFilterBottomSheet
 import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.EmptyState
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
@@ -66,6 +66,7 @@ internal fun HomeScreen(
         confirmValueChange = { true },
         skipHalfExpanded = true
     )
+
     val scope = rememberCoroutineScope()
 
     Scaffold(
@@ -98,13 +99,18 @@ internal fun HomeScreen(
         ModalBottomSheetLayout(
             sheetState = sheetState,
             sheetContent = {
-                TransactionFilterBottomSheet(
+                FilterBottomSheet(
                     label = filterState.getDisplay(),
+                    bottomSpacing = CompanionTheme.spacings.spacingH,
+                    selected = filterState.preset,
+                    onFilterSelected = {
+                        filterState = filterState.copy(preset = it)
+                    },
                     onNextMonthClick = {
-                        filterState = filterState.decrease()
+                        filterState = filterState.increase()
                     },
                     onPreviousMonthClick = {
-                        filterState = filterState.increase()
+                        filterState = filterState.decrease()
                     },
                     onFilter = {
                         scope.launch { sheetState.hide() }

@@ -47,8 +47,8 @@ internal class HomeFeatureAdapter(
                     totalIncome = totalIncome,
                     totalExpense = totalExpense,
                     netIncome = netIncome,
-                    savingsRate = (savingsRate.toFloat()).toInt(),
-                    currency = transactions.first().currency
+                    savingsRate = savingsRate.toInt(),
+                    currency = transactions.firstOrNull()?.currency ?: "CAD"
                 ),
                 pendingAssets = assets.filter {
                     it.status == AssetStatus.RELINK || it.status == AssetStatus.ERROR

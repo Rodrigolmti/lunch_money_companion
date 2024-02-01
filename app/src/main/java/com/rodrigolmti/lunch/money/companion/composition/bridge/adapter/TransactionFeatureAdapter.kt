@@ -43,7 +43,7 @@ internal class TransactionFeatureAdapter(
                     expense = expense,
                     totalExpense = totalExpense,
                     net = totalIncome - totalExpense,
-                    currency = transactions.first().currency
+                    currency = transactions.firstOrNull()?.currency ?: "CAD"
                 )
             }
     }

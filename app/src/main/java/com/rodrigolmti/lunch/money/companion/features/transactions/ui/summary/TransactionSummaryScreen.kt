@@ -137,10 +137,10 @@ internal fun TransactionsSummaryScreen(
                                 filterState = filterState.copy(preset = it)
                             },
                             onNextMonthClick = {
-                                filterState = filterState.decrease()
+                                filterState = filterState.increase()
                             },
                             onPreviousMonthClick = {
-                                filterState = filterState.increase()
+                                filterState = filterState.decrease()
                             },
                             onFilter = {
                                 scope.launch { sheetState.hide() }

@@ -34,6 +34,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
+import com.rodrigolmti.lunch.money.companion.features.analyze.FilterBottomSheet
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
 import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.EmptyState
@@ -104,13 +105,18 @@ internal fun TransactionsScreen(
         ModalBottomSheetLayout(
             sheetState = sheetState,
             sheetContent = {
-                TransactionFilterBottomSheet(
+                FilterBottomSheet(
                     label = filterState.getDisplay(),
+                    bottomSpacing = CompanionTheme.spacings.spacingH,
+                    selected = filterState.preset,
+                    onFilterSelected = {
+                        filterState = filterState.copy(preset = it)
+                    },
                     onNextMonthClick = {
-                        filterState = filterState.decrease()
+                        filterState = filterState.increase()
                     },
                     onPreviousMonthClick = {
-                        filterState = filterState.increase()
+                        filterState = filterState.decrease()
                     },
                     onFilter = {
                         scope.launch { sheetState.hide() }

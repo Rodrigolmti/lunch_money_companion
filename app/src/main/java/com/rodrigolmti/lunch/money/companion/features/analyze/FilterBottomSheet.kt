@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.FilterPreset
@@ -67,11 +68,17 @@ fun FilterBottomSheet(
     onPreviousMonthClick: () -> Unit = {},
     onNextMonthClick: () -> Unit = {},
     onFilter: () -> Unit,
+    bottomSpacing: Dp = CompanionTheme.spacings.spacingD
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(CompanionTheme.spacings.spacingD),
+            .padding(
+                start = CompanionTheme.spacings.spacingD,
+                end = CompanionTheme.spacings.spacingD,
+                top = CompanionTheme.spacings.spacingD,
+                bottom = bottomSpacing,
+            ),
     ) {
         Text(
             stringResource(R.string.filter_title),

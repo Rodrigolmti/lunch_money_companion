@@ -4,6 +4,7 @@ package com.rodrigolmti.lunch.money.companion.features.navigation
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomNavigation
@@ -27,6 +28,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.features.budget.BudgetScreen
 import com.rodrigolmti.lunch.money.companion.features.budget.IBudgetViewModel
@@ -76,6 +78,8 @@ internal fun BottomNavigation(
 
     val state =
         remember { mutableStateOf<BottomNavigationUiState>(BottomNavigationUiState.Idle) }
+
+    val bottomNavigationVisibility = remember { mutableStateOf(1) }
 
     val scope = rememberCoroutineScope()
 
@@ -206,14 +210,17 @@ internal fun BottomNavigation(
                 BottomNavigationRouter.HOME -> {
                     val uiModel = koinViewModel<IHomeViewModel>()
 
-                    HomeScreen(uiModel) { title, description ->
-                        updateBottomSheetState(
-                            state,
-                            BottomNavigationUiState.ShowInformationBottomSheet(title, description),
-                            sheetState,
-                            scope
-                        )
-                    }
+                    HomeScreen(
+                        uiModel = uiModel,
+                        onError = { title, description ->
+                            updateBottomSheetState(
+                                state,
+                                BottomNavigationUiState.ShowInformationBottomSheet(title, description),
+                                sheetState,
+                                scope
+                            )
+                        },
+                    )
                 }
 
                 BottomNavigationRouter.BUDGET -> {

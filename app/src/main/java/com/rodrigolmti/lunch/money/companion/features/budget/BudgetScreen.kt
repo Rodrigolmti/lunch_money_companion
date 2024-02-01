@@ -32,8 +32,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
+import com.rodrigolmti.lunch.money.companion.features.analyze.FilterBottomSheet
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.FilterState
-import com.rodrigolmti.lunch.money.companion.features.transactions.ui.TransactionFilterBottomSheet
 import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.EmptyState
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
@@ -100,13 +100,18 @@ internal fun BudgetScreen(
         ModalBottomSheetLayout(
             sheetState = sheetState,
             sheetContent = {
-                TransactionFilterBottomSheet(
+                FilterBottomSheet(
                     label = filterState.getDisplay(),
+                    selected = filterState.preset,
+                    bottomSpacing = CompanionTheme.spacings.spacingH,
+                    onFilterSelected = {
+                        filterState = filterState.copy(preset = it)
+                    },
                     onNextMonthClick = {
-                        filterState = filterState.decrease()
+                        filterState = filterState.increase()
                     },
                     onPreviousMonthClick = {
-                        filterState = filterState.increase()
+                        filterState = filterState.decrease()
                     },
                     onFilter = {
                         scope.launch { sheetState.hide() }
