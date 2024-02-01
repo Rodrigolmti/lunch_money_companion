@@ -61,6 +61,15 @@
     <string name="transaction_modal_error_title">Oops, an issue occurred</string>
     <string name="transaction_modal_error_message">We could\'t fetch the transaction information. Please try again.</string>
 
+    <string name="transaction_summary_title">Transaction Summary</string>
+    <string name="transaction_summary_error_label">Sorry, it\'s not possible to display the transaction summary at this time.</string>
+    <string name="transaction_summary_card_title">Summary</string>
+    <string name="transaction_summary_income_label">INCOME</string>
+    <string name="transaction_summary_income_total_label">Income total</string>
+    <string name="transaction_summary_expenses_label">EXPENSES</string>
+    <string name="transaction_summary_expenses_total_label">Expenses total</string>
+    <string name="transaction_summary_net_label">Net Income</string>
+
     <string name="budget_title">Budget</string>
     <string name="budget_error_message">We could\'t load your budget data. Please try again later.</string>
     <string name="budget_empty_content_message">You don\'t have a budget yet!</string>
@@ -83,6 +92,17 @@
     <string name="home_net_income_label">Net Income</string>
     <string name="home_savings_rate_label">Current Savings Rate</string>
     <string name="home_reconnect_now_action">Reconnect Now</string>
+
+    <string name="filter_title">Filter</string>
+    <string name="filter_description">Select the date range to filter the data.</string>
+    <string name="filter_action">Filter</string>
+    <string name="filter_month_to_date">Month to date</string>
+    <string name="filter_year_to_date">Year to date</string>
+    <string name="filter_last_seven_days">Last 7 days</string>
+    <string name="filter_last_thirty_days">Last 30 days</string>
+    <string name="filter_last_month">Last month</string>
+    <string name="filter_last_three_months">Last 3 months</string>
+    <string name="filter_custom">Custom</string>
 
     <string name="terms_of_use_title">Terms of Use</string>
 

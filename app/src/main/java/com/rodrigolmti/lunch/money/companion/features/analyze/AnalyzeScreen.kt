@@ -46,6 +46,7 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
+import com.rodrigolmti.lunch.money.companion.features.transactions.ui.FilterPreset
 import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.EmptyState
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
@@ -74,7 +75,7 @@ internal fun AnalyzeScreen(
 ) {
     val viewState by uiModel.viewState.collectAsStateWithLifecycle()
 
-    var selectedFilter by remember { mutableStateOf(AnalyzeFilterPreset.MONTH_TO_DATE) }
+    var selectedFilter by remember { mutableStateOf(FilterPreset.MONTH_TO_DATE) }
 
     val sheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
@@ -124,15 +125,14 @@ internal fun AnalyzeScreen(
             sheetContent = {
                 when (modalState.value) {
                     AnalyzeBottomSheetState.FilterModal -> {
-                        AnalyzeFilterBottomSheet(
+                        FilterBottomSheet(
                             selected = selectedFilter,
                             onFilterSelected = {
                                 selectedFilter = it
                             },
+                            label = "",
                             onFilter = {
-                                scope.launch { sheetState.hide() }
-                                val (start, end) = selectedFilter.mapFilterPreset()
-                                uiModel.getGroup(start, end)
+
                             }
                         )
                     }

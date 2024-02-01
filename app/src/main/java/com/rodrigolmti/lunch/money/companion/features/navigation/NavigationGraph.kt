@@ -19,12 +19,15 @@ import com.rodrigolmti.lunch.money.companion.features.authentication.ui.IAuthent
 import com.rodrigolmti.lunch.money.companion.features.terms.WebViewScreen
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.detail.ITransactionDetailViewModel
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.detail.TransactionsDetailScreen
+import com.rodrigolmti.lunch.money.companion.features.transactions.ui.summary.ITransactionsSummaryViewModel
+import com.rodrigolmti.lunch.money.companion.features.transactions.ui.summary.TransactionsSummaryScreen
 import org.koin.androidx.compose.koinViewModel
 
 internal const val authenticationRoute = "/authentication"
 internal const val dashboardRoute = "/dashboard"
 internal const val webviewRouter = "/webview?url={url}"
 internal const val transactionDetailRouter = "/transaction?id={id}"
+internal const val transactionSummaryRouter = "/transaction/summary"
 internal const val analyzeRouter = "/analyze"
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -64,6 +67,9 @@ internal fun NavigationGraph(
                         }
                     }
                 },
+                onTransactionSummaryClick = {
+                    navController.navigate(transactionSummaryRouter)
+                },
                 onScreenSelected = { selectedScreen = it },
                 onTransactionSelected = {
                     navController.navigate(transactionDetailRouter.replace("{id}", it.toString()))
@@ -91,6 +97,15 @@ internal fun NavigationGraph(
             val uiModel = koinViewModel<IAnalyzeViewModel>()
 
             AnalyzeScreen(uiModel) {
+                navController.navigateUp()
+            }
+        }
+        composable(
+            route = transactionSummaryRouter,
+        ) {
+            val uiModel = koinViewModel<ITransactionsSummaryViewModel>()
+
+            TransactionsSummaryScreen(uiModel) {
                 navController.navigateUp()
             }
         }

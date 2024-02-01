@@ -61,6 +61,15 @@
     <string name="transaction_modal_error_title">Ops, ocorreu um problema</string>
     <string name="transaction_modal_error_message">Não conseguimos obter as informações da transação. Por favor, tente novamente.</string>
 
+    <string name="transaction_summary_title">Resumo da Transação</string>
+    <string name="transaction_summary_error_label">Desculpe, não é possível exibir o resumo da transação neste momento.</string>
+    <string name="transaction_summary_card_title">Resumo</string>
+    <string name="transaction_summary_income_label">RECEITA</string>
+    <string name="transaction_summary_income_total_label">Total de Receitas</string>
+    <string name="transaction_summary_expenses_label">DESPESAS</string>
+    <string name="transaction_summary_expenses_total_label">Total de Despesas</string>
+    <string name="transaction_summary_net_label">Receita Líquida</string>
+
     <string name="budget_title">Orçamento</string>
     <string name="budget_error_message">Não foi possível carregar os dados do seu orçamento. Por favor, tente novamente mais tarde.</string>
     <string name="budget_empty_content_message">Você ainda não possui um orçamento!</string>
@@ -83,6 +92,17 @@
     <string name="home_net_income_label">Renda Líquida</string>
     <string name="home_savings_rate_label">Taxa de Economia Atual</string>
     <string name="home_reconnect_now_action">Reconectar Agora</string>
+
+    <string name="filter_title">Filtro</string>
+    <string name="filter_description">Selecione o intervalo de datas para filtrar os dados.</string>
+    <string name="filter_action">Filtrar</string>
+    <string name="filter_month_to_date">Mês até a data</string>
+    <string name="filter_year_to_date">Ano até a data</string>
+    <string name="filter_last_seven_days">Últimos 7 dias</string>
+    <string name="filter_last_thirty_days">Últimos 30 dias</string>
+    <string name="filter_last_month">Mês passado</string>
+    <string name="filter_last_three_months">Últimos 3 meses</string>
+    <string name="filter_custom">Personalizado</string>
 
     <string name="terms_of_use_title">Termos de Uso</string>
 

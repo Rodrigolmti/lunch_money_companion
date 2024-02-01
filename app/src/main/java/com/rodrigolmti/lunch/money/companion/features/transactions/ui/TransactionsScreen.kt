@@ -49,6 +49,7 @@ import kotlinx.coroutines.launch
 internal fun TransactionsScreen(
     uiModel: ITransactionsUIModel = DummyITransactionsUIModel(),
     onTransactionItemClick: (Int) -> Unit = {},
+    onTransactionSummaryClick: () -> Unit = {},
     onError: (String, String) -> Unit = { _, _ -> },
 ) {
     val viewState by uiModel.viewState.collectAsStateWithLifecycle()
@@ -72,6 +73,16 @@ internal fun TransactionsScreen(
                 }) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_filter),
+                        modifier = Modifier.size(CompanionTheme.spacings.spacingE),
+                        contentDescription = null,
+                        tint = SunburstGold,
+                    )
+                }
+                IconButton(onClick = {
+                    onTransactionSummaryClick()
+                }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_analyze),
                         modifier = Modifier.size(CompanionTheme.spacings.spacingE),
                         contentDescription = null,
                         tint = SunburstGold,

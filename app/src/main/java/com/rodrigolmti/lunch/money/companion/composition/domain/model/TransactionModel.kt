@@ -1,5 +1,8 @@
 package com.rodrigolmti.lunch.money.companion.composition.domain.model
 
+import com.rodrigolmti.lunch.money.companion.core.utils.toDate
+import java.util.Date
+
 internal data class TransactionModel(
     val id: Int,
     val date: String,
@@ -25,5 +28,9 @@ internal data class TransactionModel(
     val fees: String?,
     val price: String?,
     val quantity: String?
-)
+) {
+    fun sortingDate(): Date {
+        return date.toDate() ?: Date()
+    }
+}
 

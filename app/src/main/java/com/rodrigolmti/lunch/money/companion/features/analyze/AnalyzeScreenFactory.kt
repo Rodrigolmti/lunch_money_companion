@@ -27,7 +27,7 @@ internal class AnalyzeUIModelProvider :
                         "Transport" to 300f,
                         "Entertainment" to 400f,
                         "Bills" to 500f,
-                        "Uncategorized" to 600f)
+                        "uncategorized" to 600f)
                 )
             ),
         )

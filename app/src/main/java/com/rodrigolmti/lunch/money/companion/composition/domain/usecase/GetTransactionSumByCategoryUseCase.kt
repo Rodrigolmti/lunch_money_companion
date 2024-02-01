@@ -10,7 +10,7 @@ internal class GetTransactionSumByCategory : GetTransactionSumByCategoryUseCase 
     override suspend fun invoke(transactions: List<TransactionModel>): Map<String, Float> {
         val map = mutableMapOf<String, Float>()
         transactions.forEach {
-            val key = it.category?.name ?: "Uncategorized"
+            val key = it.category?.name ?: "uncategorized"
             val value = map[key] ?: 0.0f
             map[key] = value + it.amount
         }

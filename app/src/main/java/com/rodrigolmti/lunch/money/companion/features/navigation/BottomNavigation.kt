@@ -64,6 +64,7 @@ internal fun BottomNavigation(
     onLogout: () -> Unit = {},
     onScreenSelected: (BottomNavigationRouter) -> Unit,
     onTransactionSelected: (Int) -> Unit,
+    onTransactionSummaryClick: () -> Unit = {},
     onAnalyzeClick: () -> Unit = {},
 ) {
     val sheetState =
@@ -158,16 +159,23 @@ internal fun BottomNavigation(
                 BottomNavigationRouter.TRANSACTIONS -> {
                     val uiModel = koinViewModel<ITransactionsViewModel>()
 
-                    TransactionsScreen(uiModel, {
-                        onTransactionSelected(it)
-                    }, { title, description ->
-                        updateBottomSheetState(
-                            state,
-                            BottomNavigationUiState.ShowErrorBottomSheet(title, description),
-                            sheetState,
-                            scope
-                        )
-                    })
+                    TransactionsScreen(
+                        uiModel = uiModel,
+                        onTransactionItemClick = {
+                            onTransactionSelected(it)
+                        },
+                        onError = { title, description ->
+                            updateBottomSheetState(
+                                state,
+                                BottomNavigationUiState.ShowErrorBottomSheet(title, description),
+                                sheetState,
+                                scope
+                            )
+                        },
+                        onTransactionSummaryClick = {
+                            onTransactionSummaryClick()
+                        },
+                    )
                 }
 
                 BottomNavigationRouter.SETTINGS -> {

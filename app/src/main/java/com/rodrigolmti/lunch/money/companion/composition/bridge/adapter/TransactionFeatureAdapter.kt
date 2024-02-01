@@ -7,9 +7,46 @@ import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.core.map
 import com.rodrigolmti.lunch.money.companion.core.utils.formatDate
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
+import com.rodrigolmti.lunch.money.companion.features.transactions.ui.summary.TransactionSummaryView
 import java.util.Date
 
-internal class TransactionFeatureAdapter(private val lunchRepository: ILunchRepository) {
+internal class TransactionFeatureAdapter(
+    private val lunchRepository: ILunchRepository
+) {
+
+    suspend fun getTransactionSummary(
+        start: Date,
+        end: Date
+    ): Outcome<TransactionSummaryView, LunchError> {
+        return lunchRepository.getTransactions(formatDate(start), formatDate(end))
+            .map { transactions ->
+                val income = mutableMapOf<String, Float>()
+                transactions.filter { it.isIncome && !it.excludeFromTotals }.forEach {
+                    val key = it.category?.name ?: "uncategorized"
+                    val value = income[key] ?: 0.0f
+                    income[key] = (value + it.amount)
+                }
+
+                val expense = mutableMapOf<String, Float>()
+                transactions.filter { !it.isIncome && !it.excludeFromTotals }.forEach {
+                    val key = it.category?.name ?: "uncategorized"
+                    val value = expense[key] ?: 0.0f
+                    expense[key] = (value + it.amount)
+                }
+
+                val totalIncome = income.values.sum() * -1
+                val totalExpense = expense.values.sum()
+
+                TransactionSummaryView(
+                    income = income,
+                    totalIncome = totalIncome,
+                    expense = expense,
+                    totalExpense = totalExpense,
+                    net = totalIncome - totalExpense,
+                    currency = transactions.first().currency
+                )
+            }
+    }
 
     suspend fun getTransactions(
         start: Date,

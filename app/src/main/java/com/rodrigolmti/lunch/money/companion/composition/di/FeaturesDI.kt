@@ -25,6 +25,8 @@ import com.rodrigolmti.lunch.money.companion.features.transactions.ui.ITransacti
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.TransactionsViewModel
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.detail.ITransactionDetailViewModel
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.detail.TransactionDetailViewModel
+import com.rodrigolmti.lunch.money.companion.features.transactions.ui.summary.ITransactionsSummaryViewModel
+import com.rodrigolmti.lunch.money.companion.features.transactions.ui.summary.TransactionsSummaryViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -70,6 +72,13 @@ private val transactionsModule = module {
         TransactionDetailViewModel(
             getUserTransactions = { id ->
                 TransactionFeatureAdapter(get()).getTransaction(id)
+            },
+        )
+    }
+    viewModel<ITransactionsSummaryViewModel> {
+        TransactionsSummaryViewModel(
+            getTransactionSummary = { start, end ->
+                TransactionFeatureAdapter(get()).getTransactionSummary(start, end)
             },
         )
     }

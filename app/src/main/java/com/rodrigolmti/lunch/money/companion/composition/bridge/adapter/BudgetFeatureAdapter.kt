@@ -16,7 +16,7 @@ internal class BudgetFeatureAdapter(private val lunchRepository: ILunchRepositor
         end: Date
     ): Outcome<List<BudgetView>, LunchError> {
         return lunchRepository.getBudgets(formatDate(start), formatDate(end)).map { response ->
-            response.map { it.toView() }.filter { it.category != "Uncategorized" }
+            response.map { it.toView() }.filter { it.category != "uncategorized" }
         }
     }
 }
