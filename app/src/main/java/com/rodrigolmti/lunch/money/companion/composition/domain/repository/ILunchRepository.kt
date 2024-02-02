@@ -29,4 +29,7 @@ internal interface ILunchRepository {
     suspend fun cacheAssets()
     fun getSessionUser(): UserModel?
     fun getSessionToken(): TokenDTO?
+
+    fun updatePrimaryCurrency(currency: String)
+    fun getPrimaryCurrency(): String?
 }

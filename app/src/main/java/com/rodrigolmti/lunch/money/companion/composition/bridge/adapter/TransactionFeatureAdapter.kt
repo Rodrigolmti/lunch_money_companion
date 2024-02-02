@@ -2,6 +2,7 @@ package com.rodrigolmti.lunch.money.companion.composition.bridge.adapter
 
 import com.rodrigolmti.lunch.money.companion.composition.bridge.mapper.toView
 import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.core.DEFAULT_CURRENCY
 import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.core.map
@@ -18,6 +19,8 @@ internal class TransactionFeatureAdapter(
         start: Date,
         end: Date
     ): Outcome<TransactionSummaryView, LunchError> {
+        val currency = lunchRepository.getPrimaryCurrency() ?: DEFAULT_CURRENCY
+
         return lunchRepository.getTransactions(formatDate(start), formatDate(end))
             .map { transactions ->
                 val income = mutableMapOf<String, Float>()
@@ -43,7 +46,7 @@ internal class TransactionFeatureAdapter(
                     expense = expense,
                     totalExpense = totalExpense,
                     net = totalIncome - totalExpense,
-                    currency = transactions.firstOrNull()?.currency ?: "CAD"
+                    currency = transactions.firstOrNull()?.currency ?: currency
                 )
             }
     }

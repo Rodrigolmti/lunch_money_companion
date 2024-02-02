@@ -30,6 +30,7 @@ import retrofit2.HttpException
 
 private const val USER_KEY = "user_key"
 private const val TOKEN_KEY = "token_key"
+private const val CURRENCY_KEY = "currency_key"
 
 private const val CATEGORIES_CACHE = "categories_cache"
 private const val ASSET_CACHE = "asset_cache"
@@ -45,6 +46,7 @@ internal class LunchRepository(
 
     private var user: String by preferences.create(DEFAULT_EMPTY_STRING, USER_KEY)
     private var token: String by preferences.create(DEFAULT_EMPTY_STRING, TOKEN_KEY)
+    private var currency: String by preferences.create(DEFAULT_EMPTY_STRING, CURRENCY_KEY)
 
     private val categoriesCache =
         cacheManager.createCache<String, List<TransactionCategoryModel>>(CATEGORIES_CACHE)
@@ -191,5 +193,13 @@ internal class LunchRepository(
             return TokenDTO(token)
         }
         return null
+    }
+
+    override fun updatePrimaryCurrency(currency: String) {
+        this.currency = currency
+    }
+
+    override fun getPrimaryCurrency(): String? {
+        return currency.ifEmpty { null }
     }
 }

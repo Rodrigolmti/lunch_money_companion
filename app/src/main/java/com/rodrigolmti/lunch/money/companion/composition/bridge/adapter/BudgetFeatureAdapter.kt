@@ -2,6 +2,7 @@ package com.rodrigolmti.lunch.money.companion.composition.bridge.adapter
 
 import com.rodrigolmti.lunch.money.companion.composition.bridge.mapper.toView
 import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.core.DEFAULT_CURRENCY
 import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.core.map
@@ -15,8 +16,10 @@ internal class BudgetFeatureAdapter(private val lunchRepository: ILunchRepositor
         start: Date,
         end: Date
     ): Outcome<List<BudgetView>, LunchError> {
+        val currency = lunchRepository.getPrimaryCurrency() ?: DEFAULT_CURRENCY
+
         return lunchRepository.getBudgets(formatDate(start), formatDate(end)).map { response ->
-            response.map { it.toView() }.filter { it.category != "uncategorized" }
+            response.map { it.toView(currency) }.filter { it.category != "uncategorized" }
         }
     }
 }

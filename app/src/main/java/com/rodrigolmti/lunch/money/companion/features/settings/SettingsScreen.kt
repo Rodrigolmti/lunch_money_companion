@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.rodrigolmti.lunch.money.companion.features.settings
 
 import android.annotation.SuppressLint
@@ -10,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -18,10 +22,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -31,6 +37,7 @@ import com.rodrigolmti.lunch.money.companion.core.PRIVACY_POLICY_URL
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
+import com.rodrigolmti.lunch.money.companion.uikit.components.LunchDropDown
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchLoading
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.modal.ConfirmationDialog
@@ -38,6 +45,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadedBlood
 import com.rodrigolmti.lunch.money.companion.uikit.theme.GraphiteWhisper
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
+import java.util.Currency
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -49,6 +57,22 @@ internal fun SettingsScreen(
     onAnalyzeClick: () -> Unit = {}
 ) {
     val openAlertDialog = remember { mutableStateOf(false) }
+
+    val options = listOf(
+        Currency.getInstance("USD"),
+        Currency.getInstance("EUR"),
+        Currency.getInstance("GBP"),
+        Currency.getInstance("JPY"),
+        Currency.getInstance("CNY"),
+        Currency.getInstance("BRL"),
+        Currency.getInstance("RUB"),
+        Currency.getInstance("INR"),
+        Currency.getInstance("AUD"),
+        Currency.getInstance("CAD"),
+    )
+
+    var expanded by remember { mutableStateOf(false) }
+    var selectedOption by remember { mutableStateOf(options[0]) }
 
     val viewState by uiModel.viewState.collectAsStateWithLifecycle()
     val padding = PaddingValues(
@@ -62,7 +86,7 @@ internal fun SettingsScreen(
         }
     }
 
-    if (openAlertDialog.value)  {
+    if (openAlertDialog.value) {
         ConfirmationDialog(
             onConfirmation = { uiModel.logout() },
             onFinish = { openAlertDialog.value = false },
@@ -90,6 +114,10 @@ internal fun SettingsScreen(
 
             is SettingsScreenUiState.Success -> {
                 val data = (viewState as SettingsScreenUiState.Success).data
+
+                LaunchedEffect(data.currency) {
+                    selectedOption = options.find { it.currencyCode == data.currency } ?: options[0]
+                }
 
                 Column {
                     VerticalSpacer(height = CompanionTheme.spacings.spacingJ)
@@ -133,12 +161,48 @@ internal fun SettingsScreen(
 //                    ) {
 //                        onAnalyzeClick()
 //                    }
+
+                    Text(
+                        text = stringResource(R.string.settings_currency_description),
+                        textAlign = TextAlign.Start,
+                        maxLines = 2,
+                        modifier = Modifier
+                            .padding(
+                                start = CompanionTheme.spacings.spacingD,
+                                end = CompanionTheme.spacings.spacingD,
+                            ),
+                        color = SilverLining,
+                        overflow = TextOverflow.Ellipsis,
+                        style = CompanionTheme.typography.bodySmall,
+                    )
+
+                    VerticalSpacer(CompanionTheme.spacings.spacingA)
+
+                    LunchDropDown(
+                        selectedOption = selectedOption,
+                        onOptionSelected = {
+                            selectedOption = it
+                            uiModel.updateCurrencyData(it.currencyCode)
+                        },
+                        options = options,
+                        label = stringResource(R.string.settings_currency_label),
+                        expanded = expanded,
+                        onExpandedChange = {
+                            expanded = it
+                        }
+                    )
+
+                    VerticalSpacer(CompanionTheme.spacings.spacingD)
+                    Divider()
+                    VerticalSpacer(CompanionTheme.spacings.spacingD)
+
                     SettingsItem(
                         label = stringResource(R.string.settings_screen_terms_label),
                         icon = painterResource(id = R.drawable.ic_terms)
                     ) {
                         onTermsOfUseClick(PRIVACY_POLICY_URL)
                     }
+
                     SettingsItem(
                         label = stringResource(R.string.settings_screen_app_description),
                         description = stringResource(

@@ -4,6 +4,7 @@ import com.rodrigolmti.lunch.money.companion.composition.bridge.mapper.toView
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetStatus
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.core.DEFAULT_CURRENCY
 import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.core.getOrElse
@@ -25,6 +26,8 @@ internal class HomeFeatureAdapter(
         end: Date
     ): Outcome<HomeView, LunchError> {
         return runCatching {
+            val currency = lunchRepository.getPrimaryCurrency() ?: DEFAULT_CURRENCY
+
             val assets = lunchRepository.getAssets()
             val overviews = assets.groupBy { it.type }.map { (key, value) ->
                 AssetOverviewView(
@@ -48,7 +51,7 @@ internal class HomeFeatureAdapter(
                     totalExpense = totalExpense,
                     netIncome = netIncome,
                     savingsRate = savingsRate.toInt(),
-                    currency = transactions.firstOrNull()?.currency ?: "CAD"
+                    currency = transactions.firstOrNull()?.currency ?: currency
                 ),
                 pendingAssets = assets.filter {
                     it.status == AssetStatus.RELINK || it.status == AssetStatus.ERROR

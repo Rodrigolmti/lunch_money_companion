@@ -116,6 +116,8 @@
     <string name="settings_screen_title">Configuración</string>
     <string name="settings_logout_title">Confirmación de Cierre de Sesión</string>
     <string name="settings_logout_description">¿Estás seguro de que deseas cerrar sesión?</string>
+    <string name="settings_currency_description">Esta moneda se utilizará para el formato cuando los datos de la moneda no estén disponibles.</string>
+    <string name="settings_currency_label">Moneda Principal</string>
 
     <string name="donation_title">Apoyar a los Desarrolladores</string>
     <string name="donation_description">Muestra tu aprecio por la aplicación Compañero de Lunch Money haciendo una donación en BTC o comprándonos un libro. Tus generosas contribuciones nos ayudan a mejorar las características, fortalecer la seguridad y ampliar nuestro alcance, asegurando que más personas puedan beneficiarse de nuestros servicios. ¡Únete a nosotros en la creación de un futuro financiero seguro juntos!</string>

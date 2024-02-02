@@ -541,4 +541,12 @@ internal class ScreenShootRepository(
     override fun getSessionToken(): TokenDTO {
         return TokenDTO("token")
     }
+
+    override fun updatePrimaryCurrency(currency: String) {
+        // no-op
+    }
+
+    override fun getPrimaryCurrency(): String? {
+        return "CAD"
+    }
 }

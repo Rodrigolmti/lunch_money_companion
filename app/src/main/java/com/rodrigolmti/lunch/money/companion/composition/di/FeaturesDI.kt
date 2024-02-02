@@ -108,6 +108,7 @@ private val settingsModule = module {
     viewModel<ISettingsViewModel> {
         SettingsViewModel(
             logoutUserRunner = { get<ILunchRepository>().logoutUser() },
+            updateCurrency = { get<ILunchRepository>().updatePrimaryCurrency(it) },
             getUserDataRunner = {
                 SettingsFeatureAdapter(get()).getUserData()
             },

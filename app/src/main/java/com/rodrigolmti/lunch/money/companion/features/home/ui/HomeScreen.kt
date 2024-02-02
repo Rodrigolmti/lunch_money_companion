@@ -175,6 +175,30 @@ private fun BuildSuccessState(view: HomeView) {
             .verticalScroll(scrollState)
             .padding(top = CompanionTheme.spacings.spacingI)
     ) {
+        if (view.pendingAssets.isNotEmpty()) {
+            Card(
+                shape = MaterialTheme.shapes.medium,
+                colors = CardDefaults.cardColors(
+                    containerColor = CharcoalMist
+                ),
+                border = BorderStroke(
+                    width = Dp.Hairline,
+                    color = Color.Black
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = CompanionTheme.spacings.spacingD,
+                        start = CompanionTheme.spacings.spacingD,
+                        end = CompanionTheme.spacings.spacingD,
+                    )
+            ) {
+                PendingAssetsItem(
+                    assets = view.pendingAssets
+                )
+            }
+        }
+
         Card(
             shape = MaterialTheme.shapes.medium,
             colors = CardDefaults.cardColors(
@@ -215,26 +239,6 @@ private fun BuildSuccessState(view: HomeView) {
             OverviewItem(
                 overviews = view.overviews
             )
-        }
-
-        if (view.pendingAssets.isNotEmpty()) {
-            Card(
-                shape = MaterialTheme.shapes.medium,
-                colors = CardDefaults.cardColors(
-                    containerColor = CharcoalMist
-                ),
-                border = BorderStroke(
-                    width = Dp.Hairline,
-                    color = Color.Black
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(CompanionTheme.spacings.spacingD)
-            ) {
-                PendingAssetsItem(
-                    assets = view.pendingAssets
-                )
-            }
         }
 
         VerticalSpacer(height = CompanionTheme.spacings.spacingJ)

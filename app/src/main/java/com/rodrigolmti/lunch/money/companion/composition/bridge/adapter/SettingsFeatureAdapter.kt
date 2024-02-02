@@ -2,6 +2,7 @@ package com.rodrigolmti.lunch.money.companion.composition.bridge.adapter
 
 import com.rodrigolmti.lunch.money.companion.composition.bridge.mapper.toView
 import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.core.DEFAULT_CURRENCY
 import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.features.settings.model.SettingsView
@@ -10,7 +11,8 @@ internal class SettingsFeatureAdapter(private val lunchRepository: ILunchReposit
 
     fun getUserData(): Outcome<SettingsView, LunchError> {
         lunchRepository.getSessionUser()?.let { user ->
-            return Outcome.success(user.toView())
+            val currency = lunchRepository.getPrimaryCurrency() ?: DEFAULT_CURRENCY
+            return Outcome.success(user.toView(currency))
         } ?: return Outcome.failure(LunchError.InvalidDataError)
     }
 }

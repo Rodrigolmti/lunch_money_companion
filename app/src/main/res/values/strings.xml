@@ -116,6 +116,8 @@
     <string name="settings_screen_title">Settings</string>
     <string name="settings_logout_title">Logout Confirmation</string>
     <string name="settings_logout_description">Are you sure you want to log out?</string>
+    <string name="settings_currency_description">This currency will be used for formatting when currency data is unavailable.</string>
+    <string name="settings_currency_label">Primary Currency</string>
 
     <string name="donation_title">Support Developers</string>
     <string name="donation_description">Show your appreciation for the Lunch Money Companion App by making a BTC donation or buying us a book. Your generous contributions assist us in enhancing features, strengthening security, and expanding our reach, ensuring that more people can benefit from our services. Join us in creating a secure financial future together!</string>

@@ -12,16 +12,21 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+private typealias UpdateCurrency = (String) -> Unit
 private typealias LogoutUser = suspend () -> Outcome<Unit, LunchError>
 private typealias GetUserData = suspend () -> Outcome<SettingsView, LunchError>
 
 internal class SettingsViewModel(
     private val getUserDataRunner: GetUserData,
-    private val logoutUserRunner: LogoutUser
+    private val logoutUserRunner: LogoutUser,
+    private val updateCurrency: UpdateCurrency
 ) : ISettingsViewModel() {
 
     private val _viewState = MutableStateFlow<SettingsScreenUiState>(SettingsScreenUiState.Loading)
     override val viewState: StateFlow<SettingsScreenUiState> = _viewState
+
+    override fun updateCurrencyData(currency: String) = updateCurrency(currency)
+
     override fun getUserData() {
         viewModelScope.launch {
             _viewState.update {

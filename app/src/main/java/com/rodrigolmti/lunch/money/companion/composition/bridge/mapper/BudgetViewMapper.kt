@@ -4,7 +4,7 @@ import com.rodrigolmti.lunch.money.companion.composition.domain.model.BudgetMode
 import com.rodrigolmti.lunch.money.companion.features.budget.BudgetItemView
 import com.rodrigolmti.lunch.money.companion.features.budget.BudgetView
 
-internal fun BudgetModel.toView(): BudgetView {
+internal fun BudgetModel.toView(currency: String): BudgetView {
     return BudgetView(
         category = categoryName,
         items = data.map {
@@ -12,7 +12,7 @@ internal fun BudgetModel.toView(): BudgetView {
                 totalTransactions = it.numTransactions,
                 totalSpending = it.spendingToBase,
                 totalBudget = it.budgetAmount,
-                currency = it.budgetCurrency ?: "",
+                currency = it.budgetCurrency ?: currency,
             )
         }
     )

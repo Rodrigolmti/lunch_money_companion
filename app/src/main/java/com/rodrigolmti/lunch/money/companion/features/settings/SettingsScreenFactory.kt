@@ -8,6 +8,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 internal class DummyISettingsUIModel(state: SettingsScreenUiState = SettingsScreenUiState.Loading) :
     ISettingsUIModel {
     override val viewState = MutableStateFlow(state)
+
+    override fun updateCurrencyData(currency: String) {
+        // no-op
+    }
+
     override fun getUserData() {
         // no-op
     }

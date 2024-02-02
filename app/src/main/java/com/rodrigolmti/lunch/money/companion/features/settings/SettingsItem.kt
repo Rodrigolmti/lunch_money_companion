@@ -70,8 +70,8 @@ internal fun SettingsItem(
                     text = description,
                     textAlign = TextAlign.Start,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
                     color = color,
+                    overflow = TextOverflow.Ellipsis,
                     style = CompanionTheme.typography.bodySmall,
                 )
             }
