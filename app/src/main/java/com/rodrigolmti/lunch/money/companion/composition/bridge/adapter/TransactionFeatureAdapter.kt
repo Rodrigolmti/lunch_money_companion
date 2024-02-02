@@ -1,5 +1,6 @@
 package com.rodrigolmti.lunch.money.companion.composition.bridge.adapter
 
+import com.rodrigolmti.lunch.money.companion.composition.bridge.mapper.toDto
 import com.rodrigolmti.lunch.money.companion.composition.bridge.mapper.toView
 import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
 import com.rodrigolmti.lunch.money.companion.core.DEFAULT_CURRENCY
@@ -8,6 +9,7 @@ import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.core.map
 import com.rodrigolmti.lunch.money.companion.core.utils.formatDate
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
+import com.rodrigolmti.lunch.money.companion.features.transactions.model.UpdateTransactionView
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.summary.TransactionSummaryView
 import java.util.Date
 
@@ -67,4 +69,14 @@ internal class TransactionFeatureAdapter(
         lunchRepository.getTransaction(id).map { transaction ->
             transaction.toView()
         }
+
+    suspend fun updateTransaction(
+        model: UpdateTransactionView
+    ): Outcome<TransactionView, LunchError> {
+        val dto = model.toDto()
+
+        return lunchRepository.updateTransaction(dto).map { transaction ->
+            transaction.toView()
+        }
+    }
 }

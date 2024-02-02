@@ -17,6 +17,12 @@ internal data class TransactionView(
     val status: TransactionStatusView,
 )
 
+@Immutable
+internal data class UpdateTransactionView(
+    val id: Int,
+    val notes: String?,
+)
+
 internal fun fakeTransactionView(
     status: TransactionStatusView = TransactionStatusView.entries.toTypedArray().random()
 ) = TransactionView(

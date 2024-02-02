@@ -73,6 +73,9 @@ private val transactionsModule = module {
             getUserTransactions = { id ->
                 TransactionFeatureAdapter(get()).getTransaction(id)
             },
+            updateUserTransaction = { model ->
+                TransactionFeatureAdapter(get()).updateTransaction(model)
+            }
         )
     }
     viewModel<ITransactionsSummaryViewModel> {

@@ -61,7 +61,38 @@ internal data class TransactionResponse(
     @SerialName("price")
     val price: String? = null,
     @SerialName("quantity")
-    val quantity: String? = null
+    val quantity: String? = null,
+    @SerialName("tags")
+    val tags: List<String> = emptyList(),
+)
+
+@Keep
+@Serializable
+internal data class UpdateTransactionResponse(
+    @SerialName("date")
+    val date: String,
+    @SerialName("payee")
+    val payee: String,
+    @SerialName("amount")
+    val amount: String,
+    @SerialName("currency")
+    val currency: String,
+    @SerialName("notes")
+    val notes: String? = null,
+    @SerialName("category_id")
+    val categoryId: Int? = null,
+    @SerialName("recurring_id")
+    val recurringId: Int? = null,
+    @SerialName("asset_id")
+    val assetId: Int? = null,
+    @SerialName("status")
+    val status: String,
+    @SerialName("external_id")
+    val externalId: Int? = null,
+    @SerialName("original_name")
+    val originalName: String? = null,
+    @SerialName("tags")
+    val tags: List<String> = emptyList(),
 )
 
 @Keep

@@ -1,6 +1,7 @@
 package com.rodrigolmti.lunch.money.companion.composition.data.repository
 
 import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.TokenDTO
+import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.UpdateTransactionDTO
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetSource
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetStatus
@@ -237,6 +238,44 @@ internal class ScreenShootRepository(
                 externalId = null,
                 recurringId = null,
             ),
+        )
+    }
+
+    override suspend fun updateTransaction(dto: UpdateTransactionDTO): Outcome<TransactionModel, LunchError> {
+        return Outcome.success(
+            TransactionModel(
+                id = 1,
+                amount = 100f,
+                date = "2021-01-01",
+                isIncome = false,
+                payee = "McDonalds",
+                currency = "CAD",
+                status = TransactionStatus.CLEARED,
+                type = "Expense",
+                excludeFromTotals = false,
+                fees = null,
+                plaidAccountId = null,
+                asset = null,
+                notes = null,
+                price = null,
+                toBase = 0.0,
+                category = TransactionCategoryModel(
+                    id = 1,
+                    name = "Food",
+                    isIncome = false,
+                    excludeFromTotals = false,
+                    excludeFromBudget = false,
+                    description = "Food",
+                ),
+                parentId = null,
+                quantity = null,
+                groupId = null,
+                isGroup = false,
+                subtype = null,
+                originalName = null,
+                externalId = null,
+                recurringId = null,
+            )
         )
     }
 

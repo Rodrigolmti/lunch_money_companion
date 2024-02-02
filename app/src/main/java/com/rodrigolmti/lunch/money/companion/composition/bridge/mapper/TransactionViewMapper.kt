@@ -1,9 +1,11 @@
 package com.rodrigolmti.lunch.money.companion.composition.bridge.mapper
 
+import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.UpdateTransactionDTO
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionStatus
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionStatusView
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
+import com.rodrigolmti.lunch.money.companion.features.transactions.model.UpdateTransactionView
 
 /**
  * * -1 Multiplication is due to values being returned on the wrong scale;
@@ -20,6 +22,11 @@ internal fun TransactionModel.toView() = TransactionView(
     assetName = asset?.name,
     categoryName = category?.name,
     status = status.toView(),
+)
+
+internal fun UpdateTransactionView.toDto() = UpdateTransactionDTO(
+    id = id,
+    notes = notes,
 )
 
 internal fun TransactionStatus.toView() = when (this) {

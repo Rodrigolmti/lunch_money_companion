@@ -11,6 +11,7 @@ import com.rodrigolmti.lunch.money.companion.composition.data.model.response.Tra
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionCategoryResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionStatusResponse
+import com.rodrigolmti.lunch.money.companion.composition.data.model.response.UpdateTransactionResponse
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetSource
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetStatus
@@ -27,11 +28,26 @@ internal fun mapTransactions(
     mapTransaction(responseItem, categories, assets)
 }
 
+internal fun mapUpdateTransaction(model: TransactionModel): UpdateTransactionResponse =
+    UpdateTransactionResponse(
+        date = model.date,
+        amount = model.amount.toString(),
+        categoryId = model.category?.id,
+        assetId = model.asset?.id,
+        currency = model.currency,
+        externalId = model.externalId,
+        notes = model.notes,
+        originalName = model.originalName,
+        payee = model.payee,
+        recurringId = model.recurringId,
+        status = model.status.name,
+    )
+
 internal fun mapTransaction(
     responseItem: TransactionResponse,
     categories: List<TransactionCategoryModel>,
     assets: List<AssetModel>,
-) : TransactionModel {
+): TransactionModel {
     val category = categories.firstOrNull { category -> category.id == responseItem.categoryId }
     val asset = assets.firstOrNull { asset ->
         asset.id == responseItem.assetId || asset.id == responseItem.plaidAccountId

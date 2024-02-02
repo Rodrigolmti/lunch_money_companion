@@ -57,8 +57,8 @@ fun LunchTextField(
             colors = TextFieldDefaults.colors(
                 cursorColor = White,
                 focusedTextColor = if (readOnly) FadingGrey else White,
-                focusedContainerColor = if (readOnly) NightSkyMist else MidnightSlate,
-                unfocusedContainerColor = if (readOnly) NightSkyMist else NightSkyMist,
+                focusedContainerColor = NightSkyMist,
+                unfocusedContainerColor = NightSkyMist,
                 disabledContainerColor = NightSkyMist,
                 disabledTextColor = FadingGrey,
                 unfocusedTextColor = if (readOnly) FadingGrey else White,

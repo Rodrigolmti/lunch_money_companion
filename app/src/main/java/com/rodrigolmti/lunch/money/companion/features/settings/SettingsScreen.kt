@@ -192,9 +192,7 @@ internal fun SettingsScreen(
                         }
                     )
 
-                    VerticalSpacer(CompanionTheme.spacings.spacingD)
-                    Divider()
-                    VerticalSpacer(CompanionTheme.spacings.spacingD)
+                    VerticalSpacer(CompanionTheme.spacings.spacingB)
 
                     SettingsItem(
                         label = stringResource(R.string.settings_screen_terms_label),

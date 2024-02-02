@@ -4,8 +4,10 @@ import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapBudget
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapRecurrings
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapTransaction
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapTransactions
+import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapUpdateTransaction
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.toModel
 import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.TokenDTO
+import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.UpdateTransactionDTO
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.UserResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.network.LunchService
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetModel
@@ -34,6 +36,7 @@ private const val CURRENCY_KEY = "currency_key"
 
 private const val CATEGORIES_CACHE = "categories_cache"
 private const val ASSET_CACHE = "asset_cache"
+private const val TRANSACTION_CACHE = "transaction_cache"
 
 internal class LunchRepository(
     private val json: Json,
@@ -51,6 +54,8 @@ internal class LunchRepository(
     private val categoriesCache =
         cacheManager.createCache<String, List<TransactionCategoryModel>>(CATEGORIES_CACHE)
     private val assetCache = cacheManager.createCache<String, List<AssetModel>>(ASSET_CACHE)
+    private val transactionCache =
+        cacheManager.createCache<String, TransactionModel>(TRANSACTION_CACHE)
 
     override suspend fun authenticateUser(tokenDTO: TokenDTO): Outcome<Unit, LunchError> {
         if (!connectionChecker.isConnected()) return Outcome.failure(LunchError.NoConnectionError)
@@ -71,6 +76,7 @@ internal class LunchRepository(
         return runCatching {
             preferences.clear()
             categoriesCache.clear()
+            transactionCache.clear()
             assetCache.clear()
         }.mapThrowable {
             LunchError.UnsuccessfulLogoutError
@@ -113,14 +119,37 @@ internal class LunchRepository(
 
         return withContext(dispatchers.io()) {
             runCatching {
-                mapTransaction(
+                val transaction = mapTransaction(
                     lunchService.getTransaction(id),
                     categoriesCache.get(CATEGORIES_CACHE, emptyList()),
                     assetCache.get(ASSET_CACHE, emptyList()),
                 )
+                transactionCache.put(TRANSACTION_CACHE, transaction)
+                transaction
             }.mapThrowable {
                 handleNetworkError(it)
             }
+        }
+    }
+
+    override suspend fun updateTransaction(dto: UpdateTransactionDTO): Outcome<TransactionModel, LunchError> {
+        if (!connectionChecker.isConnected()) return Outcome.failure(LunchError.NoConnectionError)
+
+        return withContext(dispatchers.io()) {
+            transactionCache.get(TRANSACTION_CACHE)?.let {
+                val response = mapUpdateTransaction(it)
+                runCatching {
+                    val transaction = mapTransaction(
+                        lunchService.updateTransaction(dto.id, response),
+                        categoriesCache.get(CATEGORIES_CACHE, emptyList()),
+                        assetCache.get(ASSET_CACHE, emptyList()),
+                    )
+                    transactionCache.put(TRANSACTION_CACHE, transaction)
+                    transaction
+                }.mapThrowable { throwable ->
+                    handleNetworkError(throwable)
+                }
+            } ?: throw IllegalStateException("Transaction not found in cache")
         }
     }
 

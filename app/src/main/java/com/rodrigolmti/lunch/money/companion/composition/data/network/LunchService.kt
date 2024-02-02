@@ -8,10 +8,13 @@ import com.rodrigolmti.lunch.money.companion.composition.data.model.response.Rec
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionBodyResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionCategoryBodyResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionResponse
+import com.rodrigolmti.lunch.money.companion.composition.data.model.response.UpdateTransactionResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.UserResponse
 import com.rodrigolmti.lunch.money.companion.core.network.Authenticated
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -37,6 +40,13 @@ internal interface LunchService {
     @GET("v1/transactions/{id}")
     suspend fun getTransaction(
         @Path("id") id: Int,
+    ): TransactionResponse
+
+    @Authenticated
+    @PUT("v1/transactions/{id}")
+    suspend fun updateTransaction(
+        @Path("id") id: Int,
+        @Body transaction: UpdateTransactionResponse,
     ): TransactionResponse
 
     @Authenticated

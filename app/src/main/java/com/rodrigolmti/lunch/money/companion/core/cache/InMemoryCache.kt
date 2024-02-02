@@ -21,6 +21,16 @@ class InMemoryCache<K, V> : Cache<K, V> {
         return entry.value
     }
 
+    override fun get(key: K): V? {
+        val entry = cache[key] ?: return null
+        if (isEntryExpired(entry)) {
+            cache.remove(key)
+            return null
+        }
+        updateEntryUsage(entry)
+        return entry.value
+    }
+
     override fun clear() {
         cache.clear()
     }
