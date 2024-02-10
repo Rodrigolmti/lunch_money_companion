@@ -21,35 +21,29 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.FadingGrey
 import com.rodrigolmti.lunch.money.companion.uikit.theme.NightSkyMist
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
-import java.util.Currency
 
 @Composable
-fun LunchDropDown(
+fun <T> LunchDropDown(
+    modifier: Modifier = Modifier,
     label: String,
     expanded: Boolean,
-    options: List<Currency>,
-    selectedOption: Currency,
+    options: List<T>,
+    selectedOption: T,
     onExpandedChange: (Boolean) -> Unit,
-    onOptionSelected: (Currency) -> Unit,
+    onOptionSelected: (T) -> Unit,
+    getSelectedLabel: (T) -> String,
 ) {
     ExposedDropdownMenuBox(
         expanded = expanded,
         onExpandedChange = onExpandedChange,
-        modifier = Modifier
-            .padding(
-                start = CompanionTheme.spacings.spacingD,
-                end = CompanionTheme.spacings.spacingD,
-                top = CompanionTheme.spacings.spacingC,
-                bottom = CompanionTheme.spacings.spacingC,
-            )
-            .fillMaxWidth(),
+        modifier = modifier,
     ) {
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .menuAnchor(),
             readOnly = true,
-            value = "${selectedOption.displayName} (${selectedOption.currencyCode})",
+            value = getSelectedLabel(selectedOption),
             onValueChange = {},
             label = {
                 Text(
@@ -84,7 +78,7 @@ fun LunchDropDown(
                 DropdownMenuItem(
                     text = {
                         Text(
-                            "${option.displayName} (${option.currencyCode})",
+                            getSelectedLabel(option),
                             color = SilverLining,
                             overflow = TextOverflow.Ellipsis,
                             style = CompanionTheme.typography.bodySmall,

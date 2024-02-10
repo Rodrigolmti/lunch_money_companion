@@ -25,6 +25,8 @@
     <string name="common_yes_action">Si</string>
     <string name="common_no_action">No</string>
     <string name="common_ok_action">OK</string>
+    <string name="common_confirm_action">Confirmar</string>
+    <string name="common_cancel_action">Cancelar</string>
 
     <string name="connection_error_title">Problema de Conexión Detectado</string>
     <string name="connection_error_message">Estamos teniendo problemas para procesar tu solicitud. Esto podría deberse a un error en el servidor, una clave de API no válida o un problema con tu conexión de red. Por favor, verifica tu clave de API y asegúrate de que tu dispositivo tenga una conexión a Internet estable. Si el problema persiste, inténtalo nuevamente más tarde.</string>
@@ -55,6 +57,8 @@
     <string name="transaction_original_name_label">NOMBRE ORIGINAL</string>
     <string name="transaction_paid_from_label">PAGADO DESDE</string>
     <string name="transactions_title">Transacciones</string>
+    <string name="transaction_updated_label">Transaccion Actualizada!</string>
+    <string name="transaction_select_date_label">Selecciona la Fecha</string>
 
     <string name="transaction_title">Detalles de la Transacción</string>
     <string name="transaction_error_message">Lo sentimos, no es posible mostrar los detalles de la transacción en este momento.</string>

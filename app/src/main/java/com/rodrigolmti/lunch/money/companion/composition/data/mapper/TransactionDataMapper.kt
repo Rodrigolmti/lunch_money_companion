@@ -1,5 +1,6 @@
 package com.rodrigolmti.lunch.money.companion.composition.data.mapper
 
+import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.UpdateTransactionDTO
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.AssetResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.AssetTypeResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.CryptoResponse
@@ -28,7 +29,7 @@ internal fun mapTransactions(
     mapTransaction(responseItem, categories, assets)
 }
 
-internal fun mapUpdateTransaction(model: TransactionModel): UpdateTransactionResponse =
+internal fun mapUpdateTransaction(model: UpdateTransactionDTO): UpdateTransactionResponse =
     UpdateTransactionResponse(
         date = model.date,
         categoryId = model.category?.id,

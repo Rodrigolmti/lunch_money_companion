@@ -8,4 +8,5 @@ internal data class UpdateTransactionView(
     val notes: String? = null,
     val payee: String,
     val date: String,
+    val category: TransactionCategoryView? = null
 )

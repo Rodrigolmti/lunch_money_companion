@@ -138,15 +138,12 @@ internal class LunchRepository(
 
         return withContext(dispatchers.io()) {
             transactionCache.get(TRANSACTION_CACHE)?.let {
-                val response = mapUpdateTransaction(it.copy(
-                    notes = dto.notes,
-                    payee = dto.payee,
-                    date = dto.date,
-                ))
                 runCatching {
                     lunchService.updateTransaction(
                         dto.id,
-                        UpdateTransactionBodyResponse(response)
+                        UpdateTransactionBodyResponse(
+                            mapUpdateTransaction(dto)
+                        )
                     )
                 }.mapThrowable { throwable ->
                     handleNetworkError(throwable)
@@ -232,5 +229,9 @@ internal class LunchRepository(
 
     override fun getPrimaryCurrency(): String? {
         return currency.ifEmpty { null }
+    }
+
+    override fun getCategories(): List<TransactionCategoryModel> {
+        return categoriesCache.get(CATEGORIES_CACHE, emptyList())
     }
 }

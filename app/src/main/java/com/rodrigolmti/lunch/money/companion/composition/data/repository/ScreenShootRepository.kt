@@ -560,4 +560,8 @@ internal class ScreenShootRepository(
     override fun getPrimaryCurrency(): String {
         return "CAD"
     }
+
+    override fun getCategories(): List<TransactionCategoryModel> {
+        return categoriesCache.get(CATEGORIES_CACHE, emptyList())
+    }
 }

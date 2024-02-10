@@ -10,8 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
+import com.rodrigolmti.lunch.money.companion.uikit.theme.FadingGrey
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.companion.uikit.theme.NightSkyMist
+import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 
 @Composable
@@ -31,7 +33,9 @@ fun LunchButton(
         enabled = isEnabled,
         colors = ButtonDefaults.buttonColors(
             contentColor = NightSkyMist,
-            containerColor = SunburstGold
+            containerColor = SunburstGold,
+            disabledContentColor = SunburstGold,
+            disabledContainerColor = FadingGrey
         ),
         shape = MaterialTheme.shapes.medium,
         modifier = modifier

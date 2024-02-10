@@ -1,9 +1,9 @@
 package com.rodrigolmti.lunch.money.companion.features.transactions.ui.detail
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
+import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionDetailView
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.UpdateTransactionView
-import com.rodrigolmti.lunch.money.companion.features.transactions.model.fakeTransactionView
+import com.rodrigolmti.lunch.money.companion.features.transactions.model.fakeTransactionDetailView
 import kotlinx.coroutines.flow.MutableStateFlow
 
 internal class DummyITransactionDetailUIModel(
@@ -14,7 +14,7 @@ internal class DummyITransactionDetailUIModel(
         // no-op
     }
 
-    override fun updateTransaction(update: UpdateTransactionView, model: TransactionView) {
+    override fun updateTransaction(update: UpdateTransactionView, model: TransactionDetailView) {
         // no-op
     }
 }
@@ -27,7 +27,7 @@ internal class TransactionDetailUIModelProvider :
             DummyITransactionDetailUIModel(TransactionDetailUiState.Error),
             DummyITransactionDetailUIModel(
                 TransactionDetailUiState.Success(
-                    fakeTransactionView()
+                    fakeTransactionDetailView()
                 )
             ),
         )

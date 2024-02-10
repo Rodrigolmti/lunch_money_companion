@@ -4,6 +4,12 @@ import androidx.compose.runtime.Immutable
 import com.rodrigolmti.lunch.money.companion.core.utils.ValueGenerator
 
 @Immutable
+internal data class TransactionDetailView(
+    val transaction: TransactionView,
+    val categories: List<TransactionCategoryView>,
+)
+
+@Immutable
 internal data class TransactionView(
     val id: Int,
     val date: String,
@@ -13,8 +19,18 @@ internal data class TransactionView(
     val notes: String?,
     val assetName: String?,
     val originalName: String?,
-    val categoryName: String?,
+    val category: TransactionCategoryView?,
     val status: TransactionStatusView,
+)
+
+internal fun fakeTransactionDetailView() = TransactionDetailView(
+    transaction = fakeTransactionView(),
+    categories = (0..5).map {
+        TransactionCategoryView(
+            ValueGenerator.gen(),
+            ValueGenerator.gen()
+        )
+    }
 )
 
 internal fun fakeTransactionView(
@@ -28,6 +44,9 @@ internal fun fakeTransactionView(
     notes = ValueGenerator.gen(),
     assetName = ValueGenerator.gen(),
     originalName = ValueGenerator.gen(),
-    categoryName = ValueGenerator.gen(),
+    category = TransactionCategoryView(
+        ValueGenerator.gen(),
+        ValueGenerator.gen()
+    ),
     status = status,
 )

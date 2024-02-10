@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
@@ -19,6 +20,9 @@ import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
@@ -30,22 +34,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.core.utils.formatCurrency
 import com.rodrigolmti.lunch.money.companion.core.utils.toDate
 import com.rodrigolmti.lunch.money.companion.core.utils.toFormattedDate
-import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
+import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionDetailView
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.UpdateTransactionView
 import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.EmptyState
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchButton
+import com.rodrigolmti.lunch.money.companion.uikit.components.LunchDropDown
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchLoading
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchTextField
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
@@ -67,6 +74,8 @@ internal fun TransactionsDetailScreen(
 ) {
     val viewState by uiModel.viewState.collectAsStateWithLifecycle()
 
+    val snackbarHostState = remember { SnackbarHostState() }
+
     val sheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
         confirmValueChange = { true },
@@ -83,15 +92,30 @@ internal fun TransactionsDetailScreen(
     }
 
     when (viewState) {
-        TransactionDetailUiState.Error -> {
+        is TransactionDetailUiState.Error -> {
             LaunchedEffect(Unit) {
                 errorState.value = TransactionsDetailErrorState.GetTransactionError
                 scope.launch { sheetState.show() }
             }
         }
 
-        TransactionDetailUiState.Loading -> {}
-        is TransactionDetailUiState.Success -> {}
+        is TransactionDetailUiState.Loading -> {
+            // no-op
+        }
+
+        is TransactionDetailUiState.Success -> {
+            val state = (viewState as TransactionDetailUiState.Success)
+
+            if (state.updated) {
+                val message = stringResource(R.string.transaction_updated_label)
+
+                LaunchedEffect(Unit) {
+                    scope.launch {
+                        snackbarHostState.showSnackbar(message)
+                    }
+                }
+            }
+        }
     }
 
     Scaffold(
@@ -100,7 +124,16 @@ internal fun TransactionsDetailScreen(
                 stringResource(R.string.transaction_title),
                 onBackClick = onBackClick,
             )
-        }
+        },
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState) {
+                Snackbar(
+                    it,
+                    containerColor = MidnightSlate,
+                    contentColor = White,
+                )
+            }
+        },
     ) {
         ModalBottomSheetLayout(
             sheetState = sheetState,
@@ -117,13 +150,13 @@ internal fun TransactionsDetailScreen(
             sheetShape = MaterialTheme.shapes.medium,
         ) {
             when (viewState) {
-                TransactionDetailUiState.Loading -> {
+                is TransactionDetailUiState.Loading -> {
                     Center {
                         LunchLoading()
                     }
                 }
 
-                TransactionDetailUiState.Error -> {
+                is TransactionDetailUiState.Error -> {
                     EmptyState(
                         stringResource(R.string.transaction_error_message),
                     )
@@ -143,31 +176,39 @@ internal fun TransactionsDetailScreen(
 
 @Composable
 private fun BuildSuccessState(
-    transaction: TransactionView,
+    view: TransactionDetailView,
     onUpdate: (UpdateTransactionView) -> Unit = {},
 ) {
-    var datePickerVisible by remember { mutableStateOf(false) }
+    val transaction = view.transaction
 
     val calendar = Calendar.getInstance()
     transaction.date.toDate()?.let {
         calendar.time = it
     }
+
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = calendar.timeInMillis,
     )
 
+    var datePickerVisible by remember { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(false) }
+    val scrollState = rememberScrollState()
+
+    var category by remember { mutableStateOf(transaction.category) }
     var date by remember { mutableLongStateOf(calendar.timeInMillis) }
     var payee by remember { mutableStateOf(transaction.payee) }
     var notes by remember { mutableStateOf(transaction.notes) }
 
-    val scrollState = rememberScrollState()
+    fun getEditState() =
+        "${category?.hashCode()}${date.hashCode()}${payee.hashCode()}${notes.hashCode()}"
+
+    val editState = remember { mutableStateOf(getEditState()) }
 
     if (datePickerVisible) {
         LunchDatePicker(
             datePickerState = datePickerState,
             onDateSelected = {
                 date = datePickerState.selectedDateMillis ?: 0L
-                datePickerVisible = false
             },
             onDismissRequest = {
                 datePickerVisible = false
@@ -187,19 +228,34 @@ private fun BuildSuccessState(
             ),
         verticalArrangement = Arrangement.spacedBy(CompanionTheme.spacings.spacingD)
     ) {
+        LunchDropDown(
+            modifier = Modifier
+                .fillMaxWidth(),
+            selectedOption = category,
+            onOptionSelected = {
+                category = it
+            },
+            options = view.categories,
+            label = stringResource(R.string.transaction_category_label),
+            expanded = expanded,
+            getSelectedLabel = {
+                it?.name ?: ""
+            },
+            onExpandedChange = {
+                expanded = it
+            }
+        )
         LunchTextField(
             label = stringResource(R.string.transaction_date_label),
             text = date.toFormattedDate(),
             enabled = false,
             disabledTextColor = White,
-            modifier = Modifier.clickable {
-                datePickerVisible = true
-            }
-        )
-        LunchTextField(
-            label = stringResource(R.string.transaction_category_label),
-            readOnly = true,
-            text = transaction.categoryName ?: "-",
+            modifier = Modifier
+                .clip(RoundedCornerShape(8.dp))
+
+                .clickable {
+                    datePickerVisible = true
+                }
         )
         LunchTextField(
             label = stringResource(R.string.transaction_payee_label),
@@ -225,7 +281,7 @@ private fun BuildSuccessState(
         )
         LunchTextField(
             label = stringResource(R.string.transaction_notes_label),
-            text = notes ?: "-",
+            text = notes ?: "",
             onValueChange = {
                 notes = it
             },
@@ -238,7 +294,7 @@ private fun BuildSuccessState(
             style = CompanionTheme.typography.body,
         )
         Text(
-            text = transaction.originalName ?: "-",
+            text = transaction.originalName ?: "",
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             color = White,
@@ -252,7 +308,7 @@ private fun BuildSuccessState(
             style = CompanionTheme.typography.body,
         )
         Text(
-            text = transaction.assetName ?: "-",
+            text = transaction.assetName ?: "",
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             color = White,
@@ -260,7 +316,8 @@ private fun BuildSuccessState(
         )
         LunchButton(
             label = "Update",
-            isLoading = false
+            isLoading = false,
+            isEnabled = editState.value != getEditState(),
         ) {
             onUpdate(
                 UpdateTransactionView(
@@ -268,6 +325,7 @@ private fun BuildSuccessState(
                     id = transaction.id,
                     payee = payee,
                     notes = notes,
+                    category = category,
                 )
             )
         }

@@ -8,6 +8,7 @@ import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.core.map
 import com.rodrigolmti.lunch.money.companion.core.utils.formatDate
+import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionDetailView
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.UpdateTransactionView
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.summary.TransactionSummaryView
@@ -65,16 +66,24 @@ internal class TransactionFeatureAdapter(
 
     suspend fun getTransaction(
         id: Int
-    ): Outcome<TransactionView, LunchError> =
-        lunchRepository.getTransaction(id).map { transaction ->
+    ): Outcome<TransactionDetailView, LunchError> {
+        val categories = lunchRepository.getCategories()
+
+        return lunchRepository.getTransaction(id).map { transaction ->
             transaction.toView()
+        }.map {
+            TransactionDetailView(
+                transaction = it,
+                categories = categories.map { category ->
+                    category.toView()
+                }
+            )
         }
+    }
 
     suspend fun updateTransaction(
         model: UpdateTransactionView
     ): Outcome<Unit, LunchError> {
-        val dto = model.toDto()
-
-        return lunchRepository.updateTransaction(dto)
+        return lunchRepository.updateTransaction(model.toDto())
     }
 }

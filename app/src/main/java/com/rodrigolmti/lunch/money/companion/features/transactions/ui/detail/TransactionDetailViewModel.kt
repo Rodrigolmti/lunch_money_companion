@@ -6,7 +6,7 @@ import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.core.onFailure
 import com.rodrigolmti.lunch.money.companion.core.onSuccess
-import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
+import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionDetailView
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.UpdateTransactionView
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 internal abstract class ITransactionDetailViewModel : ViewModel(), ITransactionDetailUIModel
 
-internal typealias GetUserTransaction = suspend (id: Int) -> Outcome<TransactionView, LunchError>
+internal typealias GetUserTransaction = suspend (id: Int) -> Outcome<TransactionDetailView, LunchError>
 
 internal typealias UpdateUserTransaction = suspend (model: UpdateTransactionView) -> Outcome<Unit, LunchError>
 
@@ -43,15 +43,20 @@ internal class TransactionDetailViewModel(
         }
     }
 
-    override fun updateTransaction(update: UpdateTransactionView, model: TransactionView) {
+    override fun updateTransaction(update: UpdateTransactionView, model: TransactionDetailView) {
         viewModelScope.launch {
             _viewState.update { TransactionDetailUiState.Loading }
             updateUserTransaction(update).onSuccess {
                 _viewState.update {
                     TransactionDetailUiState.Success(
-                        model.copy(
-                            notes = update.notes,
-                            payee = update.payee
+                        updated = true,
+                        transaction = model.copy(
+                            transaction = model.transaction.copy(
+                                category = update.category,
+                                notes = update.notes,
+                                payee = update.payee,
+                                date = update.date
+                            )
                         )
                     )
                 }

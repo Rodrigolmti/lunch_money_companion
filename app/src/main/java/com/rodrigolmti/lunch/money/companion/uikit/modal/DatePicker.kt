@@ -13,7 +13,9 @@ import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadingGrey
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
@@ -35,7 +37,7 @@ fun LunchDatePicker(
                 onDateSelected()
             }) {
                 Text(
-                    text = "Confirm",
+                    text = stringResource(R.string.common_confirm_action),
                     color = White,
                     style = CompanionTheme.typography.bodyBold,
                 )
@@ -46,7 +48,7 @@ fun LunchDatePicker(
                 onDismissRequest()
             }) {
                 Text(
-                    text = "Cancel",
+                    text = stringResource(R.string.common_cancel_action),
                     color = White,
                     style = CompanionTheme.typography.bodyBold,
                 )
@@ -57,14 +59,14 @@ fun LunchDatePicker(
             showModeToggle = false,
             title = {
                 Text(
-                    text = "Select Transaction Date",
+                    text = stringResource(R.string.transaction_select_date_label),
                     color = White,
                     style = CompanionTheme.typography.bodyBold,
                     modifier = Modifier.padding(
                         PaddingValues(
-                            start = 24.dp,
-                            end = 12.dp,
-                            top = 16.dp
+                            start = CompanionTheme.spacings.spacingE,
+                            end = CompanionTheme.spacings.spacingC,
+                            top = CompanionTheme.spacings.spacingD
                         )
                     )
                 )

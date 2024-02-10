@@ -5,6 +5,7 @@ import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.UpdateTr
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.BudgetModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.RecurringModel
+import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionCategoryModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.UserModel
 import com.rodrigolmti.lunch.money.companion.core.LunchError
@@ -34,4 +35,5 @@ internal interface ILunchRepository {
 
     fun updatePrimaryCurrency(currency: String)
     fun getPrimaryCurrency(): String?
+    fun getCategories(): List<TransactionCategoryModel>
 }

@@ -25,6 +25,8 @@
     <string name="common_yes_action">Yes</string>
     <string name="common_no_action">No</string>
     <string name="common_ok_action">OK</string>
+    <string name="common_confirm_action">Confirm</string>
+    <string name="common_cancel_action">Cancel</string>
 
     <string name="connection_error_title">Connection Issue Detected</string>
     <string name="connection_error_message">We\'re having trouble processing your request. This could be due to a server error, an invalid API key, or a problem with your network connection. Please verify your API key and ensure your device has a stable internet connection. If the issue persists, try again later.</string>
@@ -55,6 +57,8 @@
     <string name="transaction_original_name_label">ORIGINAL NAME</string>
     <string name="transaction_paid_from_label">PAID FROM</string>
     <string name="transactions_title">Transactions</string>
+    <string name="transaction_updated_label">Transaction updated!</string>
+    <string name="transaction_select_date_label">Select Transaction Date</string>
 
     <string name="transaction_title">Transaction Detail</string>
     <string name="transaction_error_message">Sorry, it\'s not possible to display the transaction details at this time.</string>

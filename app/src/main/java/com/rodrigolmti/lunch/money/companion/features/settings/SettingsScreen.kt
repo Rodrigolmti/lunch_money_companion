@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -179,6 +178,14 @@ internal fun SettingsScreen(
                     VerticalSpacer(CompanionTheme.spacings.spacingA)
 
                     LunchDropDown(
+                        modifier = Modifier
+                            .padding(
+                                start = CompanionTheme.spacings.spacingD,
+                                end = CompanionTheme.spacings.spacingD,
+                                top = CompanionTheme.spacings.spacingC,
+                                bottom = CompanionTheme.spacings.spacingC,
+                            )
+                            .fillMaxWidth(),
                         selectedOption = selectedOption,
                         onOptionSelected = {
                             selectedOption = it
@@ -187,6 +194,9 @@ internal fun SettingsScreen(
                         options = options,
                         label = stringResource(R.string.settings_currency_label),
                         expanded = expanded,
+                        getSelectedLabel = {
+                            "${it.displayName} (${it.currencyCode})"
+                        },
                         onExpandedChange = {
                             expanded = it
                         }
