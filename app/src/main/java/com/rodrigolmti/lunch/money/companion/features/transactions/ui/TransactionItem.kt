@@ -45,17 +45,17 @@ internal fun TransactionItem(
     Card(
         shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(
-            containerColor = CharcoalMist
+            containerColor = CharcoalMist,
         ),
         border = BorderStroke(
             width = Dp.Hairline,
             color = Color.Black
         ),
         modifier = Modifier
-            .fillMaxWidth()
             .clickable {
                 onItemClicked()
             }
+            .fillMaxWidth()
     ) {
 
         Row(

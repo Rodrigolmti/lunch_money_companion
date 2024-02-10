@@ -78,6 +78,7 @@ dependencies {
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.google.material)
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.crashlytics)

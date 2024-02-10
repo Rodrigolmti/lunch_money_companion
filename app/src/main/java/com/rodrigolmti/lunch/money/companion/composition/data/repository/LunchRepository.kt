@@ -8,6 +8,7 @@ import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapUpdateTr
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.toModel
 import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.TokenDTO
 import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.UpdateTransactionDTO
+import com.rodrigolmti.lunch.money.companion.composition.data.model.response.UpdateTransactionBodyResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.UserResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.network.LunchService
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetModel
@@ -132,20 +133,21 @@ internal class LunchRepository(
         }
     }
 
-    override suspend fun updateTransaction(dto: UpdateTransactionDTO): Outcome<TransactionModel, LunchError> {
+    override suspend fun updateTransaction(dto: UpdateTransactionDTO): Outcome<Unit, LunchError> {
         if (!connectionChecker.isConnected()) return Outcome.failure(LunchError.NoConnectionError)
 
         return withContext(dispatchers.io()) {
             transactionCache.get(TRANSACTION_CACHE)?.let {
-                val response = mapUpdateTransaction(it)
+                val response = mapUpdateTransaction(it.copy(
+                    notes = dto.notes,
+                    payee = dto.payee,
+                    date = dto.date,
+                ))
                 runCatching {
-                    val transaction = mapTransaction(
-                        lunchService.updateTransaction(dto.id, response),
-                        categoriesCache.get(CATEGORIES_CACHE, emptyList()),
-                        assetCache.get(ASSET_CACHE, emptyList()),
+                    lunchService.updateTransaction(
+                        dto.id,
+                        UpdateTransactionBodyResponse(response)
                     )
-                    transactionCache.put(TRANSACTION_CACHE, transaction)
-                    transaction
                 }.mapThrowable { throwable ->
                     handleNetworkError(throwable)
                 }

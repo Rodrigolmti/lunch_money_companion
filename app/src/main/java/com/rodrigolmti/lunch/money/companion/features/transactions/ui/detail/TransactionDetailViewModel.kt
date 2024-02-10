@@ -17,7 +17,7 @@ internal abstract class ITransactionDetailViewModel : ViewModel(), ITransactionD
 
 internal typealias GetUserTransaction = suspend (id: Int) -> Outcome<TransactionView, LunchError>
 
-internal typealias UpdateUserTransaction = suspend (model: UpdateTransactionView) -> Outcome<TransactionView, LunchError>
+internal typealias UpdateUserTransaction = suspend (model: UpdateTransactionView) -> Outcome<Unit, LunchError>
 
 internal class TransactionDetailViewModel(
     private val updateUserTransaction: UpdateUserTransaction,
@@ -43,12 +43,17 @@ internal class TransactionDetailViewModel(
         }
     }
 
-    override fun updateTransaction(model: UpdateTransactionView) {
+    override fun updateTransaction(update: UpdateTransactionView, model: TransactionView) {
         viewModelScope.launch {
             _viewState.update { TransactionDetailUiState.Loading }
-            updateUserTransaction(model).onSuccess { result ->
+            updateUserTransaction(update).onSuccess {
                 _viewState.update {
-                    TransactionDetailUiState.Success(result)
+                    TransactionDetailUiState.Success(
+                        model.copy(
+                            notes = update.notes,
+                            payee = update.payee
+                        )
+                    )
                 }
             }.onFailure {
                 _viewState.update {

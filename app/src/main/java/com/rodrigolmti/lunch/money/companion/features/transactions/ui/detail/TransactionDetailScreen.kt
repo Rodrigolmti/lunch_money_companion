@@ -3,6 +3,7 @@
 package com.rodrigolmti.lunch.money.companion.features.transactions.ui.detail
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -19,12 +20,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -34,19 +38,25 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.core.utils.formatCurrency
+import com.rodrigolmti.lunch.money.companion.core.utils.toDate
+import com.rodrigolmti.lunch.money.companion.core.utils.toFormattedDate
 import com.rodrigolmti.lunch.money.companion.features.transactions.model.TransactionView
+import com.rodrigolmti.lunch.money.companion.features.transactions.model.UpdateTransactionView
 import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.EmptyState
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
+import com.rodrigolmti.lunch.money.companion.uikit.components.LunchButton
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchLoading
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchTextField
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.modal.BottomSheetComponent
+import com.rodrigolmti.lunch.money.companion.uikit.modal.LunchDatePicker
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -79,6 +89,7 @@ internal fun TransactionsDetailScreen(
                 scope.launch { sheetState.show() }
             }
         }
+
         TransactionDetailUiState.Loading -> {}
         is TransactionDetailUiState.Success -> {}
     }
@@ -121,7 +132,9 @@ internal fun TransactionsDetailScreen(
                 is TransactionDetailUiState.Success -> {
                     val transaction = (viewState as TransactionDetailUiState.Success).transaction
 
-                    BuildSuccessState(transaction)
+                    BuildSuccessState(transaction) {
+                        uiModel.updateTransaction(it, transaction)
+                    }
                 }
             }
         }
@@ -129,8 +142,38 @@ internal fun TransactionsDetailScreen(
 }
 
 @Composable
-private fun BuildSuccessState(transaction: TransactionView) {
+private fun BuildSuccessState(
+    transaction: TransactionView,
+    onUpdate: (UpdateTransactionView) -> Unit = {},
+) {
+    var datePickerVisible by remember { mutableStateOf(false) }
+
+    val calendar = Calendar.getInstance()
+    transaction.date.toDate()?.let {
+        calendar.time = it
+    }
+    val datePickerState = rememberDatePickerState(
+        initialSelectedDateMillis = calendar.timeInMillis,
+    )
+
+    var date by remember { mutableLongStateOf(calendar.timeInMillis) }
+    var payee by remember { mutableStateOf(transaction.payee) }
+    var notes by remember { mutableStateOf(transaction.notes) }
+
     val scrollState = rememberScrollState()
+
+    if (datePickerVisible) {
+        LunchDatePicker(
+            datePickerState = datePickerState,
+            onDateSelected = {
+                date = datePickerState.selectedDateMillis ?: 0L
+                datePickerVisible = false
+            },
+            onDismissRequest = {
+                datePickerVisible = false
+            }
+        )
+    }
 
     Column(
         modifier = Modifier
@@ -146,8 +189,12 @@ private fun BuildSuccessState(transaction: TransactionView) {
     ) {
         LunchTextField(
             label = stringResource(R.string.transaction_date_label),
-            readOnly = true,
-            text = transaction.date,
+            text = date.toFormattedDate(),
+            enabled = false,
+            disabledTextColor = White,
+            modifier = Modifier.clickable {
+                datePickerVisible = true
+            }
         )
         LunchTextField(
             label = stringResource(R.string.transaction_category_label),
@@ -156,8 +203,10 @@ private fun BuildSuccessState(transaction: TransactionView) {
         )
         LunchTextField(
             label = stringResource(R.string.transaction_payee_label),
-            readOnly = true,
-            text = transaction.payee,
+            text = payee,
+            onValueChange = {
+                payee = it
+            },
         )
         Text(
             text = stringResource(R.string.transaction_amount_label),
@@ -176,8 +225,10 @@ private fun BuildSuccessState(transaction: TransactionView) {
         )
         LunchTextField(
             label = stringResource(R.string.transaction_notes_label),
-            readOnly = true,
-            text = transaction.notes ?: "-",
+            text = notes ?: "-",
+            onValueChange = {
+                notes = it
+            },
         )
         Text(
             text = stringResource(R.string.transaction_original_name_label),
@@ -207,6 +258,19 @@ private fun BuildSuccessState(transaction: TransactionView) {
             color = White,
             style = CompanionTheme.typography.bodyBold,
         )
+        LunchButton(
+            label = "Update",
+            isLoading = false
+        ) {
+            onUpdate(
+                UpdateTransactionView(
+                    date = date.toFormattedDate(),
+                    id = transaction.id,
+                    payee = payee,
+                    notes = notes,
+                )
+            )
+        }
         VerticalSpacer(height = CompanionTheme.spacings.spacingD)
     }
 }

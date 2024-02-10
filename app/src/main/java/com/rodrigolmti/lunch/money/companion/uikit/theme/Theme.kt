@@ -1,6 +1,8 @@
 package com.rodrigolmti.lunch.money.companion.uikit.theme
 
 import android.app.Activity
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
@@ -26,6 +28,8 @@ private val DarkColorScheme = darkColorScheme(
     tertiary = MidnightSlate,
     background = MidnightSlate,
     onSurface = CharcoalMist,
+    onPrimary = FadingGrey,
+    onTertiary = FadingGrey,
 )
 
 object CompanionTheme {
@@ -41,7 +45,9 @@ object CompanionTheme {
 
 @Composable
 fun CompanionTheme(content: @Composable () -> Unit) {
+    val ripple = rememberRipple(bounded = false)
     val view = LocalView.current
+
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
@@ -53,6 +59,7 @@ fun CompanionTheme(content: @Composable () -> Unit) {
     CompositionLocalProvider(
         LocalCompanionSpacings provides CompanionSpacings,
         LocalCompanionTypography provides CompanionTypography,
+        LocalIndication provides ripple,
     ) {
         MaterialTheme(
             colorScheme = DarkColorScheme,

@@ -31,16 +31,9 @@ internal fun mapTransactions(
 internal fun mapUpdateTransaction(model: TransactionModel): UpdateTransactionResponse =
     UpdateTransactionResponse(
         date = model.date,
-        amount = model.amount.toString(),
         categoryId = model.category?.id,
-        assetId = model.asset?.id,
-        currency = model.currency,
-        externalId = model.externalId,
         notes = model.notes,
-        originalName = model.originalName,
         payee = model.payee,
-        recurringId = model.recurringId,
-        status = model.status.name,
     )
 
 internal fun mapTransaction(

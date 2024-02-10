@@ -27,6 +27,8 @@ internal fun TransactionModel.toView() = TransactionView(
 internal fun UpdateTransactionView.toDto() = UpdateTransactionDTO(
     id = id,
     notes = notes,
+    payee = payee,
+    date = date,
 )
 
 internal fun TransactionStatus.toView() = when (this) {

@@ -23,7 +23,8 @@ androidx-test-rules-version = "1.5.0"
 android-gradle-plugin = "8.2.1"
 android-tools = "31.2.1"
 kotlinx-coroutines = "1.7.3"
-firebase-bom = "32.7.0"
+firebase-bom = "32.7.1"
+google-material = "1.11.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -32,6 +33,7 @@ lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-ru
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
 kotlinx-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinx-collections-immutable" }
 mp-android-chart = { group = "com.github.PhilJay", name = "MPAndroidChart", version.ref = "mp-android-chart" }
+google-material = { group = "com.google.android.material", name = "material", version.ref = "google-material" }
 
 # Testing
 kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kotlin" }

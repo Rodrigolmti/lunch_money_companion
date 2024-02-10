@@ -25,14 +25,19 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 
 @Composable
 fun LunchTextField(
+    modifier: Modifier = Modifier,
     label: String,
     text: String,
+    disabledTextColor: Color = FadingGrey,
     readOnly: Boolean = false,
+    enabled: Boolean = true,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueChange: (String) -> Unit = {},
 ) {
-    Column {
+    Column(
+        modifier = modifier
+    ) {
         Text(
             text = label.uppercase(),
             modifier = Modifier.fillMaxWidth(),
@@ -45,12 +50,15 @@ fun LunchTextField(
 
         TextField(
             value = text,
-            onValueChange = onValueChange,
+            onValueChange = {
+                onValueChange(it)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(CompanionTheme.spacings.spacingNone),
             singleLine = true,
             readOnly = readOnly,
+            enabled = enabled,
             visualTransformation = visualTransformation,
             keyboardActions = keyboardActions,
             shape = MaterialTheme.shapes.medium,
@@ -60,7 +68,7 @@ fun LunchTextField(
                 focusedContainerColor = NightSkyMist,
                 unfocusedContainerColor = NightSkyMist,
                 disabledContainerColor = NightSkyMist,
-                disabledTextColor = FadingGrey,
+                disabledTextColor = disabledTextColor,
                 unfocusedTextColor = if (readOnly) FadingGrey else White,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent

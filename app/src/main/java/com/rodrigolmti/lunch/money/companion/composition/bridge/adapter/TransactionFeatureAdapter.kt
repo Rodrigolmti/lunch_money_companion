@@ -72,11 +72,9 @@ internal class TransactionFeatureAdapter(
 
     suspend fun updateTransaction(
         model: UpdateTransactionView
-    ): Outcome<TransactionView, LunchError> {
+    ): Outcome<Unit, LunchError> {
         val dto = model.toDto()
 
-        return lunchRepository.updateTransaction(dto).map { transaction ->
-            transaction.toView()
-        }
+        return lunchRepository.updateTransaction(dto)
     }
 }
