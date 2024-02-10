@@ -12,8 +12,8 @@ android {
 
     defaultConfig {
         applicationId = "com.rodrigolmti.lunch.money.companion"
-        versionCode = 202402011
-        versionName = "1.2.1"
+        versionCode = 110022024
+        versionName = "1.3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
