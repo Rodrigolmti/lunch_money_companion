@@ -59,6 +59,7 @@
     <string name="transactions_title">Transacciones</string>
     <string name="transaction_updated_label">Transaccion Actualizada!</string>
     <string name="transaction_select_date_label">Selecciona la Fecha</string>
+    <string name="transaction_un_categorized_label">Sin Categorizar</string>
 
     <string name="transaction_title">Detalles de la Transacción</string>
     <string name="transaction_error_message">Lo sentimos, no es posible mostrar los detalles de la transacción en este momento.</string>

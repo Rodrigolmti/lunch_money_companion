@@ -124,6 +124,14 @@ internal fun TransactionItem(
                         style = CompanionTheme.typography.body,
                     )
                 }
+
+                VerticalSpacer(height = CompanionTheme.spacings.spacingB)
+
+                Text(
+                    text = transaction.category?.name ?: stringResource(R.string.transaction_un_categorized_label),
+                    color = if (transaction.category?.name.isNullOrEmpty()) FadedBlood else White,
+                    style = CompanionTheme.typography.bodyBold,
+                )
             }
 
             HorizontalSpacer(width = CompanionTheme.spacings.spacingB)
@@ -140,20 +148,22 @@ internal fun TransactionItem(
 @Composable
 @LunchMoneyPreview
 fun TransactionItemPreview() {
-    Column {
-        TransactionItem(fakeTransactionView(status = TransactionStatusView.CLEARED)) {}
-        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-        TransactionItem(fakeTransactionView(status = TransactionStatusView.PENDING)) {}
-        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-        TransactionItem(fakeTransactionView(status = TransactionStatusView.UNKNOWN)) {}
-        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-        TransactionItem(fakeTransactionView(status = TransactionStatusView.RECURRING)) {}
-        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-        TransactionItem(fakeTransactionView(status = TransactionStatusView.UNCLEARED)) {}
-        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-        TransactionItem(fakeTransactionView(status = TransactionStatusView.RECURRING_SUGGESTED)) {}
-        VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-        TransactionItem(fakeTransactionView(status = TransactionStatusView.DELETE_PENDING)) {}
+    CompanionTheme {
+        Column {
+            TransactionItem(fakeTransactionView(status = TransactionStatusView.CLEARED)) {}
+            VerticalSpacer(height = CompanionTheme.spacings.spacingB)
+            TransactionItem(fakeTransactionView(status = TransactionStatusView.PENDING)) {}
+            VerticalSpacer(height = CompanionTheme.spacings.spacingB)
+            TransactionItem(fakeTransactionView(status = TransactionStatusView.UNKNOWN)) {}
+            VerticalSpacer(height = CompanionTheme.spacings.spacingB)
+            TransactionItem(fakeTransactionView(status = TransactionStatusView.RECURRING)) {}
+            VerticalSpacer(height = CompanionTheme.spacings.spacingB)
+            TransactionItem(fakeTransactionView(status = TransactionStatusView.UNCLEARED)) {}
+            VerticalSpacer(height = CompanionTheme.spacings.spacingB)
+            TransactionItem(fakeTransactionView(status = TransactionStatusView.RECURRING_SUGGESTED)) {}
+            VerticalSpacer(height = CompanionTheme.spacings.spacingB)
+            TransactionItem(fakeTransactionView(status = TransactionStatusView.DELETE_PENDING)) {}
+        }
     }
 }
 
