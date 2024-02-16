@@ -30,17 +30,17 @@ internal class TransactionFeatureAdapter(
                 transactions.filter { it.isIncome && !it.excludeFromTotals }.forEach {
                     val key = it.category?.name ?: "uncategorized"
                     val value = income[key] ?: 0.0f
-                    income[key] = (value + it.amount)
+                    income[key] = ((value + it.amount) * -1)
                 }
 
                 val expense = mutableMapOf<String, Float>()
                 transactions.filter { !it.isIncome && !it.excludeFromTotals }.forEach {
                     val key = it.category?.name ?: "uncategorized"
                     val value = expense[key] ?: 0.0f
-                    expense[key] = (value + it.amount)
+                    expense[key] = ((value + it.amount) * -1)
                 }
 
-                val totalIncome = income.values.sum() * -1
+                val totalIncome = income.values.sum()
                 val totalExpense = expense.values.sum()
 
                 TransactionSummaryView(
@@ -48,7 +48,7 @@ internal class TransactionFeatureAdapter(
                     totalIncome = totalIncome,
                     expense = expense,
                     totalExpense = totalExpense,
-                    net = totalIncome - totalExpense,
+                    net = totalIncome + totalExpense,
                     currency = transactions.firstOrNull()?.currency ?: currency
                 )
             }
