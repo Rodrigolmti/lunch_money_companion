@@ -26,7 +26,10 @@ import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.core.SharedPreferencesDelegateFactory
 import com.rodrigolmti.lunch.money.companion.core.cache.ICacheManager
 import com.rodrigolmti.lunch.money.companion.core.mapThrowable
+import com.rodrigolmti.lunch.money.companion.core.onSuccess
 import com.rodrigolmti.lunch.money.companion.core.runCatching
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import retrofit2.HttpException
@@ -51,6 +54,9 @@ internal class LunchRepository(
     private var user: String by preferences.create(DEFAULT_EMPTY_STRING, USER_KEY)
     private var token: String by preferences.create(DEFAULT_EMPTY_STRING, TOKEN_KEY)
     private var currency: String by preferences.create(DEFAULT_EMPTY_STRING, CURRENCY_KEY)
+
+    private val _transactionUpdateFlow = MutableSharedFlow<Unit>(replay = 1)
+    override val transactionUpdateFlow: SharedFlow<Unit> = _transactionUpdateFlow
 
     private val categoriesCache =
         cacheManager.createCache<String, List<TransactionCategoryModel>>(CATEGORIES_CACHE)
@@ -145,6 +151,8 @@ internal class LunchRepository(
                             mapUpdateTransaction(dto)
                         )
                     )
+                }.onSuccess {
+                    _transactionUpdateFlow.emit(Unit)
                 }.mapThrowable { throwable ->
                     handleNetworkError(throwable)
                 }

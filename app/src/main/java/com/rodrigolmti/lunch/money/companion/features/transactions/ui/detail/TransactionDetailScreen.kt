@@ -282,6 +282,7 @@ private fun BuildSuccessState(
         LunchTextField(
             label = stringResource(R.string.transaction_notes_label),
             text = notes ?: "",
+            maxLines = 3,
             onValueChange = {
                 notes = it
             },

@@ -18,7 +18,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadingGrey
-import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.companion.uikit.theme.NightSkyMist
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
@@ -28,6 +27,7 @@ fun LunchTextField(
     modifier: Modifier = Modifier,
     label: String,
     text: String,
+    maxLines: Int = 1,
     disabledTextColor: Color = FadingGrey,
     readOnly: Boolean = false,
     enabled: Boolean = true,
@@ -56,9 +56,10 @@ fun LunchTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(CompanionTheme.spacings.spacingNone),
-            singleLine = true,
+            singleLine = maxLines == 1,
             readOnly = readOnly,
             enabled = enabled,
+            maxLines = maxLines,
             visualTransformation = visualTransformation,
             keyboardActions = keyboardActions,
             shape = MaterialTheme.shapes.medium,

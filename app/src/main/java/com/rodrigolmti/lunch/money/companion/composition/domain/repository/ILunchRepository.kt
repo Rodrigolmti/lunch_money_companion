@@ -10,6 +10,7 @@ import com.rodrigolmti.lunch.money.companion.composition.domain.model.Transactio
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.UserModel
 import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
+import kotlinx.coroutines.flow.SharedFlow
 
 internal interface ILunchRepository {
     suspend fun authenticateUser(tokenDTO: TokenDTO): Outcome<Unit, LunchError>
@@ -36,4 +37,6 @@ internal interface ILunchRepository {
     fun updatePrimaryCurrency(currency: String)
     fun getPrimaryCurrency(): String?
     fun getCategories(): List<TransactionCategoryModel>
+
+    val transactionUpdateFlow: SharedFlow<Unit>
 }

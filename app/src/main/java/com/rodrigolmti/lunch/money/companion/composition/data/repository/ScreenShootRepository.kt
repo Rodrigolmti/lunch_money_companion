@@ -19,6 +19,8 @@ import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunc
 import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.core.cache.ICacheManager
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 
 private const val CATEGORIES_CACHE = "categories_cache"
 private const val ASSET_CACHE = "asset_cache"
@@ -30,6 +32,9 @@ private const val ASSET_CACHE = "asset_cache"
 internal class ScreenShootRepository(
     cacheManager: ICacheManager,
 ) : ILunchRepository {
+
+    private val _tickFlow = MutableSharedFlow<Unit>(replay = 0)
+    override val transactionUpdateFlow: SharedFlow<Unit> = _tickFlow
 
     private val categoriesCache =
         cacheManager.createCache<String, List<TransactionCategoryModel>>(CATEGORIES_CACHE)

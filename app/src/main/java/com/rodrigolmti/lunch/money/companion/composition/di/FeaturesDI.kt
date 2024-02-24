@@ -66,6 +66,9 @@ private val transactionsModule = module {
             getUserTransactions = { start, end ->
                 TransactionFeatureAdapter(get()).getTransactions(start, end)
             },
+            listenForTransactionUpdate = {
+                get<ILunchRepository>().transactionUpdateFlow
+            }
         )
     }
     viewModel<ITransactionDetailViewModel> {
