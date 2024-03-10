@@ -56,6 +56,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.modal.BottomSheetComponent
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.EmeraldSpring
+import com.rodrigolmti.lunch.money.companion.uikit.theme.FadedBlood
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
@@ -271,7 +272,8 @@ internal fun TransactionsSummaryScreen(
                                 CurrencyTileItem(
                                     stringResource(R.string.transaction_summary_net_label),
                                     value = view.net,
-                                    currency = view.currency
+                                    currency = view.currency,
+                                    labelColor = if (view.net >= 0) EmeraldSpring else FadedBlood,
                                 )
                             }
                         }
