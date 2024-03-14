@@ -273,7 +273,8 @@ internal fun TransactionsSummaryScreen(
                                     stringResource(R.string.transaction_summary_net_label),
                                     value = view.net,
                                     currency = view.currency,
-                                    labelColor = if (view.net >= 0) EmeraldSpring else FadedBlood,
+                                    valueColor = if (view.net >= 0) EmeraldSpring else FadedBlood,
+                                    labelColor = White,
                                 )
                             }
                         }

@@ -62,8 +62,6 @@ internal data class TransactionResponse(
     val price: String? = null,
     @SerialName("quantity")
     val quantity: String? = null,
-    @SerialName("tags")
-    val tags: List<String> = emptyList(),
 )
 
 @Keep
