@@ -212,7 +212,7 @@ internal class ScreenShootRepository(
         )
     }
 
-    override suspend fun getTransaction(id: Int): Outcome<TransactionModel, LunchError> {
+    override suspend fun getTransaction(id: Long): Outcome<TransactionModel, LunchError> {
         return Outcome.success(
             TransactionModel(
                 id = 1,

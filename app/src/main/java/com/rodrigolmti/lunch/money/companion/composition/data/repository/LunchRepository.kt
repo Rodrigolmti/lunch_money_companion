@@ -121,7 +121,7 @@ internal class LunchRepository(
         }
     }
 
-    override suspend fun getTransaction(id: Int): Outcome<TransactionModel, LunchError> {
+    override suspend fun getTransaction(id: Long): Outcome<TransactionModel, LunchError> {
         if (!connectionChecker.isConnected()) return Outcome.failure(LunchError.NoConnectionError)
 
         return withContext(dispatchers.io()) {

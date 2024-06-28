@@ -11,7 +11,7 @@ internal data class TransactionDetailView(
 
 @Immutable
 internal data class TransactionView(
-    val id: Int,
+    val id: Long,
     val date: String,
     val payee: String,
     val amount: Float,

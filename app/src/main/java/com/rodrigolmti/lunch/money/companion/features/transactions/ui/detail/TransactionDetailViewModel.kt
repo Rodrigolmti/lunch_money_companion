@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 internal abstract class ITransactionDetailViewModel : ViewModel(), ITransactionDetailUIModel
 
-internal typealias GetUserTransaction = suspend (id: Int) -> Outcome<TransactionDetailView, LunchError>
+internal typealias GetUserTransaction = suspend (id: Long) -> Outcome<TransactionDetailView, LunchError>
 
 internal typealias UpdateUserTransaction = suspend (model: UpdateTransactionView) -> Outcome<Unit, LunchError>
 
@@ -28,7 +28,7 @@ internal class TransactionDetailViewModel(
         MutableStateFlow<TransactionDetailUiState>(TransactionDetailUiState.Loading)
     override val viewState: StateFlow<TransactionDetailUiState> = _viewState
 
-    override fun getTransaction(id: Int) {
+    override fun getTransaction(id: Long) {
         viewModelScope.launch {
             _viewState.update { TransactionDetailUiState.Loading }
             getUserTransactions(id).onSuccess { result ->

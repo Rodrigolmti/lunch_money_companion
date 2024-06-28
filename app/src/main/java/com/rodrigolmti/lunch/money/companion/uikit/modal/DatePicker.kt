@@ -4,17 +4,16 @@ package com.rodrigolmti.lunch.money.companion.uikit.modal
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadingGrey
@@ -72,9 +71,6 @@ fun LunchDatePicker(
                 )
             },
             state = datePickerState,
-            dateValidator = { millis ->
-                millis <= System.currentTimeMillis()
-            },
             colors = DatePickerDefaults.colors(
                 dayContentColor = White,
                 selectedDayContentColor = SunburstGold,

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 internal interface ITransactionDetailUIModel {
     val viewState: StateFlow<TransactionDetailUiState>
 
-    fun getTransaction(id: Int)
+    fun getTransaction(id: Long)
 
     fun updateTransaction(
         update: UpdateTransactionView,

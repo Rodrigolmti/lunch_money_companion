@@ -15,7 +15,7 @@ internal data class TransactionBodyResponse(
 @Serializable
 internal data class TransactionResponse(
     @SerialName("id")
-    val id: Int,
+    val id: Long,
     @SerialName("is_income")
     val isIncome: Boolean? = null,
     @SerialName("exclude_from_totals")
@@ -63,7 +63,14 @@ internal data class TransactionResponse(
     @SerialName("quantity")
     val quantity: String? = null,
     @SerialName("tags")
-    val tags: List<String> = emptyList(),
+    val tags: List<TransactionTagResponse> = emptyList(),
+)
+
+@Keep
+@Serializable
+internal data class TransactionTagResponse(
+    @SerialName("name")
+    val name: String,
 )
 
 @Keep
