@@ -11,7 +11,9 @@ import com.rodrigolmti.lunch.money.companion.core.getOrElse
 import com.rodrigolmti.lunch.money.companion.core.mapThrowable
 import com.rodrigolmti.lunch.money.companion.core.runCatching
 import com.rodrigolmti.lunch.money.companion.core.utils.formatDate
+import com.rodrigolmti.lunch.money.companion.core.utils.mapEnumValue
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetOverviewView
+import com.rodrigolmti.lunch.money.companion.features.home.model.AssetTypeView
 import com.rodrigolmti.lunch.money.companion.features.home.model.HomeView
 import com.rodrigolmti.lunch.money.companion.features.home.model.PeriodSummaryView
 import kotlinx.collections.immutable.toImmutableList
@@ -32,7 +34,7 @@ internal class HomeFeatureAdapter(
             val overviews = assets.groupBy { it.type }.map { (key, value) ->
                 AssetOverviewView(
                     value.sumOf { it.balance },
-                    key.toView(),
+                    mapEnumValue(key, AssetTypeView.UNKNOWN),
                     value.map { asset -> asset.toView() },
                 )
             }

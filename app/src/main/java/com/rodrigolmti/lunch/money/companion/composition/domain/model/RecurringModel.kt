@@ -14,5 +14,5 @@ internal data class RecurringModel(
 )
 
 enum class RecurringModelType {
-    CLEARED, SUGGESTED
+    CLEARED, SUGGESTED, UNKNOWN
 }

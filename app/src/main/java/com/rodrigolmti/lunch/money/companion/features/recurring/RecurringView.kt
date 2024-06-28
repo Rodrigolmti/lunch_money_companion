@@ -15,7 +15,7 @@ data class RecurringView(
 )
 
 enum class RecurringViewType {
-    CLEARED, SUGGESTED
+    CLEARED, SUGGESTED, UNKNOWN
 }
 
 fun fakeRecurringView() = RecurringView(

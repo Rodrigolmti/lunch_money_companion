@@ -2,6 +2,7 @@ package com.rodrigolmti.lunch.money.companion.composition.bridge.mapper
 
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.RecurringModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.RecurringModelType
+import com.rodrigolmti.lunch.money.companion.core.utils.mapEnumValue
 import com.rodrigolmti.lunch.money.companion.features.recurring.RecurringView
 import com.rodrigolmti.lunch.money.companion.features.recurring.RecurringViewType
 
@@ -18,13 +19,6 @@ internal fun RecurringModel.toView(): RecurringView {
         currency = currency,
         description = description,
         billingDate = billingDate,
-        type = type.toView(),
+        type = mapEnumValue(type, RecurringViewType.UNKNOWN)
     )
-}
-
-private fun RecurringModelType.toView(): RecurringViewType {
-    return when (this) {
-        RecurringModelType.CLEARED -> RecurringViewType.CLEARED
-        RecurringModelType.SUGGESTED -> RecurringViewType.SUGGESTED
-    }
 }

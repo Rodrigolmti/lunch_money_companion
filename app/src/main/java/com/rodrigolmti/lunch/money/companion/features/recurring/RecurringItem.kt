@@ -126,10 +126,12 @@ internal fun RecurringItem(budget: RecurringView) {
 private fun getRecurringTypeColor(type: RecurringViewType): Color = when (type) {
     RecurringViewType.CLEARED -> SunburstGold
     RecurringViewType.SUGGESTED -> TropicalLagoon
+    RecurringViewType.UNKNOWN -> SilverLining
 }
 
 @Composable
 private fun getRecurringTypeLabel(type: RecurringViewType): String = when (type) {
     RecurringViewType.CLEARED -> stringResource(id = R.string.recurring_cleared_label)
     RecurringViewType.SUGGESTED -> stringResource(id = R.string.recurring_suggested_label)
+    RecurringViewType.UNKNOWN -> stringResource(id = R.string.recurring_unknown_label)
 }

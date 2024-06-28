@@ -132,4 +132,5 @@
     <string name="recurring_title">Recurrente</string>
     <string name="recurring_cleared_label">Liquidada</string>
     <string name="recurring_suggested_label">Sugerida</string>
+    <string name="recurring_unknown_label">Desconocida</string>
 </resources>
