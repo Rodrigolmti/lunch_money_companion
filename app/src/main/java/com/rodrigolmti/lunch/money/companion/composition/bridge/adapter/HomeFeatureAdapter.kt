@@ -50,7 +50,7 @@ internal class HomeFeatureAdapter(
                 overviews = overviews.toImmutableList(),
                 summary = PeriodSummaryView(
                     totalIncome = totalIncome,
-                    totalExpense = totalExpense,
+                    totalExpense = (totalExpense * -1),
                     netIncome = netIncome,
                     savingsRate = savingsRate.toInt(),
                     currency = transactions.firstOrNull()?.currency ?: currency
@@ -66,10 +66,38 @@ internal class HomeFeatureAdapter(
 
     private fun calculateTotalIncomeAndExpense(transactions: List<TransactionModel>): Pair<Float, Float> {
         val totalIncome = transactions.filter { it.isIncome && !it.excludeFromTotals }
-            .sumOf { it.amount.toDouble() }.toFloat() * -1
+            .sumOf { AmountNormalizer.normalizeAmount(it.amount).toDouble() }.toFloat()
         val totalExpense = transactions.filter { !it.isIncome && !it.excludeFromTotals }
-            .sumOf { it.amount.toDouble() }.toFloat()
+            .sumOf { AmountNormalizer.normalizeAmount(it.amount).toDouble() }.toFloat()
 
         return totalIncome to totalExpense
+    }
+}
+
+object AmountNormalizer {
+
+    fun normalizeAmount(amount: Float): Float {
+        return if (amount < 0) {
+            amount * -1
+        } else {
+            amount
+        }
+    }
+
+    fun fixAmountBasedOnSymbol(isIncome: Boolean, amount: Float): Float {
+        return if (isIncome) {
+            if (amount < 0) {
+                amount * -1
+            } else {
+                amount
+            }
+        } else {
+            if (amount > 0) {
+                amount * -1
+            } else {
+                amount
+            }
+
+        }
     }
 }

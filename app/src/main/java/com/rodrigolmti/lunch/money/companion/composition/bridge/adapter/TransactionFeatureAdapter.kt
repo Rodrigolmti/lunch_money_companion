@@ -30,14 +30,24 @@ internal class TransactionFeatureAdapter(
                 transactions.filter { it.isIncome && !it.excludeFromTotals }.forEach {
                     val key = it.category?.name ?: "uncategorized"
                     val value = income[key] ?: 0.0f
-                    income[key] = ((value + it.amount) * -1)
+
+                    if (it.amount < 0) {
+                        income[key] = (value + (it.amount * -1))
+                    } else {
+                        income[key] = value + it.amount
+                    }
                 }
 
                 val expense = mutableMapOf<String, Float>()
                 transactions.filter { !it.isIncome && !it.excludeFromTotals }.forEach {
                     val key = it.category?.name ?: "uncategorized"
                     val value = expense[key] ?: 0.0f
-                    expense[key] = ((value + it.amount) * -1)
+
+                    if (it.amount > 0) {
+                        expense[key] = (value + (it.amount * -1))
+                    } else {
+                        expense[key] = value + it.amount
+                    }
                 }
 
                 val totalIncome = income.values.sum()

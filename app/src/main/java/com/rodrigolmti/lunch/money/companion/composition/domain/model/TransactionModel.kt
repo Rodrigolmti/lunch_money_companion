@@ -15,16 +15,9 @@ internal data class TransactionModel(
     val asset: AssetModel?,
     val plaidAccountId: Int?,
     val status: TransactionStatus,
-    val isGroup: Boolean,
-    val groupId: Int?,
-    val parentId: Int?,
-    val externalId: Int?,
     val originalName: String?,
     val type: String?,
     val subtype: String?,
-    val fees: String?,
-    val price: String?,
-    val quantity: String?
 )
 
 
