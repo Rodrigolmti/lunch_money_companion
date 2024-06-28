@@ -1,8 +1,10 @@
 [versions]
+# Newer version is still not supported
 agp = "8.3.1"
 kotlin = "2.0.0"
 core-ktx = "1.13.1"
-lifecycle-runtime-ktx = "2.8.2"
+# Do not update, crash problem with new compose version;
+lifecycle-runtime-ktx = "2.7.0"
 activity-compose = "1.9.0"
 compose-bom = "2024.06.00"
 mp-android-chart = "v3.1.0"
