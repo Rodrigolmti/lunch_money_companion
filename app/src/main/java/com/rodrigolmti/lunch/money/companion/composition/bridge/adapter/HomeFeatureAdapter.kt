@@ -11,7 +11,9 @@ import com.rodrigolmti.lunch.money.companion.core.getOrElse
 import com.rodrigolmti.lunch.money.companion.core.mapThrowable
 import com.rodrigolmti.lunch.money.companion.core.runCatching
 import com.rodrigolmti.lunch.money.companion.core.utils.formatDate
+import com.rodrigolmti.lunch.money.companion.core.utils.mapEnumValue
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetOverviewView
+import com.rodrigolmti.lunch.money.companion.features.home.model.AssetTypeView
 import com.rodrigolmti.lunch.money.companion.features.home.model.HomeView
 import com.rodrigolmti.lunch.money.companion.features.home.model.PeriodSummaryView
 import kotlinx.collections.immutable.toImmutableList
@@ -32,7 +34,7 @@ internal class HomeFeatureAdapter(
             val overviews = assets.groupBy { it.type }.map { (key, value) ->
                 AssetOverviewView(
                     value.sumOf { it.balance },
-                    key.toView(),
+                    mapEnumValue(key, AssetTypeView.UNKNOWN),
                     value.map { asset -> asset.toView() },
                 )
             }
@@ -48,7 +50,7 @@ internal class HomeFeatureAdapter(
                 overviews = overviews.toImmutableList(),
                 summary = PeriodSummaryView(
                     totalIncome = totalIncome,
-                    totalExpense = totalExpense,
+                    totalExpense = (totalExpense * -1),
                     netIncome = netIncome,
                     savingsRate = savingsRate.toInt(),
                     currency = transactions.firstOrNull()?.currency ?: currency
@@ -64,10 +66,38 @@ internal class HomeFeatureAdapter(
 
     private fun calculateTotalIncomeAndExpense(transactions: List<TransactionModel>): Pair<Float, Float> {
         val totalIncome = transactions.filter { it.isIncome && !it.excludeFromTotals }
-            .sumOf { it.amount.toDouble() }.toFloat() * -1
+            .sumOf { AmountNormalizer.normalizeAmount(it.amount).toDouble() }.toFloat()
         val totalExpense = transactions.filter { !it.isIncome && !it.excludeFromTotals }
-            .sumOf { it.amount.toDouble() }.toFloat()
+            .sumOf { AmountNormalizer.normalizeAmount(it.amount).toDouble() }.toFloat()
 
         return totalIncome to totalExpense
+    }
+}
+
+object AmountNormalizer {
+
+    fun normalizeAmount(amount: Float): Float {
+        return if (amount < 0) {
+            amount * -1
+        } else {
+            amount
+        }
+    }
+
+    fun fixAmountBasedOnSymbol(isIncome: Boolean, amount: Float): Float {
+        return if (isIncome) {
+            if (amount < 0) {
+                amount * -1
+            } else {
+                amount
+            }
+        } else {
+            if (amount > 0) {
+                amount * -1
+            } else {
+                amount
+            }
+
+        }
     }
 }

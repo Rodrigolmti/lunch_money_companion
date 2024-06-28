@@ -42,35 +42,12 @@ internal data class TransactionResponse(
     val plaidAccountId: Int? = null,
     @SerialName("status")
     val status: TransactionStatusResponse = TransactionStatusResponse.UNKNOWN,
-    @SerialName("is_group")
-    val isGroup: Boolean,
-    @SerialName("group_id")
-    val groupId: Int? = null,
-    @SerialName("parent_id")
-    val parentId: Int? = null,
-    @SerialName("external_id")
-    val externalId: Int? = null,
     @SerialName("original_name")
     val originalName: String? = null,
     @SerialName("type")
     val type: String? = null,
     @SerialName("subtype")
     val subtype: String? = null,
-    @SerialName("fees")
-    val fees: String? = null,
-    @SerialName("price")
-    val price: String? = null,
-    @SerialName("quantity")
-    val quantity: String? = null,
-    @SerialName("tags")
-    val tags: List<TransactionTagResponse> = emptyList(),
-)
-
-@Keep
-@Serializable
-internal data class TransactionTagResponse(
-    @SerialName("name")
-    val name: String,
 )
 
 @Keep
