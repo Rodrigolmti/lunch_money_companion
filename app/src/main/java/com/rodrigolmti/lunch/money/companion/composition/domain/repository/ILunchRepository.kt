@@ -21,7 +21,7 @@ internal interface ILunchRepository {
     ): Outcome<List<TransactionModel>, LunchError>
 
     suspend fun getRecurring(): Outcome<List<RecurringModel>, LunchError>
-    suspend fun getTransaction(id: Int): Outcome<TransactionModel, LunchError>
+    suspend fun getTransaction(id: Long): Outcome<TransactionModel, LunchError>
     suspend fun updateTransaction(dto: UpdateTransactionDTO): Outcome<Unit, LunchError>
     suspend fun getBudgets(
         start: String,

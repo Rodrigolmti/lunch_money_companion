@@ -79,13 +79,13 @@ internal fun NavigationGraph(
             route = transactionDetailRouter,
             arguments = listOf(
                 navArgument("id") {
-                    type = NavType.IntType
+                    type = NavType.LongType
                 }
             )
         ) { navBackStackEntry ->
             val uiModel = koinViewModel<ITransactionDetailViewModel>()
 
-            navBackStackEntry.arguments?.getInt("id")?.let {
+            navBackStackEntry.arguments?.getLong("id")?.let {
                 TransactionsDetailScreen(id = it, uiModel = uiModel) {
                     navController.navigateUp()
                 }

@@ -19,6 +19,6 @@ Gemfile.lock
 buildSrc/build
 build-logic/convention/build
 fastlane/report.xml
-
+.kotlin/
 app/google-services.json
 service-account.json

@@ -1,9 +1,10 @@
 plugins {
     alias(libs.plugins.companion.android.application)
     alias(libs.plugins.companion.android.application.jacoco)
-    kotlin("plugin.serialization") version "1.9.21"
-    alias(libs.plugins.googleServices)
-    alias(libs.plugins.firebaseCraslytics)
+    kotlin("plugin.serialization") version libs.versions.kotlin
+    alias(libs.plugins.kotlin.compose.compiler)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
     id("jacoco")
 }
 
@@ -12,8 +13,8 @@ android {
 
     defaultConfig {
         applicationId = "com.rodrigolmti.lunch.money.companion"
-        versionCode = 313032024
-        versionName = "1.4.2"
+        versionCode = 327062024
+        versionName = "1.5.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -63,8 +64,9 @@ android {
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.7"
+    composeCompiler {
+        enableStrongSkippingMode = true
+        includeSourceInformation = true
     }
     packaging {
         resources {

@@ -58,6 +58,7 @@ internal val screens = listOf(
     BottomNavigationRouter.SETTINGS,
 )
 
+@OptIn(ExperimentalMaterialApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun BottomNavigation(
@@ -65,7 +66,7 @@ internal fun BottomNavigation(
     onTermsOfUseClick: (String) -> Unit = {},
     onLogout: () -> Unit = {},
     onScreenSelected: (BottomNavigationRouter) -> Unit,
-    onTransactionSelected: (Int) -> Unit,
+    onTransactionSelected: (Long) -> Unit,
     onTransactionSummaryClick: () -> Unit = {},
     onAnalyzeClick: () -> Unit = {},
 ) {
@@ -78,8 +79,6 @@ internal fun BottomNavigation(
 
     val state =
         remember { mutableStateOf<BottomNavigationUiState>(BottomNavigationUiState.Idle) }
-
-    val bottomNavigationVisibility = remember { mutableStateOf(1) }
 
     val scope = rememberCoroutineScope()
 

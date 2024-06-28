@@ -1,7 +1,7 @@
 package com.rodrigolmti.lunch.money.companion.composition.domain.model
 
 internal data class TransactionModel(
-    val id: Int,
+    val id: Long,
     val date: String,
     val payee: String,
     val amount: Float,

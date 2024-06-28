@@ -1,30 +1,32 @@
 [versions]
-agp = "8.4.0-alpha07"
-kotlin = "1.9.21"
-core-ktx = "1.12.0"
-lifecycle-runtime-ktx = "2.7.0"
-activity-compose = "1.8.2"
-compose-bom = "2023.10.01"
+agp = "8.3.1"
+kotlin = "2.0.0"
+core-ktx = "1.13.1"
+lifecycle-runtime-ktx = "2.8.2"
+activity-compose = "1.9.0"
+compose-bom = "2024.06.00"
 mp-android-chart = "v3.1.0"
 org-jacoco-core = "0.8.8"
 retrofit-version = "2.9.0"
 koin-version = "3.4.0"
 koin-compose = "3.4.4"
-kotlinx-serialization-json = "1.6.0"
+kotlinx-serialization-json = "1.6.2"
 okhttp-version = "4.12.0"
 okhttp-logging-version = "4.12.0"
 retrofit-serialization = "1.0.0"
-androidx-navigation-compose = "2.7.6"
+androidx-navigation-compose = "2.7.7"
 mockk-version = "1.12.1"
 junit-version = "4.13.2"
 kotlinx-collections-immutable = "0.3.6"
-androidx-test-runner-version = "1.5.2"
-androidx-test-rules-version = "1.5.0"
-android-gradle-plugin = "8.2.1"
-android-tools = "31.2.1"
+androidx-test-runner-version = "1.6.1"
+androidx-test-rules-version = "1.6.1"
+android-gradle-plugin = "8.2.2"
+android-tools = "31.5.0"
 kotlinx-coroutines = "1.7.3"
-firebase-bom = "32.7.1"
-google-material = "1.11.0"
+firebase-bom = "33.1.1"
+google-material = "1.12.0"
+google-services = "4.4.2"
+firebase-crashlytics = "3.0.2"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -80,8 +82,9 @@ android-tools-common = { group = "com.android.tools", name = "common", version.r
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 
 [plugins]
-googleServices = { id = "com.google.gms.google-services", version = "4.4.0" }
-firebaseCraslytics = { id = "com.google.firebase.crashlytics", version = "2.9.9" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
+kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

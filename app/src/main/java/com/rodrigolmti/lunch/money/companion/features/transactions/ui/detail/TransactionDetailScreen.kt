@@ -20,6 +20,7 @@ import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -69,12 +70,12 @@ import java.util.Calendar
 @Composable
 internal fun TransactionsDetailScreen(
     uiModel: ITransactionDetailUIModel = DummyITransactionDetailUIModel(),
-    id: Int = 0,
+    id: Long = 0,
     onBackClick: () -> Unit = {},
 ) {
     val viewState by uiModel.viewState.collectAsStateWithLifecycle()
 
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackBarHostState = remember { SnackbarHostState() }
 
     val sheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
@@ -111,7 +112,7 @@ internal fun TransactionsDetailScreen(
 
                 LaunchedEffect(Unit) {
                     scope.launch {
-                        snackbarHostState.showSnackbar(message)
+                        snackBarHostState.showSnackbar(message)
                     }
                 }
             }
@@ -126,7 +127,7 @@ internal fun TransactionsDetailScreen(
             )
         },
         snackbarHost = {
-            SnackbarHost(hostState = snackbarHostState) {
+            SnackbarHost(hostState = snackBarHostState) {
                 Snackbar(
                     it,
                     containerColor = MidnightSlate,
@@ -188,6 +189,11 @@ private fun BuildSuccessState(
 
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = calendar.timeInMillis,
+        selectableDates = object : SelectableDates {
+            override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+                return utcTimeMillis <= System.currentTimeMillis()
+            }
+        }
     )
 
     var datePickerVisible by remember { mutableStateOf(false) }

@@ -1,4 +1,6 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class,
+    ExperimentalMaterialApi::class
+)
 
 package com.rodrigolmti.lunch.money.companion.features.transactions.ui
 
@@ -49,7 +51,7 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun TransactionsScreen(
     uiModel: ITransactionsUIModel = DummyITransactionsUIModel(),
-    onTransactionItemClick: (Int) -> Unit = {},
+    onTransactionItemClick: (Long) -> Unit = {},
     onTransactionSummaryClick: () -> Unit = {},
     onError: (String, String) -> Unit = { _, _ -> },
 ) {

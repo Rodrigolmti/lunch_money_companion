@@ -39,13 +39,13 @@ internal interface LunchService {
     @Authenticated
     @GET("v1/transactions/{id}")
     suspend fun getTransaction(
-        @Path("id") id: Int,
+        @Path("id") id: Long,
     ): TransactionResponse
 
     @Authenticated
     @PUT("v1/transactions/{id}")
     suspend fun updateTransaction(
-        @Path("id") id: Int,
+        @Path("id") id: Long,
         @Body transaction: UpdateTransactionBodyResponse,
     )
 

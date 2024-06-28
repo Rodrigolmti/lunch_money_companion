@@ -65,7 +65,7 @@ internal class TransactionFeatureAdapter(
         }
 
     suspend fun getTransaction(
-        id: Int
+        id: Long
     ): Outcome<TransactionDetailView, LunchError> {
         val categories = lunchRepository.getCategories()
 

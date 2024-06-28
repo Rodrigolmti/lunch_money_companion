@@ -10,7 +10,7 @@ internal class DummyITransactionDetailUIModel(
     state: TransactionDetailUiState = TransactionDetailUiState.Loading
 ) : ITransactionDetailUIModel {
     override val viewState = MutableStateFlow(state)
-    override fun getTransaction(id: Int) {
+    override fun getTransaction(id: Long) {
         // no-op
     }
 
