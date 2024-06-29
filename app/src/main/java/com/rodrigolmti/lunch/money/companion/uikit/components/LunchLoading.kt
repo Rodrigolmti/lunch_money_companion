@@ -23,5 +23,7 @@ fun LunchLoading() {
 @Composable
 @LunchMoneyPreview
 private fun LoadingPreview() {
-    LunchLoading()
+    CompanionTheme {
+        LunchLoading()
+    }
 }

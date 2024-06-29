@@ -35,9 +35,9 @@ fun BouncingImageAnimation() {
         animationSpec = infiniteRepeatable(
             animation = keyframes {
                 durationMillis = 2000
-                0.0f at 0 with LinearOutSlowInEasing
-                1.0f at 1000 with LinearOutSlowInEasing
-                0.0f at 2000 with LinearOutSlowInEasing
+                0.0f at 0 using LinearOutSlowInEasing
+                1.0f at 1000 using LinearOutSlowInEasing
+                0.0f at 2000 using LinearOutSlowInEasing
             },
             repeatMode = RepeatMode.Restart
         )

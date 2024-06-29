@@ -2,8 +2,8 @@
 
 package com.rodrigolmti.lunch.money.companion.uikit.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
+import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadingGrey
 import com.rodrigolmti.lunch.money.companion.uikit.theme.NightSkyMist
@@ -91,5 +92,27 @@ fun <T> LunchDropDown(
                 )
             }
         }
+    }
+}
+
+@Composable
+@LunchMoneyPreview
+private fun LunchDropDownPreview() {
+    CompanionTheme {
+
+        val optionsOne = listOf(
+            "One",
+            "Two"
+        )
+
+        LunchDropDown(
+            expanded = true,
+            options = optionsOne,
+            getSelectedLabel = { value -> value },
+            label = "DropDown",
+            onExpandedChange = { _ -> },
+            onOptionSelected = { _ -> },
+            selectedOption = optionsOne.first()
+        )
     }
 }

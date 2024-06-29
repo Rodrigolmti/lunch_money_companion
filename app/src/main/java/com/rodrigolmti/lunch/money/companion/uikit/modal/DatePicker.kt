@@ -9,16 +9,20 @@ import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.rodrigolmti.lunch.money.companion.R
+import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadingGrey
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
+import java.util.Calendar
 
 @Composable
 fun LunchDatePicker(
@@ -77,6 +81,28 @@ fun LunchDatePicker(
                 todayContentColor = FadingGrey,
                 weekdayContentColor = White,
             )
+        )
+    }
+}
+
+@Composable
+@LunchMoneyPreview
+fun LunchDatePickerPreview() {
+    CompanionTheme {
+
+        val datePickerState = rememberDatePickerState(
+            initialSelectedDateMillis = Calendar.getInstance().timeInMillis,
+            selectableDates = object : SelectableDates {
+                override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+                    return utcTimeMillis <= System.currentTimeMillis()
+                }
+            }
+        )
+
+        LunchDatePicker(
+            datePickerState = datePickerState,
+            onDismissRequest = {},
+            onDateSelected = {}
         )
     }
 }

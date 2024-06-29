@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadingGrey
 import com.rodrigolmti.lunch.money.companion.uikit.theme.NightSkyMist
@@ -75,5 +76,26 @@ fun LunchTextField(
                 unfocusedIndicatorColor = Color.Transparent
             ),
         )
+    }
+}
+
+@Composable
+@LunchMoneyPreview
+private fun LunchTextFieldPreview() {
+    CompanionTheme {
+        Column {
+            LunchTextField(
+                label = "Name label",
+                text = "My name is here"
+            )
+
+            VerticalSpacer(height = CompanionTheme.spacings.spacingD)
+
+            LunchTextField(
+                label = "Name label",
+                text = "My name is here",
+                enabled = false
+            )
+        }
     }
 }

@@ -3,15 +3,17 @@
 package com.rodrigolmti.lunch.money.companion.uikit.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
@@ -27,10 +29,10 @@ internal fun LunchAppBar(
         navigationIcon = {
             onBackClick?.let {
                 Icon(
-                    Icons.Filled.ArrowBack,
+                    Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = null,
                     tint = SilverLining,
-                    modifier = androidx.compose.ui.Modifier
+                    modifier = Modifier
                         .padding(
                             start = CompanionTheme.spacings.spacingD,
                             end = CompanionTheme.spacings.spacingD
@@ -55,6 +57,14 @@ internal fun LunchAppBar(
 
 @Composable
 @LunchMoneyPreview
-internal fun LunchAppBarPreview() {
-    LunchAppBar("Lunch Money") {}
+private fun LunchAppBarPreview() {
+    CompanionTheme {
+        Column {
+            LunchAppBar("Lunch Money") {}
+
+            VerticalSpacer(height = CompanionTheme.spacings.spacingD)
+
+            LunchAppBar("Lunch Money", {}) {}
+        }
+    }
 }

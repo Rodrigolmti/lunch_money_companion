@@ -41,7 +41,9 @@ internal fun EmptyState(
 @Composable
 @LunchMoneyPreview
 private fun ErrorStatePreview() {
-    EmptyState(
-        message = "Something went wrong",
-    )
+    CompanionTheme {
+        EmptyState(
+            message = "Something went wrong",
+        )
+    }
 }

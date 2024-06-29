@@ -13,17 +13,6 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.SilverLining
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
 
 @Composable
-@LunchMoneyPreview
-fun ConfirmationDialogPreview() {
-    CompanionTheme {
-        ConfirmationDialog(
-            dialogTitle = "This is a title",
-            dialogText = "This is a description, for a dialog.",
-        )
-    }
-}
-
-@Composable
 fun ConfirmationDialog(
     onDismissRequest: () -> Unit = {},
     onConfirmation: () -> Unit = {},
@@ -76,4 +65,15 @@ fun ConfirmationDialog(
             }
         }
     )
+}
+
+@Composable
+@LunchMoneyPreview
+fun ConfirmationDialogPreview() {
+    CompanionTheme {
+        ConfirmationDialog(
+            dialogTitle = "This is a title",
+            dialogText = "This is a description, for a dialog.",
+        )
+    }
 }
