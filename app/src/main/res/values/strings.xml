@@ -61,6 +61,16 @@
     <string name="transaction_select_date_label">Select Transaction Date</string>
     <string name="transaction_un_categorized_label">Uncategorized</string>
 
+    <string name="transaction_metadata_image_content_description">Transaction logo image.</string>
+    <string name="transaction_metadata_metadata_label">Plaid Metadata</string>
+    <string name="transaction_metadata_address_label">Address:</string>
+    <string name="transaction_metadata_merchant_label">Merchant:</string>
+    <string name="transaction_metadata_payment_processor_label">Payment processor:</string>
+    <string name="transaction_metadata_categories_label">Categories:</string>
+    <string name="transaction_metadata_is_pending_label">Is pending?</string>
+    <string name="transaction_metadata_yes_label">Yes</string>
+    <string name="transaction_metadata_no_label">No</string>
+
     <string name="transaction_title">Transaction Detail</string>
     <string name="transaction_error_message">Sorry, it\'s not possible to display the transaction details at this time.</string>
     <string name="transaction_modal_error_title">Oops, an issue occurred</string>

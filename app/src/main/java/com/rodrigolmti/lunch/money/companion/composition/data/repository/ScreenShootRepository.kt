@@ -79,6 +79,7 @@ internal class ScreenShootRepository(
                     subtype = null,
                     originalName = null,
                     recurringId = null,
+                    metadata = null,
                 ),
                 TransactionModel(
                     id = 2,
@@ -105,6 +106,7 @@ internal class ScreenShootRepository(
                     subtype = null,
                     originalName = "Burritzing card statement",
                     recurringId = null,
+                    metadata = null,
                 ),
                 TransactionModel(
                     id = 3,
@@ -131,6 +133,7 @@ internal class ScreenShootRepository(
                     subtype = null,
                     originalName = null,
                     recurringId = null,
+                    metadata = null,
                 ),
             )
         )
@@ -218,6 +221,7 @@ internal class ScreenShootRepository(
                 subtype = null,
                 originalName = null,
                 recurringId = null,
+                metadata = null,
             ),
         )
     }

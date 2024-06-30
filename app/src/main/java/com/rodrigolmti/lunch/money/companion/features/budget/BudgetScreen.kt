@@ -43,14 +43,6 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 import kotlinx.coroutines.launch
 
-@Composable
-@LunchMoneyPreview
-private fun BudgetScreenPreview(
-    @PreviewParameter(BudgetUIModelProvider::class) uiModel: IBudgetUIModel
-) {
-    BudgetScreen(uiModel)
-}
-
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun BudgetScreen(
@@ -185,4 +177,14 @@ private fun getBudget(
 ) {
     val (start, end) = filterState.getFilter()
     uiModel.getBudgetData(start, end)
+}
+
+@Composable
+@LunchMoneyPreview
+private fun BudgetScreenPreview(
+    @PreviewParameter(BudgetUIModelProvider::class) uiModel: IBudgetUIModel
+) {
+    CompanionTheme {
+        BudgetScreen(uiModel)
+    }
 }

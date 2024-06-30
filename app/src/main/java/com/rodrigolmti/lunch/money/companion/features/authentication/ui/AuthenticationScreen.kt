@@ -1,6 +1,5 @@
 @file:OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class,
-    ExperimentalComposeUiApi::class
+    ExperimentalMaterialApi::class
 )
 
 package com.rodrigolmti.lunch.money.companion.features.authentication.ui
@@ -21,7 +20,6 @@ import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -34,7 +32,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -89,8 +86,6 @@ internal fun AuthenticationScreen(
         val errorState = remember {
             mutableStateOf<AuthenticationScreenErrorState>(AuthenticationScreenErrorState.Idle)
         }
-
-        val context = LocalContext.current
 
         when (viewState) {
             AuthenticationUiState.Error -> {
@@ -153,7 +148,7 @@ internal fun AuthenticationScreen(
         ) {
             AuthenticationBody(
                 apiToken = apiToken,
-                context = context,
+                context = LocalContext.current,
                 isLoading = viewState.isLoading(),
                 onTextChanged = {
                     apiToken = it

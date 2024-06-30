@@ -61,6 +61,16 @@
     <string name="transaction_select_date_label">Selecione a data</string>
     <string name="transaction_un_categorized_label">Não Categorizado</string>
 
+    <string name="transaction_metadata_image_content_description">Imagem do logotipo da transação.</string>
+    <string name="transaction_metadata_metadata_label">Metadados do Plaid</string>
+    <string name="transaction_metadata_address_label">Endereço:</string>
+    <string name="transaction_metadata_merchant_label">Comerciante:</string>
+    <string name="transaction_metadata_payment_processor_label">Processador de pagamento:</string>
+    <string name="transaction_metadata_categories_label">Categorias:</string>
+    <string name="transaction_metadata_is_pending_label">Está pendente?</string>
+    <string name="transaction_metadata_yes_label">Sim</string>
+    <string name="transaction_metadata_no_label">Não</string>
+
     <string name="transaction_title">Detalhes da Transação</string>
     <string name="transaction_error_message">Desculpe, não foi possível exibir os detalhes da transação neste momento.</string>
     <string name="transaction_modal_error_title">Ops, ocorreu um problema</string>

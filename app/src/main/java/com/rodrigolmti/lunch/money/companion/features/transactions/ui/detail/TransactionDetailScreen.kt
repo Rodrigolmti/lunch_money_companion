@@ -321,6 +321,11 @@ private fun BuildSuccessState(
             color = White,
             style = CompanionTheme.typography.bodyBold,
         )
+
+        if (view.transaction.metadata != null) {
+            TransactionMetadataComponent(view = view.transaction.metadata)
+        }
+
         LunchButton(
             label = "Update",
             isLoading = false,

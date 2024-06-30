@@ -21,6 +21,7 @@ internal data class TransactionView(
     val originalName: String?,
     val category: TransactionCategoryView?,
     val status: TransactionStatusView,
+    val metadata: TransactionMetadataView? = null,
 )
 
 internal fun fakeTransactionDetailView() = TransactionDetailView(

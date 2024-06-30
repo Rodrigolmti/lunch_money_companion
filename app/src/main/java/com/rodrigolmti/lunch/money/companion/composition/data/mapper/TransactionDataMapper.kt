@@ -10,6 +10,7 @@ import com.rodrigolmti.lunch.money.companion.composition.data.model.response.Pla
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.PlaidAccountStatus
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionBodyResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionCategoryResponse
+import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionMetadataResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.TransactionStatusResponse
 import com.rodrigolmti.lunch.money.companion.composition.data.model.response.UpdateTransactionResponse
@@ -18,6 +19,7 @@ import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetSourc
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetStatus
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetType
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionCategoryModel
+import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionMetadataModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionStatus
 
@@ -70,7 +72,32 @@ internal fun TransactionResponse.toModel(
     toBase = toBase,
     excludeFromTotals = excludeFromTotals ?: false,
     isIncome = isIncome ?: false,
+    metadata = metadata?.toModel(),
 )
+
+internal fun TransactionMetadataResponse.toModel() : TransactionMetadataModel {
+    val stringBuilder: StringBuilder = StringBuilder()
+    location?.city?.let {
+        stringBuilder.append(it)
+    }
+    location?.region?.let {
+        stringBuilder.append(" - $it")
+    }
+    location?.country?.let {
+        stringBuilder.append(" - $it")
+    }
+
+    val location = stringBuilder.toString()
+
+    return TransactionMetadataModel(
+        categories = categories,
+        location = location.ifEmpty { null },
+        logoURL = logoURL,
+        merchantName = merchantName,
+        paymentProcessor = payment?.paymentProcessor,
+        pending = pending,
+    )
+}
 
 internal fun PlaidAccountResponse.toModel() = AssetModel(
     id = id,

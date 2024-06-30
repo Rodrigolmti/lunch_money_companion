@@ -18,6 +18,5 @@ internal data class TransactionModel(
     val originalName: String?,
     val type: String?,
     val subtype: String?,
+    val metadata: TransactionMetadataModel?
 )
-
-

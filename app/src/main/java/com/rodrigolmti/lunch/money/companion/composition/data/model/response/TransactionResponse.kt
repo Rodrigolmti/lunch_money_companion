@@ -1,6 +1,7 @@
 package com.rodrigolmti.lunch.money.companion.composition.data.model.response
 
 import androidx.annotation.Keep
+import com.rodrigolmti.lunch.money.companion.composition.data.model.serializers.TransactionMetadataResponseSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -48,6 +49,46 @@ internal data class TransactionResponse(
     val type: String? = null,
     @SerialName("subtype")
     val subtype: String? = null,
+    @SerialName("plaid_metadata")
+    @Serializable(with = TransactionMetadataResponseSerializer::class)
+    val metadata: TransactionMetadataResponse?
+)
+
+@Keep
+@Serializable
+internal data class TransactionMetadataResponse(
+    @SerialName("category")
+    val categories: List<String> = emptyList(),
+    @SerialName("location")
+    val location: TransactionMetadataLocationResponse?,
+    @SerialName("payment_meta")
+    val payment: TransactionMetadataPaymentResponse?,
+    @SerialName("logo_url")
+    val logoURL: String?,
+    @SerialName("merchant_name")
+    val merchantName: String?,
+    @SerialName("pending")
+    val pending: Boolean,
+    @SerialName("payment_channel")
+    val paymentChannel: String?
+)
+
+@Keep
+@Serializable
+internal data class TransactionMetadataLocationResponse(
+    @SerialName("city")
+    val city: String?,
+    @SerialName("region")
+    val region: String?,
+    @SerialName("country")
+    val country: String?,
+)
+
+@Keep
+@Serializable
+internal data class TransactionMetadataPaymentResponse(
+    @SerialName("payment_processor")
+    val paymentProcessor: String?,
 )
 
 @Keep
@@ -93,3 +134,4 @@ internal enum class TransactionStatusResponse {
 
     UNKNOWN,
 }
+

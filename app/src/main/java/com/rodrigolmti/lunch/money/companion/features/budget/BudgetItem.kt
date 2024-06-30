@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.rodrigolmti.lunch.money.companion.features.budget
 
 import androidx.compose.foundation.BorderStroke
@@ -10,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,22 +27,6 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.EmeraldSpring
 import com.rodrigolmti.lunch.money.companion.uikit.theme.FadedBlood
 import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 import com.rodrigolmti.lunch.money.companion.uikit.theme.White
-
-@Composable
-@LunchMoneyPreview
-private fun BudgetItemPreview() {
-    CompanionTheme {
-        Column {
-            BudgetItem(fakeBudgetView())
-            VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-            BudgetItem(
-                fakeBudgetView(
-                    items = emptyList()
-                )
-            )
-        }
-    }
-}
 
 @Composable
 internal fun BudgetItem(budget: BudgetView) {
@@ -176,6 +157,22 @@ internal fun BudgetItem(budget: BudgetView) {
                     style = CompanionTheme.typography.body,
                 )
             }
+        }
+    }
+}
+
+@Composable
+@LunchMoneyPreview
+private fun BudgetItemPreview() {
+    CompanionTheme {
+        Column {
+            BudgetItem(fakeBudgetView())
+            VerticalSpacer(height = CompanionTheme.spacings.spacingB)
+            BudgetItem(
+                fakeBudgetView(
+                    items = emptyList()
+                )
+            )
         }
     }
 }

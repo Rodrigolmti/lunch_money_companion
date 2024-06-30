@@ -6,14 +6,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.util.Date
 
-class DummyIBudgetUIModel(state: BudgetUiState = BudgetUiState.Loading) : IBudgetUIModel {
+internal class DummyIBudgetUIModel(state: BudgetUiState = BudgetUiState.Loading) : IBudgetUIModel {
     override val viewState: StateFlow<BudgetUiState> = MutableStateFlow(state)
 
     override fun getBudgetData(start: Date, end: Date) {
         // no-op
     }
 }
-
 
 internal class BudgetUIModelProvider : PreviewParameterProvider<IBudgetUIModel> {
     override val values: Sequence<IBudgetUIModel>

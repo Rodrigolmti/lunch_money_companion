@@ -20,6 +20,7 @@ internal class AuthenticationViewModel(
     private val authenticateUser: AuthenticateUser,
     private val postAuthentication: suspend () -> Unit,
 ) : IAuthenticationViewModel() {
+
     private val _viewState = MutableStateFlow<AuthenticationUiState>(AuthenticationUiState.Idle)
     override val viewState: StateFlow<AuthenticationUiState> = _viewState
 

@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
+@file:OptIn(ExperimentalMaterialApi::class)
 
 package com.rodrigolmti.lunch.money.companion.features.home.ui
 
@@ -17,7 +17,6 @@ import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -190,7 +189,7 @@ private fun BuildSuccessState(view: HomeView) {
                     .padding(
                         top = CompanionTheme.spacings.spacingD,
                         start = CompanionTheme.spacings.spacingD,
-                        end = CompanionTheme.spacings.spacingD,
+                        end = CompanionTheme.spacings.spacingF,
                     )
             ) {
                 PendingAssetsItem(
