@@ -12,10 +12,10 @@ runs:
         cache: gradle\
 
     - name: "Setup Android"
-      uses: android-actions-setup-android@v2
+      uses: android-actions/setup-android@v3
 
-    - uses: actions/cache@v3
-      name: "Populate Gradle Cache"
+    - name: "Populate Gradle Cache"
+      uses: actions/cache@v3
       with:
         path: |
           ~/.gradle/caches
