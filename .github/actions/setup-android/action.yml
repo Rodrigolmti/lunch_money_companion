@@ -9,7 +9,7 @@ runs:
       with:
         java-version: "17"
         distribution: "corretto"
-        cache: gradle\
+        cache: gradle
 
     - name: "Setup Android"
       uses: android-actions/setup-android@v3
