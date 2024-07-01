@@ -1,8 +1,9 @@
-name: Deploy static content to Pages
+name: "Deploy static content to Pages"
 
 on:
   push:
-    branches: ["main"]
+    tags:
+      - '*.*.*'
 
 permissions:
   contents: read
@@ -16,18 +17,18 @@ concurrency:
 jobs:
   deploy:
     environment:
-      name: github-pages
+      name: "github-pages"
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: "Checkout code"
         uses: actions/checkout@v4
-      - name: Setup Pages
+      - name: "Setup Pages"
         uses: actions/configure-pages@v4
-      - name: Upload artifact
+      - name: "Upload artifact"
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './docs'
-      - name: Deploy to GitHub Pages
+          path: './legal'
+      - name: "Deploy to GitHub Pages"
         id: deployment
         uses: actions/deploy-pages@v4

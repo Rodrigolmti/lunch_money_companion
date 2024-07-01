@@ -1,0 +1,37 @@
+name: "Setup Android Environment"
+description: "Setup Android Environment"
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Setup JDK"
+      uses: actions/setup-java@v3
+      with:
+        java-version: "17"
+        distribution: "corretto"
+        cache: gradle
+
+    - name: "Setup Android"
+      uses: android-actions/setup-android@v3
+
+    - name: "Populate Gradle Cache"
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('/*.gradle*', '/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    - name: "Setup Gradle"
+      uses: gradle/gradle-build-action@v3
+
+      with:
+        add-job-summary-as-pr-comment: 'always'
+        add-job-summary: 'always'
+        cache-read-only: false
+
+    - name: "Grant execute permission to Gradle wrapper"
+      run: chmod +x gradlew
+      shell: bash
