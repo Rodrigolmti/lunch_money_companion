@@ -25,7 +25,7 @@ import org.koin.androidx.compose.koinViewModel
 
 internal const val authenticationRoute = "/authentication"
 internal const val dashboardRoute = "/dashboard"
-internal const val webviewRouter = "/webview?url={url}"
+internal const val webViewRouter = "/webView?url={url}"
 internal const val transactionDetailRouter = "/transaction?id={id}"
 internal const val transactionSummaryRouter = "/transaction/summary"
 internal const val analyzeRouter = "/analyze"
@@ -58,7 +58,7 @@ internal fun NavigationGraph(
                     navController.navigate(analyzeRouter)
                 },
                 onTermsOfUseClick = {
-                    navController.navigate(webviewRouter.replace("{url}", it))
+                    navController.navigate(webViewRouter.replace("{url}", it))
                 },
                 onLogout = {
                     navController.navigate(authenticationRoute) {
@@ -73,7 +73,11 @@ internal fun NavigationGraph(
                 onScreenSelected = { selectedScreen = it },
                 onTransactionSelected = {
                     navController.navigate(transactionDetailRouter.replace("{id}", it.toString()))
-                })
+                },
+                onBreakdownClick = {
+                    navController.navigate(transactionSummaryRouter)
+                },
+            )
         }
         composable(
             route = transactionDetailRouter,
@@ -110,7 +114,7 @@ internal fun NavigationGraph(
             }
         }
         composable(
-            route = webviewRouter,
+            route = webViewRouter,
             arguments = listOf(
                 navArgument("url") {
                     type = NavType.StringType

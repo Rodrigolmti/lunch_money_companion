@@ -69,6 +69,7 @@ internal fun BottomNavigation(
     onTransactionSelected: (Long) -> Unit,
     onTransactionSummaryClick: () -> Unit = {},
     onAnalyzeClick: () -> Unit = {},
+    onBreakdownClick: () -> Unit = {},
 ) {
     val sheetState =
         rememberModalBottomSheetState(
@@ -219,6 +220,7 @@ internal fun BottomNavigation(
                                 scope
                             )
                         },
+                        onBreakdownClick = onBreakdownClick,
                     )
                 }
 
