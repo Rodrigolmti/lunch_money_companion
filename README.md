@@ -39,6 +39,8 @@ To use the app, you will need an API token from Lunch Money. Follow these steps:
 ## Contributions
 As an independent project, contributions, feedback, and suggestions are always welcome. Please reach out or submit pull requests for improvements.
 
+Check out WIKI: [Contributing Guidelines](https://github.com/Rodrigolmti/lunch_money_companion/wiki/Contributing-Guidelines)
+
 ## Disclaimer
 This application is not officially affiliated with Lunch Money. It is a personal project developed by Rodrigo Lopes Martins, intended to provide an alternative way for Android users to access their Lunch Money data.
 
