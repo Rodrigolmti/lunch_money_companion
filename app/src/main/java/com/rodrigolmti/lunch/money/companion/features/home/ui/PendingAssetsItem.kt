@@ -3,7 +3,7 @@ package com.rodrigolmti.lunch.money.companion.features.home.ui
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -29,7 +29,7 @@ internal fun PendingAssetsItem(
 
     Column(
         modifier = Modifier
-            .padding(CompanionTheme.spacings.spacingD),
+            .padding(CompanionTheme.spacings.spacingD)
     ) {
         Text(
             stringResource(R.string.home_pending_label),
@@ -39,7 +39,7 @@ internal fun PendingAssetsItem(
             style = CompanionTheme.typography.body
         )
         VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-        Divider()
+        HorizontalDivider()
         VerticalSpacer(height = CompanionTheme.spacings.spacingB)
         Text(
             stringResource(R.string.home_pending_description),

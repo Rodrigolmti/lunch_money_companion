@@ -16,6 +16,8 @@ import com.rodrigolmti.lunch.money.companion.features.home.model.AssetOverviewVi
 import com.rodrigolmti.lunch.money.companion.features.home.model.AssetTypeView
 import com.rodrigolmti.lunch.money.companion.features.home.model.HomeView
 import com.rodrigolmti.lunch.money.companion.features.home.model.PeriodSummaryView
+import com.rodrigolmti.lunch.money.companion.features.home.model.SpendingBreakdownView
+import com.rodrigolmti.lunch.money.companion.features.home.model.SpendingItemView
 import kotlinx.collections.immutable.toImmutableList
 import java.util.Date
 
@@ -58,10 +60,85 @@ internal class HomeFeatureAdapter(
                 pendingAssets = assets.filter {
                     it.status == AssetStatus.RELINK || it.status == AssetStatus.ERROR
                 }.map { it.name },
+                spendingBreakdown = mapSummaryBreakdown(
+                    transactions,
+                    currency,
+                    totalIncome,
+                    totalExpense,
+                )
             )
         }.mapThrowable {
             LunchError.EmptyDataError
         }
+    }
+
+    private fun mapSummaryBreakdown(
+        transactions: List<TransactionModel>,
+        currency: String,
+        totalIncome: Float,
+        totalExpense: Float,
+    ): SpendingBreakdownView {
+        val incomes = mapSummaryBreakdownItem(
+            transactions,
+            { it.isIncome && !it.excludeFromTotals },
+            { key, amount ->
+                val normalizedAmount = AmountNormalizer.fixAmountBasedOnSymbol(
+                    true,
+                    amount.toFloat()
+                )
+
+                SpendingItemView(
+                    name = key,
+                    percentage = ((normalizedAmount / totalIncome) * 100).coerceAtLeast(0f)
+                        .toInt(),
+                    value = normalizedAmount,
+                    currency = currency,
+                )
+            }
+        )
+
+        val expenses = mapSummaryBreakdownItem(
+            transactions,
+            { !it.isIncome && !it.excludeFromTotals },
+            { key, amount ->
+                val normalizedAmount = AmountNormalizer.fixAmountBasedOnSymbol(
+                    false,
+                    amount.toFloat()
+                )
+
+                SpendingItemView(
+                    name = key,
+                    percentage = ((amount / totalExpense) * 100).coerceAtLeast(0.0)
+                        .toInt(),
+                    value = normalizedAmount,
+                    currency = currency,
+                )
+            }
+        )
+
+        return SpendingBreakdownView(
+            incomes = incomes,
+            expenses = expenses,
+        )
+    }
+
+    private fun mapSummaryBreakdownItem(
+        transactions: List<TransactionModel>,
+        predicate: (TransactionModel) -> Boolean,
+        mapper: (key: String, amount: Double) -> SpendingItemView,
+    ): List<SpendingItemView> {
+        val items = mutableListOf<SpendingItemView>()
+
+        transactions
+            .filter(predicate)
+            .groupBy { it.category?.name ?: "uncategorized" }
+            .mapValues { entry -> entry.value.sumOf { it.amount.toDouble() } }
+            .asSequence()
+            .forEach { (key, amount) ->
+                items.add(mapper(key, amount))
+            }
+
+        return items.sortedByDescending { it.percentage }
     }
 
     private fun calculateTotalIncomeAndExpense(transactions: List<TransactionModel>): Pair<Float, Float> {

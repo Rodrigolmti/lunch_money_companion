@@ -107,6 +107,7 @@
     <string name="home_net_income_label">Renda Líquida</string>
     <string name="home_savings_rate_label">Taxa de Economia Atual</string>
     <string name="home_reconnect_now_action">Reconectar Agora</string>
+    <string name="home_spending_breakdown_label">Detalhamento de Gastos</string>
 
     <string name="filter_title">Filtro</string>
     <string name="filter_description">Selecione o intervalo de datas para filtrar os dados.</string>

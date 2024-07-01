@@ -5,6 +5,7 @@ import com.rodrigolmti.lunch.money.companion.core.utils.ValueGenerator
 import com.rodrigolmti.lunch.money.companion.features.home.model.HomeView
 import com.rodrigolmti.lunch.money.companion.features.home.model.fakeAssetOverviewView
 import com.rodrigolmti.lunch.money.companion.features.home.model.fakePeriodSummaryView
+import com.rodrigolmti.lunch.money.companion.features.home.model.fakeSpendingBreakdownView
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -39,7 +40,8 @@ internal class HomeUIModelProvider : PreviewParameterProvider<IHomeUIModel> {
                             ValueGenerator.gen(),
                             ValueGenerator.gen(),
                             ValueGenerator.gen(),
-                        )
+                        ),
+                        spendingBreakdown = fakeSpendingBreakdownView()
                     )
                 )
             )

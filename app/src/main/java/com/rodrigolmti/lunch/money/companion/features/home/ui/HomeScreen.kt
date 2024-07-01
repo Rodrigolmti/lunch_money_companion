@@ -175,21 +175,14 @@ private fun BuildSuccessState(view: HomeView) {
             .padding(top = CompanionTheme.spacings.spacingI)
     ) {
         if (view.pendingAssets.isNotEmpty()) {
-            Card(
-                shape = MaterialTheme.shapes.medium,
-                colors = CardDefaults.cardColors(
-                    containerColor = CharcoalMist
-                ),
-                border = BorderStroke(
-                    width = Dp.Hairline,
-                    color = Color.Black
-                ),
+
+            HomeCardComponent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
                         top = CompanionTheme.spacings.spacingD,
                         start = CompanionTheme.spacings.spacingD,
-                        end = CompanionTheme.spacings.spacingF,
+                        end = CompanionTheme.spacings.spacingD,
                     )
             ) {
                 PendingAssetsItem(
@@ -198,15 +191,7 @@ private fun BuildSuccessState(view: HomeView) {
             }
         }
 
-        Card(
-            shape = MaterialTheme.shapes.medium,
-            colors = CardDefaults.cardColors(
-                containerColor = CharcoalMist
-            ),
-            border = BorderStroke(
-                width = Dp.Hairline,
-                color = Color.Black
-            ),
+        HomeCardComponent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
@@ -218,15 +203,21 @@ private fun BuildSuccessState(view: HomeView) {
             SummaryItem(view.summary)
         }
 
-        Card(
-            shape = MaterialTheme.shapes.medium,
-            colors = CardDefaults.cardColors(
-                containerColor = CharcoalMist
-            ),
-            border = BorderStroke(
-                width = Dp.Hairline,
-                color = Color.Black
-            ),
+        if (view.spendingBreakdown.incomes.isNotEmpty() || view.spendingBreakdown.expenses.isNotEmpty()) {
+            HomeCardComponent(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = CompanionTheme.spacings.spacingD,
+                        start = CompanionTheme.spacings.spacingD,
+                        end = CompanionTheme.spacings.spacingD,
+                    )
+            ) {
+                SpendingBreakdown(view.spendingBreakdown)
+            }
+        }
+
+        HomeCardComponent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
@@ -245,9 +236,28 @@ private fun BuildSuccessState(view: HomeView) {
 }
 
 @Composable
+internal fun HomeCardComponent(modifier: Modifier, content: @Composable () -> Unit) {
+    Card(
+        shape = MaterialTheme.shapes.medium,
+        colors = CardDefaults.cardColors(
+            containerColor = CharcoalMist
+        ),
+        border = BorderStroke(
+            width = Dp.Hairline,
+            color = Color.Black
+        ),
+        modifier = modifier
+    ) {
+        content()
+    }
+}
+
+@Composable
 @LunchMoneyPreview
 private fun HomeScreenPreview(
     @PreviewParameter(HomeUIModelProvider::class) uiModel: IHomeUIModel
 ) {
-    HomeScreen(uiModel)
+    CompanionTheme {
+        HomeScreen(uiModel)
+    }
 }

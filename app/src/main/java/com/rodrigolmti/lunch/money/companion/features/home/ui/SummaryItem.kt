@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -36,7 +36,7 @@ internal fun SummaryItem(summary: PeriodSummaryView) {
             style = CompanionTheme.typography.body
         )
         VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-        Divider()
+        HorizontalDivider()
         VerticalSpacer(height = CompanionTheme.spacings.spacingB)
         Text(
             stringResource(R.string.home_income_label),
@@ -59,7 +59,7 @@ internal fun SummaryItem(summary: PeriodSummaryView) {
             )
         }
         VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-        Divider()
+        HorizontalDivider()
         VerticalSpacer(height = CompanionTheme.spacings.spacingB)
         Text(
             stringResource(R.string.home_expenses_label),
@@ -97,7 +97,7 @@ internal fun SummaryItem(summary: PeriodSummaryView) {
             )
         }
         VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-        Divider()
+        HorizontalDivider()
         VerticalSpacer(height = CompanionTheme.spacings.spacingB)
         Row {
             Text(

@@ -107,6 +107,7 @@
     <string name="home_net_income_label">Net Income</string>
     <string name="home_savings_rate_label">Current Savings Rate</string>
     <string name="home_reconnect_now_action">Reconnect Now</string>
+    <string name="home_spending_breakdown_label">Spending Breakdown</string>
 
     <string name="filter_title">Filter</string>
     <string name="filter_description">Select the date range to filter the data.</string>

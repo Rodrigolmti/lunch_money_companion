@@ -30,6 +30,7 @@ private val DarkColorScheme = darkColorScheme(
     onSurface = CharcoalMist,
     onPrimary = FadingGrey,
     onTertiary = FadingGrey,
+    outline = White
 )
 
 object CompanionTheme {

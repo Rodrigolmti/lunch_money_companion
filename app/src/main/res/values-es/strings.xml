@@ -107,6 +107,7 @@
     <string name="home_net_income_label">Ingresos Netos</string>
     <string name="home_savings_rate_label">Tasa de Ahorro Actual</string>
     <string name="home_reconnect_now_action">Reconectar Ahora</string>
+    <string name="home_spending_breakdown_label">Desglose de Gastos</string>
 
     <string name="filter_title">Filtrar</string>
     <string name="filter_description">Seleccione el rango de fechas para filtrar los datos.</string>

@@ -8,4 +8,5 @@ internal data class HomeView(
     val overviews: ImmutableList<AssetOverviewView>,
     val summary: PeriodSummaryView,
     val pendingAssets: List<String>,
+    val spendingBreakdown: SpendingBreakdownView,
 )
