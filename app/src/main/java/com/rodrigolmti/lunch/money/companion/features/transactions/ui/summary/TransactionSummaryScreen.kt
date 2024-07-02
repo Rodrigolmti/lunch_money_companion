@@ -20,6 +20,7 @@ import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -38,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -202,13 +204,14 @@ internal fun TransactionsSummaryScreen(
                             ) {
                                 Text(
                                     stringResource(R.string.transaction_summary_card_title),
-                                    color = White,
                                     modifier = Modifier.fillMaxWidth(),
                                     textAlign = TextAlign.Center,
-                                    style = CompanionTheme.typography.body
+                                    overflow = TextOverflow.Ellipsis,
+                                    color = SunburstGold,
+                                    style = CompanionTheme.typography.bodyBold,
                                 )
                                 VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-                                Divider()
+                                HorizontalDivider()
                                 VerticalSpacer(height = CompanionTheme.spacings.spacingB)
                                 Text(
                                     stringResource(R.string.transaction_summary_income_label),
@@ -237,7 +240,7 @@ internal fun TransactionsSummaryScreen(
                                     currency = view.currency
                                 )
                                 VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-                                Divider()
+                                HorizontalDivider()
                                 VerticalSpacer(height = CompanionTheme.spacings.spacingB)
                                 Text(
                                     stringResource(R.string.transaction_summary_expenses_label),
@@ -267,7 +270,7 @@ internal fun TransactionsSummaryScreen(
                                     valueColor = White
                                 )
                                 VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-                                Divider()
+                                HorizontalDivider()
                                 VerticalSpacer(height = CompanionTheme.spacings.spacingB)
                                 CurrencyTileItem(
                                     stringResource(R.string.transaction_summary_net_label),

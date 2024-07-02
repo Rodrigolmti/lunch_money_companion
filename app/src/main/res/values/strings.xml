@@ -76,7 +76,7 @@
     <string name="transaction_modal_error_title">Oops, an issue occurred</string>
     <string name="transaction_modal_error_message">We could\'t fetch the transaction information. Please try again.</string>
 
-    <string name="transaction_summary_title">Transaction Summary</string>
+    <string name="transaction_summary_title">Summary</string>
     <string name="transaction_summary_error_label">Sorry, it\'s not possible to display the transaction summary at this time.</string>
     <string name="transaction_summary_card_title">Summary</string>
     <string name="transaction_summary_income_label">INCOME</string>

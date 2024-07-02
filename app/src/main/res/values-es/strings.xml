@@ -76,7 +76,7 @@
     <string name="transaction_modal_error_title">¡Ups, ocurrió un problema!</string>
     <string name="transaction_modal_error_message">No pudimos obtener la información de la transacción. Por favor, inténtalo de nuevo.</string>
 
-    <string name="transaction_summary_title">Resumen de la Transacción</string>
+    <string name="transaction_summary_title">Resumen</string>
     <string name="transaction_summary_error_label">Lo sentimos, no es posible mostrar el resumen de la transacción en este momento.</string>
     <string name="transaction_summary_card_title">Resumen</string>
     <string name="transaction_summary_income_label">INGRESOS</string>
