@@ -34,10 +34,11 @@ internal fun SpendingBreakdown(breakdown: SpendingBreakdownView) {
     ) {
         Text(
             stringResource(R.string.home_spending_breakdown_label),
-            color = White,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
-            style = CompanionTheme.typography.body
+            overflow = TextOverflow.Ellipsis,
+            color = SunburstGold,
+            style = CompanionTheme.typography.bodyBold,
         )
 
         if (breakdown.incomes.isNotEmpty()) {

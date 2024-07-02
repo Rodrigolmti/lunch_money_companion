@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.core.utils.formatCurrency
@@ -34,13 +36,14 @@ internal fun OverviewItem(
     ) {
         Text(
             stringResource(R.string.home_account_label),
-            color = White,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
-            style = CompanionTheme.typography.body
+            overflow = TextOverflow.Ellipsis,
+            color = SunburstGold,
+            style = CompanionTheme.typography.bodyBold,
         )
         VerticalSpacer(height = CompanionTheme.spacings.spacingB)
-        Divider()
+        HorizontalDivider()
         VerticalSpacer(height = CompanionTheme.spacings.spacingB)
         overviews.forEach { overview ->
             Text(

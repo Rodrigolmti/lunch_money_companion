@@ -33,10 +33,11 @@ internal fun PendingAssetsItem(
     ) {
         Text(
             stringResource(R.string.home_pending_label),
-            color = White,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
-            style = CompanionTheme.typography.body
+            overflow = TextOverflow.Ellipsis,
+            color = SunburstGold,
+            style = CompanionTheme.typography.bodyBold,
         )
         VerticalSpacer(height = CompanionTheme.spacings.spacingB)
         HorizontalDivider()

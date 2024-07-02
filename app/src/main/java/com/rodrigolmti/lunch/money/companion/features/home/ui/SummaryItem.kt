@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.core.utils.formatCurrency
@@ -30,10 +31,11 @@ internal fun SummaryItem(summary: PeriodSummaryView) {
     ) {
         Text(
             stringResource(R.string.home_period_label),
-            color = White,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
-            style = CompanionTheme.typography.body
+            overflow = TextOverflow.Ellipsis,
+            color = SunburstGold,
+            style = CompanionTheme.typography.bodyBold,
         )
         VerticalSpacer(height = CompanionTheme.spacings.spacingB)
         HorizontalDivider()
