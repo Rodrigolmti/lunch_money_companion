@@ -39,7 +39,7 @@
     <string name="authentication_invalid_token_title">Clave de API no válida</string>
     <string name="authentication_invalid_token_description">Por favor, verifica tu Clave de API e inténtalo de nuevo. Si no tienes una, puedes obtenerla en la configuración de tu cuenta de Lunch Money.</string>
 
-    <string name="transaction_label_cleared">Liquidada</string>
+    <string name="transaction_label_reviewed">Revisada</string>
     <string name="transaction_label_recurring">Recurrente</string>
     <string name="transaction_label_recurring_suggested">Recurrente Sugerida</string>
     <string name="transaction_label_pending">Pendiente</string>

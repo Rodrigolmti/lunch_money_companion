@@ -126,32 +126,27 @@ internal fun BudgetScreen(
                 is BudgetUiState.Success -> {
                     val budget = (viewState as BudgetUiState.Success).view
 
-                    Column(
+                    LazyColumn(
+                        contentPadding = PaddingValues(
+                            top = CompanionTheme.spacings.spacingJ,
+                            bottom = CompanionTheme.spacings.spacingK,
+                        ),
+                        verticalArrangement = Arrangement.spacedBy(CompanionTheme.spacings.spacingB),
                         modifier = Modifier
-                            .padding(top = CompanionTheme.spacings.spacingI)
-                    ) {
-                        LazyColumn(
-                            contentPadding = PaddingValues(
-                                bottom = CompanionTheme.spacings.spacingJ,
-                                top = CompanionTheme.spacings.spacingD
+                            .padding(
+                                start = CompanionTheme.spacings.spacingD,
+                                end = CompanionTheme.spacings.spacingD,
                             ),
-                            verticalArrangement = Arrangement.spacedBy(CompanionTheme.spacings.spacingB),
-                            modifier = Modifier
-                                .padding(
-                                    start = CompanionTheme.spacings.spacingD,
-                                    end = CompanionTheme.spacings.spacingD,
-                                ),
-                            state = listState,
-                        ) {
-                            items(
-                                count = budget.size,
-                                key = { index -> budget[index].uuid },
-                            ) { index ->
+                        state = listState,
+                    ) {
+                        items(
+                            count = budget.size,
+                            key = { index -> budget[index].uuid },
+                        ) { index ->
 
-                                val item = budget[index]
+                            val item = budget[index]
 
-                                BudgetItem(item)
-                            }
+                            BudgetItem(item)
                         }
                     }
                 }

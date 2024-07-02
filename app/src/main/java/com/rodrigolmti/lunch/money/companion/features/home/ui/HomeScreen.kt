@@ -177,7 +177,10 @@ private fun BuildSuccessState(
     Column(
         modifier = Modifier
             .verticalScroll(scrollState)
-            .padding(top = CompanionTheme.spacings.spacingI)
+            .padding(
+                top = CompanionTheme.spacings.spacingI,
+                bottom = CompanionTheme.spacings.spacingK,
+            )
     ) {
         if (view.pendingAssets.isNotEmpty()) {
 
@@ -236,8 +239,6 @@ private fun BuildSuccessState(
                 overviews = view.overviews
             )
         }
-
-        VerticalSpacer(height = CompanionTheme.spacings.spacingJ)
     }
 }
 

@@ -1,4 +1,5 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class,
+@file:OptIn(
+    ExperimentalMaterialApi::class,
     ExperimentalMaterialApi::class
 )
 
@@ -6,7 +7,6 @@ package com.rodrigolmti.lunch.money.companion.features.transactions.ui
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -18,7 +18,6 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -183,33 +182,28 @@ private fun BuildSuccessState(
     transactions: List<TransactionView>,
     onTransactionSelected: (TransactionView) -> Unit,
 ) {
-    Column(
+    LazyColumn(
+        contentPadding = PaddingValues(
+            top = CompanionTheme.spacings.spacingJ,
+            bottom = CompanionTheme.spacings.spacingK,
+        ),
+        verticalArrangement = Arrangement.spacedBy(CompanionTheme.spacings.spacingB),
         modifier = Modifier
-            .padding(top = CompanionTheme.spacings.spacingI)
-    ) {
-        LazyColumn(
-            contentPadding = PaddingValues(
-                bottom = CompanionTheme.spacings.spacingJ,
-                top = CompanionTheme.spacings.spacingD
+            .padding(
+                start = CompanionTheme.spacings.spacingD,
+                end = CompanionTheme.spacings.spacingD,
             ),
-            verticalArrangement = Arrangement.spacedBy(CompanionTheme.spacings.spacingB),
-            modifier = Modifier
-                .padding(
-                    start = CompanionTheme.spacings.spacingD,
-                    end = CompanionTheme.spacings.spacingD,
-                ),
-            state = listState,
-        ) {
-            items(
-                count = transactions.size,
-                key = { index -> transactions[index].id },
-            ) { index ->
+        state = listState,
+    ) {
+        items(
+            count = transactions.size,
+            key = { index -> transactions[index].id },
+        ) { index ->
 
-                val transaction = transactions[index]
+            val transaction = transactions[index]
 
-                TransactionItem(transaction) {
-                    onTransactionSelected(transaction)
-                }
+            TransactionItem(transaction) {
+                onTransactionSelected(transaction)
             }
         }
     }

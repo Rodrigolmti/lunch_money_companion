@@ -2,7 +2,6 @@ package com.rodrigolmti.lunch.money.companion.features.recurring
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -67,32 +66,27 @@ internal fun RecurringScreen(
             is RecurringUiState.Success -> {
                 val values = (viewState as RecurringUiState.Success).values
 
-                Column(
+                LazyColumn(
+                    contentPadding = PaddingValues(
+                        top = CompanionTheme.spacings.spacingJ,
+                        bottom = CompanionTheme.spacings.spacingK,
+                    ),
+                    verticalArrangement = Arrangement.spacedBy(CompanionTheme.spacings.spacingB),
                     modifier = Modifier
-                        .padding(top = CompanionTheme.spacings.spacingI)
-                ) {
-                    LazyColumn(
-                        contentPadding = PaddingValues(
-                            bottom = CompanionTheme.spacings.spacingJ,
-                            top = CompanionTheme.spacings.spacingD
+                        .padding(
+                            start = CompanionTheme.spacings.spacingD,
+                            end = CompanionTheme.spacings.spacingD,
                         ),
-                        verticalArrangement = Arrangement.spacedBy(CompanionTheme.spacings.spacingB),
-                        modifier = Modifier
-                            .padding(
-                                start = CompanionTheme.spacings.spacingD,
-                                end = CompanionTheme.spacings.spacingD,
-                            ),
-                        state = listState,
-                    ) {
-                        items(
-                            count = values.size,
-                            key = { index -> values[index].id },
-                        ) { index ->
+                    state = listState,
+                ) {
+                    items(
+                        count = values.size,
+                        key = { index -> values[index].id },
+                    ) { index ->
 
-                            val item = values[index]
+                        val item = values[index]
 
-                            RecurringItem(item)
-                        }
+                        RecurringItem(item)
                     }
                 }
             }

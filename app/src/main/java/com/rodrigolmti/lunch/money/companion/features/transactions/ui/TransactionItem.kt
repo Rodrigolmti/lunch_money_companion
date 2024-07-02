@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.rodrigolmti.lunch.money.companion.features.transactions.ui
 
 import androidx.compose.foundation.BorderStroke
@@ -9,10 +7,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -137,7 +134,7 @@ internal fun TransactionItem(
             HorizontalSpacer(width = CompanionTheme.spacings.spacingB)
 
             Icon(
-                Icons.Filled.KeyboardArrowRight,
+                Icons.AutoMirrored.Filled.KeyboardArrowRight,
                 contentDescription = null,
                 tint = SilverLining,
             )
@@ -177,7 +174,7 @@ private fun getTransactionStatusColor(status: TransactionStatusView): Color = wh
 
 @Composable
 private fun getTransactionStatusLabel(status: TransactionStatusView): String = when (status) {
-    TransactionStatusView.CLEARED -> stringResource(R.string.transaction_label_cleared)
+    TransactionStatusView.CLEARED -> stringResource(R.string.transaction_label_reviewed)
     TransactionStatusView.RECURRING -> stringResource(R.string.transaction_label_recurring)
     TransactionStatusView.RECURRING_SUGGESTED -> stringResource(R.string.transaction_label_recurring_suggested)
     TransactionStatusView.PENDING -> stringResource(R.string.transaction_label_pending)

@@ -39,7 +39,7 @@
     <string name="authentication_invalid_token_title">Invalid API Token</string>
     <string name="authentication_invalid_token_description">Please check your API Token and try again. If you don\'t have one, you can get one from your Lunch Money account settings.</string>
 
-    <string name="transaction_label_cleared">Cleared</string>
+    <string name="transaction_label_reviewed">Reviewed</string>
     <string name="transaction_label_recurring">Recurring</string>
     <string name="transaction_label_recurring_suggested">Recurring Suggested</string>
     <string name="transaction_label_pending">Pending</string>
