@@ -1,4 +1,4 @@
-package com.rodrigolmti.lunch.money.companion.features.terms
+package com.rodrigolmti.lunch.money.companion.features.webView
 
 import android.annotation.SuppressLint
 import android.view.ViewGroup
@@ -12,7 +12,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
@@ -30,7 +29,6 @@ internal fun WebViewScreen(
     Scaffold(
         topBar = {
             LunchAppBar(
-                title = stringResource(R.string.terms_of_use_title),
                 onBackClick = onBack,
             )
         }

@@ -63,13 +63,14 @@ internal val screens = listOf(
 @Composable
 internal fun BottomNavigation(
     selectedScreen: BottomNavigationRouter,
-    onTermsOfUseClick: (String) -> Unit = {},
+    onTermsOfUseClick: () -> Unit = {},
     onLogout: () -> Unit = {},
     onScreenSelected: (BottomNavigationRouter) -> Unit,
     onTransactionSelected: (Long) -> Unit,
     onTransactionSummaryClick: () -> Unit = {},
     onAnalyzeClick: () -> Unit = {},
     onBreakdownClick: () -> Unit = {},
+    onWhatsNewClick: () -> Unit = {},
 ) {
     val sheetState =
         rememberModalBottomSheetState(
@@ -194,7 +195,7 @@ internal fun BottomNavigation(
                             onLogout()
                         },
                         onTermsOfUseClick = {
-                            onTermsOfUseClick(it)
+                            onTermsOfUseClick()
                         },
                         onDonationClick = {
                             updateBottomSheetState(
@@ -203,6 +204,9 @@ internal fun BottomNavigation(
                                 sheetState,
                                 scope
                             )
+                        },
+                        onWhatsNewClick = {
+                            onWhatsNewClick()
                         },
                     )
                 }

@@ -21,7 +21,7 @@ import com.rodrigolmti.lunch.money.companion.uikit.theme.SunburstGold
 
 @Composable
 internal fun LunchAppBar(
-    title: String,
+    title: String? = null,
     onBackClick: (() -> Unit)? = null,
     actionIcon: @Composable RowScope.() -> Unit = {},
 ) {
@@ -47,11 +47,12 @@ internal fun LunchAppBar(
             actionIcon.invoke(this)
         },
         title = {
-            Text(
-                text = title,
-                color = SunburstGold,
-                style = CompanionTheme.typography.header,
-            )
+            if (title != null)
+                Text(
+                    text = title,
+                    color = SunburstGold,
+                    style = CompanionTheme.typography.header,
+                )
         })
 }
 

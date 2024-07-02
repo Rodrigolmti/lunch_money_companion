@@ -12,11 +12,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.rodrigolmti.lunch.money.companion.application.main.IMainActivityViewModel
+import com.rodrigolmti.lunch.money.companion.core.GITHUB_RELEASES_URL
+import com.rodrigolmti.lunch.money.companion.core.PRIVACY_POLICY_URL
 import com.rodrigolmti.lunch.money.companion.features.analyze.AnalyzeScreen
 import com.rodrigolmti.lunch.money.companion.features.analyze.IAnalyzeViewModel
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.AuthenticationScreen
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.IAuthenticationViewModel
-import com.rodrigolmti.lunch.money.companion.features.terms.WebViewScreen
+import com.rodrigolmti.lunch.money.companion.features.webView.WebViewScreen
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.detail.ITransactionDetailViewModel
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.detail.TransactionsDetailScreen
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.summary.ITransactionsSummaryViewModel
@@ -58,7 +60,7 @@ internal fun NavigationGraph(
                     navController.navigate(analyzeRouter)
                 },
                 onTermsOfUseClick = {
-                    navController.navigate(webViewRouter.replace("{url}", it))
+                    navController.navigate(webViewRouter.replace("{url}", PRIVACY_POLICY_URL))
                 },
                 onLogout = {
                     navController.navigate(authenticationRoute) {
@@ -77,6 +79,9 @@ internal fun NavigationGraph(
                 onBreakdownClick = {
                     navController.navigate(transactionSummaryRouter)
                 },
+                onWhatsNewClick = {
+                    navController.navigate(webViewRouter.replace("{url}", GITHUB_RELEASES_URL))
+                }
             )
         }
         composable(

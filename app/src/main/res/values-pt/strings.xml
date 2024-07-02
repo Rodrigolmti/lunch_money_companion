@@ -126,6 +126,7 @@
     <string name="settings_screen_app_version">%1$s</string>
     <string name="settings_screen_terms_label">Termos de Uso</string>
     <string name="settings_screen_donate_action">Apoie o Aplicativo</string>
+    <string name="settings_screen_whats_new_action">Novidades</string>
     <string name="settings_screen_sign_out_action">Sair</string>
     <string name="settings_screen_analyze_action">Analisar</string>
     <string name="settings_screen_profile_label">Perfil</string>

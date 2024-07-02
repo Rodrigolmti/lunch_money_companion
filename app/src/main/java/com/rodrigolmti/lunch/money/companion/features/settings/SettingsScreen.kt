@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.rodrigolmti.lunch.money.companion.features.settings
 
 import android.annotation.SuppressLint
@@ -12,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -51,9 +48,10 @@ import java.util.Currency
 internal fun SettingsScreen(
     uiModel: ISettingsUIModel = DummyISettingsUIModel(),
     onLogout: () -> Unit = {},
-    onTermsOfUseClick: (String) -> Unit = {},
+    onTermsOfUseClick: () -> Unit = {},
     onDonationClick: () -> Unit = {},
-    onAnalyzeClick: () -> Unit = {}
+    onAnalyzeClick: () -> Unit = {},
+    onWhatsNewClick: () -> Unit = {},
 ) {
     val openAlertDialog = remember { mutableStateOf(false) }
 
@@ -206,24 +204,33 @@ internal fun SettingsScreen(
 
                     SettingsItem(
                         label = stringResource(R.string.settings_screen_terms_label),
-                        icon = painterResource(id = R.drawable.ic_terms)
+                        icon = painterResource(id = R.drawable.ic_terms),
+                        color = GraphiteWhisper,
                     ) {
-                        onTermsOfUseClick(PRIVACY_POLICY_URL)
+                        onTermsOfUseClick()
                     }
-
                     SettingsItem(
                         label = stringResource(R.string.settings_screen_app_description),
                         description = stringResource(
                             R.string.settings_screen_app_version,
                             BuildConfig.VERSION_NAME
                         ),
-                        icon = painterResource(id = R.drawable.ic_build)
+                        icon = painterResource(id = R.drawable.ic_build),
+                        color = GraphiteWhisper,
                     )
                     SettingsItem(
                         label = stringResource(R.string.settings_screen_donate_action),
-                        icon = painterResource(id = R.drawable.ic_btc)
+                        icon = painterResource(id = R.drawable.ic_btc),
+                        color = GraphiteWhisper,
                     ) {
                         onDonationClick()
+                    }
+                    SettingsItem(
+                        label = stringResource(R.string.settings_screen_whats_new_action),
+                        color = GraphiteWhisper,
+                        icon = painterResource(id = R.drawable.ic_new)
+                    ) {
+                        onWhatsNewClick()
                     }
                     SettingsItem(
                         label = stringResource(R.string.settings_screen_sign_out_action),

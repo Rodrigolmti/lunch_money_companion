@@ -18,5 +18,4 @@ object CompanionSpacings {
     val spacingI: Dp = 64.dp
     val spacingJ: Dp = 80.dp
     val spacingK: Dp = 104.dp
-    val spacingL: Dp = 128.dp
 }
