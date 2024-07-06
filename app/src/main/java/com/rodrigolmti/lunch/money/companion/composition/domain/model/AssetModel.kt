@@ -25,7 +25,7 @@ internal enum class AssetSource {
 internal data class AssetModel(
     val id: Int,
     val type: AssetType,
-    val subtypeName: String,
+    val subtypeName: String?,
     val name: String,
     val balance: Double,
     val balanceAsOf: String,

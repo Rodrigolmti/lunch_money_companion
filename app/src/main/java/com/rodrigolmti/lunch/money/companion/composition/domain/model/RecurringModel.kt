@@ -9,10 +9,5 @@ internal data class RecurringModel(
     val currency: String,
     val description: String?,
     val billingDate: String,
-    val type: RecurringModelType,
     val originalName: String?,
 )
-
-enum class RecurringModelType {
-    CLEARED, SUGGESTED, UNKNOWN
-}

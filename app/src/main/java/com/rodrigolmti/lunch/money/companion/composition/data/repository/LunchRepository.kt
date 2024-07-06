@@ -1,7 +1,7 @@
 package com.rodrigolmti.lunch.money.companion.composition.data.repository
 
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapBudget
-import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapRecurrings
+import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapRecurringList
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapTransaction
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapTransactions
 import com.rodrigolmti.lunch.money.companion.composition.data.mapper.mapUpdateTransaction
@@ -117,7 +117,7 @@ internal class LunchRepository(
 
         return withContext(dispatchers.io()) {
             runCatching {
-                mapRecurrings(lunchService.getRecurring())
+                mapRecurringList(lunchService.getRecurring())
             }.mapThrowable {
                 handleNetworkError(it)
             }

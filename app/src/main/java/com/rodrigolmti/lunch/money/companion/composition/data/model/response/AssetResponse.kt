@@ -19,9 +19,11 @@ internal data class AssetResponse(
     @SerialName("type_name")
     val type: AssetTypeResponse = AssetTypeResponse.UNKNOWN,
     @SerialName("subtype_name")
-    val subtypeName: String,
+    val subtypeName: String? = null,
     @SerialName("name")
     val name: String,
+    @SerialName("display_name")
+    val displayName: String? = null,
     @SerialName("balance")
     val balance: String,
     @SerialName("balance_as_of")

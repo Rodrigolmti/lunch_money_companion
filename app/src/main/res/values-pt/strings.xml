@@ -142,7 +142,4 @@
     <string name="donation_book_action">Compre-me um Livro</string>
 
     <string name="recurring_title">Recorrente</string>
-    <string name="recurring_cleared_label">Concluída</string>
-    <string name="recurring_suggested_label">Sugerida</string>
-    <string name="recurring_unknown_label">Desconhecida</string>
 </resources>

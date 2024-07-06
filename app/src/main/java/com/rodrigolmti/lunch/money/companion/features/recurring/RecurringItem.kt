@@ -91,47 +91,19 @@ internal fun RecurringItem(budget: RecurringView) {
 
             VerticalSpacer(height = CompanionTheme.spacings.spacingB)
 
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-
-                Column {
-                    Text(
-                        text = budget.billingDate,
-                        color = White,
-                        style = CompanionTheme.typography.body,
-                    )
-
-                    Text(
-                        text = budget.cadence,
-                        color = TropicalLagoon,
-                        style = CompanionTheme.typography.body,
-                    )
-
-                }
-
-                HorizontalSpacer(CompanionTheme.spacings.spacingB)
+            Column {
+                Text(
+                    text = budget.billingDate,
+                    color = White,
+                    style = CompanionTheme.typography.body,
+                )
 
                 Text(
-                    text = getRecurringTypeLabel(budget.type),
-                    color = getRecurringTypeColor(budget.type),
+                    text = budget.cadence,
+                    color = TropicalLagoon,
                     style = CompanionTheme.typography.body,
                 )
             }
         }
     }
-}
-
-private fun getRecurringTypeColor(type: RecurringViewType): Color = when (type) {
-    RecurringViewType.CLEARED -> SunburstGold
-    RecurringViewType.SUGGESTED -> TropicalLagoon
-    RecurringViewType.UNKNOWN -> SilverLining
-}
-
-@Composable
-private fun getRecurringTypeLabel(type: RecurringViewType): String = when (type) {
-    RecurringViewType.CLEARED -> stringResource(id = R.string.recurring_cleared_label)
-    RecurringViewType.SUGGESTED -> stringResource(id = R.string.recurring_suggested_label)
-    RecurringViewType.UNKNOWN -> stringResource(id = R.string.recurring_unknown_label)
 }

@@ -29,15 +29,6 @@ internal data class RecurringResponse(
     val description: String? = null,
     @SerialName("billing_date")
     val billingDate: String,
-    @SerialName("type")
-    val type: RecurringResponseType,
     @SerialName("original_name")
     val originalName: String? = null,
 )
-
-enum class RecurringResponseType {
-    @SerialName("cleared")
-    CLEARED,
-    @SerialName("suggested")
-    SUGGESTED
-}

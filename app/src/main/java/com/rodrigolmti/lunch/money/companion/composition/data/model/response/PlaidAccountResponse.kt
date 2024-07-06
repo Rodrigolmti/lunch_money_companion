@@ -18,10 +18,12 @@ internal data class PlaidAccountResponse(
     val id: Int,
     @SerialName("name")
     val name: String,
+    @SerialName("display_name")
+    val displayName: String? = null,
     @SerialName("type")
     val type: AssetTypeResponse = AssetTypeResponse.UNKNOWN,
     @SerialName("subtype")
-    val subtype: String,
+    val subtype: String? = null,
     @SerialName("institution_name")
     val institutionName: String? = null,
     @SerialName("status")

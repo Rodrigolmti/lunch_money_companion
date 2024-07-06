@@ -28,6 +28,7 @@ internal class ExecuteStartupLogic(
             lunchRepository.cacheTransactionCategories()
             lunchRepository.cacheAssets()
         }.mapThrowable {
+            iCrashlyticsSdk.logNonFatal(it)
             LunchError.UnknownError
         }
     }

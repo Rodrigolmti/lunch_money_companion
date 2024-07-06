@@ -10,7 +10,6 @@ import com.rodrigolmti.lunch.money.companion.composition.domain.model.BudgetMode
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.CategoryConfigModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.CategoryModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.RecurringModel
-import com.rodrigolmti.lunch.money.companion.composition.domain.model.RecurringModelType
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionCategoryModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionStatus
@@ -144,7 +143,6 @@ internal class ScreenShootRepository(
             listOf(
                 RecurringModel(
                     description = "Rent",
-                    type = RecurringModelType.CLEARED,
                     id = 1,
                     originalName = null,
                     currency = "CAD",
@@ -156,7 +154,6 @@ internal class ScreenShootRepository(
                 ),
                 RecurringModel(
                     description = "Salary",
-                    type = RecurringModelType.CLEARED,
                     id = 2,
                     originalName = null,
                     currency = "CAD",
@@ -168,7 +165,6 @@ internal class ScreenShootRepository(
                 ),
                 RecurringModel(
                     description = "Car Loan",
-                    type = RecurringModelType.CLEARED,
                     id = 3,
                     originalName = null,
                     currency = "CAD",
@@ -180,7 +176,6 @@ internal class ScreenShootRepository(
                 ),
                 RecurringModel(
                     description = "Groceries",
-                    type = RecurringModelType.CLEARED,
                     id = 4,
                     originalName = null,
                     currency = "CAD",

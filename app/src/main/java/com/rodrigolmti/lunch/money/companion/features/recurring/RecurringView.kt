@@ -11,12 +11,7 @@ data class RecurringView(
     val currency: String,
     val description: String?,
     val billingDate: String,
-    val type: RecurringViewType,
 )
-
-enum class RecurringViewType {
-    CLEARED, SUGGESTED, UNKNOWN
-}
 
 fun fakeRecurringView() = RecurringView(
     cadence = ValueGenerator.gen(),
@@ -25,6 +20,5 @@ fun fakeRecurringView() = RecurringView(
     currency = ValueGenerator.currency(),
     description = ValueGenerator.gen(),
     billingDate = ValueGenerator.gen(),
-    type = ValueGenerator.gen(),
     id = ValueGenerator.gen(),
 )
