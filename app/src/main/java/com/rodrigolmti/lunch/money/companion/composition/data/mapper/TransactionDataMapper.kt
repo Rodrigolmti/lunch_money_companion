@@ -90,12 +90,12 @@ internal fun TransactionMetadataResponse.toModel() : TransactionMetadataModel {
     val location = stringBuilder.toString()
 
     return TransactionMetadataModel(
-        categories = categories,
+        categories = categories ?: emptyList(),
         location = location.ifEmpty { null },
         logoURL = logoURL,
         merchantName = merchantName,
         paymentProcessor = payment?.paymentProcessor,
-        pending = pending,
+        pending = pending ?: true,
     )
 }
 

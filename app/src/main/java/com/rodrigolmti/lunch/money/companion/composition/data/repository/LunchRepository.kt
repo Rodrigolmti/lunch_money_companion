@@ -25,6 +25,7 @@ import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.core.SharedPreferencesDelegateFactory
 import com.rodrigolmti.lunch.money.companion.core.cache.ICacheManager
+import com.rodrigolmti.lunch.money.companion.core.logging.ICrashlyticsSdk
 import com.rodrigolmti.lunch.money.companion.core.mapThrowable
 import com.rodrigolmti.lunch.money.companion.core.onSuccess
 import com.rodrigolmti.lunch.money.companion.core.runCatching
@@ -49,6 +50,7 @@ internal class LunchRepository(
     private val connectionChecker: ConnectionChecker,
     private val dispatchers: IDispatchersProvider,
     private val preferences: SharedPreferencesDelegateFactory,
+    private val iCrashlyticsSdk: ICrashlyticsSdk,
 ) : ILunchRepository {
 
     private var user: String by preferences.create(DEFAULT_EMPTY_STRING, USER_KEY)
@@ -86,6 +88,7 @@ internal class LunchRepository(
             transactionCache.clear()
             assetCache.clear()
         }.mapThrowable {
+            iCrashlyticsSdk.logNonFatal(it)
             LunchError.UnsuccessfulLogoutError
         }
     }
@@ -197,23 +200,25 @@ internal class LunchRepository(
     }
 
     private fun handleNetworkError(throwable: Throwable): LunchError {
-        when (throwable) {
+        val statusCode = when (throwable) {
             is HttpException -> {
-                return LunchError.NetworkError(
-                    throwable = throwable,
-                    message = throwable.message ?: DEFAULT_EMPTY_STRING,
-                    code = throwable.code(),
-                )
+                throwable.code()
             }
 
             else -> {
-                return LunchError.NetworkError(
-                    throwable = throwable,
-                    message = throwable.message ?: DEFAULT_EMPTY_STRING,
-                    code = -1,
-                )
+                -1
             }
         }
+
+        val error = LunchError.NetworkError(
+            throwable = throwable,
+            message = throwable.message ?: DEFAULT_EMPTY_STRING,
+            code = statusCode,
+        )
+
+        iCrashlyticsSdk.logNonFatal(error.throwable)
+
+        return error
     }
 
     override fun getSessionUser(): UserModel? {

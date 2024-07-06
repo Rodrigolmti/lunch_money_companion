@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,6 +35,7 @@ fun LunchTextField(
     enabled: Boolean = true,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     onValueChange: (String) -> Unit = {},
 ) {
     Column(
@@ -63,6 +65,7 @@ fun LunchTextField(
             maxLines = maxLines,
             visualTransformation = visualTransformation,
             keyboardActions = keyboardActions,
+            keyboardOptions = keyboardOptions,
             shape = MaterialTheme.shapes.medium,
             colors = TextFieldDefaults.colors(
                 cursorColor = White,

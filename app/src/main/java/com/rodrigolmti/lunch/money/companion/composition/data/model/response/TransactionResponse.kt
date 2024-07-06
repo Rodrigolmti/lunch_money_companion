@@ -58,30 +58,30 @@ internal data class TransactionResponse(
 @Serializable
 internal data class TransactionMetadataResponse(
     @SerialName("category")
-    val categories: List<String> = emptyList(),
+    val categories: List<String>? = emptyList(),
     @SerialName("location")
-    val location: TransactionMetadataLocationResponse?,
+    val location: TransactionMetadataLocationResponse? = null,
     @SerialName("payment_meta")
-    val payment: TransactionMetadataPaymentResponse?,
+    val payment: TransactionMetadataPaymentResponse? = null,
     @SerialName("logo_url")
-    val logoURL: String?,
+    val logoURL: String? = null,
     @SerialName("merchant_name")
-    val merchantName: String?,
+    val merchantName: String? = null,
     @SerialName("pending")
-    val pending: Boolean,
+    val pending: Boolean? = null,
     @SerialName("payment_channel")
-    val paymentChannel: String?
+    val paymentChannel: String? = null
 )
 
 @Keep
 @Serializable
 internal data class TransactionMetadataLocationResponse(
     @SerialName("city")
-    val city: String?,
+    val city: String? = null,
     @SerialName("region")
-    val region: String?,
+    val region: String? = null,
     @SerialName("country")
-    val country: String?,
+    val country: String? = null,
 )
 
 @Keep
