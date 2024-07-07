@@ -18,6 +18,8 @@ import com.rodrigolmti.lunch.money.companion.features.analyze.AnalyzeScreen
 import com.rodrigolmti.lunch.money.companion.features.analyze.IAnalyzeViewModel
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.AuthenticationScreen
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.IAuthenticationViewModel
+import com.rodrigolmti.lunch.money.companion.features.budget.detail.BudgetDetailScreen
+import com.rodrigolmti.lunch.money.companion.features.budget.detail.IBudgetDetailViewModel
 import com.rodrigolmti.lunch.money.companion.features.webView.WebViewScreen
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.detail.ITransactionDetailViewModel
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.detail.TransactionsDetailScreen
@@ -29,6 +31,7 @@ internal const val authenticationRoute = "/authentication"
 internal const val dashboardRoute = "/dashboard"
 internal const val webViewRouter = "/webView?url={url}"
 internal const val transactionDetailRouter = "/transaction?id={id}"
+internal const val budgetDetailRouter = "/budget?id={id}"
 internal const val transactionSummaryRouter = "/transaction/summary"
 internal const val analyzeRouter = "/analyze"
 
@@ -81,6 +84,9 @@ internal fun NavigationGraph(
                 },
                 onWhatsNewClick = {
                     navController.navigate(webViewRouter.replace("{url}", GITHUB_RELEASES_URL))
+                },
+                onBudgetItemClick = {
+                    navController.navigate(budgetDetailRouter.replace("{id}", it.toString()))
                 }
             )
         }
@@ -96,6 +102,26 @@ internal fun NavigationGraph(
 
             navBackStackEntry.arguments?.getLong("id")?.let {
                 TransactionsDetailScreen(id = it, uiModel = uiModel) {
+                    navController.navigateUp()
+                }
+            }
+        }
+        composable(
+            route = budgetDetailRouter,
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.IntType
+                }
+            )
+        ) { navBackStackEntry ->
+            val uiModel = koinViewModel<IBudgetDetailViewModel>()
+
+            navBackStackEntry.arguments?.getInt("id")?.let {
+                BudgetDetailScreen(
+                    budgetId = it,
+                    uiModel = uiModel,
+
+                ) {
                     navController.navigateUp()
                 }
             }

@@ -79,6 +79,11 @@ data class FilterState(
         }
     }
 
+    fun getStartDateAsString(): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return dateFormat.format(getFilter().first)
+    }
+
     fun getDisplay(): String {
         val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
         return dateFormat.format(calendar.time)

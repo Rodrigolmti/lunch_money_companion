@@ -1,6 +1,6 @@
 package com.rodrigolmti.lunch.money.companion.composition.domain.usecase
 
-import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.composition.domain.repository.IAppRepository
 import com.rodrigolmti.lunch.money.companion.core.ConnectionChecker
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -14,7 +14,7 @@ import kotlin.test.Test
 
 class ExecuteStartupLogicTest {
 
-    private val lunchRepository: ILunchRepository = mockk()
+    private val lunchRepository: IAppRepository = mockk()
     private val connectionChecker: ConnectionChecker = mockk(relaxed = true)
     private val sut = ExecuteStartupLogic(lunchRepository, connectionChecker)
 

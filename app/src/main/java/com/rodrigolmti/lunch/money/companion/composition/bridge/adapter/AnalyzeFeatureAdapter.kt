@@ -1,6 +1,6 @@
 package com.rodrigolmti.lunch.money.companion.composition.bridge.adapter
 
-import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.composition.domain.repository.IAppRepository
 import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.GetTransactionSumByCategoryUseCase
 import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
@@ -12,7 +12,7 @@ import java.util.Date
 
 internal class AnalyzeFeatureAdapter(
     val sumTransactionUseCase: GetTransactionSumByCategoryUseCase,
-    private val lunchRepository: ILunchRepository,
+    private val lunchRepository: IAppRepository,
 ) {
 
     suspend fun getSumGroupedTransactions(

@@ -31,8 +31,9 @@ class InMemoryCache<K, V> : Cache<K, V> {
         return entry.value
     }
 
-    override fun clear() {
+    override fun clear(): Cache<K, V> {
         cache.clear()
+        return this
     }
 
     private fun isEntryExpired(entry: CacheEntry<V>): Boolean {

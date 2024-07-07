@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.features.budget.BudgetScreen
+import com.rodrigolmti.lunch.money.companion.features.budget.BudgetView
 import com.rodrigolmti.lunch.money.companion.features.budget.IBudgetViewModel
 import com.rodrigolmti.lunch.money.companion.features.home.ui.HomeScreen
 import com.rodrigolmti.lunch.money.companion.features.home.ui.IHomeViewModel
@@ -71,6 +72,7 @@ internal fun BottomNavigation(
     onAnalyzeClick: () -> Unit = {},
     onBreakdownClick: () -> Unit = {},
     onWhatsNewClick: () -> Unit = {},
+    onBudgetItemClick: (BudgetView) -> Unit,
 ) {
     val sheetState =
         rememberModalBottomSheetState(
@@ -231,14 +233,16 @@ internal fun BottomNavigation(
                 BottomNavigationRouter.BUDGET -> {
                     val uiModel = koinViewModel<IBudgetViewModel>()
 
-                    BudgetScreen(uiModel) { title, description ->
+                    BudgetScreen(uiModel, { title, description ->
                         updateBottomSheetState(
                             state,
                             BottomNavigationUiState.ShowInformationBottomSheet(title, description),
                             sheetState,
                             scope
                         )
-                    }
+                    }, {
+                        onBudgetItemClick(it)
+                    },)
                 }
 
                 BottomNavigationRouter.RECURRING -> {

@@ -2,7 +2,7 @@ package com.rodrigolmti.lunch.money.companion.composition.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.rodrigolmti.lunch.money.companion.BuildConfig
-import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.composition.domain.repository.IAppRepository
 import com.rodrigolmti.lunch.money.companion.core.ConnectionChecker
 import com.rodrigolmti.lunch.money.companion.core.SERVER_URL
 import com.rodrigolmti.lunch.money.companion.core.network.AuthInterceptor
@@ -33,7 +33,7 @@ internal val networkModule = module {
     single<OkHttpClient> {
         OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor {
-                get<ILunchRepository>().getSessionToken()?.format()
+                get<IAppRepository>().getSessionToken()?.format()
             })
             .addInterceptor(get<Interceptor>())
             .build()

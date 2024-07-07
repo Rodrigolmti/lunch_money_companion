@@ -7,7 +7,7 @@ import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.Recurrin
 import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.SettingsFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.bridge.adapter.TransactionFeatureAdapter
 import com.rodrigolmti.lunch.money.companion.composition.data.model.dto.TokenDTO
-import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.composition.domain.repository.IAppRepository
 import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.ExecuteStartupLogicUseCase
 import com.rodrigolmti.lunch.money.companion.features.analyze.AnalyzeViewModel
 import com.rodrigolmti.lunch.money.companion.features.analyze.IAnalyzeViewModel
@@ -15,6 +15,8 @@ import com.rodrigolmti.lunch.money.companion.features.authentication.ui.Authenti
 import com.rodrigolmti.lunch.money.companion.features.authentication.ui.IAuthenticationViewModel
 import com.rodrigolmti.lunch.money.companion.features.budget.BudgetViewModel
 import com.rodrigolmti.lunch.money.companion.features.budget.IBudgetViewModel
+import com.rodrigolmti.lunch.money.companion.features.budget.detail.BudgetDetailViewModel
+import com.rodrigolmti.lunch.money.companion.features.budget.detail.IBudgetDetailViewModel
 import com.rodrigolmti.lunch.money.companion.features.home.ui.HomeViewModel
 import com.rodrigolmti.lunch.money.companion.features.home.ui.IHomeViewModel
 import com.rodrigolmti.lunch.money.companion.features.recurring.IRecurringViewModel
@@ -33,7 +35,7 @@ import org.koin.dsl.module
 private val authenticationModule = module {
     viewModel<IAuthenticationViewModel> {
         AuthenticationViewModel(
-            authenticateUser = { get<ILunchRepository>().authenticateUser(TokenDTO(it)) },
+            authenticateUser = { get<IAppRepository>().authenticateUser(TokenDTO(it)) },
             postAuthentication = { get<ExecuteStartupLogicUseCase>().invoke() },
         )
     }
@@ -67,7 +69,7 @@ private val transactionsModule = module {
                 TransactionFeatureAdapter(get()).getTransactions(start, end)
             },
             listenForTransactionUpdate = {
-                get<ILunchRepository>().transactionUpdateFlow
+                get<IAppRepository>().transactionUpdateFlow
             }
         )
     }
@@ -103,18 +105,26 @@ private val recurringModel = module {
 private val budgetModule = module {
     viewModel<IBudgetViewModel> {
         BudgetViewModel(
-            getBudget = { start, end ->
+            getBudgetLambda = { start, end ->
                 BudgetFeatureAdapter(get()).getBudget(start, end)
             },
         )
     }
+    viewModel<IBudgetDetailViewModel> {
+        BudgetDetailViewModel(
+            getBudgetLambda = { id ->
+                BudgetFeatureAdapter(get()).getBudget(id)
+            },
+        )
+    }
+
 }
 
 private val settingsModule = module {
     viewModel<ISettingsViewModel> {
         SettingsViewModel(
-            logoutUserRunner = { get<ILunchRepository>().logoutUser() },
-            updateCurrency = { get<ILunchRepository>().updatePrimaryCurrency(it) },
+            logoutUserRunner = { get<IAppRepository>().logoutUser() },
+            updateCurrency = { get<IAppRepository>().updatePrimaryCurrency(it) },
             getUserDataRunner = {
                 SettingsFeatureAdapter(get()).getUserData()
             },

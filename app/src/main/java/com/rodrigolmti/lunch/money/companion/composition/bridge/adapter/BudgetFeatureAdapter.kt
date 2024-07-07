@@ -1,7 +1,7 @@
 package com.rodrigolmti.lunch.money.companion.composition.bridge.adapter
 
 import com.rodrigolmti.lunch.money.companion.composition.bridge.mapper.toView
-import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.composition.domain.repository.IAppRepository
 import com.rodrigolmti.lunch.money.companion.core.DEFAULT_CURRENCY
 import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
@@ -12,7 +12,7 @@ import java.util.Date
 
 private const val CATEGORY_FILTER_KEY = "uncategorized"
 
-internal class BudgetFeatureAdapter(private val lunchRepository: ILunchRepository) {
+internal class BudgetFeatureAdapter(private val lunchRepository: IAppRepository) {
 
     suspend fun getBudget(
         start: Date,
@@ -25,5 +25,10 @@ internal class BudgetFeatureAdapter(private val lunchRepository: ILunchRepositor
                 it.category.compareTo(CATEGORY_FILTER_KEY, true) != 0
             }
         }
+    }
+
+    fun getBudget(budgetId: Int): BudgetView? {
+        return lunchRepository.getBudgetById(budgetId)
+            ?.toView(lunchRepository.getPrimaryCurrency() ?: DEFAULT_CURRENCY)
     }
 }

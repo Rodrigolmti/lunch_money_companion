@@ -14,7 +14,7 @@ import com.rodrigolmti.lunch.money.companion.composition.domain.model.Transactio
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionStatus
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.UserModel
-import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.composition.domain.repository.IAppRepository
 import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
 import com.rodrigolmti.lunch.money.companion.core.cache.ICacheManager
@@ -30,7 +30,7 @@ private const val ASSET_CACHE = "asset_cache"
  */
 internal class ScreenShootRepository(
     cacheManager: ICacheManager,
-) : ILunchRepository {
+) : IAppRepository {
 
     private val _tickFlow = MutableSharedFlow<Unit>(replay = 0)
     override val transactionUpdateFlow: SharedFlow<Unit> = _tickFlow
@@ -227,6 +227,10 @@ internal class ScreenShootRepository(
         )
     }
 
+    override fun getBudgetById(id: Int): BudgetModel? {
+        return null
+    }
+
     override suspend fun getBudgets(
         start: String,
         end: String
@@ -245,15 +249,22 @@ internal class ScreenShootRepository(
                     recurring = emptyList(),
                     config = null,
                     order = 1,
-                    data = listOf(
-                        CategoryModel(
-                            numTransactions = 2,
-                            spendingToBase = 45.0f,
-                            budgetToBase = 100.0f,
-                            budgetAmount = 100.0f,
+                    data = mapOf(
+                        "2021-01-01" to CategoryModel(
+                            numTransactions = 1,
+                            spendingToBase = 12.5f,
+                            budgetToBase = 0.0f,
+                            budgetAmount = 0.0f,
                             budgetCurrency = "CAD",
                             isAutomated = false,
-                            date = "2021-01-01",
+                        ),
+                        "2021-01-02" to CategoryModel(
+                            numTransactions = 1,
+                            spendingToBase = 32.7f,
+                            budgetToBase = 0.0f,
+                            budgetAmount = 0.0f,
+                            budgetCurrency = "CAD",
+                            isAutomated = false,
                         )
                     )
                 ),
@@ -276,15 +287,22 @@ internal class ScreenShootRepository(
                         autoSuggest = "yes",
                     ),
                     order = 2,
-                    data = listOf(
-                        CategoryModel(
+                    data = mapOf(
+                        "2021-01-01" to CategoryModel(
                             numTransactions = 1,
-                            spendingToBase = 0.0f,
+                            spendingToBase = 12.5f,
                             budgetToBase = 0.0f,
                             budgetAmount = 0.0f,
                             budgetCurrency = "CAD",
                             isAutomated = false,
-                            date = "2021-01-01",
+                        ),
+                        "2021-01-02" to CategoryModel(
+                            numTransactions = 1,
+                            spendingToBase = 32.7f,
+                            budgetToBase = 0.0f,
+                            budgetAmount = 0.0f,
+                            budgetCurrency = "CAD",
+                            isAutomated = false,
                         )
                     )
                 ),
@@ -300,15 +318,22 @@ internal class ScreenShootRepository(
                     recurring = emptyList(),
                     config = null,
                     order = 3,
-                    data = listOf(
-                        CategoryModel(
-                            numTransactions = 0,
-                            spendingToBase = 0.0f,
-                            budgetToBase = 220.0f,
-                            budgetAmount = 250.0f,
+                    data = mapOf(
+                        "2021-01-01" to CategoryModel(
+                            numTransactions = 1,
+                            spendingToBase = 12.5f,
+                            budgetToBase = 0.0f,
+                            budgetAmount = 0.0f,
                             budgetCurrency = "CAD",
                             isAutomated = false,
-                            date = "2021-01-01",
+                        ),
+                        "2021-01-02" to CategoryModel(
+                            numTransactions = 1,
+                            spendingToBase = 32.7f,
+                            budgetToBase = 0.0f,
+                            budgetAmount = 0.0f,
+                            budgetCurrency = "CAD",
+                            isAutomated = false,
                         )
                     )
                 ),
@@ -324,7 +349,7 @@ internal class ScreenShootRepository(
                     recurring = emptyList(),
                     config = null,
                     order = 4,
-                    data = listOf()
+                    data = mapOf()
                 ),
                 BudgetModel(
                     categoryName = "Groceries",
@@ -345,15 +370,22 @@ internal class ScreenShootRepository(
                         autoSuggest = "yes",
                     ),
                     order = 5,
-                    data = listOf(
-                        CategoryModel(
-                            numTransactions = 4,
-                            spendingToBase = 282.0f,
-                            budgetToBase = 600.0f,
-                            budgetAmount = 600.0f,
+                    data = mapOf(
+                        "2021-01-01" to CategoryModel(
+                            numTransactions = 1,
+                            spendingToBase = 12.5f,
+                            budgetToBase = 0.0f,
+                            budgetAmount = 0.0f,
                             budgetCurrency = "CAD",
                             isAutomated = false,
-                            date = "2021-01-01",
+                        ),
+                        "2021-01-02" to CategoryModel(
+                            numTransactions = 1,
+                            spendingToBase = 32.7f,
+                            budgetToBase = 0.0f,
+                            budgetAmount = 0.0f,
+                            budgetCurrency = "CAD",
+                            isAutomated = false,
                         )
                     )
                 ),
@@ -369,7 +401,7 @@ internal class ScreenShootRepository(
                     recurring = emptyList(),
                     config = null,
                     order = 6,
-                    data = listOf()
+                    data = mapOf()
                 ),
                 BudgetModel(
                     categoryName = "Other",
@@ -383,7 +415,7 @@ internal class ScreenShootRepository(
                     recurring = emptyList(),
                     config = null,
                     order = 7,
-                    data = listOf()
+                    data = mapOf()
                 ),
             )
         )

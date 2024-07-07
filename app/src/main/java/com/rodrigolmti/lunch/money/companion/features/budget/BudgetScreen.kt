@@ -47,6 +47,7 @@ import kotlinx.coroutines.launch
 internal fun BudgetScreen(
     uiModel: IBudgetUIModel = DummyIBudgetUIModel(),
     onError: (String, String) -> Unit = { _, _ -> },
+    onItemClick: (BudgetView) -> Unit,
 ) {
 
     val viewState by uiModel.viewState.collectAsStateWithLifecycle()
@@ -145,7 +146,12 @@ internal fun BudgetScreen(
 
                             val item = budget[index]
 
-                            BudgetItem(item)
+                            BudgetItem(
+                                item,
+                                {
+//                                    onItemClick(it)
+                                },
+                            )
                         }
                     }
                 }
@@ -170,7 +176,7 @@ private fun getBudget(
     uiModel: IBudgetUIModel
 ) {
     val (start, end) = filterState.getFilter()
-    uiModel.getBudgetData(start, end)
+    uiModel.getBudgetList(start, end)
 }
 
 @Composable
@@ -179,6 +185,6 @@ private fun BudgetScreenPreview(
     @PreviewParameter(BudgetUIModelProvider::class) uiModel: IBudgetUIModel
 ) {
     CompanionTheme {
-        BudgetScreen(uiModel)
+        BudgetScreen(uiModel, { _, _ -> }, {})
     }
 }

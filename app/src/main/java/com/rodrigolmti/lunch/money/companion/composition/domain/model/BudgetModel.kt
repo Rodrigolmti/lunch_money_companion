@@ -9,7 +9,7 @@ internal data class BudgetModel(
     val isIncome: Boolean,
     val excludeFromBudget: Boolean,
     val excludeFromTotals: Boolean,
-    val data: List<CategoryModel>,
+    val data: Map<String, CategoryModel>,
     val config: CategoryConfigModel?,
     val order: Int,
     val recurring: List<BudgetRecurringModel> = emptyList()
@@ -28,7 +28,6 @@ internal data class CategoryModel(
     val budgetAmount: Float,
     val budgetCurrency: String?,
     val isAutomated: Boolean,
-    val date: String
 )
 
 internal data class CategoryConfigModel(

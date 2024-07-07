@@ -9,7 +9,7 @@ import java.util.Date
 internal class DummyIBudgetUIModel(state: BudgetUiState = BudgetUiState.Loading) : IBudgetUIModel {
     override val viewState: StateFlow<BudgetUiState> = MutableStateFlow(state)
 
-    override fun getBudgetData(start: Date, end: Date) {
+    override fun getBudgetList(start: Date, end: Date) {
         // no-op
     }
 }

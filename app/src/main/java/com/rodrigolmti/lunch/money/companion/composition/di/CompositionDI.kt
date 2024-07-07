@@ -6,8 +6,8 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.rodrigolmti.lunch.money.companion.application.main.IMainActivityViewModel
 import com.rodrigolmti.lunch.money.companion.application.main.MainActivityViewModel
 import com.rodrigolmti.lunch.money.companion.composition.data.network.LunchService
-import com.rodrigolmti.lunch.money.companion.composition.data.repository.LunchRepository
-import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.composition.data.repository.AppRepository
+import com.rodrigolmti.lunch.money.companion.composition.domain.repository.IAppRepository
 import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.ExecuteStartupLogic
 import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.ExecuteStartupLogicUseCase
 import com.rodrigolmti.lunch.money.companion.composition.domain.usecase.GetTransactionSumByCategory
@@ -45,7 +45,7 @@ private val dataModule = module {
     single { SharedPreferencesDelegateFactory(get()) }
 
 //    single<ILunchRepository> { ScreenShootRepository(get()) }
-    single<ILunchRepository> { LunchRepository(get(), get(), get(), get(), get(), get(), get()) }
+    single<IAppRepository> { AppRepository(get(), get(), get(), get(), get(), get(), get()) }
 }
 
 private val domainModule = module {

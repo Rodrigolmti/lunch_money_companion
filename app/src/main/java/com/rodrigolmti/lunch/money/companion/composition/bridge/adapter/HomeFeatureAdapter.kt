@@ -3,7 +3,7 @@ package com.rodrigolmti.lunch.money.companion.composition.bridge.adapter
 import com.rodrigolmti.lunch.money.companion.composition.bridge.mapper.toView
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.AssetStatus
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionModel
-import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.composition.domain.repository.IAppRepository
 import com.rodrigolmti.lunch.money.companion.core.DEFAULT_CURRENCY
 import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
@@ -22,7 +22,7 @@ import kotlinx.collections.immutable.toImmutableList
 import java.util.Date
 
 internal class HomeFeatureAdapter(
-    private val lunchRepository: ILunchRepository,
+    private val lunchRepository: IAppRepository,
 ) {
 
     suspend fun getAssetOverview(

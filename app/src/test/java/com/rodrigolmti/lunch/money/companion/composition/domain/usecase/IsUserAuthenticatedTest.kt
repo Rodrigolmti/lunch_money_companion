@@ -1,7 +1,7 @@
 package com.rodrigolmti.lunch.money.companion.composition.domain.usecase
 
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.UserModel
-import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.composition.domain.repository.IAppRepository
 import io.mockk.every
 import io.mockk.mockk
 import kotlin.test.Test
@@ -10,7 +10,7 @@ import kotlin.test.assertTrue
 
 class IsUserAuthenticatedTest {
 
-    private val lunchRepository: ILunchRepository = mockk()
+    private val lunchRepository: IAppRepository = mockk()
     private val sut = IsUserAuthenticated(lunchRepository)
     private val user = mockk<UserModel>(relaxed = true)
 

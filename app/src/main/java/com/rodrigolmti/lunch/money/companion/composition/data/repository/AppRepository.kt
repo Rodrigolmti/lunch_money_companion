@@ -17,7 +17,7 @@ import com.rodrigolmti.lunch.money.companion.composition.domain.model.RecurringM
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionCategoryModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.TransactionModel
 import com.rodrigolmti.lunch.money.companion.composition.domain.model.UserModel
-import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.composition.domain.repository.IAppRepository
 import com.rodrigolmti.lunch.money.companion.core.ConnectionChecker
 import com.rodrigolmti.lunch.money.companion.core.DEFAULT_EMPTY_STRING
 import com.rodrigolmti.lunch.money.companion.core.IDispatchersProvider
@@ -42,8 +42,9 @@ private const val CURRENCY_KEY = "currency_key"
 private const val CATEGORIES_CACHE = "categories_cache"
 private const val ASSET_CACHE = "asset_cache"
 private const val TRANSACTION_CACHE = "transaction_cache"
+private const val BUDGET_CACHE = "budget_cache"
 
-internal class LunchRepository(
+internal class AppRepository(
     private val json: Json,
     private val lunchService: LunchService,
     cacheManager: ICacheManager,
@@ -51,7 +52,7 @@ internal class LunchRepository(
     private val dispatchers: IDispatchersProvider,
     private val preferences: SharedPreferencesDelegateFactory,
     private val iCrashlyticsSdk: ICrashlyticsSdk,
-) : ILunchRepository {
+) : IAppRepository {
 
     private var user: String by preferences.create(DEFAULT_EMPTY_STRING, USER_KEY)
     private var token: String by preferences.create(DEFAULT_EMPTY_STRING, TOKEN_KEY)
@@ -65,6 +66,7 @@ internal class LunchRepository(
     private val assetCache = cacheManager.createCache<String, List<AssetModel>>(ASSET_CACHE)
     private val transactionCache =
         cacheManager.createCache<String, TransactionModel>(TRANSACTION_CACHE)
+    private val budgetCache = cacheManager.createCache<String, List<BudgetModel>>(BUDGET_CACHE)
 
     override suspend fun authenticateUser(tokenDTO: TokenDTO): Outcome<Unit, LunchError> {
         if (!connectionChecker.isConnected()) return Outcome.failure(LunchError.NoConnectionError)
@@ -72,8 +74,8 @@ internal class LunchRepository(
         return withContext(dispatchers.io()) {
             runCatching {
                 val userResponse = lunchService.getUser(tokenDTO.format())
-                this@LunchRepository.token = tokenDTO.value
-                this@LunchRepository.user = json
+                this@AppRepository.token = tokenDTO.value
+                this@AppRepository.user = json
                     .encodeToString(UserResponse.serializer(), userResponse)
             }.mapThrowable {
                 handleNetworkError(it)
@@ -87,6 +89,8 @@ internal class LunchRepository(
             categoriesCache.clear()
             transactionCache.clear()
             assetCache.clear()
+            budgetCache.clear()
+            Unit
         }.mapThrowable {
             iCrashlyticsSdk.logNonFatal(it)
             LunchError.UnsuccessfulLogoutError
@@ -163,13 +167,17 @@ internal class LunchRepository(
         }
     }
 
+    override fun getBudgetById(id: Int): BudgetModel? {
+        return budgetCache.get(BUDGET_CACHE, emptyList()).find { it.categoryId == id }
+    }
+
     override fun getAssets(): List<AssetModel> = assetCache.get(ASSET_CACHE, emptyList())
 
     override suspend fun cacheTransactionCategories() {
         withContext(dispatchers.io()) {
             val categories = lunchService.getCategories().categories.map { it.toModel() }
             categoriesCache.clear()
-            categoriesCache.put(CATEGORIES_CACHE, categories)
+                .put(CATEGORIES_CACHE, categories)
         }
     }
 
@@ -178,8 +186,9 @@ internal class LunchRepository(
             val assets = lunchService.getAssets().assets.map { it.toModel() }
             val plaidAccounts = lunchService.getPlaidAccounts().accounts.map { it.toModel() }
             val crypto = lunchService.getCrypto().crypto.map { it.toModel() }
-            assetCache.clear()
-            assetCache.put(ASSET_CACHE, assets + plaidAccounts + crypto)
+            assetCache
+                .clear()
+                .put(ASSET_CACHE, assets + plaidAccounts + crypto)
         }
     }
 
@@ -192,6 +201,9 @@ internal class LunchRepository(
         return withContext(dispatchers.io()) {
             runCatching {
                 val response = lunchService.getBudgets(start, end)
+                budgetCache
+                    .clear()
+                    .put(BUDGET_CACHE, mapBudget(response))
                 mapBudget(response)
             }.mapThrowable {
                 handleNetworkError(it)

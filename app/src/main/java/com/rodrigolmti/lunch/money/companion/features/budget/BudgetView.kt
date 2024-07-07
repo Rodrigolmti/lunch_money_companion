@@ -8,7 +8,7 @@ import java.util.UUID
 data class BudgetView(
     val category: String,
     val uuid: UUID = UUID.randomUUID(),
-    val items: List<BudgetItemView>,
+    val items: Map<String, BudgetItemView>,
 )
 
 @Immutable
@@ -20,27 +20,19 @@ data class BudgetItemView(
 )
 
 fun fakeBudgetView(
-    items: List<BudgetItemView> = listOf(
-        BudgetItemView(
-            totalTransactions = ValueGenerator.gen(),
-            totalSpending = ValueGenerator.gen(),
-            totalBudget = ValueGenerator.gen(),
-            currency = ValueGenerator.currency(),
-        ),
-        BudgetItemView(
-            totalTransactions = ValueGenerator.gen(),
-            totalSpending = ValueGenerator.gen(),
-            totalBudget = ValueGenerator.gen(),
-            currency = ValueGenerator.currency(),
-        ),
-        BudgetItemView(
-            totalTransactions = ValueGenerator.gen(),
-            totalSpending = ValueGenerator.gen(),
-            totalBudget = ValueGenerator.gen(),
-            currency = ValueGenerator.currency(),
-        ),
+    items: Map<String, BudgetItemView> = mapOf(
+        ValueGenerator.gen<String>() to fakeBudgetItemView(),
+        ValueGenerator.gen<String>() to fakeBudgetItemView(),
+        ValueGenerator.gen<String>() to fakeBudgetItemView(),
     ),
 ) = BudgetView(
     category = ValueGenerator.gen(),
     items = items,
+)
+
+fun fakeBudgetItemView() = BudgetItemView(
+    totalTransactions = ValueGenerator.gen(),
+    totalSpending = ValueGenerator.gen(),
+    totalBudget = ValueGenerator.gen(),
+    currency = ValueGenerator.currency(),
 )

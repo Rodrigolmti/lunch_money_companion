@@ -6,5 +6,5 @@ import java.util.Date
 internal interface IBudgetUIModel {
     val viewState: StateFlow<BudgetUiState>
 
-    fun getBudgetData(start: Date, end: Date)
+    fun getBudgetList(start: Date, end: Date)
 }

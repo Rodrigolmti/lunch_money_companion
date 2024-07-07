@@ -10,9 +10,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
@@ -30,6 +29,7 @@ import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.FilterPreset
 import com.rodrigolmti.lunch.money.companion.uikit.components.HorizontalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchButton
+import com.rodrigolmti.lunch.money.companion.uikit.components.MonthSelector
 import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
@@ -59,7 +59,6 @@ fun FilterBottomSheetPreview() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilterBottomSheet(
     label: String,
@@ -116,39 +115,11 @@ fun FilterBottomSheet(
         if (selected == FilterPreset.CUSTOM) {
             VerticalSpacer(height = CompanionTheme.spacings.spacingE)
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                IconButton(onClick = onPreviousMonthClick) {
-                    Icon(
-                        Icons.Filled.KeyboardArrowLeft,
-                        contentDescription = null,
-                        tint = SilverLining,
-                    )
-                }
-
-                HorizontalSpacer(width = CompanionTheme.spacings.spacingB)
-
-                Text(
-                    text = label,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.weight(1f),
-                    color = White,
-                    style = CompanionTheme.typography.header,
-                )
-
-                HorizontalSpacer(width = CompanionTheme.spacings.spacingB)
-
-                IconButton(onClick = onNextMonthClick) {
-                    Icon(
-                        Icons.Filled.KeyboardArrowRight,
-                        contentDescription = null,
-                        tint = SilverLining,
-                    )
-                }
-            }
+            MonthSelector(
+                label = label,
+                onPreviousMonthClick = onPreviousMonthClick,
+                onNextMonthClick = onNextMonthClick,
+            )
         }
 
         VerticalSpacer(height = CompanionTheme.spacings.spacingF)

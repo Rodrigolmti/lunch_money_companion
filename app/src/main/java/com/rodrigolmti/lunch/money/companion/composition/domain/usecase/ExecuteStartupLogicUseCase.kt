@@ -1,6 +1,6 @@
 package com.rodrigolmti.lunch.money.companion.composition.domain.usecase
 
-import com.rodrigolmti.lunch.money.companion.composition.domain.repository.ILunchRepository
+import com.rodrigolmti.lunch.money.companion.composition.domain.repository.IAppRepository
 import com.rodrigolmti.lunch.money.companion.core.ConnectionChecker
 import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
@@ -13,7 +13,7 @@ internal interface ExecuteStartupLogicUseCase {
 }
 
 internal class ExecuteStartupLogic(
-    private val lunchRepository: ILunchRepository,
+    private val lunchRepository: IAppRepository,
     private val connectionChecker: ConnectionChecker,
     private val iCrashlyticsSdk: ICrashlyticsSdk,
 ) : ExecuteStartupLogicUseCase {

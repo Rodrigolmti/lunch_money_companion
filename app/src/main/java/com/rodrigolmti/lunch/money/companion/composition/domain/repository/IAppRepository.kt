@@ -12,7 +12,7 @@ import com.rodrigolmti.lunch.money.companion.core.LunchError
 import com.rodrigolmti.lunch.money.companion.core.Outcome
 import kotlinx.coroutines.flow.SharedFlow
 
-internal interface ILunchRepository {
+internal interface IAppRepository {
     suspend fun authenticateUser(tokenDTO: TokenDTO): Outcome<Unit, LunchError>
     suspend fun logoutUser(): Outcome<Unit, LunchError>
     suspend fun getTransactions(
@@ -23,6 +23,8 @@ internal interface ILunchRepository {
     suspend fun getRecurring(): Outcome<List<RecurringModel>, LunchError>
     suspend fun getTransaction(id: Long): Outcome<TransactionModel, LunchError>
     suspend fun updateTransaction(dto: UpdateTransactionDTO): Outcome<Unit, LunchError>
+
+    fun getBudgetById(id: Int): BudgetModel?
     suspend fun getBudgets(
         start: String,
         end: String,

@@ -14,12 +14,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Date
 
-typealias GetBudgetData = suspend (start: Date, end: Date) -> Outcome<List<BudgetView>, LunchError>
+typealias GetBudgetList = suspend (start: Date, end: Date) -> Outcome<List<BudgetView>, LunchError>
 
 internal abstract class IBudgetViewModel : ViewModel(), IBudgetUIModel
 
 internal class BudgetViewModel(
-    private val getBudget: GetBudgetData,
+    private val getBudgetLambda: GetBudgetList,
 ) : IBudgetViewModel() {
 
     private val _viewState = MutableStateFlow<BudgetUiState>(BudgetUiState.Loading)
@@ -27,13 +27,13 @@ internal class BudgetViewModel(
 
     init {
         val (start, end) = getCurrentMonthDates()
-        getBudgetData(start, end)
+        getBudgetList(start, end)
     }
 
-    override fun getBudgetData(start: Date, end: Date) {
+    override fun getBudgetList(start: Date, end: Date) {
         viewModelScope.launch {
             _viewState.update { BudgetUiState.Loading }
-            getBudget(start, end).onSuccess { result ->
+            getBudgetLambda(start, end).onSuccess { result ->
                 _viewState.update {
                     BudgetUiState.Success(result.toImmutableList())
                 }
