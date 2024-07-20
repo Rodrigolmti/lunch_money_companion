@@ -31,7 +31,7 @@ internal enum class AssetTypeResponse {
     @SerialName("mortgage")
     OTHER_LIABILITIES,
 
-    @SerialName("real_estate")
+    @SerialName("real estate")
     REAL_STATE,
 
     @SerialName("cash")

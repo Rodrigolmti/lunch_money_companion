@@ -4,7 +4,6 @@ package com.rodrigolmti.lunch.money.companion.features.home.ui
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -44,7 +43,6 @@ import com.rodrigolmti.lunch.money.companion.uikit.components.Center
 import com.rodrigolmti.lunch.money.companion.uikit.components.EmptyState
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchAppBar
 import com.rodrigolmti.lunch.money.companion.uikit.components.LunchLoading
-import com.rodrigolmti.lunch.money.companion.uikit.components.VerticalSpacer
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CharcoalMist
 import com.rodrigolmti.lunch.money.companion.uikit.theme.CompanionTheme
 import com.rodrigolmti.lunch.money.companion.uikit.theme.MidnightSlate
@@ -56,7 +54,6 @@ import kotlinx.coroutines.launch
 internal fun HomeScreen(
     uiModel: IHomeUIModel = DummyIHomeUIModel(),
     onError: (String, String) -> Unit = { _, _ -> },
-    onBreakdownClick: () -> Unit = {},
 ) {
     val viewState by uiModel.viewState.collectAsStateWithLifecycle()
 
@@ -144,7 +141,7 @@ internal fun HomeScreen(
                 is HomeUiState.Success -> {
                     val view = (viewState as HomeUiState.Success).view
 
-                    BuildSuccessState(view, onBreakdownClick)
+                    BuildSuccessState(view)
                 }
             }
         }
@@ -170,7 +167,6 @@ private fun refreshAppData(
 @Composable
 private fun BuildSuccessState(
     view: HomeView,
-    onBreakdownClick: () -> Unit = {}
 ) {
     val scrollState = rememberScrollState()
 
@@ -215,7 +211,6 @@ private fun BuildSuccessState(
             HomeCardComponent(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { onBreakdownClick() }
                     .padding(
                         top = CompanionTheme.spacings.spacingD,
                         start = CompanionTheme.spacings.spacingD,

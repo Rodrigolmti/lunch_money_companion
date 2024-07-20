@@ -70,7 +70,6 @@ internal fun BottomNavigation(
     onTransactionSelected: (Long) -> Unit,
     onTransactionSummaryClick: () -> Unit = {},
     onAnalyzeClick: () -> Unit = {},
-    onBreakdownClick: () -> Unit = {},
     onWhatsNewClick: () -> Unit = {},
     onBudgetItemClick: (BudgetView) -> Unit,
 ) {
@@ -226,7 +225,6 @@ internal fun BottomNavigation(
                                 scope
                             )
                         },
-                        onBreakdownClick = onBreakdownClick,
                     )
                 }
 

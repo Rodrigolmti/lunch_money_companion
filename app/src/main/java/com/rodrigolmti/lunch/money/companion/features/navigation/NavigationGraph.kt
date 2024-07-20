@@ -79,9 +79,6 @@ internal fun NavigationGraph(
                 onTransactionSelected = {
                     navController.navigate(transactionDetailRouter.replace("{id}", it.toString()))
                 },
-                onBreakdownClick = {
-                    navController.navigate(transactionSummaryRouter)
-                },
                 onWhatsNewClick = {
                     navController.navigate(webViewRouter.replace("{url}", GITHUB_RELEASES_URL))
                 },
