@@ -41,10 +41,6 @@ internal fun BudgetItem(
             containerColor = CharcoalMist
         ),
         modifier = modifier
-            .border(BorderStroke(
-                width = Dp.Hairline,
-                color = Color.Black
-            ))
 //            .clickable {
 //                onItemClick(budget)
 //            }
