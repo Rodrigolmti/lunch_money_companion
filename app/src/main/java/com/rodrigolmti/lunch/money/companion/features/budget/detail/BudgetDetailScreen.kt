@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rodrigolmti.lunch.money.companion.R
 import com.rodrigolmti.lunch.money.companion.core.utils.LunchMoneyPreview
+import com.rodrigolmti.lunch.money.companion.features.budget.BudgetItemView
 import com.rodrigolmti.lunch.money.companion.features.budget.BudgetView
 import com.rodrigolmti.lunch.money.companion.features.transactions.ui.FilterState
 import com.rodrigolmti.lunch.money.companion.uikit.components.Center
@@ -92,6 +93,9 @@ internal fun BudgetDetailScreen(
                     onNextMonthClick = {
                         filterState = filterState.increase()
                     },
+                    onBudgetItemFound = {
+                        value = it?.totalBudget?.toLong() ?: 0
+                    }
                 )
             }
         }
@@ -106,6 +110,7 @@ private fun BuildBody(
     value: Long,
     onPreviousMonthClick: () -> Unit = {},
     onNextMonthClick: () -> Unit = {},
+    onBudgetItemFound:(BudgetItemView?) -> Unit = {},
 ) {
     Column(
         modifier = Modifier
@@ -132,21 +137,18 @@ private fun BuildBody(
         
         with(budget.items[filterState.getStartDateAsString()]) {
             BudgetDataItem(item = this)
+            onBudgetItemFound(this)
         }
 
         LunchTextField(
             label = "Budget Value",
             text = value.toString(),
-            enabled = false,
             disabledTextColor = White,
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
             ),
             modifier = Modifier
                 .clip(RoundedCornerShape(8.dp))
-                .clickable {
-
-                }
         )
 
         Spacer(modifier = Modifier.weight(1f))

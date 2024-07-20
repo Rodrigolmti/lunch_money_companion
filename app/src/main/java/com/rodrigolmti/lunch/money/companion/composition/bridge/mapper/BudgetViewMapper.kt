@@ -8,6 +8,7 @@ import com.rodrigolmti.lunch.money.companion.features.budget.BudgetView
 internal fun BudgetModel.toView(currency: String): BudgetView {
     return BudgetView(
         category = categoryName,
+        id = categoryId,
         items = data.mapValues {
             it.value.toView(currency)
         },

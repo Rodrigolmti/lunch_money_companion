@@ -7,6 +7,7 @@ import java.util.UUID
 @Immutable
 data class BudgetView(
     val category: String,
+    val id: Int?,
     val uuid: UUID = UUID.randomUUID(),
     val items: Map<String, BudgetItemView>,
 )
@@ -27,6 +28,7 @@ fun fakeBudgetView(
     ),
 ) = BudgetView(
     category = ValueGenerator.gen(),
+    id = ValueGenerator.gen(),
     items = items,
 )
 

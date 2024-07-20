@@ -83,7 +83,7 @@ internal fun NavigationGraph(
                     navController.navigate(webViewRouter.replace("{url}", GITHUB_RELEASES_URL))
                 },
                 onBudgetItemClick = {
-                    navController.navigate(budgetDetailRouter.replace("{id}", it.toString()))
+                    navController.navigate(budgetDetailRouter.replace("{id}", it.id.toString()))
                 }
             )
         }

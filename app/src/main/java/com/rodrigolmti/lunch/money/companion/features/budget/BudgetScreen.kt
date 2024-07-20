@@ -149,7 +149,7 @@ internal fun BudgetScreen(
                             BudgetItem(
                                 item,
                                 {
-//                                    onItemClick(it)
+                                    onItemClick(it)
                                 },
                             )
                         }

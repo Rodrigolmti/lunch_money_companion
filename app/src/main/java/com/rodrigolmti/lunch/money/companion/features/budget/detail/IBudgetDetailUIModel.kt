@@ -15,4 +15,6 @@ internal interface IBudgetDetailUIModel {
     val viewState: StateFlow<BudgetDetailUiState>
 
     fun getBudget(budgetId: Int)
+
+    fun updateBudget(budgetId: Int, value: Long)
 }
