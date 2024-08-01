@@ -21,6 +21,7 @@ internal val networkModule = module {
     single<Json> {
         Json {
             ignoreUnknownKeys = true
+            coerceInputValues = true
         }
     }
     single<Interceptor> {

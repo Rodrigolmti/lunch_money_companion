@@ -24,7 +24,7 @@ internal data class TransactionResponse(
     @SerialName("date")
     val date: String,
     @SerialName("payee")
-    val payee: String,
+    val payee: String = "",
     @SerialName("amount")
     val amount: String,
     @SerialName("currency")

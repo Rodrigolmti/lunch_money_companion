@@ -12,6 +12,10 @@ internal class DummyIBudgetDetailUIModel(state: BudgetDetailUiState = BudgetDeta
     override fun getBudget(budgetId: Int) {
         // no-op
     }
+
+    override fun updateBudget(budgetId: Int, value: Long) {
+        TODO("Not yet implemented")
+    }
 }
 
 internal class BudgetDetailUIModelProvider : PreviewParameterProvider<IBudgetDetailUIModel> {

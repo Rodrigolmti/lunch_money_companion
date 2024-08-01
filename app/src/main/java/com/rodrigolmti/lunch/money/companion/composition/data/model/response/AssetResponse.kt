@@ -26,8 +26,6 @@ internal data class AssetResponse(
     val displayName: String? = null,
     @SerialName("balance")
     val balance: String,
-    @SerialName("balance_as_of")
-    val balanceAsOf: String,
     @SerialName("currency")
     val currency: String,
     @SerialName("institution_name")

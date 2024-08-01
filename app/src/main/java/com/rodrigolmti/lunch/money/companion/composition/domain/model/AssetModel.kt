@@ -28,7 +28,6 @@ internal data class AssetModel(
     val subtypeName: String?,
     val name: String,
     val balance: Double,
-    val balanceAsOf: String,
     val currency: String,
     val institutionName: String?,
     val status: AssetStatus,

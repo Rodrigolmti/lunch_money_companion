@@ -28,4 +28,8 @@ internal class BudgetDetailViewModel(
             }
         }
     }
+
+    override fun updateBudget(budgetId: Int, value: Long) {
+        TODO("Not yet implemented")
+    }
 }
