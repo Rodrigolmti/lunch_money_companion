@@ -144,6 +144,7 @@ private fun BuildBody(
             label = "Budget Value",
             text = value.toString(),
             disabledTextColor = White,
+            enabled = false,
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
             ),
@@ -151,15 +152,15 @@ private fun BuildBody(
                 .clip(RoundedCornerShape(8.dp))
         )
 
-        Spacer(modifier = Modifier.weight(1f))
-
-        LunchButton(
-            label = "Update",
-            isLoading = false,
-            isEnabled = false,
-        ) {
-
-        }
+//        Spacer(modifier = Modifier.weight(1f))
+//
+//        LunchButton(
+//            label = "Update",
+//            isLoading = false,
+//            isEnabled = false,
+//        ) {
+//
+//        }
     }
 }
 
