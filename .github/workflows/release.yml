@@ -9,6 +9,8 @@ jobs:
   build:
     name: "Build and Deploy"
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: "Checkout code"
@@ -39,3 +41,35 @@ jobs:
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
           ANDROID_SIGNING_KEY: ${{ secrets.ANDROID_SIGNING_KEY }}
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+
+      - name: "Setup bundletool"
+        run: wget https://github.com/google/bundletool/releases/download/1.17.2/bundletool-all-1.17.2.jar -O bundletool.jar
+
+      - name: "Install unzip"
+        run: sudo apt-get install unzip
+
+      - name: "Build Universal APK"
+        run: |
+          java -jar bundletool.jar build-apks --bundle=app/build/outputs/bundle/release/app-release.aab --output=app-release.apks --mode=universal --ks=keys/release.jks --ks-pass=pass:${{ secrets.SIGNING_STORE_PASSWORD }} --ks-key-alias=${{ secrets.ANDROID_KEY_ALIAS }} --key-pass=pass:${{ secrets.SIGNING_KEY_PASSWORD }}
+          unzip -p app-release.apks universal.apk > app-release.apk
+
+      - name: "Create GitHub Release"
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: "Upload APK to GitHub Release"
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./app-release.apk
+          asset_name: app-release.apk
+          asset_content_type: application/vnd.android.package-archive
